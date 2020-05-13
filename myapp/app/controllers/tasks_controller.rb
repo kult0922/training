@@ -1,9 +1,6 @@
 class TasksController < ApplicationController
-  ALLOWED_NAME = %w(title memo created_at deadline
-                    title\ desc memo\ desc created_at\ desc deadline\ desc).freeze
-
   def index
-    sort = params[:sort] if ALLOWED_NAME.include?(params[:sort])
+    sort = params[:sort] if allowed_name.include?(params[:sort])
     @tasks = Task.all.order(sort)
   end
 
@@ -49,5 +46,10 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :memo, :deadline)
     end
-    
+
+   def allowed_name
+     desc_column = Task.column_names.map { |c| c + ' desc' }
+     allowed_name = Task.column_names | (desc_column)
+     return allowed_name
+   end
 end
