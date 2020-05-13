@@ -68,7 +68,7 @@ let!(:tasks) {create_list(:task, 5)}
         expect(page).to have_content 'Task詳細'
         expect(page).to have_content tasks[0].title
         expect(page).to have_content tasks[0].memo
-        expect(page).to have_content tasks[0].deadline
+        expect(page).to have_content tasks[0].deadline.strftime('%Y/%m/%d')
 
       end
     end

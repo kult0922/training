@@ -2,7 +2,7 @@
 
 <h2><%= @task.title %></h2>
 <p><%= @task.memo %></p>
-<p><%= @task.deadline %></p>
+<p><%= l @task.deadline %></p>
 
 <%= link_to 'Back', tasks_path %>
 <%= link_to 'Edit', edit_task_path(@task) %>
