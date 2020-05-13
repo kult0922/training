@@ -13,6 +13,7 @@ let!(:tasks) {create_list(:task, 5)}
         expect(page).to have_content 'Task一覧'
         expect(page).to have_content 'Title'
         expect(page).to have_content 'Memo'
+        expect(page).to have_content 'Deadline'
       end
     end
 
@@ -36,6 +37,7 @@ let!(:tasks) {create_list(:task, 5)}
 
         fill_in 'Title', with: 'huga'
         fill_in 'Memo', with: 'hogehoge'
+        select_date( "2020,10,10" , from: 'Deadline')
 
         click_button '登録する'
         expect(page).to have_content 'Taskは正常に作成されました'
@@ -44,12 +46,13 @@ let!(:tasks) {create_list(:task, 5)}
   end
 
   describe "#edit" do
-    context 'when editing @task' do
+    context 'when editing task' do
       it 'task are updated' do
         visit edit_task_path(tasks[0])
 
         fill_in 'Title', with: 'test'
         fill_in 'Memo', with: 'testtest'
+        select_date( "2020,10,10" , from: 'Deadline')
 
         click_button '更新する'
         expect(page).to have_content 'Taskは正常に更新されました'
@@ -58,19 +61,21 @@ let!(:tasks) {create_list(:task, 5)}
   end
   
   describe "#show" do
-    context 'when opning @task' do
-      it 'returns @task' do
+    context 'when opning task' do
+      it 'returns task' do
         visit task_path(tasks[0])
 
         expect(page).to have_content 'Task詳細'
-        expect(page).to have_content 'hoge'
-        expect(page).to have_content 'hugahuga'
+        expect(page).to have_content tasks[0].title
+        expect(page).to have_content tasks[0].memo
+        expect(page).to have_content tasks[0].deadline.strftime('%Y/%m/%d')
+
       end
     end
   end
 
   describe "#delete" do
-    context 'when @task is deleted' do
+    context 'when task is deleted' do
       it 'redirect_to index' do
         visit task_path(tasks[0])
 

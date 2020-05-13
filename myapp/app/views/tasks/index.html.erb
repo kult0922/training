@@ -4,6 +4,7 @@
     <tr>
       <th><%= tasks_sort(Task.human_attribute_name(:title), 'title') %></th>
       <th><%= tasks_sort(Task.human_attribute_name(:memo), 'memo') %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:deadline), 'deadline') %></th>
       <th><%= tasks_sort(Task.human_attribute_name(:created_at), 'created_at') %></th>
     </tr>
   </thead>
@@ -11,7 +12,8 @@
     <% @tasks.each do |t| %>
       <tr class='task'>
         <td><%= link_to t.title, t %></td>
-        <td><%= t.memo %><td/>
+        <td><%= t.memo %></td>
+        <td><%= l t.deadline if t.deadline.present? %></td>
         <td><%= l t.created_at, format: :short %></td>
       </tr>
     <% end %>
