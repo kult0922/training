@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  ALLOWED_NAME = %w(title memo created_at
-                    title\ desc memo\ desc created_at\ desc).freeze
+  ALLOWED_NAME = %w(title memo created_at deadline
+                    title\ desc memo\ desc created_at\ desc deadline\ desc).freeze
 
   def index
     sort = params[:sort] if ALLOWED_NAME.include?(params[:sort])
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:title, :memo)
+      params.require(:task).permit(:title, :memo, :deadline)
     end
     
 end

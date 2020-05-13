@@ -9,6 +9,10 @@
       <div><%= f.label :memo %></div>
       <div><%= f.text_area :memo %></div>
     </div>
+    <div>
+      <div><%= f.label :deadline %></div>
+      <div><%= f.date_select :deadline, use_month_numbers: true, :include_blank => true %></div>
+    </div>
     <div><%= f.submit %></div>
   <div>
 <% end %>
