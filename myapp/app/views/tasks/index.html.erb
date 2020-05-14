@@ -6,6 +6,7 @@
       <th><%= tasks_sort(Task.human_attribute_name(:memo), 'memo') %></th>
       <th><%= tasks_sort(Task.human_attribute_name(:deadline), 'deadline') %></th>
       <th><%= tasks_sort(Task.human_attribute_name(:created_at), 'created_at') %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:status), 'status') %></th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
         <td><%= t.memo %></td>
         <td><%= l t.deadline if t.deadline.present? %></td>
         <td><%= l t.created_at, format: :short %></td>
+        <td><%= t.human_attribute_enum(:status) %></td>
       </tr>
     <% end %>
   </tbody>
