@@ -10,11 +10,11 @@
 <table>
   <thead>
     <tr>
-      <th><%= tasks_sort(Task.human_attribute_name(:title), 'title') %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:memo), 'memo') %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:deadline), 'deadline') %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:created_at), 'created_at') %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:status), 'status') %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:title), 'title', params[:title], params[:status]) %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:memo), 'memo', params[:title], params[:status]) %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:deadline), 'deadline', params[:title], params[:status]) %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:created_at), 'created_at', params[:title], params[:status]) %></th>
+      <th><%= tasks_sort(Task.human_attribute_name(:status), 'status', params[:title], params[:status], ) %></th>
     </tr>
   </thead>
   <tbody>
