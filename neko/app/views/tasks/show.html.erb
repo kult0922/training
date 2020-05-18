@@ -3,6 +3,7 @@
   <p>説明：</p>
   <p><%= @task.description %></p>
   <p>ステータス：<%= @task.status.name %></p>
+  <p>作成者：<%= @task.user.name %></p>
   <p>期限：<% if @task.have_a_due then %>
     <%= I18n.l(@task.due_at) %>
   <% else %>

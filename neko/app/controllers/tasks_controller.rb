@@ -6,21 +6,26 @@ class TasksController < ApplicationController
 
   def index
     @search = { name: params[:name], status: search_status }
-    @tasks = if sort_column == 'due_at'
+    @tasks = case sort_column
+             when 'due_at'
                Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
-             elsif sort_column == 'status_id'
+             when 'status_id'
                Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
+             when 'user_id'
+               Task.search(@search).includes(:user).order('users.name ' + sort_direction).page(params[:page]).per(PER)
              else
                Task.search(@search).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              end
   end
 
   def new
-    @task = Task.new
+    @task = Task.new()
   end
 
   def create
     @task = Task.new(task_params)
+    # TODO: Remove it as soon as the user's processing is implemented.
+    @task.user = User.first
 
     if @task.save
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
