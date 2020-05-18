@@ -29,6 +29,22 @@ let!(:tasks) {create_list(:task, 5)}
           expect(task_array[4]).to have_content tasks[0].title
       end
     end
+
+    context 'when task search' do
+      it 'search by title' do
+        visit tasks_path
+        fill_in 'title', with: 'hoge'
+        click_button 'Search'
+        expect(page).to have_content 'hoge'
+      end
+
+      it 'search by status' do
+        visit tasks_path
+        select('完了', from: 'status')
+        click_button 'Search'
+        expect(page).to have_content '完了'
+      end
+    end
   end
 
   describe "#new" do
