@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
+
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
     rescue_from ActionController::RoutingError, with: :render404
@@ -13,5 +15,13 @@ class ApplicationController < ActionController::Base
   def render500(exception = nil)
     logger.error "Rendering 500 with exception: #{exception.message}" if exception
     render 'errors/500', status: :internal_server_error
+  end
+
+  private
+
+  def logged_in_user
+    unless logged_in?
+      redirect_to login_url
+    end
   end
 end
