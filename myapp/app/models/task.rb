@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   enum status: { not_start: 0, underway: 10, done: 20}
 
   scope :search_title, ->(title) {
-    title.present? ? where("title like ?", "%#{title}%") : all
+    title.present? ? where('title like ?', "%#{title}%") : all
   }
 
   scope :search_status, ->(status) {
@@ -12,7 +12,7 @@ class Task < ApplicationRecord
   }
 
   def self.search(title, status)
-    Task.search_title(title).search_status(status)
+    search_title(title).search_status(status)
   end
 
   def self.human_attribute_enum_val(attr_name, val)
