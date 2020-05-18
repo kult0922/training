@@ -8,6 +8,11 @@ ja:
           title: Title
           memo: Memo
           deadline: Deadline
+          status: Status
+        task/status:
+          not_start: 未着手
+          underway: 着手中
+          done: 完了
   attributes:
     created_at: 作成日
     updated_at: 更新日

@@ -2,7 +2,8 @@
 
 <h2><%= @task.title %></h2>
 <p><%= @task.memo %></p>
-<p><%= l @task.deadline %></p>
+<p><%= l @task.deadline if @task.deadline.present? %></p>
+<p><%= @task.human_attribute_enum(:status) %></p>
 
 <%= link_to 'Back', tasks_path %>
 <%= link_to 'Edit', edit_task_path(@task) %>

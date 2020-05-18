@@ -14,6 +14,7 @@ let!(:tasks) {create_list(:task, 5)}
         expect(page).to have_content 'Title'
         expect(page).to have_content 'Memo'
         expect(page).to have_content 'Deadline'
+        expect(page).to have_content 'Status'
       end
     end
 
@@ -28,6 +29,22 @@ let!(:tasks) {create_list(:task, 5)}
           expect(task_array[4]).to have_content tasks[0].title
       end
     end
+
+    context 'when task search' do
+      it 'search by title' do
+        visit tasks_path
+        fill_in 'title', with: 'hoge'
+        click_button 'Search'
+        expect(page).to have_content 'hoge'
+      end
+
+      it 'search by status' do
+        visit tasks_path
+        select('完了', from: 'status')
+        click_button 'Search'
+        expect(page).to have_content '完了'
+      end
+    end
   end
 
   describe "#new" do
@@ -38,6 +55,7 @@ let!(:tasks) {create_list(:task, 5)}
         fill_in 'Title', with: 'huga'
         fill_in 'Memo', with: 'hogehoge'
         select_date( "2020,10,10" , from: 'Deadline')
+        select('完了', from: 'Status')
 
         click_button '登録する'
         expect(page).to have_content 'Taskは正常に作成されました'
@@ -53,6 +71,7 @@ let!(:tasks) {create_list(:task, 5)}
         fill_in 'Title', with: 'test'
         fill_in 'Memo', with: 'testtest'
         select_date( "2020,10,10" , from: 'Deadline')
+        select('着手中', from: 'Status')
 
         click_button '更新する'
         expect(page).to have_content 'Taskは正常に更新されました'
@@ -69,7 +88,7 @@ let!(:tasks) {create_list(:task, 5)}
         expect(page).to have_content tasks[0].title
         expect(page).to have_content tasks[0].memo
         expect(page).to have_content tasks[0].deadline.strftime('%Y/%m/%d')
-
+        expect(page).to have_content '完了'
       end
     end
   end

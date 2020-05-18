@@ -18,4 +18,28 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe 'search' do
+    let!(:task1) {create(:task, title: 'hoge', status: 'not_start')}
+    let!(:task2) {create(:task, title: 'huga', status: 'underway')}
+    let!(:task3) {create(:task, title: 'gau', status: 'done')}
+
+    context 'when searching by title' do
+      it 'return search result only for title' do
+        expect(Task.search('hoge',nil)).to eq([task1])
+      end
+    end
+
+    context 'when searching by status' do
+      it 'return search result only for status' do
+        expect(Task.search(nil, 'underway')).to eq([task2])
+      end
+    end
+
+    context 'when searching by title and status' do
+      it 'return search result for title, status' do
+        expect(Task.search('gau', 'done')).to eq([task3])
+      end
+    end
+  end
 end

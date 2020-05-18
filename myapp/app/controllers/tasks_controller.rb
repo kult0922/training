@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def index
     sort = params[:sort] if allowed_name.include?(params[:sort])
-    @tasks = Task.all.order(sort)
+    @tasks = Task.search(params[:title], params[:status]).order(sort)
   end
 
   def new
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:title, :memo, :deadline)
+      params.require(:task).permit(:title, :memo, :deadline, :status)
     end
 
    def allowed_name
