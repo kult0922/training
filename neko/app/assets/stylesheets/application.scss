@@ -23,6 +23,10 @@
   max-height: 100%;
 }
 
+.title-neko {
+  font-family: 'Righteous', cursive;
+}
+
 .side {
   flex-grow: 0;
   flex-shrink: 0;
@@ -36,7 +40,6 @@
     padding-top: 20px;
 
     h1 {
-      font-family: 'Righteous', cursive;
       font-size: 60px;
     }
   }
@@ -180,4 +183,26 @@ table th a {
 .detail {
   margin-top: 20px;
   margin-left: 30px;
+}
+
+.user-name {
+  margin-top: 10px;
+}
+
+.login {
+  margin-top: 50px;
+  height: 100vm;
+
+  h1 {
+    font-size: 80px;
+  }
+
+  .input-wrapper {
+    margin: 20px auto;
+    width: 500px;
+  }
+
+  input {
+    margin-bottom: 20px;
+  }
 }

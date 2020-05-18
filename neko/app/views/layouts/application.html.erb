@@ -13,14 +13,20 @@
   <body>
     <%= render partial: 'layouts/notification' %>
     <div class='wrapper'>
-      <div class="side">
-        <nav>
-          <h1>Neko</h1>
-          <div class="button-container">
-            <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
-          </div>
-        </nav>
-      </div>
+      <% if logged_in? %>
+        <div class="side">
+          <nav>
+            <h1 class="title-neko">Neko</h1>
+            <div class="user-name">
+              <p><%= @current_user.name %></p>
+            </div>
+            <div class="button-container">
+              <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
+            </div>
+          </nav>
+          <%= link_to "ログアウト", logout_path, method: :delete, class: 'logout' %>
+        </div>
+      <% end %>
       <div class='container main'>
         <%= yield %>
       </div>
