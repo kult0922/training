@@ -3,12 +3,14 @@ ja:
     models:
       task: タスク
       status: ステータス
+      user: ユーザー
     attributes:
       task:
         description: 説明
         have_a_due: 期日を設定する
         due_at: 期限
-        status_id: ステータス
+        status: ステータス
+        user: 作成者
       status:
         phase: 段階
   attributes:
