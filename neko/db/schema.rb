@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_041417) do
+ActiveRecord::Schema.define(version: 2020_05_18_053127) do
+
+  create_table "auth_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_degest", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_auth_infos_on_user_id"
+  end
 
   create_table "statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -39,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_041417) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "auth_infos", "users"
   add_foreign_key "tasks", "statuses"
   add_foreign_key "tasks", "users"
 end
