@@ -25,7 +25,7 @@ RSpec.describe Task, type: :model do
     let!(:task3) {create(:task, title: 'gau', status: 'done')}
 
     context 'when searching by title' do
-      it 'titleだけの検索結果を出す' do
+      it 'return search result only for title' do
         expect(Task.search('hoge',nil)).to eq([task1])
         #tasks = Task.search(title: 'hoge', status: nil)
         #expect(tasks.size).to eq (task)
@@ -33,13 +33,13 @@ RSpec.describe Task, type: :model do
     end
 
     context 'when searching by status' do
-      it 'statusだけの検索結果を出す' do
+      it 'return search result only for status' do
         expect(Task.search(nil, 'underway')).to eq([task2])
       end
     end
 
     context 'when searching by title and status' do
-      it 'title, statusでの検索結果を出す' do
+      it 'return search result for title, status' do
         expect(Task.search('gau', 'done')).to eq([task3])
       end
     end
