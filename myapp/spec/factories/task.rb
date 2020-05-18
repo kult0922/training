@@ -3,5 +3,6 @@ FactoryBot.define do
     sequence(:title) { |n| "hogehoge#{n}" }
     memo { 'hugahuga' }
     deadline { Date.today.end_of_month }
+    status { 'done'}
   end
 end
