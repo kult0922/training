@@ -12,7 +12,7 @@
 
   <body>
     <%= render partial: 'layouts/notification' %>
-    <div class='wrapper'>
+    <div class="wrapper">
       <% if logged_in? %>
         <div class="side">
           <nav>
@@ -27,7 +27,7 @@
           <%= link_to "ログアウト", logout_path, method: :delete, class: 'logout' %>
         </div>
       <% end %>
-      <div class='container main'>
+      <div class="container main">
         <%= yield %>
       </div>
     <div>
