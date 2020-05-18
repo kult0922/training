@@ -2,6 +2,8 @@ ja:
   tasks:
     index:
       title: 'Task一覧'
+      title_search: title
+      status_search: status
     show:
       title: 'Task詳細'
     edit:

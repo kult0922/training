@@ -27,8 +27,6 @@ RSpec.describe Task, type: :model do
     context 'when searching by title' do
       it 'return search result only for title' do
         expect(Task.search('hoge',nil)).to eq([task1])
-        #tasks = Task.search(title: 'hoge', status: nil)
-        #expect(tasks.size).to eq (task)
       end
     end
 

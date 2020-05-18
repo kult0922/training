@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def index
     sort = params[:sort] if allowed_name.include?(params[:sort])
-    @tasks = Task.all.search(params[:title], params[:status]).order(sort).page(params[:page]).per(5)
+    @tasks = Task.search(params[:title], params[:status]).order(sort).page(params[:page]).per(5)
   end
 
   def new
