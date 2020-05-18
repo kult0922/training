@@ -4,23 +4,24 @@ RSpec.describe Task, type: :model do
   let!(:not_proceed) { FactoryBot.create(:not_proceed) }
   let!(:in_progress) { FactoryBot.create(:in_progress) }
   let!(:done) { FactoryBot.create(:done) }
-  let!(:task1) { create(:task, name: 'task1', status: not_proceed) }
-  let!(:task2) { create(:task, name: 'task2', status: in_progress) }
-  let!(:task3) { create(:task, name: 'task3', status: done) }
-  let!(:task4) { create(:task, name: 'task4', status: in_progress) }
-  let!(:taskA) { create(:task, name: 'タスクA', status: not_proceed) }
-  let!(:taskB) { create(:task, name: 'タスクB', status: done) }
+  let!(:user1) { FactoryBot.create(:user) }
+  let!(:task1) { create(:task, name: 'task1', status: not_proceed, user: user1) }
+  let!(:task2) { create(:task, name: 'task2', status: in_progress, user: user1) }
+  let!(:task3) { create(:task, name: 'task3', status: done, user: user1) }
+  let!(:task4) { create(:task, name: 'task4', status: in_progress, user: user1) }
+  let!(:taskA) { create(:task, name: 'タスクA', status: not_proceed, user: user1) }
+  let!(:taskB) { create(:task, name: 'タスクB', status: done, user: user1) }
 
   context 'name is not blank' do
     it 'should be success' do
-      t = Task.new(name: 'hoge', description: '', status: in_progress)
+      t = Task.new(name: 'hoge', description: '', status: in_progress, user: user1)
       expect(t).to be_valid
     end
   end
 
   context 'name is blank' do
     it 'should be failure' do
-      t = Task.new(name: '', description: '', status: in_progress)
+      t = Task.new(name: '', description: '', status: in_progress, user: user1)
       t.valid?
       expect(t.errors.full_messages).to eq ['名前を入力してください']
     end
@@ -28,19 +29,27 @@ RSpec.describe Task, type: :model do
 
   context 'statu_id is null' do
     it 'should be failure' do
-      t = Task.new(name: 'hoge', description: '')
+      t = Task.new(name: 'hoge', description: '', user: user1)
       t.valid?
-      expect(t.errors.full_messages).to eq ['Statusを入力してください']
+      expect(t.errors.full_messages).to eq ['ステータスを入力してください']
+    end
+  end
+
+  context 'user_id is null' do
+    it 'should be failure' do
+      t = Task.new(name: 'hoge', description: '', status: in_progress)
+      t.valid?
+      expect(t.errors.full_messages).to eq ['作成者を入力してください']
     end
   end
 
   context 'search function' do
     it 'search tasks by name & status' do
       cases = [
-        { name: 'task', status: in_progress.id },
-        { name: 'タスク', status: nil },
-        { name: '', status: done.id },
-        { name: '', status: nil }
+        { name: 'task', status: in_progress.id, user: user1 },
+        { name: 'タスク', status: nil, user: user1 },
+        { name: '', status: done.id, user: user1 },
+        { name: '', status: nil, user: user1 }
       ]
 
       outputs = [

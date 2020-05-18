@@ -2,9 +2,12 @@ require 'rails_helper'
 
 describe 'task', type: :system do
   let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
-  let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1]) }
-  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2]) }
-  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0]) }
+  let!(:user1) { create(:user, name: 'user1') }
+  let!(:user2) { create(:user, name: 'user2') }
+  let!(:user3) { create(:user, name: 'user3') }
+  let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1], user: user3) }
+  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2], user: user2) }
+  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0], user: user1) }
 
   describe '#index' do
     before { visit tasks_path }
@@ -14,6 +17,8 @@ describe 'task', type: :system do
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
         expect(page).to have_content 'ステータス'
+        expect(page).to have_content '作成者'
+        expect(page).to have_content '期限'
         expect(page).to have_content '作成日'
       end
 
@@ -30,7 +35,8 @@ describe 'task', type: :system do
           { button: '説明', order: %w[task2 task3 task1] },
           { button: '作成日', order: %w[task3 task2 task1] },
           { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] },
-          { button: 'ステータス', order: %w[task2 task1 task3] }
+          { button: 'ステータス', order: %w[task2 task1 task3] },
+          { button: '作成者', order: %w[task1 task2 task3] }
         ]
 
         cases.each do |c|
@@ -115,6 +121,7 @@ describe 'task', type: :system do
         expect(page).to have_content task1.description
         expect(page).to have_content I18n.l(task1.due_at)
         expect(page).to have_content task1.status.name
+        expect(page).to have_content task1.user.name
       end
     end
   end
