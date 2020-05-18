@@ -1,5 +1,7 @@
 user = User.create!(name:'admin')
 
+AuthInfo.create!(email: 'abc@example.com', password: 'password', password: 'password', user: user)
+
 30.times do |n|
   Task.create!(
     name: "task#{'%02d' % n}",

@@ -2,19 +2,20 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :statuses_all, only: [:index, :new, :edit, :edit]
+  before_action :logged_in_user
   PER = 20
 
   def index
     @search = { name: params[:name], status: search_status }
     @tasks = case sort_column
              when 'due_at'
-               Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).where(user_id: @current_user).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              when 'status_id'
-               Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).where(user_id: @current_user).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
              when 'user_id'
-               Task.search(@search).includes(:user).order('users.name ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).where(user_id: @current_user).includes(:user).order('users.name ' + sort_direction).page(params[:page]).per(PER)
              else
-               Task.search(@search).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).where(user_id: @current_user).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              end
   end
 
