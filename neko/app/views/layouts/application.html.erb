@@ -21,7 +21,11 @@
               <p><%= @current_user.name %></p>
             </div>
             <div class="button-container">
-              <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
+              <% if current_page?(controller: 'users') %>
+                <%= link_to I18n.t('users.new.title'), new_user_path , class: "btn-push" %>
+              <% else %>
+                <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
+              <% end %>
             </div>
             <div><%= link_to I18n.t('tasks.index.title'), tasks_path %></div>
             <div><%= link_to I18n.t('users.index.title'), users_path %><div>
