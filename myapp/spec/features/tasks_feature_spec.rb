@@ -103,4 +103,24 @@ let!(:tasks) {create_list(:task, 5)}
       end
     end
   end
+
+  describe "paginate" do
+    let!(:tasks) {create_list(:task, 20)}
+    context 'when 2 button clicked' do
+      it 'show 5 and 10 task' do
+        visit tasks_path
+        click_on '2'
+        expect(page).to have_content tasks[5].title
+        expect(page).to have_content tasks[9].title
+      end
+    end
+    context 'when end button clicked' do
+      it 'show 16 and 20 task' do
+        visit tasks_path
+        click_on '最後'
+        expect(page).to have_content tasks[15].title
+        expect(page).to have_content tasks[19].title
+      end
+    end
+  end
 end
