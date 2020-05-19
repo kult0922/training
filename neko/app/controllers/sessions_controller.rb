@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
     if auth && auth.authenticate(params[:session][:password])
       log_in auth.user
       redirect_to root_url
+      flash[:success] = I18n.t('flash.login.succeeded')
     else
+      flash.now[:danger] = I18n.t('flash.login.failed')
       render 'new'
     end
   end

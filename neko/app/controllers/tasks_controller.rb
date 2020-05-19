@@ -28,10 +28,10 @@ class TasksController < ApplicationController
     @task.user = @current_user
 
     if @task.save
-      flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
+      flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '作成')
       redirect_to tasks_path
     else
-      flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '作成')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '作成')
       statuses_all
       render :new
     end
@@ -43,10 +43,10 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '更新')
+      flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '更新')
       redirect_to task_path(@task)
     else
-      flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '更新')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '更新')
       statuses_all
       render :edit
     end
@@ -54,10 +54,10 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '削除')
+      flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '削除')
       redirect_to tasks_path
     else
-      flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '削除')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '削除')
       render :show
     end
   end
