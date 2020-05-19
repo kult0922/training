@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   PER = 20
 
   def index
-    @users = User.all.page(params[:page]).per(PER)
+    @users = User.includes(:tasks).all.page(params[:page]).per(PER)
   end
 
   def new
