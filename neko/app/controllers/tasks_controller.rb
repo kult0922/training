@@ -10,9 +10,9 @@ class TasksController < ApplicationController
              when 'due_at'
                Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              when 'status_id'
-               Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
              when 'user_id'
-               Task.search(@search).includes(:user).order('users.name ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).order('users.name ' + sort_direction).page(params[:page]).per(PER)
              else
                Task.search(@search).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              end

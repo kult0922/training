@@ -5,13 +5,17 @@ class Task < ApplicationRecord
 
   def self.search(search)
     if search[:name].blank? && search[:status].nil?
-      Task.all
+      Task.with_relevant.all
     elsif search[:status].nil?
-      Task.where(['name LIKE ?', "%#{search[:name]}%"])
+      Task.with_relevant.where(['name LIKE ?', "%#{search[:name]}%"])
     elsif search[:name].blank?
-      Task.where(status_id: search[:status])
+      Task.with_relevant.where(status_id: search[:status])
     else
-      Task.where(status_id: search[:status]).where(['name LIKE ?', "%#{search[:name]}%"])
+      Task.with_relevant.where(status_id: search[:status]).where(['name LIKE ?', "%#{search[:name]}%"])
     end
+  end
+
+  def self.with_relevant
+    Task.includes(:status).includes(:user)
   end
 end
