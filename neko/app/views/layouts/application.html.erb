@@ -24,7 +24,7 @@
               <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
             </div>
           </nav>
-          <%= link_to "ログアウト", logout_path, method: :delete, class: 'logout' %>
+          <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout' %>
         </div>
       <% end %>
       <div class="container main">
