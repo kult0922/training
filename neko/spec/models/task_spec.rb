@@ -46,9 +46,9 @@ RSpec.describe Task, type: :model do
   context 'search function' do
     it 'search tasks by name & status' do
       cases = [
-        { name: 'task', status: in_progress.id, user: user1 },
+        { name: 'task', status: in_progress, user: user1 },
         { name: 'タスク', status: nil, user: user1 },
-        { name: '', status: done.id, user: user1 },
+        { name: '', status: done, user: user1 },
         { name: '', status: nil, user: user1 }
       ]
 
@@ -60,7 +60,7 @@ RSpec.describe Task, type: :model do
       ]
 
       cases.each_with_index do |c, i|
-        expect(Task.search(c)).to eq outputs[i]
+        expect(Task.search(c, c[:user])).to eq outputs[i]
       end
     end
   end
