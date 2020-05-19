@@ -25,8 +25,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    # TODO: Remove it as soon as the user's processing is implemented.
-    @task.user = User.first
+    @task.user = @current_user
 
     if @task.save
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
