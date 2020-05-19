@@ -7,17 +7,15 @@ services:
     stdin_open: true
     depends_on:
       - db
-      - chrome
+      - selenium-chrome
     ports:
       - 3000:3000
     volumes:
       - .:/app
       - bundle-volume:/usr/local/bundle
       - node-modules-volume:/app/node_modules
-  chrome:
-    image: selenium/standalone-chrome-debug
-    logging:
-      driver: none
+  selenium-chrome:
+    image: selenium/standalone-chrome:latest
     ports:
       - 4444:4444
       - 5900:5900
