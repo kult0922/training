@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-  def new; end
+  def new
+    redirect_to root_url if logged_in?
+  end
 
   def create
     auth = AuthInfo.find_by(email: params[:session][:email].downcase)
