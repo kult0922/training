@@ -9,18 +9,17 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.build_auth_info
   end
 
   def create
     @user = User.new(user_params)
-    @user.user = @current_user
 
     if @user.save
       flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '作成')
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '作成')
-      statuses_all
       render :new
     end
   end
@@ -33,16 +32,14 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '更新')
-      statuses_all
       render :edit
     end
   end
 
   def destroy
-    auth = AuthInfo.find_by(user: @user)
-    if auth.destroy
+    if @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '削除')
-      log_out
+      log_out if @user == @current_user
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '削除')
@@ -57,6 +54,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:name, auth_info_attributes: [:email, :password])
   end
 end
