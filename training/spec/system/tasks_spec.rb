@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Tasks", type: :system do
+RSpec.describe "Tasks", type: :system, js: true do
   scenario '#create' do
     visit new_task_path
 
