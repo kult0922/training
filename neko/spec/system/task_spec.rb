@@ -4,7 +4,7 @@ describe 'task', type: :system do
   let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
   let!(:user1) { create(:user, name: 'user1') }
   let!(:user2) { create(:user, name: 'user2') }
-  let!(:auth1) { create(:auth, user: user1)}
+  let!(:auth1) { create(:auth, user: user1) }
   let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1], user: user1) }
   let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2], user: user1) }
   let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0], user: user1) }
@@ -73,7 +73,7 @@ describe 'task', type: :system do
           { button: '説明', order: %w[task2 task3 task1] },
           { button: '作成日', order: %w[task3 task2 task1] },
           { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] },
-          { button: 'ステータス', order: %w[task2 task1 task3] },
+          { button: 'ステータス', order: %w[task2 task1 task3] }
         ]
 
         cases.each do |c|

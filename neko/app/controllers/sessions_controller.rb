@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     auth = AuthInfo.find_by(email: params[:session][:email].downcase)
-    if auth && auth.authenticate(params[:session][:password])
+    if auth&.authenticate(params[:session][:password])
       log_in auth.user
       redirect_to root_url
       flash[:success] = I18n.t('flash.login.succeeded')
