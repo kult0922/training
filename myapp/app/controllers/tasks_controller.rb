@@ -12,10 +12,10 @@ PAGE_PER = 5
   def create
     @task = Task.create(task_params)
     if @task.save
-      flash[:success] = 'Taskは正常に作成されました'
+      flash[:success] = t '.flash.success'
       redirect_to tasks_path
     else
-      flash.now[:danger]= 'Taskの作成に失敗しました'
+      flash.now[:danger]= t '.flash.danger'
       render :new
     end
   end
@@ -32,10 +32,10 @@ PAGE_PER = 5
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      flash[:success] = 'Taskは正常に更新されました'
+      flash[:success] = t '.flash.success'
       redirect_to task_path(@task)
     else
-      flash.now[:danger]= 'Taskの更新に失敗しました'
+      flash.now[:danger]= t '.flash.danger'
       render :edit
     end
   end
