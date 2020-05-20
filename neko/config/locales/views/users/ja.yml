@@ -1,7 +1,7 @@
 ja:
   users:
     index: 
-      title: 'ユーザ一覧'
+      title: 'ユーザー一覧'
       tasks: 'タスク数'
     edit:
       title: 'ユーザー編集'
