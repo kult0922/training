@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :roles_all, only: [:new, :edit]
   before_action :only_admin
   before_action :logged_in_user
   PER = 20
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '作成')
+      roles_all
       render :new
     end
   end
@@ -33,6 +35,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '更新')
+      roles_all
       render :edit
     end
   end
@@ -44,17 +47,22 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '削除')
+      roles_all
       render :index
     end
   end
 
   private
 
+  def roles_all
+    @roles = Role.all
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, auth_info_attributes: [:email, :password])
+    params.require(:user).permit(:name, auth_info_attributes: [:email, :password, :password_confirmation])
   end
 end

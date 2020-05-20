@@ -1,5 +1,5 @@
 module UsersHelper
   def admin?
-    @current_user.role.name == '管理ユーザー'
+    current_user.role.id == 1
   end
 end
