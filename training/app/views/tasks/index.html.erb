@@ -1,6 +1,6 @@
-<h1>タスク一覧</h1>
+<h1><%= t '.title' %></h1>
 
-<%= link_to 'new task', new_task_path %>
+<%= link_to t('.new_task'), new_task_path %>
 
 <table>
   <tr>
@@ -20,12 +20,12 @@
       <td><%= task.priority %></td>
       <td><%= task.status %></td>
       <td><%= task.due_date %></td>
-      <td><%= task.created_at.strftime('%Y年%m月%d日') %></td>
-      <td><%= task.updated_at.strftime('%Y年%m月%d日') %></td>
+      <td><%= l task.created_at, format: :long %></td>
+      <td><%= l task.updated_at, format: :long %></td>
       <td>
-        <%= link_to 'show', task_path(task) %>
-        <%= link_to 'edit', edit_task_path(task) %>
-        <%= link_to 'delete', task_path(task), method: :delete %>
+        <%= link_to t('.show_link'), task_path(task) %>
+        <%= link_to t('tasks.edit_link'), edit_task_path(task) %>
+        <%= link_to t('tasks.delete_link'), task_path(task), method: :delete %>
       </td>
     </tr>
   <% end %>

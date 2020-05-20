@@ -1,4 +1,4 @@
-<h1>タスク詳細</h1>
+<h1><%= t '.title', title: @task.title %></h1>
 
 <table>
   <tr>
@@ -19,23 +19,23 @@
   </tr>
   <tr>
     <th>due_date</th>
-    <td><%= @task.due_date.strftime('%Y年%m月%d日') %></td>
+    <td><%= l @task.due_date, format: :short %></td>
   </tr>
   <tr>
     <th>created_at</th>
-    <td><%= @task.created_at.strftime('%Y年%m月%d日') %></td>
+    <td><%= l @task.created_at, format: :long %></td>
   </tr>
   <tr>
     <th>updated_at</th>
-    <td><%= @task.updated_at.strftime('%Y年%m月%d日') %></td>
+    <td><%= l @task.updated_at, format: :long %></td>
   </tr>
   <tr>
     <th>actions</th>
     <td>
-      <%= link_to 'edit', edit_task_path(@task) %>
-      <%= link_to 'delete', task_path(@task), method: :delete %>
+      <%= link_to t('tasks.edit_link'), edit_task_path(@task) %>
+      <%= link_to t('tasks.delete_link'), task_path(@task), method: :delete %>
     </td>
   </tr>
 </table>
 
-<%= link_to '戻る', tasks_path %>
+<%= link_to t('tasks.back_link'), tasks_path %>
