@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :task do
-    title { 'title' }
-    description { 'description' }
+    title { 'task title' }
+    description { 'task description' }
     priority { 'low' }
     status { 'waiting' }
     due_date { '2019-04-14' }

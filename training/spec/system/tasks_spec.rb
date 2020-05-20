@@ -15,6 +15,7 @@ RSpec.describe "Tasks", type: :system do
 
     expect(current_path).to eq(tasks_path)
     expect(page).to have_content 'タスクが作成されました'
+    expect(page).to have_content 'title test'
   end
 
   scenario '#update' do
@@ -33,6 +34,7 @@ RSpec.describe "Tasks", type: :system do
 
     expect(current_path).to eq(tasks_path)
     expect(page).to have_content 'タスクが更新されました'
+    expect(page).to have_content 'edit title test'
   end
 
   scenario '#show' do
@@ -43,8 +45,8 @@ RSpec.describe "Tasks", type: :system do
     click_link 'show'
 
     expect(current_path).to eq(task_path(task))
-    expect(page).to have_content 'title'
-    expect(page).to have_content 'description'
+    expect(page).to have_content 'task title'
+    expect(page).to have_content 'task description'
     expect(page).to have_content 'low'
     expect(page).to have_content 'waiting'
     expect(page).to have_content '2019年04月14日'
@@ -59,5 +61,6 @@ RSpec.describe "Tasks", type: :system do
 
     expect(current_path).to eq(tasks_path)
     expect(page).to have_content 'タスクが削除されました'
+    expect(page).not_to have_content 'task title'
   end
 end
