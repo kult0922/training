@@ -5,6 +5,7 @@ ja:
       status: ステータス
       user: ユーザー
       auth_info: ユーザー認証情報
+      role: ロール
     attributes:
       task:
         description: 説明
@@ -14,6 +15,8 @@ ja:
         user: 作成者
       status:
         phase: 段階
+      user:
+        role: ロール
       auth_info:
         email: メールアドレス
         password: パスワード
