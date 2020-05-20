@@ -1,10 +1,10 @@
 <h1>Task詳細</h1>
-
-<h2><%= @task.title %></h2>
-<p><%= @task.memo %></p>
-<p><%= l @task.deadline if @task.deadline.present? %></p>
-<p><%= @task.human_attribute_enum(:status) %></p>
-
-<%= link_to 'Back', tasks_path %>
-<%= link_to 'Edit', edit_task_path(@task) %>
-<%= link_to 'Delete', task_path(@task), method: :delete, data: { confirm: '消しますか？' } %>
+<h2>Title:<%= @task.title %></h2>
+<p>Memo:<%= @task.memo %></p>
+<p>Deadline:<%= l @task.deadline if @task.deadline.present? %></p>
+<p>Status:<%= @task.human_attribute_enum(:status) %></p>
+<div class="btn-group">
+  <%= link_to 'Back', tasks_path , class: "btn btn-secondary" %>
+  <%= link_to 'Edit', edit_task_path(@task), class: "btn btn-primary" %>
+  <%= link_to 'Delete', task_path(@task), class: "btn btn-danger", method: :delete, data: { confirm: '消しますか？' } %>
+</div>

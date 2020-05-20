@@ -10,7 +10,11 @@
   </head>
 
   <body>
-    <div class="notice"><%= notice %></div>
+    <div class="container">
+    <% flash.each do |key, value| %>
+      <%= content_tag(:p, value, class: "alert alert-#{key} mt-2") %>
+    <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>
