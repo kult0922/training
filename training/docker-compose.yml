@@ -13,6 +13,8 @@ services:
       - .:/app
       - bundle-volume:/usr/local/bundle
       - node-modules-volume:/app/node_modules
+    environment:
+      TZ: Asia/Tokyo
   db:
     image: mysql:5.7
     volumes:
