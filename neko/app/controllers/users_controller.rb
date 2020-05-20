@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :only_admin
   before_action :logged_in_user
   PER = 20
 
   def index
-    @users = User.includes(:tasks).all.page(params[:page]).per(PER)
+    @users = User.includes(:tasks).includes(:role).all.page(params[:page]).per(PER)
   end
 
   def new

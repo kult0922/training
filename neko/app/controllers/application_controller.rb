@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  include UsersHelper
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
@@ -21,5 +22,9 @@ class ApplicationController < ActionController::Base
 
   def logged_in_user
     redirect_to login_url unless logged_in?
+  end
+
+  def only_admin
+    redirect_to root_url unless admin?
   end
 end
