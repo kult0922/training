@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     sort = params[:sort] if allowed_name.include?(params[:sort])
     search_form
     @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(sort).page(params[:page]).per(PAGE_PER)
+    sort_notice(sort) if sort.present?
   end
 
   def search_form
@@ -14,6 +15,15 @@ class TasksController < ApplicationController
     if @search_tasks.invalid?
       flash[:danger] = t '.flash.danger'
       redirect_to tasks_path
+    end
+  end
+
+  def sort_notice(sort)
+    if sort.include?('desc')
+      default_column = sort.chomp(' desc')
+      flash[:success] = t ".flash.#{default_column}_sort_desc"
+    else
+      flash[:success] = t ".flash.#{sort}_sort_asc"
     end
   end
 
