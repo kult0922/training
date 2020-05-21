@@ -6,14 +6,11 @@ class TasksController < ApplicationController
     search_title = params[:title]
     search_status = params[:status]
     @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
-    p @search_tasks.title
     if @search_tasks.invalid?
       flash[:danger] =  t '.flash.danger'
       redirect_to tasks_path
     end
     @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(sort).page(params[:page]).per(PAGE_PER)
-    #@search_title = params[:title]
-    #@search_status = params[:status]
   end
 
   def new
