@@ -30,7 +30,11 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params)
+    if only_one_admin? && params[:role_id] == 2
+      flash.now[:danger] = '管理ユーザーが一人なので変更できません。'
+      roles_all
+      render :edit
+    elsif @user.update(user_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '更新')
       redirect_to users_path
     else
@@ -41,13 +45,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user.destroy
+    if only_one_admin?
+      flash[:danger] = '管理ユーザーが一人なので削除できません。'
+      redirect_to users_path
+    elsif @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '削除')
       log_out if @user == @current_user
       redirect_to users_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '削除')
-      roles_all
       render :index
     end
   end
@@ -58,11 +64,15 @@ class UsersController < ApplicationController
     @roles = Role.all
   end
 
+  def only_one_admin?
+    User.eager_load(:role).where(roles: { name: '管理ユーザー' }).size == 1 && @user.role.name == '管理ユーザー'
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, auth_info_attributes: [:email, :password, :password_confirmation])
+    params.require(:user).permit(:name, :role_id, auth_info_attributes: [:email, :password, :password_confirmation])
   end
 end
