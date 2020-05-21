@@ -1,10 +1,27 @@
-<h1>Task詳細</h1>
-<h2>Title:<%= @task.title %></h2>
-<p>Memo:<%= @task.memo %></p>
-<p>Deadline:<%= l @task.deadline if @task.deadline.present? %></p>
-<p>Status:<%= @task.human_attribute_enum(:status) %></p>
+<h1 class="headline">Task詳細</h1>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td>Title</td>
+      <td><%= @task.title %></td>
+    </tr>
+    <tr>
+      <td>Memo</td>
+      <td><%= @task.memo %></td>
+    </tr>
+    <tr>
+      <td>Deadline</td>
+      <td><%= l @task.deadline if @task.deadline.present? %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><%= @task.human_attribute_enum(:status) %></td>
+    </tr>
+  </tbody>
+</table>
 <div class="btn-group">
-  <%= link_to 'Back', tasks_path , class: "btn btn-secondary" %>
-  <%= link_to 'Edit', edit_task_path(@task), class: "btn btn-primary" %>
-  <%= link_to 'Delete', task_path(@task), class: "btn btn-danger", method: :delete, data: { confirm: '消しますか？' } %>
+  <%= link_to 'Back', tasks_path , class: 'btn btn-secondary' %>
+  <%= link_to 'Edit', edit_task_path(@task), class: 'btn btn-primary' %>
+  <%= link_to 'Delete', task_path(@task), class: 'btn btn-danger', method: :delete, data: { confirm: '消しますか？' } %>
 </div>
