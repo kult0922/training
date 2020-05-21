@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+      task:
+        title: タイトル
+        description: 詳細
+        priority: 優先度
+        status: ステータス
+        due_date: 期限
+        created_at: 作成日時
+        updated_at: 更新日時

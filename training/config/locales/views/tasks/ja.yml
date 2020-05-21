@@ -2,7 +2,6 @@ ja:
   tasks:
     index:
       title: タスク一覧
-      show_link: 詳細
       new_task: 新しいタスクの作成
     show:
       title: '%{title}のタスク詳細'
@@ -10,6 +9,3 @@ ja:
       title: '%{title}のタスク更新'
     new:
       title: 新しいタスクの作成
-    edit_link: 編集
-    delete_link: 削除
-    back_link: 戻る

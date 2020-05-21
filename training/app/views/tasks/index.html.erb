@@ -4,14 +4,13 @@
 
 <table>
   <tr>
-    <th>title</th>
-    <th>description</th>
-    <th>priority</th>
-    <th>status</th>
-    <th>due_date</th>
-    <th>created_at</th>
-    <th>updated_at</th>
-    <th>actions</th>
+    <th><%= t 'activerecord.attributes.task.title' %></th>
+    <th><%= t 'activerecord.attributes.task.description' %></th>
+    <th><%= t 'activerecord.attributes.task.priority' %></th>
+    <th><%= t 'activerecord.attributes.task.status' %></th>
+    <th><%= t 'activerecord.attributes.task.due_date' %></th>
+    <th><%= t 'activerecord.attributes.task.created_at' %></th>
+    <th><%= t 'activerecord.attributes.task.updated_at' %></th>
   </tr>
   <% @tasks.each do |task| %>
     <tr>
@@ -19,13 +18,13 @@
       <td><%= task.description %></td>
       <td><%= task.priority %></td>
       <td><%= task.status %></td>
-      <td><%= task.due_date %></td>
+      <td><%= task.due_date.presence && l(task.due_date, format: :short) %></td>
       <td><%= l task.created_at, format: :long %></td>
       <td><%= l task.updated_at, format: :long %></td>
       <td>
-        <%= link_to t('.show_link'), task_path(task) %>
-        <%= link_to t('tasks.edit_link'), edit_task_path(task) %>
-        <%= link_to t('tasks.delete_link'), task_path(task), method: :delete %>
+        <%= link_to '詳細', task_path(task) %>
+        <%= link_to '編集', edit_task_path(task) %>
+        <%= link_to '削除', task_path(task), method: :delete %>
       </td>
     </tr>
   <% end %>
