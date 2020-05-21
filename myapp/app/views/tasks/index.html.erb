@@ -25,7 +25,7 @@
         <td><%= l t.deadline if t.deadline.present? %></td>
         <td><%= l t.created_at, format: :short %></td>
         <td><%= t.human_attribute_enum(:status) %></td>
-        <td><%= link_to '詳細', t, class: 'btn btn-primary' %></td>
+        <td><%= link_to t('.detail'), t, class: 'btn btn-primary' %></td>
       </tr>
     <% end %>
   </tbody>

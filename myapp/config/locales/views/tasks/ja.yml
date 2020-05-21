@@ -5,10 +5,14 @@ ja:
       title_search: 'title'
       status_search: 'status'
       search_placeholder: 'タイトルを入力'
+      detail: '詳細'
       flash:
         danger: '検索時できない値が入力されました'
     show:
       title: 'Task詳細'
+      back: 'Back'
+      edit: 'Edit'
+      delete: 'Delete'
     edit:
       title: 'Task編集'
     update:
