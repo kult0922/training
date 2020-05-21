@@ -22,9 +22,9 @@
       <td><%= l task.created_at, format: :long %></td>
       <td><%= l task.updated_at, format: :long %></td>
       <td>
-        <%= link_to '詳細', task_path(task) %>
-        <%= link_to '編集', edit_task_path(task) %>
-        <%= link_to '削除', task_path(task), method: :delete %>
+        <%= link_to t('tasks.link.show'), task_path(task) %>
+        <%= link_to t('tasks.link.edit'), edit_task_path(task) %>
+        <%= link_to t('tasks.link.delete'), task_path(task), method: :delete, data: { confirm: '削除しますか？' } %>
       </td>
     </tr>
   <% end %>

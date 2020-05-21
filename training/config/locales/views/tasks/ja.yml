@@ -9,3 +9,8 @@ ja:
       title: '%{title}のタスク更新'
     new:
       title: 新しいタスクの作成
+    link:
+      show: 詳細
+      edit: 編集
+      delete: 削除
+      back: 戻る
