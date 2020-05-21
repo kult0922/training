@@ -16,8 +16,8 @@
     <tr>
       <td><%= task.title %></td>
       <td><%= task.description %></td>
-      <td><%= task.priority %></td>
-      <td><%= task.status %></td>
+      <td><%= task.priority_i18n %></td>
+      <td><%= task.status_i18n %></td>
       <td><%= task.due_date.presence && l(task.due_date, format: :short) %></td>
       <td><%= l task.created_at, format: :long %></td>
       <td><%= l task.updated_at, format: :long %></td>
