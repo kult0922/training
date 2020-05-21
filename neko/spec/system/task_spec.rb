@@ -1,22 +1,44 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:tasks) { create_list(:task, 5) }
+  let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true,  due_at: Time.zone.local(2020, 9, 30, 17, 30)) }
+  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15)) }
+  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true,  due_at: Time.zone.local(2020, 8, 15, 16, 59)) }
 
   describe '#index' do
+    before { visit tasks_path }
     context 'accress root' do
-      before { visit tasks_path }
-
       it 'should be success to access the task list' do
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
+        expect(page).to have_content '期限'
         expect(page).to have_content '作成日'
       end
 
-      it 'tasks should be arranged in descending date order' do
-        order = tasks.map { |h| I18n.l(h[:created_at]) }.sort { |a, b| a <=> b }
-        expect(page.all('.task-created_at').map(&:text)).to eq order
+      it 'should sorts the tasks in descending date order' do
+        order = %w[task3 task2 task1]
+        expect(page.all('.task-name').map(&:text)).to eq order
+      end
+    end
+
+    context 'click item name' do
+      it 'reorders the tasks based on items' do
+        cases = [
+          { button: '名前', order: %w[task3 task2 task1] },
+          { button: '説明', order: %w[task2 task3 task1] },
+          { button: '作成日', order: %w[task3 task2 task1] },
+          { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] }
+        ]
+
+        cases.each do |c|
+          click_on c[:button]
+          expect(page.all('.task-name').map(&:text)).to eq c[:order]
+
+          click_on c[:button]
+          c[:order2] = c[:order].reverse if c[:order2].nil?
+          expect(page.all('.task-name').map(&:text)).to eq c[:order2]
+        end
       end
     end
   end
@@ -46,7 +68,7 @@ describe 'task', type: :system do
   end
 
   describe '#edit (GET /tasks/:id/edit)' do
-    before { visit edit_task_path(tasks[0].id) }
+    before { visit edit_task_path(task1.id) }
     context 'name is more than one letter' do
       it 'should be success' do
         fill_in '名前', with: 'hogehoge'
@@ -71,11 +93,12 @@ describe 'task', type: :system do
   describe '#show (GET /tasks/:id)' do
     context 'access the detail page' do
       it 'should be success' do
-        visit task_path(tasks[0].id)
+        visit task_path(task1.id)
 
         expect(page).to have_content 'タスク詳細'
-        expect(page).to have_content tasks[0].name
-        expect(page).to have_content tasks[0].description
+        expect(page).to have_content 'task1'
+        expect(page).to have_content 'a'
+        expect(page).to have_content '2020/09/30 17:30'
       end
     end
   end
@@ -83,7 +106,7 @@ describe 'task', type: :system do
   describe '#delete (DELETE /tasks/:id)', js: true do
     context 'push delete button from detail page' do
       it 'should be success to delete the task' do
-        visit task_path(tasks[0].id)
+        visit task_path(task1.id)
 
         # confirm dialog
         page.dismiss_confirm do

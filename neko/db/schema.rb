@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2020_05_18_004240) do
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "due_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.boolean "have_a_due", default: false, null: false
   end
 
 end
