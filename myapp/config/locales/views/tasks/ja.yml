@@ -7,7 +7,7 @@ ja:
       search_placeholder: 'タイトルを入力'
       detail: '詳細'
       flash:
-        danger: '検索時できない値が入力されました'
+        danger: '検索できない値が入力されました'
     show:
       title: 'Task詳細'
       back: 'Back'

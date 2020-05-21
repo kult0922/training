@@ -3,14 +3,18 @@ class TasksController < ApplicationController
 
   def index
     sort = params[:sort] if allowed_name.include?(params[:sort])
+    search_form
+    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(sort).page(params[:page]).per(PAGE_PER)
+  end
+
+  def search_form
     search_title = params[:title]
     search_status = params[:status]
     @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
     if @search_tasks.invalid?
-      flash[:danger] =  t '.flash.danger'
+      flash[:danger] = t '.flash.danger'
       redirect_to tasks_path
     end
-    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(sort).page(params[:page]).per(PAGE_PER)
   end
 
   def new
@@ -43,7 +47,7 @@ class TasksController < ApplicationController
       flash[:success] = t '.flash.success'
       redirect_to task_path(@task)
     else
-      flash.now[:danger]= t '.flash.danger'
+      flash.now[:danger] = t '.flash.danger'
       render :edit
     end
   end
@@ -57,17 +61,13 @@ class TasksController < ApplicationController
   end
 
   private
-    def task_params
-      params.require(:task).permit(:title, :memo, :deadline, :status)
-    end
 
-    def search_params
-      params.require(:task).permit(:title, :status) unless params[:search].nil?
-    end
+  def task_params
+    params.require(:task).permit(:title, :memo, :deadline, :status)
+  end
 
-   def allowed_name
-     desc_column = Task.column_names.map { |c| c + ' desc' }
-     allowed_name = Task.column_names | (desc_column)
-     return allowed_name
-   end
+  def allowed_name
+    desc_column = Task.column_names.map { |c| c + ' desc' }
+    Task.column_names | desc_column
+  end
 end

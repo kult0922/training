@@ -5,6 +5,5 @@ class TaskSearchParam
   attribute :title, :string
   attribute :status, :string
 
-  validates :title, length: {maximum: 20}  
-
+  validates :title, length: { maximum: 20 }
 end

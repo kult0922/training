@@ -1,15 +1,12 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe "Task", type: :feature do
-
-let!(:tasks) {create_list(:task, 5)}
- 
-  describe "#index" do
+describe 'Task', type: :feature do
+  let!(:tasks) { create_list(:task, 5) }
+  describe '#index' do
     context 'when opning index' do
       it 'The screen is displayed collectly' do
         visit tasks_path
-    
         expect(page).to have_content 'Task一覧'
         expect(page).to have_content 'Title'
         expect(page).to have_content 'Memo'
@@ -22,11 +19,11 @@ let!(:tasks) {create_list(:task, 5)}
       it 'tasks are sorted in descending order' do
         visit '/tasks?sort=created_at+desc'
         task_array = all('.task')
-          expect(task_array[0]).to have_content tasks[4].title
-          expect(task_array[1]).to have_content tasks[3].title
-          expect(task_array[2]).to have_content tasks[2].title
-          expect(task_array[3]).to have_content tasks[1].title
-          expect(task_array[4]).to have_content tasks[0].title
+        expect(task_array[0]).to have_content tasks[4].title
+        expect(task_array[1]).to have_content tasks[3].title
+        expect(task_array[2]).to have_content tasks[2].title
+        expect(task_array[3]).to have_content tasks[1].title
+        expect(task_array[4]).to have_content tasks[0].title
       end
     end
 
@@ -47,30 +44,28 @@ let!(:tasks) {create_list(:task, 5)}
     end
   end
 
-  describe "#new" do
+  describe '#new' do
     context 'when creating task' do
       it 'task are saved' do
         visit new_task_path
-
         fill_in 'Title', with: 'huga'
         fill_in 'Memo', with: 'hogehoge'
-        select_date( "2020,10,10" , from: 'Deadline')
+        select_date('2020,10,10', from: 'Deadline')
         select('完了', from: 'Status')
-
         click_button '登録する'
         expect(page).to have_content 'Taskは正常に作成されました'
       end
     end
   end
 
-  describe "#edit" do
+  describe '#edit' do
     context 'when editing task' do
       it 'task are updated' do
         visit edit_task_path(tasks[0])
 
         fill_in 'Title', with: 'test'
         fill_in 'Memo', with: 'testtest'
-        select_date( "2020,10,10" , from: 'Deadline')
+        select_date('2020,10,10', from: 'Deadline')
         select('着手中', from: 'Status')
 
         click_button '更新する'
@@ -78,8 +73,8 @@ let!(:tasks) {create_list(:task, 5)}
       end
     end
   end
-  
-  describe "#show" do
+
+  describe '#show' do
     context 'when opning task' do
       it 'returns task' do
         visit task_path(tasks[0])
@@ -93,7 +88,7 @@ let!(:tasks) {create_list(:task, 5)}
     end
   end
 
-  describe "#delete" do
+  describe '#delete' do
     context 'when task is deleted' do
       it 'redirect_to index' do
         visit task_path(tasks[0])
@@ -104,8 +99,8 @@ let!(:tasks) {create_list(:task, 5)}
     end
   end
 
-  describe "paginate" do
-    let!(:tasks) {create_list(:task, 20)}
+  describe 'paginate' do
+    let!(:tasks) { create_list(:task, 20) }
     context 'when 2 button clicked' do
       it 'show 5 and 10 task' do
         visit tasks_path
