@@ -2,31 +2,31 @@
 
 <table>
   <tr>
-    <th><%= t 'activerecord.attributes.task.title' %></th>
+  <th><%= Task.human_attribute_name(:title) %></th>
     <td><%= @task.title %></td>
   </tr>
   <tr>
-    <th><%= t 'activerecord.attributes.task.description' %></th>
+  <th><%= Task.human_attribute_name(:description) %></th>
     <td><%= @task.description %></td>
   </tr>
   <tr>
-    <th><%= t 'activerecord.attributes.task.priority' %></th>
+  <th><%= Task.human_attribute_name(:priority) %></th>
     <td><%= @task.priority %></td>
   </tr>
   <tr>
-    <th><%= t 'activerecord.attributes.task.status' %></th>
+  <th><%= Task.human_attribute_name(:status) %></th>
     <td><%= @task.status %></td>
   </tr>
   <tr>
-    <th><%= t 'activerecord.attributes.task.due_date' %></th>
+  <th><%= Task.human_attribute_name(:due_date) %></th>
     <td><%= l @task.due_date, format: :short %></td>
   </tr>
   <tr>
-    <th><%= t 'activerecord.attributes.task.created_at' %></th>
+  <th><%= Task.human_attribute_name(:created_at) %></th>
     <td><%= l @task.created_at, format: :long %></td>
   </tr>
   <tr>
-    <th><%= t 'activerecord.attributes.task.updated_at' %></th>
+  <th><%= Task.human_attribute_name(:updated_at) %></th>
     <td><%= l @task.updated_at, format: :long %></td>
   </tr>
   <tr>

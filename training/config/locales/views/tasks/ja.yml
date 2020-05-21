@@ -14,3 +14,10 @@ ja:
       edit: 編集
       delete: 削除
       back: 戻る
+    flash:
+      create: タスクが作成されました
+      update: タスクが更新されました
+      delete: タスクが削除されました
+    confirm:
+      delete: 削除しますか？
+
