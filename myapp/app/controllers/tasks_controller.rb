@@ -3,7 +3,17 @@ class TasksController < ApplicationController
 
   def index
     sort = params[:sort] if allowed_name.include?(params[:sort])
-    @tasks = Task.search(params[:title], params[:status]).order(sort).page(params[:page]).per(PAGE_PER)
+    search_title = params[:title]
+    search_status = params[:status]
+    @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
+    p @search_tasks.title
+    if @search_tasks.invalid?
+      flash[:danger] =  t '.flash.danger'
+      redirect_to tasks_path
+    end
+    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(sort).page(params[:page]).per(PAGE_PER)
+    #@search_title = params[:title]
+    #@search_status = params[:status]
   end
 
   def new
@@ -16,7 +26,7 @@ class TasksController < ApplicationController
       flash[:success] = t '.flash.success'
       redirect_to tasks_path
     else
-      flash.now[:danger]= t '.flash.danger'
+      flash.now[:danger] = t '.flash.danger'
       render :new
     end
   end
@@ -52,6 +62,10 @@ class TasksController < ApplicationController
   private
     def task_params
       params.require(:task).permit(:title, :memo, :deadline, :status)
+    end
+
+    def search_params
+      params.require(:task).permit(:title, :status) unless params[:search].nil?
     end
 
    def allowed_name
