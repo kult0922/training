@@ -1,10 +1,10 @@
 module ErrorHandlers
   extend ActiveSupport::Concern
 
-  included do
-    class Forbidden < ActionController::ActionControllerError; end
-    class IpAddressRejected < ActionController::ActionControllerError; end
+  class Forbidden < ActionController::ActionControllerError; end
+  class IpAddressRejected < ActionController::ActionControllerError; end
 
+  included do
     rescue_from Exception, with: :rescue500
     rescue_from ActiveRecord::RecordNotFound, with: :rescue404
     rescue_from Forbidden, with: :rescue403

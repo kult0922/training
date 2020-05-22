@@ -5,6 +5,16 @@ RSpec.describe "Errors", type: :system do
     Rails.env = 'production'
   end
 
+  scenario 'forbidden' do
+    allow(Task).to receive(:all).and_raise(ErrorHandlers::Forbidden)
+
+    visit tasks_path
+
+    expect(page).to have_content 'Forbidden'
+    expect(page).to have_content '閲覧がブロックされました'
+    expect(page.status_code).to eq 403
+  end
+
   scenario 'activerecord record not found' do
     visit task_path(id: 'xxx')
 
@@ -22,7 +32,7 @@ RSpec.describe "Errors", type: :system do
   end
 
   scenario 'internal server error' do
-    allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
+    allow(Task).to receive(:all).and_raise(Exception)
     visit tasks_path
 
     expect(page).to have_content 'Internal Server Error'
