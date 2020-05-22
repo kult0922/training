@@ -3,19 +3,19 @@
 <table class="table">
   <tbody>
     <tr>
-      <td>Title</td>
+      <td><%= Task.human_attribute_name(:title) %></td>
       <td><%= @task.title %></td>
     </tr>
     <tr>
-      <td>Memo</td>
+      <td><%= Task.human_attribute_name(:memo) %></td>
       <td><%= @task.memo %></td>
     </tr>
     <tr>
-      <td>Deadline</td>
+      <td><%= Task.human_attribute_name(:deadline) %></td>
       <td><%= l @task.deadline if @task.deadline.present? %></td>
     </tr>
     <tr>
-      <td>Status</td>
+      <td><%= Task.human_attribute_name(:status) %></td>
       <td><%= @task.human_attribute_enum(:status) %></td>
     </tr>
   </tbody>
@@ -23,5 +23,5 @@
 <div class="btn-group">
   <%= link_to t('.back'), tasks_path , class: 'btn btn-secondary' %>
   <%= link_to t('.edit'), edit_task_path(@task), class: 'btn btn-primary' %>
-  <%= link_to t('.delete'), task_path(@task), class: 'btn btn-danger', method: :delete, data: { confirm: '消しますか？' } %>
+  <%= link_to t('.delete'), task_path(@task), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
 </div>

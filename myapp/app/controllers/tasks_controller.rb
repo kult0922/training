@@ -8,16 +8,6 @@ class TasksController < ApplicationController
     sort_notice(sort) if sort.present?
   end
 
-  def search_form
-    search_title = params[:title]
-    search_status = params[:status]
-    @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
-    if @search_tasks.invalid?
-      flash[:danger] = t '.flash.danger'
-      redirect_to tasks_path
-    end
-  end
-
   def sort_notice(sort)
     if sort.include?('desc')
       default_column = sort.chomp(' desc')
@@ -79,5 +69,15 @@ class TasksController < ApplicationController
   def allowed_name
     desc_column = Task.column_names.map { |c| c + ' desc' }
     Task.column_names | desc_column
+  end
+
+  def search_form
+    search_title = params[:title]
+    search_status = params[:status]
+    @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
+    if @search_tasks.invalid?
+      flash[:danger] = t '.flash.danger'
+      redirect_to tasks_path
+    end
   end
 end
