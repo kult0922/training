@@ -23,8 +23,13 @@ tr:hover{
   background-color: #CFF;
   transition: background-color 1s;
 }
-
 h1 {
   padding: 0.25em 0.5em;
   border-left: solid 5px #CFF;
+}
+.headline-index {
+  display: inline;
+}
+.new-task {
+  margin: 0 0 0 auto;
 }

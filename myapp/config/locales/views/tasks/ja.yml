@@ -6,6 +6,8 @@ ja:
       status_search: 'status'
       search_placeholder: 'タイトルを入力'
       detail: '詳細'
+      edit: '編集'
+      delete: '削除'
       flash:
         danger: '検索できない値が入力されました'
         title_sort_asc: 'titleを昇順でソートしました'
