@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::Base
-  include ErrorHandlers unless Rails.env.production?
+  include ErrorHandlers if Rails.env.production?
 end
