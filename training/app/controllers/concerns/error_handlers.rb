@@ -3,14 +3,20 @@ module ErrorHandlers
 
   included do
     class Forbidden < ActionController::ActionControllerError; end
-    # rescue_from Exception, with: :rescue500
-    rescue_from Forbidden, with: :rescue403
-  end
+    class IpAddressRejected < ActionController::ActionControllerError; end
 
-  private
+    rescue_from Exception, with: :rescue500
+    rescue_from ActiveRecord::RecordNotFound, with: :rescue404
+    rescue_from Forbidden, with: :rescue403
+    rescue_from IpAddressRejected, with: :rescue403
+  end
 
   def rescue403
     render 'errors/forbidden', status: 403
+  end
+
+  def rescue404
+    render 'errors/not_found', status: 404
   end
 
   def rescue500

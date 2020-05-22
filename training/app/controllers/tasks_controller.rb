@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    raise Forbidden
     @tasks = Task.all
   end
 
