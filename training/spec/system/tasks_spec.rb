@@ -63,4 +63,15 @@ RSpec.describe "Tasks", type: :system do
     expect(page).to have_content 'タスクが削除されました'
     expect(page).not_to have_content 'task title'
   end
+
+  scenario 'in descending order of created_at' do
+    tasks = FactoryBot.create_list(:task, 5, :with_order_by_created_at)
+
+    visit tasks_path
+
+    expect(page.body.index(tasks[0].title)).to be < page.body.index(tasks[1].title)
+    expect(page.body.index(tasks[1].title)).to be < page.body.index(tasks[2].title)
+    expect(page.body.index(tasks[2].title)).to be < page.body.index(tasks[3].title)
+    expect(page.body.index(tasks[3].title)).to be < page.body.index(tasks[4].title)
+  end
 end
