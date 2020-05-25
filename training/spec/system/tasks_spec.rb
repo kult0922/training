@@ -4,14 +4,14 @@ RSpec.describe "Tasks", type: :system do
   scenario '#create' do
     visit new_task_path
 
-    fill_in 'Title', with: 'title test'
-    fill_in 'Description', with: 'description test'
-    select 'medium', from: 'Priority'
-    select 'working', from: 'Status'
+    fill_in 'タイトル', with: 'title test'
+    fill_in '詳細', with: 'description test'
+    select '中', from: '優先度'
+    select '着手中', from: 'ステータス'
     select '2019', from: 'task_due_date_1i'
-    select 'January', from: 'task_due_date_2i'
+    select '1月', from: 'task_due_date_2i'
     select '1', from: 'task_due_date_3i'
-    click_button '送信'
+    click_button '登録する'
 
     expect(current_path).to eq(tasks_path)
     expect(page).to have_content 'タスクが作成されました'
@@ -23,14 +23,14 @@ RSpec.describe "Tasks", type: :system do
 
     visit edit_task_path(task)
 
-    fill_in 'Title', with: 'edit title test'
-    fill_in 'Description', with: 'edit description test'
-    select 'high', from: 'Priority'
-    select 'waiting', from: 'Status'
+    fill_in 'タイトル', with: 'edit title test'
+    fill_in '詳細', with: 'edit description test'
+    select '高', from: '優先度'
+    select '未着手', from: 'ステータス'
     select '2020', from: 'task_due_date_1i'
-    select 'July', from: 'task_due_date_2i'
+    select '6月', from: 'task_due_date_2i'
     select '2', from: 'task_due_date_3i'
-    click_button '送信'
+    click_button '更新する'
 
     expect(current_path).to eq(tasks_path)
     expect(page).to have_content 'タスクが更新されました'
@@ -42,14 +42,14 @@ RSpec.describe "Tasks", type: :system do
 
     visit tasks_path
 
-    click_link 'show'
+    click_link '詳細'
 
     expect(current_path).to eq(task_path(task))
     expect(page).to have_content 'task title'
     expect(page).to have_content 'task description'
-    expect(page).to have_content 'low'
-    expect(page).to have_content 'waiting'
-    expect(page).to have_content '2019年04月14日'
+    expect(page).to have_content '低'
+    expect(page).to have_content '未着手'
+    expect(page).to have_content '04/14'
   end
 
   scenario '#delete' do
@@ -57,7 +57,7 @@ RSpec.describe "Tasks", type: :system do
 
     visit tasks_path
 
-    click_link 'delete'
+    click_link '削除'
 
     expect(current_path).to eq(tasks_path)
     expect(page).to have_content 'タスクが削除されました'
