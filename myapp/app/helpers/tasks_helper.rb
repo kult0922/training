@@ -1,5 +1,5 @@
 module TasksHelper
-  def tasks_sort(column_name, val, search_title, search_status, sort)
+  def create_sort_link(column_name, val, search_title, search_status, sort)
     sort = sort.split(' ')
     if val == sort[0]
      if request.fullpath.include?('desc')

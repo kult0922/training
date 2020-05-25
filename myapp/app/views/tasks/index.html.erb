@@ -10,11 +10,11 @@
 <table class="table mt-2">
   <thead class="thead-light">
     <tr>
-      <th><%= tasks_sort(Task.human_attribute_name(:title), 'title', @search_tasks.title, @search_tasks.status, @sort) %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:memo), 'memo', @search_tasks.title, @search_tasks.status, @sort) %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:deadline), 'deadline', @search_tasks.title, @search_tasks.status, @sort) %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:created_at), 'created_at', @search_tasks.title, @search_tasks.status, @sort) %></th>
-      <th><%= tasks_sort(Task.human_attribute_name(:status), 'status', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= create_sort_link(Task.human_attribute_name(:title), 'title', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= create_sort_link(Task.human_attribute_name(:memo), 'memo', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= create_sort_link(Task.human_attribute_name(:deadline), 'deadline', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= create_sort_link(Task.human_attribute_name(:created_at), 'created_at', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= create_sort_link(Task.human_attribute_name(:status), 'status', @search_tasks.title, @search_tasks.status, @sort) %></th>
       <th></th>
     </tr>
   </thead>
