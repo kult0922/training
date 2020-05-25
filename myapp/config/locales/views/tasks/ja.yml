@@ -11,16 +11,6 @@ ja:
       confirm: '消しますか？'
       flash:
         danger: '検索できない値が入力されました'
-        title_sort_asc: 'titleを昇順でソートしました'
-        title_sort_desc: 'titleを降順でソートしました'
-        status_sort_asc: 'statusを昇順でソートしました'
-        status_sort_desc: 'statusを降順でソートしました'
-        memo_sort_asc: 'memoを昇順でソートしました'
-        memo_sort_desc: 'memoを降順でソートしました'
-        deadline_sort_asc: 'deadlineを昇順でソートしました'
-        deadline_sort_desc: 'deadlineを降順でソートしました'
-        created_at_sort_asc: '作成日を昇順でソートしました'
-        created_at_sort_desc: '作成日を降順でソートしました'
     show:
       title: 'Task詳細'
       back: 'Back'

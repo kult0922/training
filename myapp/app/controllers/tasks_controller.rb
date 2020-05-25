@@ -2,19 +2,10 @@ class TasksController < ApplicationController
   PAGE_PER = 5
 
   def index
-    sort = params[:sort] if allowed_name.include?(params[:sort])
+    @sort = params[:sort] if allowed_name.include?(params[:sort])
+    @sort = '' if @sort.blank?
     search_form
-    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(sort).page(params[:page]).per(PAGE_PER)
-    sort_notice(sort) if sort.present?
-  end
-
-  def sort_notice(sort)
-    if sort.include?('desc')
-      default_column = sort.chomp(' desc')
-      flash[:success] = t ".flash.#{default_column}_sort_desc"
-    else
-      flash[:success] = t ".flash.#{sort}_sort_asc"
-    end
+    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
   end
 
   def new
