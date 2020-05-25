@@ -1,0 +1,23 @@
+ja:
+  tasks:
+    index:
+      title: タスク一覧
+      new_task: 新しいタスクの作成
+    show:
+      title: '%{title}のタスク詳細'
+    edit:
+      title: '%{title}のタスク更新'
+    new:
+      title: 新しいタスクの作成
+    link:
+      show: 詳細
+      edit: 編集
+      delete: 削除
+      back: 戻る
+    flash:
+      create: タスクが作成されました
+      update: タスクが更新されました
+      delete: タスクが削除されました
+    confirm:
+      delete: 削除しますか？
+

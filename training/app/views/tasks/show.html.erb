@@ -1,41 +1,40 @@
-<h1>タスク詳細</h1>
+<h1><%= t '.title', title: @task.title %></h1>
 
 <table>
   <tr>
-    <th>title</th>
+  <th><%= Task.human_attribute_name(:title) %></th>
     <td><%= @task.title %></td>
   </tr>
   <tr>
-    <th>description</th>
+  <th><%= Task.human_attribute_name(:description) %></th>
     <td><%= @task.description %></td>
   </tr>
   <tr>
-    <th>priority</th>
-    <td><%= @task.priority %></td>
+  <th><%= Task.human_attribute_name(:priority) %></th>
+    <td><%= @task.priority_i18n %></td>
   </tr>
   <tr>
-    <th>status</th>
-    <td><%= @task.status %></td>
+  <th><%= Task.human_attribute_name(:status) %></th>
+    <td><%= @task.status_i18n %></td>
   </tr>
   <tr>
-    <th>due_date</th>
-    <td><%= @task.due_date.strftime('%Y年%m月%d日') %></td>
+  <th><%= Task.human_attribute_name(:due_date) %></th>
+    <td><%= l @task.due_date, format: :short %></td>
   </tr>
   <tr>
-    <th>created_at</th>
-    <td><%= @task.created_at.strftime('%Y年%m月%d日') %></td>
+  <th><%= Task.human_attribute_name(:created_at) %></th>
+    <td><%= l @task.created_at, format: :long %></td>
   </tr>
   <tr>
-    <th>updated_at</th>
-    <td><%= @task.updated_at.strftime('%Y年%m月%d日') %></td>
+  <th><%= Task.human_attribute_name(:updated_at) %></th>
+    <td><%= l @task.updated_at, format: :long %></td>
   </tr>
   <tr>
-    <th>actions</th>
-    <td>
-      <%= link_to 'edit', edit_task_path(@task) %>
-      <%= link_to 'delete', task_path(@task), method: :delete %>
+    <td colspan="2">
+      <%= link_to t('tasks.link.edit'), edit_task_path(@task) %>
+      <%= link_to t('tasks.link.delete'), task_path(@task), method: :delete %>
     </td>
   </tr>
 </table>
 
-<%= link_to '戻る', tasks_path %>
+<%= link_to t('tasks.link.back'), tasks_path %>

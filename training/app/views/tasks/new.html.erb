@@ -1,5 +1,5 @@
-<h1>タスク新規作成</h1>
+<h1><%= t '.title' %></h1>
 
-<%= link_to '戻る', tasks_path %>
+<%= link_to t('tasks.link.back'), tasks_path %>
 
 <%= render 'form', task: @task %>
