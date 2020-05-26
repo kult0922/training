@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   PAGE_PER = 5
-  SORTABLE_COLUMNS = %w[deadline status].freeze
 
   def index
     @sort = params[:sort] if allowed_name.include?(params[:sort])
@@ -59,8 +58,8 @@ class TasksController < ApplicationController
   end
 
   def allowed_name
-    desc_column = SORTABLE_COLUMNS.map { |c| c + ' desc' }
-    SORTABLE_COLUMNS | desc_column
+    desc_columns = Task::SORTABLE_COLUMNS.map { |c| c + ' desc' }
+    Task::SORTABLE_COLUMNS | desc_columns
   end
 
   def search_form
