@@ -2,14 +2,33 @@ ja:
   tasks:
     index:
       title: 'Task一覧'
-      title_search: title
-      status_search: status
+      title_search: 'title'
+      status_search: 'status'
+      search_placeholder: 'タイトルを入力'
+      detail: '詳細'
+      edit: '編集'
+      delete: '削除'
+      confirm: '消しますか？'
+      flash:
+        danger: '検索できない値が入力されました'
     show:
       title: 'Task詳細'
+      back: 'Back'
+      edit: 'Edit'
+      delete: 'Delete'
+      confirm: '消しますか？'
     edit:
       title: 'Task編集'
+    update:
+      flash:
+        success: 'Taskは正常に更新されました'
+        danger: 'Taskの更新に失敗しました'
     new:
       title: 'Task作成'
+    create:
+      flash:
+        success: 'Taskは正常に作成されました'
+        danger: 'Taskの作成に失敗しました'
   views:
     pagination:
       first: '&laquo; 最初'

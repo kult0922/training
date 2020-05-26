@@ -2,21 +2,21 @@
 <%= render 'layouts/error_messages', model: f.object %>
   <div>
     <div>
-      <div><%= f.label :title %></div>
-      <div><%= f.text_field :title %></div>
+      <div><%= f.label :title, class: 'col-form-label' %></div>
+      <div><%= f.text_field :title, class: 'form-control' %></div>
     </div>
     <div>
-      <div><%= f.label :memo %></div>
-      <div><%= f.text_area :memo %></div>
+      <div><%= f.label :memo, class: 'col-form-label' %></div>
+      <div><%= f.text_area :memo, class: 'form-control' %></div>
     </div>
     <div>
-      <div><%= f.label :deadline %></div>
-      <div><%= f.date_select :deadline, use_month_numbers: true, :include_blank => true %></div>
+      <div><%= f.label :deadline, class: 'col-form-label' %></div>
+      <div><%= f.date_select :deadline, use_month_numbers: true, :include_blank => true, class: 'form-control' %></div>
     </div>
     <div>
-      <div><%= f.label :status %></div>
-      <div><%= f.select :status, Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h %></div>
+      <div><%= f.label :status, class: 'col-form-label' %></div>
+      <div><%= f.select :status, Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h, {}, {class: 'form-control col-sm-2'} %></div>
     </div>
-    <div><%= f.submit %></div>
+    <div><%= f.submit(class: 'btn btn-primary form-control mt-2') %></div>
   <div>
 <% end %>

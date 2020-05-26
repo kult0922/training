@@ -1,0 +1,26 @@
+inherit_gem:
+  fablicop:
+    - "config/.base_rubocop.yml"
+    # uncomment if use rails cops
+    # - "config/rails.yml"
+    # uncomment if use rspec cops
+    # - "config/rspec.yml"
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'node_modules/**/**/**/**/*'
+    - 'config/*'
+    - 'config/**/*'
+    - 'bin/*'
+    - 'Gemfile'
+    - 'db/*'
+    - 'db/**/*'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 20
+Style/BlockComments:
+  Enabled: false

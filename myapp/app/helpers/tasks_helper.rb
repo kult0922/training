@@ -1,5 +1,14 @@
 module TasksHelper
-  def tasks_sort(column_name, val, title, status)
-    request.fullpath.include?('desc') ? link_to(column_name, sort: val, title: title, status: status) : link_to(column_name, sort: "#{val} desc", title: title, status: status)
+  def create_sort_link(link_name, search_title, search_status, sort)
+    sort = sort.split(' ')
+    if link_name == sort.first
+      if sort.second.nil?
+        link_to("#{Task.human_attribute_name(link_name)}▲", sort: "#{link_name} desc", title: search_title, status: search_status)
+      else
+        link_to("#{Task.human_attribute_name(link_name)}▼", sort: link_name, title: search_title, status: search_status)
+      end
+    else
+      link_to(Task.human_attribute_name(link_name), sort: "#{link_name} desc", title: search_title, status: search_status)
+    end
   end
 end

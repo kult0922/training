@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
-PAGE_PER = 5
+  PAGE_PER = 5
+
   def index
-    sort = params[:sort] if allowed_name.include?(params[:sort])
-    @tasks = Task.search(params[:title], params[:status]).order(sort).page(params[:page]).per(PAGE_PER)
+    @sort = params[:sort] if allowed_name.include?(params[:sort])
+    @sort = '' if @sort.blank?
+    search_form
+    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
   end
 
   def new
@@ -12,8 +15,10 @@ PAGE_PER = 5
   def create
     @task = Task.create(task_params)
     if @task.save
-      redirect_to tasks_path, notice: 'Taskは正常に作成されました'
+      flash[:success] = t '.flash.success'
+      redirect_to tasks_path
     else
+      flash.now[:danger] = t '.flash.danger'
       render :new
     end
   end
@@ -30,8 +35,10 @@ PAGE_PER = 5
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      redirect_to task_path(@task), notice: 'Taskは正常に更新されました'
+      flash[:success] = t '.flash.success'
+      redirect_to task_path(@task)
     else
+      flash.now[:danger] = t '.flash.danger'
       render :edit
     end
   end
@@ -40,17 +47,28 @@ PAGE_PER = 5
     @task = Task.find(params[:id])
 
     @task.destroy
-    redirect_to tasks_path, notice: 'Taskは正常に削除されました'
+    flash[:success] = 'Taskは正常に削除されました'
+    redirect_to tasks_path
   end
 
   private
-    def task_params
-      params.require(:task).permit(:title, :memo, :deadline, :status)
-    end
 
-   def allowed_name
-     desc_column = Task.column_names.map { |c| c + ' desc' }
-     allowed_name = Task.column_names | (desc_column)
-     return allowed_name
-   end
+  def task_params
+    params.require(:task).permit(:title, :memo, :deadline, :status)
+  end
+
+  def allowed_name
+    desc_columns = Task::SORTABLE_COLUMNS.map { |c| c + ' desc' }
+    Task::SORTABLE_COLUMNS | desc_columns
+  end
+
+  def search_form
+    search_title = params[:title]
+    search_status = params[:status]
+    @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
+    if @search_tasks.invalid?
+      flash[:danger] = t '.flash.danger'
+      redirect_to tasks_path
+    end
+  end
 end
