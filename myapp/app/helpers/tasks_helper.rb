@@ -1,15 +1,14 @@
 module TasksHelper
-  def create_sort_link(val, search_title, search_status, sort, sort_array)
-    desc_or_not = sort_array.select { |a| a.include?(val) }
+  def create_sort_link(link_name, search_title, search_status, sort)
     sort = sort.split(' ')
-    if desc_or_not.first == sort.first
+    if link_name == sort.first
       if sort.second.nil?
-        link_to("#{Task.human_attribute_name(val)}▲", sort: desc_or_not.second, title: search_title, status: search_status)
+        link_to("#{Task.human_attribute_name(link_name)}▲", sort: "#{link_name} desc", title: search_title, status: search_status)
       else
-        link_to("#{Task.human_attribute_name(val)}▼", sort: desc_or_not.first, title: search_title, status: search_status)
+        link_to("#{Task.human_attribute_name(link_name)}▼", sort: link_name, title: search_title, status: search_status)
       end
     else
-      link_to(Task.human_attribute_name(val), sort: desc_or_not.second, title: search_title, status: search_status)
+      link_to(Task.human_attribute_name(link_name), sort: "#{link_name} desc", title: search_title, status: search_status)
     end
   end
 end

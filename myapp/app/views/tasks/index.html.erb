@@ -12,9 +12,9 @@
     <tr>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th><%= Task.human_attribute_name(:memo) %></th>
-      <th><%= create_sort_link('deadline', @search_tasks.title, @search_tasks.status, @sort, @sort_array) %></th>
+      <th><%= create_sort_link('deadline', @search_tasks.title, @search_tasks.status, @sort) %></th>
       <th><%= Task.human_attribute_name(:created_at) %></th>
-      <th><%= create_sort_link('status', @search_tasks.title, @search_tasks.status, @sort, @sort_array) %></th>
+      <th><%= create_sort_link('status', @search_tasks.title, @search_tasks.status, @sort) %></th>
       <th></th>
     </tr>
   </thead>

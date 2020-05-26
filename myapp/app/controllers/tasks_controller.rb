@@ -1,9 +1,9 @@
 class TasksController < ApplicationController
   PAGE_PER = 5
+  SORTABLE_COLUMNS = %w[deadline status].freeze
 
   def index
     @sort = params[:sort] if allowed_name.include?(params[:sort])
-    @sort_array = allowed_name
     @sort = '' if @sort.blank?
     search_form
     @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
@@ -59,9 +59,8 @@ class TasksController < ApplicationController
   end
 
   def allowed_name
-    sort_array = %w[deadline status]
-    desc_column = sort_array.map { |c| c + ' desc' }
-    sort_array | desc_column
+    desc_column = SORTABLE_COLUMNS.map { |c| c + ' desc' }
+    SORTABLE_COLUMNS | desc_column
   end
 
   def search_form
