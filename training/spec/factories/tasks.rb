@@ -5,5 +5,10 @@ FactoryBot.define do
     priority { 'low' }
     status { 'waiting' }
     due_date { '2019-04-14' }
+
+    trait :with_order_by_created_at do
+      now = Time.now
+      sequence(:created_at) { |n| now - n.days }
+    end
   end
 end
