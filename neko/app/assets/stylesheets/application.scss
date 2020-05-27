@@ -6,6 +6,14 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+h1 a, h2 a {
+  color: #313131;
+  &:hover {
+    color: #313131;
+    text-decoration: none;
+  }
+}
+
 .hidden {
   display: none;
 }
@@ -100,7 +108,6 @@
 
 .scroll {
   overflow-y: scroll;
-  height: 100vm;
 }
 
 .pagination {
@@ -117,6 +124,10 @@
     background-color: #ffa300;
     border-color: #ffa300;
   }
+}
+
+.paginate-wrapper {
+  height: 82px;
 }
 
 .form {

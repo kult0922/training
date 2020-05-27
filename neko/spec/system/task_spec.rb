@@ -1,13 +1,21 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
   let!(:user1) { create(:user, name: 'user1') }
   let!(:user2) { create(:user, name: 'user2') }
   let!(:user3) { create(:user, name: 'user3') }
-  let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1], user: user3) }
-  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2], user: user2) }
-  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0], user: user1) }
+  let!(:task1) do
+    create(:task, name: 'task1', description: 'a', status: 1,
+                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: user3)
+  end
+  let!(:task2) do
+    create(:task, name: 'task2', description: 'c', status: 2,
+                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: user2)
+  end
+  let!(:task3) do
+    create(:task, name: 'task3', description: 'b', status: 0,
+                  have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), user: user1)
+  end
 
   describe '#index' do
     before { visit tasks_path }
@@ -30,7 +38,7 @@ describe 'task', type: :system do
 
     context 'click item name' do
       it 'reorders the tasks based on items' do
-        cases = [
+        test_cases = [
           { button: '名前', order: %w[task3 task2 task1] },
           { button: '説明', order: %w[task2 task3 task1] },
           { button: '作成日', order: %w[task3 task2 task1] },
@@ -39,26 +47,26 @@ describe 'task', type: :system do
           { button: '作成者', order: %w[task1 task2 task3] }
         ]
 
-        cases.each do |c|
-          click_on c[:button]
-          expect(page.all('.task-name').map(&:text)).to eq c[:order]
+        test_cases.each do |test_case|
+          click_on test_case[:button]
+          expect(page.all('.task-name').map(&:text)).to eq test_case[:order]
 
-          click_on c[:button]
-          c[:order2] = c[:order].reverse if c[:order2].nil?
-          expect(page.all('.task-name').map(&:text)).to eq c[:order2]
+          click_on test_case[:button]
+          test_case[:order2] = test_case[:order].reverse if test_case[:order2].nil?
+          expect(page.all('.task-name').map(&:text)).to eq test_case[:order2]
         end
       end
     end
 
     context 'click item name' do
       it 'reorders the tasks based on items' do
-        cases = %w[未着手 着手中 完了]
-        cases.each do |c|
-          select(c, from: 'status_id')
+        test_cases = %w[未着手 着手中 完了]
+        test_cases.each do |test_case|
+          select(test_case, from: 'status')
           click_on '検索'
 
           page.all('.task-status').map(&:text).each do |s|
-            expect(s).to eq c
+            expect(s).to eq test_case
           end
         end
       end
@@ -117,11 +125,11 @@ describe 'task', type: :system do
       it 'should be success' do
         visit task_path(task1.id)
 
-        expect(page).to have_content task1.name
-        expect(page).to have_content task1.description
-        expect(page).to have_content I18n.l(task1.due_at)
-        expect(page).to have_content task1.status.name
-        expect(page).to have_content task1.user.name
+        expect(page).to have_content 'task1'
+        expect(page).to have_content 'a'
+        expect(page).to have_content '着手中'
+        expect(page).to have_content '2020/09/30 17:30'
+        expect(page).to have_content 'user3'
       end
     end
   end

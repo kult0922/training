@@ -6,7 +6,7 @@ user = User.create!(name:'admin')
     description: "This is task#{'%02d' % n}",
     have_a_due: [true, false].sample,
     due_at: Random.rand(Time.zone.tomorrow..Time.zone.tomorrow.next_year),
-    status: Status.all.sample,
+    status: Task.statuses.values.sample,
     user: user
   )
 end

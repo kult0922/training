@@ -1,21 +1,27 @@
 class Task < ApplicationRecord
   validates :name, presence: true
-  belongs_to :status
   belongs_to :user
 
-  def self.search(search)
-    if search[:name].blank? && search[:status].nil?
-      Task.with_relevant.all
-    elsif search[:status].nil?
-      Task.with_relevant.where(['name LIKE ?', "%#{search[:name]}%"])
-    elsif search[:name].blank?
-      Task.with_relevant.where(status_id: search[:status])
-    else
-      Task.with_relevant.where(status_id: search[:status]).where(['name LIKE ?', "%#{search[:name]}%"])
-    end
+  enum status: { not_proceed: 0, in_progress: 1, done: 2 }
+
+  scope :where_status, ->(status) { where(tasks: { status: status }) if status.present? }
+  scope :include_name, ->(name) { where(['tasks.name LIKE ?', "%#{name}%"]) if name.present? }
+  scope :order_due_at, ->(column) { order(have_a_due: :desc) if column == 'due_at' }
+
+  def self.rearrange(column, direction)
+    order_due_at(column).order("#{design_column(column)} #{direction}")
   end
 
-  def self.with_relevant
-    Task.includes(:status).includes(:user)
+  def self.search(search)
+    where_status(search[:status]).include_name(search[:name])
+  end
+
+  def self.design_column(column)
+    case column
+    when 'user_id'
+      'users.name'
+    else
+      "tasks.#{column}"
+    end
   end
 end
