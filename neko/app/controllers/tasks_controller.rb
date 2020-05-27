@@ -3,11 +3,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = if sort_column == 'due_at'
-               Task.all.order(have_a_due: :desc).order("#{sort_column} #{sort_direction}")
-             else
-               Task.all.order("#{sort_column} #{sort_direction}")
-             end
+    @search = { name: params[:name], status: params[:status] }
+    @tasks = Task.search(@search).rearrange(sort_column, sort_direction)
   end
 
   def new
@@ -23,6 +20,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '作成')
+      statuses_all
       render :new
     end
   end
@@ -39,6 +37,7 @@ class TasksController < ApplicationController
       redirect_to task_path(@task)
     else
       flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '更新')
+      statuses_all
       render :edit
     end
   end
@@ -60,7 +59,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status)
   end
 
   def sort_direction
