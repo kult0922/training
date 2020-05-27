@@ -69,9 +69,9 @@ RSpec.describe "Tasks", type: :system do
 
     visit tasks_path
 
-    expect(page.body.index(tasks[0].title)).to be < page.body.index(tasks[1].title)
-    expect(page.body.index(tasks[1].title)).to be < page.body.index(tasks[2].title)
-    expect(page.body.index(tasks[2].title)).to be < page.body.index(tasks[3].title)
-    expect(page.body.index(tasks[3].title)).to be < page.body.index(tasks[4].title)
+    expect(page.body.index(I18n.l(tasks[0].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[1].created_at, format: :long))
+    expect(page.body.index(I18n.l(tasks[1].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[2].created_at, format: :long))
+    expect(page.body.index(I18n.l(tasks[2].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[3].created_at, format: :long))
+    expect(page.body.index(I18n.l(tasks[3].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[4].created_at, format: :long))
   end
 end
