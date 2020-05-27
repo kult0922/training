@@ -1,22 +1,16 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :statuses_all, only: [:index, :new, :edit, :edit]
   before_action :logged_in_user
   PER = 20
 
   def index
-    @search = { name: params[:name], status: search_status }
-    @tasks = case sort_column
-             when 'due_at'
-               Task.search(@search, @current_user).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
-             when 'status_id'
-               Task.search(@search, @current_user).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
-             when 'user_id'
-               Task.search(@search, @current_user).order('users.name ' + sort_direction).page(params[:page]).per(PER)
-             else
-               Task.search(@search, @current_user).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
-             end
+    @search = { name: params[:name], status: params[:status] }
+    @tasks = Task.eager_load(:user)
+                 .where(user: @current_user)
+                 .search(@search)
+                 .rearrange(sort_column, sort_direction)
+                 .page(params[:page]).per(PER)
   end
 
   def new
@@ -26,13 +20,13 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user = @current_user
+    trunc_sec_due_at
 
     if @task.save
       flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '作成')
       redirect_to tasks_path
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '作成')
-      statuses_all
       render :new
     end
   end
@@ -42,12 +36,13 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
+    trunc_sec_due_at
+
     if @task.update(task_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '更新')
       redirect_to task_path(@task)
     else
       flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '更新')
-      statuses_all
       render :edit
     end
   end
@@ -64,20 +59,12 @@ class TasksController < ApplicationController
 
   private
 
-  def statuses_all
-    @statuses = Status.all.order(phase: :asc)
-  end
-
-  def search_status
-    Status.where(id: params[:status_id]).exists? ? params[:status_id] : nil
-  end
-
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status_id)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status)
   end
 
   def sort_direction
@@ -86,5 +73,9 @@ class TasksController < ApplicationController
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+  end
+
+  def trunc_sec_due_at
+    @task.due_at = Time.zone.at(Time.current.to_i / 60 * 60) if @task.due_at.nil?
   end
 end

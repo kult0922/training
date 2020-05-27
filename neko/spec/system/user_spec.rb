@@ -1,10 +1,8 @@
 require 'rails_helper'
 
 describe 'user', type: :system do
-  let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
-  let!(:user1) { create(:user, name: 'user1' ) }
-  let!(:user2) { create(:user, name: 'user2' ) }
-  let!(:user3) { create(:user, name: 'user3' ) }
+  let!(:user1) { create(:user, name: 'user1') }
+  let!(:user2) { create(:user, name: 'user2') }
   let!(:auth1) { create(:auth, user: user1) }
   let!(:task1) { create(:task, name: 'task1', user: user1) }
   let!(:task2) { create(:task, name: 'task2', user: user1) }
@@ -19,7 +17,7 @@ describe 'user', type: :system do
   end
 
   describe "#index(GET '/admin/users/')" do
-    context "a context" do
+    context 'a context' do
       it '' do
         visit users_path
 
@@ -29,14 +27,15 @@ describe 'user', type: :system do
     end
   end
 
-  describe '#new' do
-    context "a context" do
+  describe "#new (GET '/admin/tasks/new')" do
+    context 'a context' do
       it '' do
         visit new_user_path
 
         fill_in '名前', with: 'testuser4'
         fill_in 'メールアドレス', with: 'test4@example.com'
         fill_in 'パスワード', with: 'test4password'
+        fill_in 'パスワード（確認用）', with: 'test4password'
 
         click_on '登録する'
         expect(page).to have_content 'ユーザーを作成しました'

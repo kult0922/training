@@ -11,12 +11,11 @@
   </head>
 
   <body>
-    <%= render partial: 'layouts/notification' %>
     <div class="wrapper">
       <% if logged_in? %>
         <div class="side">
           <nav>
-            <h1 class="title-neko">Neko</h1>
+            <h1><%= link_to 'Neko', root_path, class: 'title-neko' %></h1>
             <div class="user-name">
               <p><%= @current_user.name %></p>
             </div>
@@ -34,6 +33,7 @@
         </div>
       <% end %>
       <div class="container main">
+        <%= render partial: 'layouts/notification' %>
         <%= yield %>
       </div>
     <div>
