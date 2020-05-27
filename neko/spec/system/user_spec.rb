@@ -43,7 +43,7 @@ describe 'user', type: :system do
     end
   end
 
-  describe "#new (GET '/admin/users/edit')" do
+  describe "#new (GET '/admin/users/:id/edit')" do
     before { visit edit_user_path(user1.id) }
     context 'information is correct' do
       it 'should be success to update' do
