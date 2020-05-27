@@ -27,7 +27,7 @@ describe 'user', type: :system do
     end
   end
 
-  describe "#new (GET '/admin/tasks/new')" do
+  describe "#new (GET '/admin/users/new')" do
     context 'a context' do
       it '' do
         visit new_user_path
@@ -39,6 +39,45 @@ describe 'user', type: :system do
 
         click_on '登録する'
         expect(page).to have_content 'ユーザーを作成しました'
+      end
+    end
+  end
+
+  describe "#new (GET '/admin/users/edit')" do
+    before { visit edit_user_path(user1.id) }
+    context 'information is correct' do
+      it 'should be success to update' do
+        fill_in '名前', with: 'testuser5'
+        fill_in 'メールアドレス', with: 'test5@example.com'
+        fill_in 'パスワード', with: 'test5password'
+        fill_in 'パスワード（確認用）', with: 'test5password'
+
+        click_on '更新する'
+        expect(page).to have_content 'ユーザーを更新しました'
+      end
+    end
+
+    context 'name is blank' do
+      it 'should be failure to update' do
+        fill_in '名前', with: ''
+        fill_in 'メールアドレス', with: 'test6@example.com'
+        fill_in 'パスワード', with: 'test6password'
+        fill_in 'パスワード（確認用）', with: 'test6password'
+
+        click_on '更新する'
+        expect(page).to have_content 'ユーザーの更新に失敗しました'
+      end
+    end
+
+    context 'password(confirm) is wrong' do
+      it 'should be failure to update' do
+        fill_in '名前', with: 'testuser7'
+        fill_in 'メールアドレス', with: 'test7@example.com'
+        fill_in 'パスワード', with: 'test7password'
+        fill_in 'パスワード（確認用）', with: 'wrongpassword'
+
+        click_on '更新する'
+        expect(page).to have_content 'ユーザーの更新に失敗しました'
       end
     end
   end
