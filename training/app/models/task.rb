@@ -11,8 +11,8 @@ class Task < ApplicationRecord
     done: 2,
   }
 
-  def self.order_by_priority(priority_order)
-    priority_order = :asc if priority_order.blank?
-    order(due_date: priority_order)
+  def self.order_by_due_date(due_date_order)
+    due_date_order = :asc if due_date_order.blank?
+    order(due_date: due_date_order)
   end
 end

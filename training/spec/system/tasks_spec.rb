@@ -79,7 +79,7 @@ RSpec.describe "Tasks", type: :system do
     tasks = FactoryBot.create_list(:task, 5, :with_order_by_due_date)
 
     visit tasks_path
-    select '降順', from: 'priority_order'
+    select '降順', from: 'due_date_order'
     click_button '検索する'
 
     expect(page.body.index(I18n.l(tasks[0].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[1].due_date, format: :short))
@@ -92,7 +92,7 @@ RSpec.describe "Tasks", type: :system do
     tasks = FactoryBot.create_list(:task, 5, :with_order_by_due_date)
 
     visit tasks_path
-    select '昇順', from: 'priority_order'
+    select '昇順', from: 'due_date_order'
     click_button '検索する'
 
     expect(page.body.index(I18n.l(tasks[4].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[3].due_date, format: :short))
