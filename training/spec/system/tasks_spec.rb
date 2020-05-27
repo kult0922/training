@@ -71,10 +71,10 @@ RSpec.describe "Tasks", type: :system do
     select '降順', from: 'priority_order'
     click_button '検索する'
 
-    expect(page.body.index(tasks[0].title)).to be < page.body.index(tasks[1].title)
-    expect(page.body.index(tasks[1].title)).to be < page.body.index(tasks[2].title)
-    expect(page.body.index(tasks[2].title)).to be < page.body.index(tasks[3].title)
-    expect(page.body.index(tasks[3].title)).to be < page.body.index(tasks[4].title)
+    expect(page.body.index(I18n.l(tasks[0].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[1].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[1].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[2].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[2].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[3].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[3].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[4].due_date, format: :short))
   end
 
   scenario 'in ascending order of due_date' do
@@ -84,9 +84,9 @@ RSpec.describe "Tasks", type: :system do
     select '昇順', from: 'priority_order'
     click_button '検索する'
 
-    expect(page.body.index(tasks[4].title)).to be < page.body.index(tasks[3].title)
-    expect(page.body.index(tasks[3].title)).to be < page.body.index(tasks[2].title)
-    expect(page.body.index(tasks[2].title)).to be < page.body.index(tasks[1].title)
-    expect(page.body.index(tasks[1].title)).to be < page.body.index(tasks[0].title)
+    expect(page.body.index(I18n.l(tasks[4].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[3].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[3].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[2].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[2].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[1].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[1].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[0].due_date, format: :short))
   end
 end

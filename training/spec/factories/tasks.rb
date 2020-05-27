@@ -8,7 +8,6 @@ FactoryBot.define do
 
     trait :with_order_by_due_date do
       now = Time.now
-      sequence(:title) { |n| "task title-#{n}" }
       sequence(:due_date) { |n| now - n.days }
     end
   end

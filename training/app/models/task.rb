@@ -10,4 +10,8 @@ class Task < ApplicationRecord
     working: 1,
     done: 2,
   }
+
+  def self.order_by_priority(priority_order)
+    order(due_date: priority_order)
+  end
 end
