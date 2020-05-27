@@ -64,6 +64,17 @@ RSpec.describe "Tasks", type: :system do
     expect(page).not_to have_content 'task title'
   end
 
+  scenario 'in descending order of created_at' do
+    tasks = FactoryBot.create_list(:task, 5, :with_order_by_created_at)
+
+    visit tasks_path
+
+    expect(page.body.index(I18n.l(tasks[0].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[1].created_at, format: :long))
+    expect(page.body.index(I18n.l(tasks[1].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[2].created_at, format: :long))
+    expect(page.body.index(I18n.l(tasks[2].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[3].created_at, format: :long))
+    expect(page.body.index(I18n.l(tasks[3].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[4].created_at, format: :long))
+  end
+
   scenario 'in descending order of due_date' do
     tasks = FactoryBot.create_list(:task, 5, :with_order_by_due_date)
 
