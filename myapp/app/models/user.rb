@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :tasks, dependent: :destroy
 
   validates :name,
     presence: true
@@ -9,6 +10,9 @@ class User < ApplicationRecord
     presence: true, 
     uniqueness: true,
     format: { with: VALID_EMAIL_REGEX }
+
+  validates :password,
+    presence: true
 
   validates :role,
     presence: true

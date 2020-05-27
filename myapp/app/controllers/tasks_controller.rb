@@ -5,7 +5,7 @@ class TasksController < ApplicationController
     @sort = params[:sort] if allowed_name.include?(params[:sort])
     @sort = '' if @sort.blank?
     search_form
-    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
+    @tasks = Task.includes(:user).search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
   end
 
   def new
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :memo, :deadline, :status)
+    params.require(:task).permit(:title, :memo, :deadline, :status, :user_id)
   end
 
   def allowed_name

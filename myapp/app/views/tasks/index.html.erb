@@ -15,6 +15,7 @@
       <th><%= create_sort_link('deadline', @search_tasks.title, @search_tasks.status, @sort) %></th>
       <th><%= Task.human_attribute_name(:created_at) %></th>
       <th><%= create_sort_link('status', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= User.human_attribute_name(:name) %></th>
       <th></th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= l t.deadline if t.deadline.present? %></td>
         <td><%= l t.created_at, format: :short %></td>
         <td><%= t.human_attribute_enum(:status) %></td>
+        <td><%= t.user.name %></td>
         <td class="btn-group">
           <%= link_to t('.detail'), t, class: 'btn btn-secondary' %>
           <%= link_to t('.edit'), edit_task_path(t), class: 'btn btn-primary' %>
