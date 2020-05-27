@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      auth_info: ユーザー認証情報
+    attributes:
+      auth_info:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認用）
