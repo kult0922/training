@@ -1,7 +1,11 @@
 ja:
   flash:
-    succeeded: "%{target}を%{action}しました"
-    failed: "%{target}の%{action}に失敗しました"
+    model:
+      succeeded: "%{target}を%{action}しました"
+      failed: "%{target}の%{action}に失敗しました"
+    login:
+      succeeded: "ログインしました"
+      failed: "ログインに失敗しました"
 
   edit: '編集'
   delete: '削除'
