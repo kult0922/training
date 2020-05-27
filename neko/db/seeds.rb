@@ -1,4 +1,4 @@
-user = User.create!(name:'admin', role: Role.first)
+user = User.create!(name:'admin')
 
 AuthInfo.create!(email: 'abc@example.com', password: 'password', user: user)
 
