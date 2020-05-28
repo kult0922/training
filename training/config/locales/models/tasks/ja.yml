@@ -19,3 +19,6 @@ ja:
         waiting: 未着手
         working: 着手中
         done: 完了
+  errors:
+    messages:
+      due_date_is_past: は今日以降のものを選択してください

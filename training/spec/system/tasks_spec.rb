@@ -8,9 +8,9 @@ RSpec.describe "Tasks", type: :system do
     fill_in '詳細', with: 'description test'
     select '中', from: '優先度'
     select '着手中', from: 'ステータス'
-    select '2019', from: 'task_due_date_1i'
-    select '1月', from: 'task_due_date_2i'
-    select '1', from: 'task_due_date_3i'
+    select Time.now.year, from: 'task_due_date_1i'
+    select Time.now.month + 1, from: 'task_due_date_2i'
+    select Time.now.day, from: 'task_due_date_3i'
     click_button '登録する'
 
     expect(current_path).to eq(tasks_path)
@@ -49,7 +49,7 @@ RSpec.describe "Tasks", type: :system do
     expect(page).to have_content 'task description'
     expect(page).to have_content '低'
     expect(page).to have_content '未着手'
-    expect(page).to have_content '04/14'
+    expect(page).to have_content I18n.l(task.due_date, format: :short)
   end
 
   scenario '#delete' do
