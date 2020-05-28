@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   private
 
   def only_one_admin?
-    User.where(roles: 0).size == 1 && @user.role == 0
+    User.where(role: 0).size == 1 && @user.role == 'administrator'
   end
 
   def set_user

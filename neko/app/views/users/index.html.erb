@@ -16,7 +16,7 @@
       <% @users.each do |user| %>
         <tr>
           <td class="user-name"><%= user.name %></td>
-          <td class="user-role"><%= user.role %></td>
+          <td class="user-role"><%= user.role_i18n %></td>
           <td class="user-tasks"><%= user.tasks.size %></td>
           <td class="user-created_at"><%= I18n.l(user.created_at) %></td>
           <td class="user-edit"><%= link_to I18n.t('edit'), edit_user_path(user) %></td>

@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
-  include UsersHelper
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
