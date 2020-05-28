@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 20
 
   def index
     @search = { name: params[:name], status: params[:status] }
-    @tasks = Task.search(@search).rearrange(sort_column, sort_direction)
+    @tasks = Task.search(@search).rearrange(sort_column, sort_direction).page(params[:page]).per(PER)
   end
 
   def new
