@@ -4,13 +4,19 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   PER = 20
 
-  def index
+  def index(user = @current_user)
     @search = { name: params[:name], status: params[:status] }
     @tasks = Task.eager_load(:user)
-                 .where(user: @current_user)
+                 .where(user: user)
                  .search(@search)
                  .rearrange(sort_column, sort_direction)
                  .page(params[:page]).per(PER)
+  end
+
+  def list
+    @user = User.find(params[:id])
+    index(@user)
+    render template: 'tasks/index'
   end
 
   def new

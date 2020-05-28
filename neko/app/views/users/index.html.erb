@@ -15,7 +15,7 @@
       <% @users.each do |user| %>
         <tr>
           <td class="user-name"><%= user.name %></td>
-          <td class="user-tasks"><%= user.tasks.size %></td>
+          <td class="user-tasks"><%= link_to user.tasks.size, "/admin/users/#{user.id}/tasks_list" %></td>
           <td class="user-created_at"><%= I18n.l(user.created_at) %></td>
           <td class="user-edit"><%= link_to I18n.t('edit'), edit_user_path(user) %></td>
           <td class="user-delete"><%= link_to I18n.t('delete'), user_path(user), method: :delete, data: { confirm: I18n.t('users.delete.confirm') } %></td>
