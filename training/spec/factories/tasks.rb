@@ -10,5 +10,10 @@ FactoryBot.define do
       now = Time.now
       sequence(:created_at) { |n| now - n.days }
     end
+
+    trait :with_order_by_due_date do
+      now = Time.now
+      sequence(:due_date) { |n| now + n.days }
+    end
   end
 end

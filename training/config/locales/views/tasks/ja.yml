@@ -9,6 +9,12 @@ ja:
       title: '%{title}のタスク更新'
     new:
       title: 新しいタスクの作成
+    search_form:
+      title: 検索フォーム
+      due_date_order: 期限で並べ替え
+      due_date_order_asc: 昇順
+      due_date_order_desc: 降順
+      button: 検索する
     link:
       show: 詳細
       edit: 編集
@@ -20,4 +26,3 @@ ja:
       delete: タスクが削除されました
     confirm:
       delete: 削除しますか？
-

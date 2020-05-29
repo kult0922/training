@@ -35,6 +35,11 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: t('tasks.flash.delete')
   end
 
+  def search
+    @tasks = Task.order_by_due_date(params[:due_date_order].to_sym)
+    render 'index'
+  end
+
   private
 
   def tasks_params

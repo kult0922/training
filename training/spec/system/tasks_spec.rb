@@ -74,4 +74,30 @@ RSpec.describe "Tasks", type: :system do
     expect(page.body.index(I18n.l(tasks[2].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[3].created_at, format: :long))
     expect(page.body.index(I18n.l(tasks[3].created_at, format: :long))).to be < page.body.index(I18n.l(tasks[4].created_at, format: :long))
   end
+
+  scenario 'in descending order of due_date' do
+    tasks = FactoryBot.create_list(:task, 5, :with_order_by_due_date)
+
+    visit tasks_path
+    select '降順', from: 'due_date_order'
+    click_button '検索する'
+
+    expect(page.body.index(I18n.l(tasks[4].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[3].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[3].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[2].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[2].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[1].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[1].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[0].due_date, format: :short))
+  end
+
+  scenario 'in ascending order of due_date' do
+    tasks = FactoryBot.create_list(:task, 5, :with_order_by_due_date)
+
+    visit tasks_path
+    select '昇順', from: 'due_date_order'
+    click_button '検索する'
+
+    expect(page.body.index(I18n.l(tasks[0].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[1].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[1].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[2].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[2].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[3].due_date, format: :short))
+    expect(page.body.index(I18n.l(tasks[3].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[4].due_date, format: :short))
+  end
 end
