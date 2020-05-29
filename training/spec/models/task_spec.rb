@@ -139,11 +139,11 @@ RSpec.describe Task, type: :model do
       let(:task) { Task.search_by_title(search_word) }
       context 'title is present' do
         let(:search_word) { 'elephant' }
-        it 'record count' do
+        it 'is 2 records' do
           expect(task.size).to eq(2)
         end
 
-        it 'include title record' do
+        it 'include search record' do
           expect(task[0].title).to include(search_word)
           expect(task[1].title).to include(search_word)
         end
@@ -151,7 +151,7 @@ RSpec.describe Task, type: :model do
 
       context 'title is blank' do
         let(:search_word) { '' }
-        it 'record count' do
+        it 'is 5 records' do
           expect(task.size).to eq(5)
         end
       end
@@ -169,11 +169,11 @@ RSpec.describe Task, type: :model do
       let(:task) { Task.search_by_status(status) }
       context 'status is present' do
         let(:status) { 'done' }
-        it 'record count' do
+        it 'is 2 records' do
           expect(task.size).to eq(2)
         end
 
-        it 'include status record' do
+        it 'include search record' do
           expect(task[0].status).to eq('done')
           expect(task[1].status).to eq('done')
         end
@@ -181,7 +181,7 @@ RSpec.describe Task, type: :model do
 
       context 'status is blank' do
         let(:status) { '' }
-        it 'record count' do
+        it 'all records' do
           expect(task.size).to eq(5)
         end
       end

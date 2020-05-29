@@ -110,11 +110,11 @@ RSpec.describe "Tasks", type: :system do
       FactoryBot.create(:task, title: 'zebra deer', status: 'done')
     end
 
+    # テーブル最上部のラベル行も件数に含むので全レコード - 1
     let(:record_count) { all('table tr').size - 1 }
     context 'have record' do
-      # テーブル最上部のラベル行も件数に含むので全レコード - 1
       context 'title and status is blank' do
-        scenario 'is all record' do
+        scenario 'all record' do
           visit tasks_path
           fill_in 'title', with: ''
           select '昇順', from: 'due_date_order'
@@ -125,7 +125,7 @@ RSpec.describe "Tasks", type: :system do
       end
 
       context 'title is present and status is blank' do
-        scenario 'is 2 record' do
+        scenario 'is 2 records' do
           visit tasks_path
           fill_in 'title', with: 'elephant'
           select '昇順', from: 'due_date_order'
@@ -138,7 +138,7 @@ RSpec.describe "Tasks", type: :system do
       end
 
       context 'title is blank and status is present' do
-        scenario 'is 2 record' do
+        scenario 'is 2 records' do
           visit tasks_path
           select '完了', from: 'status'
           select '昇順', from: 'due_date_order'
@@ -150,7 +150,7 @@ RSpec.describe "Tasks", type: :system do
       end
 
       context 'title is present and status is present' do
-        scenario 'is 2 record' do
+        scenario 'is 2 records' do
           visit tasks_path
           fill_in 'title', with: 'elephant'
           select '着手中', from: 'status'
@@ -166,7 +166,7 @@ RSpec.describe "Tasks", type: :system do
     end
 
     context 'have not record' do
-      scenario 'is 0 record' do
+      scenario 'is none record' do
         visit tasks_path
         fill_in 'title', with: 'dog'
         select '着手中', from: 'status'
