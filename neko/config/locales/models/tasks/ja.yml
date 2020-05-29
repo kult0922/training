@@ -10,6 +10,7 @@ ja:
         have_a_due: 期日を設定する
         due_at: 期限
         user: 作成者
+        label_ids: ラベル
   enums:
     task:
       status:

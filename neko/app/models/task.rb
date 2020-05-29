@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   validates :name, presence: true
   belongs_to :user
+  has_many :task_labels
+  has_many :labels, through: :task_labels
 
   enum status: { not_proceed: 0, in_progress: 1, done: 2 }
 
