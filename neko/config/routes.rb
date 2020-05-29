@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   scope '/admin' do
     resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+    get '/users/:id/tasks_list', to: 'tasks#list'
   end
 
   resources :tasks
