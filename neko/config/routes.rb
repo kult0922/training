@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'labels/index'
+  get 'labels/new'
+  get 'labels/edit'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
@@ -7,6 +10,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
     get '/users/:id/tasks_list', to: 'tasks#list'
   end
+
+  resources :labels, only: [:index, :new, :create, :edit, :update, :destroy]
 
   resources :tasks
   root 'tasks#index'

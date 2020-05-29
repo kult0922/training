@@ -22,14 +22,17 @@
             <div class="button-container">
               <% if current_page?(controller: 'users') %>
                 <%= link_to I18n.t('users.new.title'), new_user_path , class: "btn-push" %>
-              <% else %>
+              <% elsif current_page?(controller: 'tasks') %>
                 <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
+              <% else %>
+                <%= link_to I18n.t('labels.new.title'), new_label_path , class: "btn-push" %>
               <% end %>
             </div>
             <div><%= link_to I18n.t('tasks.index.title'), tasks_path %></div>
             <% if admin? %>
               <div><%= link_to I18n.t('users.index.title'), users_path %><div>
             <% end %>
+            <div><%= link_to I18n.t('labels.index.title'), labels_path %></div>
           </nav>
           <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout' %>
         </div>

@@ -113,6 +113,11 @@ h1 a, h2 a {
   overflow-y: scroll;
 }
 
+.scroll-x {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
 .pagination {
   margin-top: 30px;
 
@@ -171,11 +176,11 @@ h1 a, h2 a {
   .form-group .col-4 {
     padding-left: 0;
   }
+}
 
-  .label label {
-    padding-left: 3px;
-    padding-right: 10px;
-  }
+.label label {
+  padding-left: 3px;
+  padding-right: 10px;
 }
 
 .back {

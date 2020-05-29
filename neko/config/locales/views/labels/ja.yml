@@ -1,0 +1,11 @@
+ja:
+  labels:
+    index: 
+      title: ラベル一覧
+      tasks: タスク数
+    edit:
+      title: ラベル編集
+    new:
+      title: ラベル作成
+    delete:
+      confirm: ラベルを削除しますか？
