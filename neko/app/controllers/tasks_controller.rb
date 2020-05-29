@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_labels, only: [:index, :new, :create, :edit, :update]
+  before_action :set_labels, only: [:index, :list, :new, :create, :edit, :update]
   before_action :logged_in_user
   MODEL_NAME = Task.model_name.human
   PER = 20
