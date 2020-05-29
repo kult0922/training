@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
+  MODEL_NAME = Task.model_name.human
   PER = 20
 
   def index(user = @current_user)
@@ -25,15 +26,16 @@ class TasksController < ApplicationController
   end
 
   def create
+    action_name = I18n.t('create')
     @task = Task.new(task_params)
     @task.user = @current_user
     trunc_sec_due_at
 
     if @task.save
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '作成')
+      flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to tasks_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '作成')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: MODEL_NAME, action: action_name)
       render :new
     end
   end
@@ -43,23 +45,25 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
+    action_name = I18n.t('update')
     trunc_sec_due_at
 
     if @task.update(task_params)
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '更新')
+      flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to task_path(@task)
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '更新')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: MODEL_NAME, action: action_name)
       render :edit
     end
   end
 
   def destroy
+    action_name = I18n.t('update')
     if @task.destroy
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'タスク', action: '削除')
+      flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to tasks_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'タスク', action: '削除')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: MODEL_NAME, action: action_name)
       render :show
     end
   end

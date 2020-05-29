@@ -5,7 +5,7 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col"><%= Label.human_attribute_name(:name) %></th>
-        <th scope="col"><%= I18n.t('labels.index.tasks') %></th>
+        <th scope="col"><%= I18n.t('num_tasks') %></th>
         <th scope="col"><%= Label.human_attribute_name(:created_at) %></th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -18,7 +18,7 @@
           <td class="label-tasks"><%= label.tasks.size %></td>
           <td class="label-created_at"><%= I18n.l(label.created_at) %></td>
           <td class="label-edit"><%= link_to I18n.t('edit'), edit_label_path(label) %></td>
-          <td class="label-delete"><%= link_to I18n.t('delete'), label_path(label), method: :delete, data: { confirm: I18n.t('labels.delete.confirm') } %></td>
+          <td class="label-delete"><%= link_to I18n.t('delete'), label_path(label), method: :delete, data: { confirm: I18n.t('dialog.delete', target: Label.model_name.human) } %></td>
         </tr>
       <% end %>
     </tbody>

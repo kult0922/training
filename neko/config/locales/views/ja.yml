@@ -4,12 +4,17 @@ ja:
       succeeded: "%{target}を%{action}しました"
       failed: "%{target}の%{action}に失敗しました"
     login:
-      succeeded: "ログインしました"
-      failed: "ログインに失敗しました"
+      succeeded: ログインしました
+      failed: ログインに失敗しました
+  dialog:
+    delete: "%{target}を削除しますか？"
 
-  edit: '編集'
-  delete: '削除'
-  back: '戻る'
-  search: '検索'
-  login: 'ログイン'
-  logout: 'ログアウト'
+  num_tasks: タスク数
+  create: 作成
+  edit: 編集
+  update: 更新
+  delete: 削除
+  back: 戻る
+  search: 検索
+  login: ログイン
+  logout: ログアウト

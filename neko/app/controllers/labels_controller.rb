@@ -1,6 +1,7 @@
 class LabelsController < ApplicationController
   before_action :set_label, only: [:edit, :update, :destroy]
   before_action :logged_in_user
+  MODEL_NAME = Label.model_name.human
   PER = 20
 
   def index
@@ -12,13 +13,14 @@ class LabelsController < ApplicationController
   end
 
   def create
+    action_name = I18n.t('create')
     @label = Label.new(label_params)
 
     if @label.save
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'ラベル', action: '作成')
+      flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to labels_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'ラベル', action: '作成')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: MODEL_NAME, action: action_name)
       render :new
     end
   end
@@ -26,26 +28,31 @@ class LabelsController < ApplicationController
   def edit; end
 
   def update
+    action_name = I18n.t('update')
+
     if @label.update(label_params)
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'ラベル', action: '更新')
+      flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to labels_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'ラベル', action: '更新')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: MODEL_NAME, action: action_name)
       render :edit
     end
   end
 
   def destroy
+    action_name = I18n.t('delete')
+
     if @label.destroy
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'ラベル', action: '削除')
+      flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to labels_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'ラベル', action: '削除')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: MODEL_NAME, action: action_name)
       render :index
     end
   end
 
   private
+
   def set_label
     @label = Label.find(params[:id])
   end
