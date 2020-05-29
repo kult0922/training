@@ -44,6 +44,7 @@ RSpec.describe User, type: :model do
         expect(user).to be_invalid
       end
     end
+  end
 
   describe 'Association' do
     let(:association) { User.reflect_on_association(terget) }
@@ -53,7 +54,5 @@ RSpec.describe User, type: :model do
         expect(association.macro).to eq :has_many
       end
     end
-  end
-
   end
 end
