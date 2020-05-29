@@ -1,11 +1,11 @@
 <h2><%= link_to I18n.t('tasks.index.title'), tasks_path %></h2>
 
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
-  <div class='row search'>
-    <div class='form-group col'>
+  <div class="row search">
+    <div class="form-group col">
       <%= f.text_field :name, value: @search[:name], class: 'form-control form-control-sm', placeholder: Task.human_attribute_name(:name) %>
     </div>
-    <div class='form-group col'>
+    <div class="form-group col">
       <%= f.label :status, "#{Task.human_attribute_name(:status)}:" ,class: 'col-form-label' %>
       <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, include_blank: true, selected: @search[:status], class: 'form-control form-control-sm' %>
       <%= f.submit I18n.t('search'), name: nil, class: 'btn btn-dark' %>
@@ -13,8 +13,8 @@
   </div>
 <% end %>
 
-<div class='scroll'>
-  <table class='table table-striped'>
+<div class="scroll">
+  <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
         <th scope="col"><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
