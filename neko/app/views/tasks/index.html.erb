@@ -6,7 +6,9 @@
       <%= f.text_field :name, value: @search[:name], class: 'form-control form-control-sm', placeholder: Task.human_attribute_name(:name) %>
     </div>
     <div class='form-group col-2 scroll-x label'>
-      <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, include_hidden: false %>
+      <%= f.collection_check_boxes(:label_ids, @labels, :id, :name, include_hidden: false, checked: @search[:label_ids]) do |l|
+        l.label { l.check_box(checked: true) + l.text }
+      end%>
     </div>
     <div class='form-group col-4'>
       <%= f.label :status, "#{Task.human_attribute_name(:status)}:" ,class: 'col-form-label' %>

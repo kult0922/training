@@ -1,12 +1,13 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_labels, only: [:index, :new, :create, :edit, :update]
   before_action :logged_in_user
   MODEL_NAME = Task.model_name.human
   PER = 20
 
   def index(user = @current_user)
-    @search = { name: params[:name], status: params[:status] }
+    @search = { name: params[:name], status: params[:status], label_ids: params[:label_ids] }
     @tasks = Task.eager_load(:user)
                  .eager_load(:labels)
                  .where(user: user)
@@ -88,5 +89,9 @@ class TasksController < ApplicationController
 
   def trunc_sec_due_at
     @task.due_at = Time.zone.at(Time.current.to_i / 60 * 60) if @task.due_at.nil?
+  end
+
+  def set_labels
+    @labels = Label.all
   end
 end

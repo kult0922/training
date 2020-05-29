@@ -8,6 +8,7 @@ class Task < ApplicationRecord
 
   scope :where_status, ->(status) { where(tasks: { status: status }) if status.present? }
   scope :include_name, ->(name) { where(['tasks.name LIKE ?', "%#{name}%"]) if name.present? }
+  scope :have_label,   ->(label_ids) { where(labels: { id: label_ids }) if label_ids.present?}
   scope :order_due_at, ->(column) { order(have_a_due: :desc) if column == 'due_at' }
 
   def self.rearrange(column, direction)
@@ -15,7 +16,7 @@ class Task < ApplicationRecord
   end
 
   def self.search(search)
-    where_status(search[:status]).include_name(search[:name])
+    where_status(search[:status]).include_name(search[:name]).have_label(search[:label_ids])
   end
 
   def self.design_column(column)
