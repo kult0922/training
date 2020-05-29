@@ -20,6 +20,7 @@
         <th scope="col"><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
         <th scope="col"><%= sortable @search, 'description', Task.human_attribute_name(:description) %></th>
         <th scope="col"><%= sortable @search, 'status', Task.human_attribute_name(:status) %></th>
+        <th scope="col"><%= Task.human_attribute_name(:label_ids) %></th>
         <th scope="col"><%= sortable @search, 'user_id', Task.human_attribute_name(:user) %></th>
         <th scope="col"><%= sortable @search, 'due_at', Task.human_attribute_name(:due_at) %></th>
         <th scope="col"><%= sortable @search, 'created_at', Task.human_attribute_name(:created_at) %></th>
@@ -29,8 +30,14 @@
       <% @tasks.each do |task| %>
         <tr>
           <td class="task-name"><%= link_to task.name, task %></td>
-          <td class="task-description"><%= task.description %></td>
+          <td class="task-description"><%= task.description.truncate(50) %></td>
           <td class="task-status"><%= task.status_i18n %></td>
+          <td class="task-labels">
+            <% task.labels.first(3).each do |label| %>
+              <%= label.name %>
+              <%= ', ' unless label == task.labels.last || label == task.labels.third %>
+            <% end %>
+          </td>
           <td class="task-user"><%= task.user.name %></td>
           <td class="task-due_at">
             <%= I18n.l(task.due_at) if task.have_a_due %>

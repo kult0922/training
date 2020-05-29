@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   def index(user = @current_user)
     @search = { name: params[:name], status: params[:status] }
     @tasks = Task.eager_load(:user)
+                 .eager_load(:labels)
                  .where(user: user)
                  .search(@search)
                  .rearrange(sort_column, sort_direction)
@@ -70,7 +71,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status, { label_ids: [] })
   end
 
   def sort_direction
