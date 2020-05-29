@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  paginates_per 10
   validates :title, length: { maximum: 50 }
   validates :title, :priority, :status, presence: true
   validate  :due_date_not_before_today
