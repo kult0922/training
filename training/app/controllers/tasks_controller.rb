@@ -38,7 +38,7 @@ class TasksController < ApplicationController
   def search
     begin
       @tasks = Task
-        .order_by_due_date(params[:due_date_order]&.to_sym)
+        .order_by_due_date(params[:due_date_order].to_sym)
         .search_by_title(params[:title])
         .search_by_status(params[:status])
       render 'index'

@@ -6,7 +6,7 @@
   </div>
   <div>
     <%= form.label t('tasks.search_form.search_for_status') %>
-    <%= form.select :status, Task.statuses_i18n.invert, selected: params[:status] %>
+    <%= form.select :status, Task.statuses_i18n.invert, selected: params[:status], include_blank: t('tasks.search_form.search_for_status') %>
   </div>
   <div>
     <%= form.label t('tasks.search_form.due_date_order') %>

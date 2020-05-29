@@ -100,4 +100,96 @@ RSpec.describe "Tasks", type: :system do
     expect(page.body.index(I18n.l(tasks[2].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[3].due_date, format: :short))
     expect(page.body.index(I18n.l(tasks[3].due_date, format: :short))).to be < page.body.index(I18n.l(tasks[4].due_date, format: :short))
   end
+
+  describe 'search' do
+    before do
+      FactoryBot.create(:task, title: 'tiger elephant gorilla', status: 'working')
+      FactoryBot.create(:task, title: 'rabbit rat', status: 'done')
+      FactoryBot.create(:task, title: 'bear elephant', status: 'working')
+      FactoryBot.create(:task, title: 'monkey', status: 'waiting')
+      FactoryBot.create(:task, title: 'zebra deer', status: 'done')
+    end
+
+    let(:record_count) { all('table tr').size - 1 }
+    context 'have record' do
+      # テーブル最上部のラベル行も件数に含むので全レコード - 1
+      context 'title and status is blank' do
+        scenario 'is all record' do
+          visit tasks_path
+          fill_in 'title', with: ''
+          select '昇順', from: 'due_date_order'
+          click_button '検索する'
+
+          expect(record_count).to eq(5)
+        end
+      end
+
+      context 'title is present and status is blank' do
+        scenario 'is 2 record' do
+          visit tasks_path
+          fill_in 'title', with: 'elephant'
+          select '昇順', from: 'due_date_order'
+          click_button '検索する'
+
+          expect(record_count).to eq(2)
+          expect(page).to have_content 'tiger elephant gorilla'
+          expect(page).to have_content 'bear elephant'
+        end
+      end
+
+      context 'title is blank and status is present' do
+        scenario 'is 2 record' do
+          visit tasks_path
+          select '完了', from: 'status'
+          select '昇順', from: 'due_date_order'
+          click_button '検索する'
+
+          expect(record_count).to eq(2)
+          expect(page).to have_content '完了'
+        end
+      end
+
+      context 'title is present and status is present' do
+        scenario 'is 2 record' do
+          visit tasks_path
+          fill_in 'title', with: 'elephant'
+          select '着手中', from: 'status'
+          select '昇順', from: 'due_date_order'
+          click_button '検索する'
+
+          expect(record_count).to eq(2)
+          expect(page).to have_content 'tiger elephant gorilla'
+          expect(page).to have_content 'bear elephant'
+          expect(page).to have_content '着手中'
+        end
+      end
+    end
+
+    context 'have not record' do
+      scenario 'is 0 record' do
+        visit tasks_path
+        fill_in 'title', with: 'dog'
+        select '着手中', from: 'status'
+        select '昇順', from: 'due_date_order'
+        click_button '検索する'
+
+        expect(record_count).to eq(0)
+      end
+    end
+
+    context 'raise error' do
+      scenario 'display error message' do
+        allow(Task).to receive(:search_by_status).and_raise
+
+        visit tasks_path
+        fill_in 'title', with: 'elephant'
+        select '着手中', from: 'status'
+        select '昇順', from: 'due_date_order'
+        click_button '検索する'
+
+        expect(current_path).to eq(tasks_path)
+        expect(page).to have_content '検索でエラーが発生しました。時間を置いて再度お試しください'
+      end
+    end
+  end
 end

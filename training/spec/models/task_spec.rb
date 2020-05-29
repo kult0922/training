@@ -136,14 +136,14 @@ RSpec.describe Task, type: :model do
         FactoryBot.create(:task, title: 'zebra deer')
       end
 
-      context 'title is not blank' do
+      let(:task) { Task.search_by_title(search_word) }
+      context 'title is present' do
         let(:search_word) { 'elephant' }
-        let(:task) { Task.search_by_title(search_word) }
-        it 'search count' do
+        it 'record count' do
           expect(task.size).to eq(2)
         end
 
-        it 'search title' do
+        it 'include title record' do
           expect(task[0].title).to include(search_word)
           expect(task[1].title).to include(search_word)
         end
@@ -151,6 +151,39 @@ RSpec.describe Task, type: :model do
 
       context 'title is blank' do
         let(:search_word) { '' }
+        it 'record count' do
+          expect(task.size).to eq(5)
+        end
+      end
+    end
+
+    describe 'search_by_status' do
+      before do
+        FactoryBot.create(:task, status: 'waiting')
+        FactoryBot.create(:task, status: 'working')
+        FactoryBot.create(:task, status: 'done')
+        FactoryBot.create(:task, status: 'waiting')
+        FactoryBot.create(:task, status: 'done')
+      end
+
+      let(:task) { Task.search_by_status(status) }
+      context 'status is present' do
+        let(:status) { 'done' }
+        it 'record count' do
+          expect(task.size).to eq(2)
+        end
+
+        it 'include status record' do
+          expect(task[0].status).to eq('done')
+          expect(task[1].status).to eq('done')
+        end
+      end
+
+      context 'status is blank' do
+        let(:status) { '' }
+        it 'record count' do
+          expect(task.size).to eq(5)
+        end
       end
     end
   end
