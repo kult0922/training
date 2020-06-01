@@ -5,6 +5,6 @@
     <%= form.select :due_date_order, [[t('tasks.search_form.due_date_order_asc'), 'asc'], [t('tasks.search_form.due_date_order_desc'), 'desc']], selected: params[:due_date_order] %>
   </div>
   <div>
-    <%= form.submit t('tasks.search_form.button') %>
+    <%= form.submit t('tasks.search_form.button'), class: 'btn btn-danger' %>
   </div>
 <% end %>
