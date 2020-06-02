@@ -36,8 +36,15 @@ class TasksController < ApplicationController
   end
 
   def search
-    @tasks = Task.order_by_due_date(params[:due_date_order].to_sym)
-    render 'index'
+    begin
+      @tasks = Task
+        .order_by_due_date(params[:due_date_order].to_sym)
+        .search_by_title(params[:title])
+        .search_by_status(params[:status])
+      render 'index'
+    rescue
+      redirect_to tasks_path, alert: t('tasks.search_form.search_error')
+    end
   end
 
   private
