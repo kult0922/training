@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :set_users, only: [:new, :edit]
+  before_action :set_status, only: [:index, :new, :edit]
   PAGE_PER = 5
 
   def index
@@ -70,5 +72,13 @@ class TasksController < ApplicationController
       flash[:danger] = t '.flash.danger'
       redirect_to tasks_path
     end
+  end
+
+  def set_status
+    @status = Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
+  end
+
+  def set_users
+    @users = User.all
   end
 end
