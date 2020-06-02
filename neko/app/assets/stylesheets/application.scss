@@ -6,9 +6,189 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+.wrapper {
+  width: 100vw;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  flex: 1 1 0%;
+  background: white;
+  max-height: 100%;
+}
+
+.side {
+  flex-grow: 0;
+  flex-shrink: 0;
+  background: rgb(247, 246, 243);
+  transition: box-shadow 300ms ease-in 0s;
+  width: 240px;
+  text-align: center;
+
+  nav {
+    text-align: center;
+    padding-top: 20px;
+
+    h1 {
+      font-family: 'Righteous', cursive;
+      font-size: 60px;
+    }
+  }
+}
+
+.main {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  height: 100vh;
+  width: 645px;
+  padding-top: 20px;
+}
+
+h1 a, h2 a {
+  color: #313131;
+  &:hover {
+    color: #313131;
+    text-decoration: none;
+  }
+}
+
 .hidden {
   display: none;
 }
 .hidden-box input:checked ~ .hidden {
-  display: block;
+  display: inline;
+}
+
+.button-container {
+  height: 50px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.btn-push {
+  display: inline-block;
+  max-width: 160px;
+  max-height: 40px;
+  background-color: #ffa300;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 24px;
+  border-radius: 4px;
+  border-bottom: 4px solid #d37800;
+
+  &:hover {
+    color: #FFF;
+  }
+
+  &:active {
+    transform: translateY(4px);
+    border-bottom: none;
+  }
+}
+
+.btn {
+  min-width: 100px;
+}
+
+.btn-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+
+  .btn {
+    flex-basis: 0;
+    margin: 0 10px;
+  }
+}
+
+.scroll {
+  overflow-y: scroll;
+}
+
+.pagination {
+  margin-top: 30px;
+
+  .page-link {
+    color: #313131;
+    border: none;
+    border-radius: 0.9rem;
+    margin: 0 4px;
+  }
+
+  .page-item.active .page-link {
+    background-color: #ffa300;
+    border-color: #ffa300;
+  }
+}
+
+.paginate-wrapper {
+  height: 82px;
+}
+
+.form {
+  width: 700px;
+  margin: 0 auto;
+  margin-top: 70px;
+  padding: 0 20px;
+  
+  select {
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 100px;
+  height: 30px;
+  display: inline-block;
+  }
+
+  textarea {
+    resize: none;
+    height: 200px;
+  }
+
+  .hidden-box .due_label {
+    padding-top: 7px;
+  }
+
+  .hidden .duetime {
+    width: 250px;
+    display: inline-block;
+  }
+
+  .form-group .col-4 {
+    padding-left: 0;
+  }
+}
+
+.back {
+  margin-top: 40px;
+  margin-top: 40px;
+  width: 100px;
+}
+
+.search {
+  .form-control {
+    height: 35px;
+    margin-top: 5px;
+  }
+  select {
+    height: 35px;
+    margin-top: 5px;
+    margin-right: 20px;
+  }
+}
+
+table th a {
+  color: #FFF;
+  &:hover {
+    color: #FFF;
+  }
+}
+
+.detail {
+  margin-top: 20px;
+  margin-left: 30px;
 }

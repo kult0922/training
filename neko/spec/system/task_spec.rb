@@ -120,7 +120,6 @@ describe 'task', type: :system do
       it 'should be success' do
         visit task_path(task1.id)
 
-        expect(page).to have_content 'タスク詳細'
         expect(page).to have_content 'task1'
         expect(page).to have_content 'a'
         expect(page).to have_content '着手中'
