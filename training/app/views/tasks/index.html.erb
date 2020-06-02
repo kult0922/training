@@ -11,6 +11,7 @@
     <th><%= Task.human_attribute_name(:priority) %></th>
     <th><%= Task.human_attribute_name(:status) %></th>
     <th><%= Task.human_attribute_name(:due_date) %></th>
+    <th><%= Task.human_attribute_name(:created_at) %></th>
     <th></th>
   </tr>
   <% @tasks.each do |task| %>
@@ -20,6 +21,7 @@
       <td><%= task.priority_i18n %></td>
       <td><%= task.status_i18n %></td>
       <td><%= task.due_date.presence && l(task.due_date, format: :short) %></td>
+      <td><%= l task.created_at, format: :long %></td>
       <td>
         <%= link_to t('tasks.link.show'), task_path(task) %>
         <%= link_to t('tasks.link.edit'), edit_task_path(task) %>
