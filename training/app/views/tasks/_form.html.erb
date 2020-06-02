@@ -1,26 +1,24 @@
 <%= render 'shared/error_messages', model: task %>
-<%= form_with model: task, local: true do |f| %>
-  <div>
+<%= form_with model: task, local: true, class: 'form-group' do |f| %>
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: 'form-control col-4' %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, class: 'form-control col-4', rows: 6 %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :priority %>
-    <%= f.select :priority, Task.priorities_i18n.invert %>
+    <%= f.select :priority, Task.priorities_i18n.invert, {}, class: 'custom-select col-1 ml-1' %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :status %>
-    <%= f.select :status, Task.statuses_i18n.invert %>
+    <%= f.select :status, Task.statuses_i18n.invert, {}, class: 'custom-select col-1 ml-1' %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :due_date %>
     <%= f.date_select :due_date %>
   </div>
-  <div>
-    <%= f.submit %>
-  </div>
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>
