@@ -8,17 +8,15 @@ class SessionsController < ApplicationController
     if auth&.authenticate(params[:session][:password])
       log_in auth.user
       redirect_to root_url
-      flash[:success] = I18n.t('flash.session.succeeded', action: I18n.t( 'login'))
+      flash[:success] = I18n.t('flash.session.succeeded', action: I18n.t('login'))
     else
-      flash.now[:danger] = I18n.t('flash.session.failed', action: I18n.t( 'login'))
+      flash.now[:danger] = I18n.t('flash.session.failed', action: I18n.t('login'))
       render 'new'
     end
   end
 
   def destroy
     log_out if logged_in?
-    if redirect_to root_url
-      flash[:success] = I18n.t('flash.session.succeeded', action: I18n.t( 'logout'))
-    end
+    flash[:success] = I18n.t('flash.session.succeeded', action: I18n.t('logout')) if redirect_to root_url
   end
 end
