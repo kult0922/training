@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'user', type: :system do
   let!(:user1) { create(:user, name: 'user1') }
-  let!(:user2) { create(:user, name: 'user2') }
+  let!(:user2) { create(:user, name: 'user2', role: 1) }
   let!(:auth1) { create(:auth, user: user1) }
   let!(:task1) { create(:task, name: 'task1', user: user1) }
   let!(:task2) { create(:task, name: 'task2', user: user1) }
@@ -84,14 +84,21 @@ describe 'user', type: :system do
 
   describe '#delete (DELETE /tasks/:id)', js: true do
     context 'push delete' do
-      it 'should be success to delete the user' do
-        visit users_path
+      before { visit users_path }
 
+      it 'should be success to delete the user' do
         # confirm dialog
+        page.accept_confirm do
+          page.all('.user-delete a')[1].click
+        end
+        expect(page).to have_content 'ユーザーを削除しました'
+      end
+
+      it 'should be failure to delete the user' do
         page.accept_confirm do
           click_on '削除', match: :first
         end
-        expect(page).to have_content 'ユーザーを削除しました'
+        expect(page).to have_content '管理ユーザーが一人なので削除できません'
       end
     end
   end

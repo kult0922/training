@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def update
     if only_one_admin? && params[:role_id] == 2
-      flash.now[:danger] = '管理ユーザーが一人なので変更できません。'
+      flash.now[:danger] = '管理ユーザーが一人なので変更できません'
       render :edit
     elsif @user.update(user_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '更新')
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def destroy
     if only_one_admin?
-      flash[:danger] = '管理ユーザーが一人なので削除できません。'
+      flash[:danger] = '管理ユーザーが一人なので削除できません'
       redirect_to users_path
     elsif @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '削除')
