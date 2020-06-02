@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page])
   end
 
   def show; end
@@ -41,6 +41,7 @@ class TasksController < ApplicationController
         .order_by_due_date(params[:due_date_order].to_sym)
         .search_by_title(params[:title])
         .search_by_status(params[:status])
+        .page(params[:page])
       render 'index'
     rescue
       redirect_to tasks_path, alert: t('tasks.search_form.search_error')
