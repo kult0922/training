@@ -18,7 +18,7 @@
   </div>
   <div class="form-group">
     <%= f.label :due_date %>
-    <%= f.date_select :due_date %>
+    <%= f.date_select :due_date, {date_separator: '/ '}, class: 'custom-select col-1' %>
   </div>
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>

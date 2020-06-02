@@ -10,9 +10,8 @@
   </head>
 
   <body>
-    <%= notice %>
-    <%= alert %>
     <div class="container-fluid">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
     </div>
   </body>

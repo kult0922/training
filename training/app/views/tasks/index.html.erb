@@ -16,7 +16,7 @@
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.title %></td>
-      <td><%= task.description %></td>
+      <td><%= truncate(task.description, length: 50) %></td>
       <td><%= task.priority_i18n %></td>
       <td><%= task.status_i18n %></td>
       <td><%= task.due_date.presence && l(task.due_date, format: :short) %></td>
