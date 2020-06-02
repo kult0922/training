@@ -104,4 +104,87 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe 'search' do
+    describe 'order_by_due_date' do
+      before do
+        FactoryBot.create_list(:task, 5, :with_order_by_due_date)
+      end
+      let(:task_order_by_due_date) { Task.order_by_due_date(order_type) }
+      let(:task_regular_order) { Task.order(due_date: order_type) }
+      context 'asc' do
+        let(:order_type) { :asc }
+        it 'order by asc' do
+          expect(task_order_by_due_date).to eq(task_regular_order)
+        end
+      end
+
+      context 'desc' do
+        let(:order_type) { :desc }
+        it 'order by asc' do
+          expect(task_order_by_due_date).to eq(task_regular_order)
+        end
+      end
+    end
+
+    describe 'search_by_title' do
+      before do
+        FactoryBot.create(:task, title: 'tiger elephant gorilla')
+        FactoryBot.create(:task, title: 'rabbit rat')
+        FactoryBot.create(:task, title: 'bear elephant')
+        FactoryBot.create(:task, title: 'monkey')
+        FactoryBot.create(:task, title: 'zebra deer')
+      end
+
+      let(:task) { Task.search_by_title(search_word) }
+      context 'title is present' do
+        let(:search_word) { 'elephant' }
+        it 'is 2 records' do
+          expect(task.size).to eq(2)
+        end
+
+        it 'include search record' do
+          expect(task[0].title).to include(search_word)
+          expect(task[1].title).to include(search_word)
+        end
+      end
+
+      context 'title is blank' do
+        let(:search_word) { '' }
+        it 'is 5 records' do
+          expect(task.size).to eq(5)
+        end
+      end
+    end
+
+    describe 'search_by_status' do
+      before do
+        FactoryBot.create(:task, status: 'waiting')
+        FactoryBot.create(:task, status: 'working')
+        FactoryBot.create(:task, status: 'done')
+        FactoryBot.create(:task, status: 'waiting')
+        FactoryBot.create(:task, status: 'done')
+      end
+
+      let(:task) { Task.search_by_status(status) }
+      context 'status is present' do
+        let(:status) { 'done' }
+        it 'is 2 records' do
+          expect(task.size).to eq(2)
+        end
+
+        it 'include search record' do
+          expect(task[0].status).to eq('done')
+          expect(task[1].status).to eq('done')
+        end
+      end
+
+      context 'status is blank' do
+        let(:status) { '' }
+        it 'all records' do
+          expect(task.size).to eq(5)
+        end
+      end
+    end
+  end
 end

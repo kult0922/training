@@ -11,10 +11,13 @@ ja:
       title: 新しいタスクの作成
     search_form:
       title: 検索フォーム
+      search_for_title: タイトルで検索
+      search_for_status: ステータスで検索
       due_date_order: 期限で並べ替え
       due_date_order_asc: 昇順
       due_date_order_desc: 降順
       button: 検索する
+      search_error: 検索でエラーが発生しました。時間を置いて再度お試しください
     link:
       show: 詳細
       edit: 編集

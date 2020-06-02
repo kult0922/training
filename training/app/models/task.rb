@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  paginates_per 10
   validates :title, length: { maximum: 50 }
   validates :title, :priority, :status, presence: true
   validate  :due_date_not_before_today
@@ -18,6 +19,16 @@ class Task < ApplicationRecord
   def self.order_by_due_date(due_date_order)
     due_date_order = :asc if due_date_order.blank?
     order(due_date: due_date_order)
+  end
+
+  def self.search_by_title(title)
+    return all if title.blank?
+    where('title like ?', "%#{title}%")
+  end
+
+  def self.search_by_status(status)
+    return all if status.blank?
+    where(status: status)
   end
 
   def due_date_not_before_today
