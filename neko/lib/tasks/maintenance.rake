@@ -5,12 +5,19 @@ namespace :maintenance do
       File.open('tmp/maintenance.txt', 'w') do |f|
         f.write('')
       end
+      puts 'Maintenance begins.'
+    else
+      puts "It's already under maintenance."
     end
-    puts 'Maintenance begins.'
+    
   end
 
   task :finish do
-    puts 'Maintenance is over.'
-    File.delete('tmp/maintenance.txt')
+    if File.exist?('tmp/maintenance.txt')
+      File.delete('tmp/maintenance.txt')
+      puts 'Maintenance is over.'
+    else
+      puts "It's not under maintenance."
+    end
   end
 end

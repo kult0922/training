@@ -76,4 +76,9 @@ RSpec.configure do |config|
 
   # 'FactoryBot.' can be omitted.
   config.include FactoryBot::Syntax::Methods
+
+  # load rake tasks
+  config.before(:suite) do
+    Rails.application.load_tasks
+  end
 end
