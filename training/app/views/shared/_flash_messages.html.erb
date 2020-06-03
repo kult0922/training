@@ -1,0 +1,9 @@
+<% if flash.any? %>
+  <% flash.each do |key, value| %>
+    <% type = 'success' if key == 'notice' %>
+    <% type = 'danger' if key == 'alert' %>
+    <div class="alert alert-<%= type %>" role="alert">
+      <%= value %>
+    </div>
+  <% end %>
+<% end %>
