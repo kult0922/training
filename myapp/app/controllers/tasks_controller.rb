@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_users, only: [:new, :edit]
-  before_action :set_select_status, only: [:index, :new, :edit]
+  before_action :set_task_statuses, only: [:index, :new, :edit]
   PAGE_PER = 5
 
   def index
@@ -74,7 +74,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def set_select_status
+  def set_task_statuses
     @task_statuses = Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
   end
 
