@@ -2,7 +2,7 @@
   <%= label_tag :title_search, t('.title_search'), class: 'col-form-label' %>
   <%= text_field_tag(:title, search_tasks.title, placeholder: t('.search_placeholder'), class: 'form-control col-sm-6') %>
   <%= label_tag :status_search, t('.status_search'), class: 'col-form-label' %>
-  <%= select_tag(:status, options_for_select(status, search_tasks.title), include_blank: true, class: 'form-control col-sm-2') %>
+  <%= select_tag(:status, options_for_select(select_status, search_tasks.title), include_blank: true, class: 'form-control col-sm-2') %>
   <%= submit_tag 'Search', class: 'btn btn-secondary ml-2' %>
   <%= link_to 'New Task', new_task_path, class: 'btn btn-primary float-right new-task' %>
 <% end %>

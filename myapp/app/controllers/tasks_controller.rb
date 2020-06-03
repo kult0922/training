@@ -75,7 +75,7 @@ class TasksController < ApplicationController
   end
 
   def set_select_status
-    @status = Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
+    @select_status = Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
   end
 
   def set_users
