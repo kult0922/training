@@ -59,7 +59,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    action_name = I18n.t('update')
+    action_name = I18n.t('delete')
     if @task.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: action_name)
       redirect_to tasks_path

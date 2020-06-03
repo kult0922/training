@@ -20,12 +20,12 @@
               <p><%= @current_user.name %></p>
             </div>
             <div class="button-container">
-              <% if current_page?(controller: 'users') %>
+              <% if request.path_info.include?('users')  %>
                 <%= link_to I18n.t('users.new.title'), new_user_path , class: "btn-push" %>
-              <% elsif current_page?(controller: 'tasks') %>
-                <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
-              <% else %>
+              <% elsif request.path_info.include?('labels') %>
                 <%= link_to I18n.t('labels.new.title'), new_label_path , class: "btn-push" %>
+              <% else %>
+                <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
               <% end %>
             </div>
             <div><%= link_to I18n.t('tasks.index.title'), tasks_path %></div>

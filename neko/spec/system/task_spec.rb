@@ -112,7 +112,7 @@ describe 'task', type: :system do
   end
 
   describe '#new (GET /tasks/new)' do
-    before { visit new_label_path }
+    before { visit new_task_path }
 
     context 'name is more than one letter' do
       it 'should be success to create' do
