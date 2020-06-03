@@ -44,6 +44,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    action_name = I18n.t('delete')
     if only_one_admin?
       flash[:danger] = '管理ユーザーが一人なので削除できません。'
       redirect_to users_path
