@@ -6,3 +6,5 @@ ja:
     flash:
       create: ログインに成功しました
       create_fail: ログインに失敗しました、メールアドレスかパスワードが間違っております
+      destroy: ログアウトに成功しました
+      not_authrize: ログインしてください
