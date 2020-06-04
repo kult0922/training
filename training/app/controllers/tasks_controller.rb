@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page])
+    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
   end
 
   def show; end
@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(tasks_params)
+    @task = Task.new(**tasks_params, user_id: current_user.id)
     if @task.save
       redirect_to tasks_path, notice: t('tasks.flash.create')
     else
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   def search
     begin
-      @tasks = Task
+      @tasks = current_user.tasks
         .order_by_due_date(params[:due_date_order].to_sym)
         .search_by_title(params[:title])
         .search_by_status(params[:status])
