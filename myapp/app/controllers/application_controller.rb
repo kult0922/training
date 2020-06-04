@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
   def rescue500
     render 'errors/internal_server_error', status: 500
   end
+
+  def require_login
+    unless logged_in?
+      flash[:danger] = 'ログインしてください'
+      redirect_to login_path
+    end
+  end
 end

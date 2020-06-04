@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
+  include SessionsHelper
   before_action :set_users, only: [:new, :edit]
   before_action :set_select_status, only: [:index, :new, :edit]
+  before_action :require_login
   PAGE_PER = 5
 
   def index
