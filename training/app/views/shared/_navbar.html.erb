@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <%= link_to t('navbar.title'), root_path, class: 'navbar-brand' %>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to t('tasks.index.title'), tasks_path, class: 'nav-link' %>
+      </li>
+    </ul>
+    <span class="nav-link text-light"><%= current_user.name %>さん</span>
+  </div>
+</nav>

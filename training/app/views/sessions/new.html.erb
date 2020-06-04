@@ -1,0 +1,13 @@
+<h1><%= t '.title' %></h1>
+
+<%= form_with url: sessions_path, local: true, method: :post, class: 'form-group' do |f| %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control col-4' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control col-4' %>
+  </div>
+  <%= f.submit t('.login_button'), class: 'btn btn-primary' %>
+<% end %>

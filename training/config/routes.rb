@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
+  resources :sessions, only: [:new, :create]
 
   # どのルーティングにもマッチしなかったら、404ページにリダイレクト
   get '*path', controller: 'application', action: 'rescue404'
