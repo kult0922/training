@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 2020_06_05_041317) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "due_at", null: false
     t.boolean "have_a_due", default: false, null: false
-    t.integer "status", default: 0, null: false
     t.bigint "user_id", null: false
+    t.integer "status", default: 0, null: false
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
