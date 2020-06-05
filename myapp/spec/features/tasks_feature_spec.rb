@@ -5,6 +5,13 @@ describe 'Task', type: :feature do
   let!(:task1) { create(:task, deadline: Time.zone.today) }
   let!(:task2) { create(:task, deadline: Time.zone.today + 1) }
   let!(:task3) { create(:task, deadline: Time.zone.today + 2) }
+  let(:user) { create(:user) }
+  before do
+    visit login_path
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_on 'ログイン'
+  end
   describe '#index' do
     context 'when opning index' do
       it 'The screen is displayed collectly' do
