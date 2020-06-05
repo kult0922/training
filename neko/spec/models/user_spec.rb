@@ -1,18 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context 'name is not blank' do
+  context 'name is between 4 and 15 characters' do
     it 'should be success' do
-      t = User.new(name: 'user')
-      expect(t).to be_valid
+      user = User.new(name: 'user')
+      expect(user).to be_valid
     end
   end
 
-  context 'name is blank' do
+  context 'name is less than 4 letters' do
     it 'should be failure' do
-      t = User.new(name: '')
-      t.valid?
-      expect(t.errors.full_messages).to eq ['名前を入力してください']
+      user = User.new(name: 'abc')
+      user.valid?
+      expect(user.errors.full_messages).to eq ['名前は4文字以上で入力してください']
+    end
+  end
+
+  context 'name is less than 15 letters' do
+    it 'should be failure' do
+      user = User.new(name: '0123456789abcdef')
+      user.valid?
+      expect(user.errors.full_messages).to eq ['名前は15文字以内で入力してください']
+    end
+  end
+
+  context 'name is duplicate (case-insensitive）' do
+    it 'should be failure' do
+      user = User.create!(name: 'user')
+      duplicate_user = User.new(name: user.name.upcase)
+      duplicate_user.valid?
+      expect(duplicate_user.errors.full_messages).to eq ['名前はすでに存在します']
     end
   end
 end
