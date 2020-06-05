@@ -1,12 +1,5 @@
 <h1><%= t('tasks.index.title') %></h1>
-<%= form_tag(tasks_path, method: :get, class: 'form-row py-5') do %>
-  <%= label_tag :title_search, t('.title_search'), class: 'col-form-label' %>
-  <%= text_field_tag(:title, @search_tasks.title, placeholder: t('.search_placeholder'), class: 'form-control col-sm-6') %>
-  <%= label_tag :status_search, t('.status_search'), class: 'col-form-label' %>
-  <%= select_tag(:status, options_for_select(Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h, @search_tasks.title), include_blank: true, class: 'form-control col-sm-2') %>
-  <%= submit_tag 'Search', class: 'btn btn-secondary ml-2' %>
-  <%= link_to 'New Task', new_task_path, class: 'btn btn-primary float-right new-task' %>
-<% end %>
+<%= render 'search', search_tasks: @search_tasks, task_statuses: @task_statuses %>
 <table class="table mt-2">
   <thead class="thead-light">
     <tr>
@@ -15,6 +8,7 @@
       <th><%= create_sort_link('deadline', @search_tasks.title, @search_tasks.status, @sort) %></th>
       <th><%= Task.human_attribute_name(:created_at) %></th>
       <th><%= create_sort_link('status', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= User.human_attribute_name(:name) %></th>
       <th></th>
     </tr>
   </thead>
@@ -26,6 +20,7 @@
         <td><%= l t.deadline if t.deadline.present? %></td>
         <td><%= l t.created_at, format: :short %></td>
         <td><%= t.human_attribute_enum(:status) %></td>
+        <td><%= t.user.name %></td>
         <td class="btn-group">
           <%= link_to t('.detail'), t, class: 'btn btn-secondary' %>
           <%= link_to t('.edit'), edit_task_path(t), class: 'btn btn-primary' %>

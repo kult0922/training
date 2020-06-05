@@ -19,6 +19,16 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe 'Association' do
+    let(:association) { Task.reflect_on_association(terget) }
+    context 'when checking user association' do
+      let(:terget) { :user }
+      it 'return belongs_to association' do
+        expect(association.macro).to eq :belongs_to
+      end
+    end
+  end
+
   describe 'search' do
     let!(:task1) { create(:task, title: 'hoge', status: 'not_start') }
     let!(:task2) { create(:task, title: 'huga', status: 'underway') }

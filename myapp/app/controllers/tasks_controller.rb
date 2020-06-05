@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
+  before_action :set_users, only: [:new, :edit]
+  before_action :set_task_statuses, only: [:index, :new, :edit]
   PAGE_PER = 5
 
   def index
     @sort = params[:sort] if allowed_name.include?(params[:sort])
     @sort = '' if @sort.blank?
     search_form
-    @tasks = Task.search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
+    @tasks = Task.includes(:user).search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
   end
 
   def new
@@ -54,7 +56,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :memo, :deadline, :status)
+    params.require(:task).permit(:title, :memo, :deadline, :status, :user_id)
   end
 
   def allowed_name
@@ -70,5 +72,13 @@ class TasksController < ApplicationController
       flash[:danger] = t '.flash.danger'
       redirect_to tasks_path
     end
+  end
+
+  def set_task_statuses
+    @task_statuses = Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
+  end
+
+  def set_users
+    @users = User.all
   end
 end
