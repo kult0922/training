@@ -15,6 +15,12 @@ RSpec.describe 'Sessions', type: :request do
       get new_sessions_path
       expect(response).to be_successful
     end
+
+    it 'login and redirect to root path' do
+      post sessions_path, params: { email: user.email, password: user.password }
+      get new_sessions_path
+      expect(response).to redirect_to(root_path)
+    end
   end
 
   describe 'sessions#create' do
@@ -36,7 +42,7 @@ RSpec.describe 'Sessions', type: :request do
     context 'login fail' do
       context 'wrong email' do
         before do
-          post sessions_path, params: { email: 'wrong_password@test.com', password: user.password }
+          post sessions_path, params: { email: 'wrong_email@test.com', password: user.password }
         end
 
         it 'redirect to new_session_path' do
