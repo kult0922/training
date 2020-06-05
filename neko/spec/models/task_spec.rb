@@ -1,14 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let!(:user1) { FactoryBot.create(:user) }
-
-  let!(:task1) { create(:task, name: 'task1', status: 0, user: user1) }
-  let!(:task2) { create(:task, name: 'task2', status: 1, user: user1) }
-  let!(:task3) { create(:task, name: 'task3', status: 2, user: user1) }
-  let!(:task4) { create(:task, name: 'task4', status: 1, user: user1) }
-  let!(:taskA) { create(:task, name: 'タスクA', status: 0, user: user1) }
-  let!(:taskB) { create(:task, name: 'タスクB', status: 2, user: user1) }
+  let!(:user1) { create(:user) }
 
   context 'name is not blank' do
     it 'should be success' do
@@ -34,6 +27,13 @@ RSpec.describe Task, type: :model do
   end
 
   context 'search function' do
+    let!(:task1) { create(:task, name: 'task1', status: 0, user: user1) }
+    let!(:task2) { create(:task, name: 'task2', status: 1, user: user1) }
+    let!(:task3) { create(:task, name: 'task3', status: 2, user: user1) }
+    let!(:task4) { create(:task, name: 'task4', status: 1, user: user1) }
+    let!(:taskA) { create(:task, name: 'タスクA', status: 0, user: user1) }
+    let!(:taskB) { create(:task, name: 'タスクB', status: 2, user: user1) }
+
     it 'search tasks by name & status' do
       test_cases = [
         { name: 'task', status: 1, user: user1 },
