@@ -46,4 +46,13 @@ RSpec.describe "Sessions", type: :system do
     expect(current_path).to eq(new_sessions_path)
     expect(page).to have_content I18n.t('sessions.flash.destroy')
   end
+
+  scenario 'restrict_own_task' do
+    task = FactoryBot.create(:task)
+    login(user)
+
+    visit edit_task_path(task)
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content I18n.t('tasks.flash.restrict_own_task')
+  end
 end
