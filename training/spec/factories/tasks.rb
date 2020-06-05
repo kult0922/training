@@ -5,6 +5,7 @@ FactoryBot.define do
     priority { 'low' }
     status { 'waiting' }
     due_date { Time.now + 1.day }
+    association :user
 
     trait :with_order_by_created_at do
       now = Time.now

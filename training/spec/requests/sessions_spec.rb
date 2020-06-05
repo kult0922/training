@@ -10,7 +10,7 @@ RSpec.describe 'Sessions', type: :request do
     end
   end
 
-  describe 'sessions#new' do
+  describe 'new' do
     it 'access ok' do
       get new_sessions_path
       expect(response).to be_successful
@@ -23,7 +23,7 @@ RSpec.describe 'Sessions', type: :request do
     end
   end
 
-  describe 'sessions#create' do
+  describe 'create' do
     context 'login success' do
       before do
         post sessions_path, params: { email: user.email, password: user.password }
@@ -71,7 +71,7 @@ RSpec.describe 'Sessions', type: :request do
       end
     end
 
-    describe 'sessions#destroy' do
+    describe 'destroy' do
       before do
         post sessions_path, params: { email: user.email, password: user.password }
         delete sessions_path

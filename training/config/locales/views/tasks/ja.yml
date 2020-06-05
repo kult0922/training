@@ -27,5 +27,6 @@ ja:
       create: タスクが作成されました
       update: タスクが更新されました
       delete: タスクが削除されました
+      restrict_own_task: 他のユーザのタスクは更新できません
     confirm:
       delete: 削除しますか？
