@@ -13,7 +13,7 @@ RSpec.describe Task, type: :model do
   context 'name is blank' do
     it 'should be failure' do
       task = Task.new(name: '', description: '', user: user1)
-      task.valid?
+      expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['名前を入力してください']
     end
   end
@@ -21,7 +21,7 @@ RSpec.describe Task, type: :model do
   context 'user_id is null' do
     it 'should be failure' do
       task = Task.new(name: 'hoge', description: '')
-      task.valid?
+      expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['作成者を入力してください']
     end
   end
