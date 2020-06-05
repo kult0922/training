@@ -9,6 +9,7 @@ ja:
         status: ステータス
         have_a_due: 期日を設定する
         due_at: 期限
+        user: 作成者
   enums:
     task:
       status:

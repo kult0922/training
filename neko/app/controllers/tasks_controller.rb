@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @search = { name: params[:name], status: params[:status] }
-    @tasks = Task.search(@search).rearrange(sort_column, sort_direction).page(params[:page]).per(PER)
+    @tasks = Task.eager_load(:user).search(@search).rearrange(sort_column, sort_direction).page(params[:page]).per(PER)
   end
 
   def new
@@ -15,6 +15,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     trunc_sec_due_at
+    # TODO: Remove it as soon as the user's processing is implemented.
+    @task.user = User.first
 
     if @task.save
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
