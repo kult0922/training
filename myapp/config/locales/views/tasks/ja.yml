@@ -30,10 +30,6 @@ ja:
       title_search: 'title'
       status_search: 'status'
       search_placeholder: 'タイトルを入力'
-    session:
-      flash:
-        sesson_danger: 'パスワードが一致しません'
-        mail_danger: 'emailと一致するユーザーがいません'
   views:
     pagination:
       first: '&laquo; 最初'

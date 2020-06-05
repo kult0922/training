@@ -7,8 +7,10 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
+      flash[:success] = t '.flash.success'
       redirect_to login_path
     else
+      flash.now[:danger] = t '.flash.danger'
       render :new
     end
   end

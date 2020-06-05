@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   def create
     if @user.authenticate(session_params[:password])
       log_in(@user)
+      flash[:success] = t ('.flash.sesson_success')
       redirect_to tasks_path
     else
       flash.now[:danger] = t ('.flash.sesson_danger')
@@ -16,6 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout if logged_in?
+    flash[:success] = t ('.flash.logout_success')
     redirect_to login_path
   end
 
