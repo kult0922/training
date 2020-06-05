@@ -196,7 +196,7 @@ RSpec.describe "Tasks", type: :system do
         click_button I18n.t('tasks.search_form.button')
 
         expect(current_path).to eq(tasks_path)
-        expect(page).to have_content '検索でエラーが発生しました。時間を置いて再度お試しください'
+        expect(page).to have_content I18n.t('tasks.search_form.search_error')
       end
     end
   end
