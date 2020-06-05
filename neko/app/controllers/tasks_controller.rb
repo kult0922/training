@@ -6,7 +6,11 @@ class TasksController < ApplicationController
 
   def index
     @search = { name: params[:name], status: params[:status] }
-    @tasks = Task.eager_load(:user).where(user: @current_user).search(@search).rearrange(sort_column, sort_direction).page(params[:page]).per(PER)
+    @tasks = Task.eager_load(:user)
+                 .where(user: @current_user)
+                 .search(@search)
+                 .rearrange(sort_column, sort_direction)
+                 .page(params[:page]).per(PER)
   end
 
   def new
