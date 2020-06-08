@@ -9,7 +9,7 @@ class TasksController < ApplicationController
                  .where(user: @current_user)
                  .search(@search)
                  .rearrange(sort_column, sort_direction)
-                 .page(params[:page]).per(PER)
+                 .page(params[:page])
   end
 
   def new
@@ -21,9 +21,10 @@ class TasksController < ApplicationController
     trunc_sec_due_at
 
     if @task.save
-      redirect_to tasks_path, flash: { success: I18n.t('flash.model.succeeded', target: I18n.t(@task.model_name.human), action: '作成') }
+      redirect_to tasks_path
+      flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: I18n.t(@task.model_name.human), action: '作成')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @task.model_name.human, action: I18n.t(action_name))
       render :new
     end
   end
@@ -36,18 +37,20 @@ class TasksController < ApplicationController
     trunc_sec_due_at
 
     if @task.update(task_params)
-      redirect_to task_path(@task), flash: { success: I18n.t('flash.model.succeeded', target: I18n.t(@task.model_name.human), action: '更新') }
+      redirect_to task_path(@task)
+      flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: I18n.t(@task.model_name.human), action: '更新')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @task.model_name.human, action: I18n.t(action_name))
       render :edit
     end
   end
 
   def destroy
     if @task.destroy
-      redirect_to tasks_path, flash: { success: I18n.t('flash.model.succeeded', target: I18n.t(@task.model_name.human), action: '削除') }
+      redirect_to tasks_path
+      flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: I18n.t(@task.model_name.human), action: '削除')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @task.model_name.human, action: I18n.t(action_name))
       render :show
     end
   end
