@@ -1,8 +1,4 @@
-3.times do |n|
-  User.create!(
-    name: "user#{n}"
-  )
-end
+user = User.create!(name: 'user')
 
 AuthInfo.create!(email: 'abc@example.com', password: 'password', user: user)
 
