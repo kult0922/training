@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     @sort = params[:sort] if allowed_name.include?(params[:sort])
     @sort = '' if @sort.blank?
     search_form
-    @tasks = Task.includes(:user).search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
+    @tasks = Task.where(user_id: current_user.id).includes(:user).search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
   end
 
   def new

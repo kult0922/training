@@ -2,9 +2,9 @@ require 'rails_helper'
 require 'capybara/rspec'
 
 describe 'Task', type: :feature do
-  let!(:task1) { create(:task, deadline: Time.zone.today) }
-  let!(:task2) { create(:task, deadline: Time.zone.today + 1) }
-  let!(:task3) { create(:task, deadline: Time.zone.today + 2) }
+  let!(:task1) { create(:task, deadline: Time.zone.today, user: user) }
+  let!(:task2) { create(:task, deadline: Time.zone.today + 1, user: user) }
+  let!(:task3) { create(:task, deadline: Time.zone.today + 2, user: user) }
   let(:user) { create(:user) }
   before do
     visit login_path
@@ -48,6 +48,19 @@ describe 'Task', type: :feature do
         select('完了', from: 'status')
         click_button 'Search'
         expect(page).to have_content '完了'
+      end
+    end
+
+    context 'when showing current_user', :skip_before do
+      let(:current_user) { create(:user) }
+      let!(:current_users_task) { create(:task, deadline: Time.zone.today, user: current_user) }
+      it 'return current users tasks size' do
+        visit login_path
+        fill_in 'Email', with: current_user.email
+        fill_in 'Password', with: current_user.password
+        click_on 'ログイン'
+        task_all = all('.task')
+        expect(task_all.size).to eq 1
       end
     end
   end
@@ -110,7 +123,7 @@ describe 'Task', type: :feature do
   end
 
   describe 'paginate' do
-    let!(:tasks) { create_list(:task, 17) }
+    let!(:tasks) { create_list(:task, 17, user: user) }
     context 'when 2 button clicked' do
       it 'show 5 and 10 task' do
         visit tasks_path
