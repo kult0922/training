@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
   before_action :logged_in_user
-  PER = 20
 
   def index
-    @users = User.includes(:tasks).all.page(params[:page]).per(PER)
+    @users = User.includes(:tasks).all.page(params[:page])
   end
 
   def new
@@ -16,10 +15,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '作成')
+      flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       redirect_to users_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '作成')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @user.model_name.human, action: I18n.t(action_name))
       render :new
     end
   end
@@ -28,21 +27,21 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '更新')
+      flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       redirect_to users_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '更新')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @user.model_name.human, action: I18n.t(action_name))
       render :edit
     end
   end
 
   def destroy
     if @user.destroy
-      flash[:success] = I18n.t('flash.model.succeeded', target: 'ユーザー', action: '削除')
-      log_out if @user == @current_user
+      flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
+      log_out if @user == current_user
       redirect_to users_path
     else
-      flash.now[:danger] = I18n.t('flash.model.failed', target: 'ユーザー', action: '削除')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @user.model_name.human, action: I18n.t(action_name))
       render :index
     end
   end
