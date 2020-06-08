@@ -7,6 +7,14 @@ Rails.application.routes.draw do
   end
   resource :sessions, only: [:new, :create, :destroy]
 
+  namespace :admin do
+    root to: 'users#index'
+    resource :sessions, only: [:new, :create, :destroy]
+    resources :users do
+      resources :tasks, only: [:index]
+    end
+  end
+
   # どのルーティングにもマッチしなかったら、404ページにリダイレクト
   get '*path', controller: 'application', action: 'rescue404'
 end

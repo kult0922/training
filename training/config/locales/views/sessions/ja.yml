@@ -5,6 +5,8 @@ ja:
       email: メールアドレス
       password: パスワード
       login_button: ログイン
+    admin:
+      title: 管理者ログインフォーム
     flash:
       create: ログインに成功しました
       create_fail: ログインに失敗しました、メールアドレスかパスワードが間違っております

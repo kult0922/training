@@ -4,3 +4,5 @@ ja:
     login: ログイン
     logout: ログアウト
     Mr: さん
+    admin:
+      title: 管理者画面
