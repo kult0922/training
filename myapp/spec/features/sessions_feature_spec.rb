@@ -13,9 +13,9 @@ describe 'Session', type: :feature do
         expect(page).to have_content 'ログインしました'
       end
     end
-    
+
     context 'when inputting wrong email' do
-      it 'show error message'do
+      it 'show error message' do
         visit login_path
         fill_in 'Email', with: 'a'
         fill_in 'Password', with: user.password
@@ -25,7 +25,7 @@ describe 'Session', type: :feature do
     end
 
     context 'when inputting wrong password' do
-      it 'show error message'do
+      it 'show error message' do
         visit login_path
         fill_in 'Email', with: user.email
         fill_in 'Password', with: 'a'

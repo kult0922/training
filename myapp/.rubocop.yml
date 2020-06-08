@@ -21,6 +21,6 @@ Style/FrozenStringLiteralComment:
 Style/GuardClause:
   Enabled: false
 Metrics/AbcSize:
-  Max: 20
+  Max: 25
 Style/BlockComments:
   Enabled: false

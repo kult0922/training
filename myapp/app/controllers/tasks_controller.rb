@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   include SessionsHelper
-  before_action :set_users, only: [:new, :edit]
-  before_action :set_task_statuses, only: [:index, :new, :edit]
+  before_action :set_users, only: %i[new edit]
+  before_action :set_task_statuses, only: %i[index new edit]
   before_action :require_login
   PAGE_PER = 5
 
@@ -9,7 +9,12 @@ class TasksController < ApplicationController
     @sort = params[:sort] if allowed_name.include?(params[:sort])
     @sort = '' if @sort.blank?
     search_form
-    @tasks = Task.where(user_id: current_user.id).includes(:user).search(@search_tasks.title, @search_tasks.status).order(@sort).page(params[:page]).per(PAGE_PER)
+    @tasks = Task.where(user_id: current_user.id)
+                 .includes(:user)
+                 .search(@search_tasks.title, @search_tasks.status)
+                 .order(@sort)
+                 .page(params[:page])
+                 .per(PAGE_PER)
   end
 
   def new
@@ -77,7 +82,7 @@ class TasksController < ApplicationController
   end
 
   def set_task_statuses
-    @task_statuses = Task.statuses.map {|k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
+    @task_statuses = Task.statuses.map { |k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
   end
 
   def set_users
