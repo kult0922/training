@@ -10,3 +10,7 @@ ja:
   errors:
     messages:
       blank: "を入力してください"
+
+  create: '作成'
+  update: '更新'
+  destroy: '削除'
