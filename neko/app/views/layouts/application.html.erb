@@ -17,7 +17,7 @@
           <nav>
             <h1><%= link_to 'Neko', root_path, class: 'title-neko' %></h1>
             <div class="user-name">
-              <p><%= @current_user.name %></p>
+              <p><%= current_user.name %></p>
             </div>
             <div class="button-container">
               <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>

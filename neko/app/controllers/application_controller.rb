@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper
+  helper_method :logged_in?, :current_user
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
@@ -18,6 +18,27 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def log_in(user)
+    session[:user_id] = user.id
+  end
+
+  def logged_in?
+    current_user
+  end
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def current_user?(user)
+    user == current_user
+  end
+
+  def log_out
+    session.delete(:user_id)
+    @current_user = nil
+  end
 
   def logged_in_user
     redirect_to login_url unless logged_in?
