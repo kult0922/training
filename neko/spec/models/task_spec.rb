@@ -50,7 +50,7 @@ RSpec.describe Task, type: :model do
       ]
 
       test_cases.each_with_index do |test_case, i|
-        expect(Task.search(test_case)).to eq outputs[i]
+        expect(Task.where(user: test_case[:user]).search(test_case)).to eq outputs[i]
       end
     end
   end

@@ -3,18 +3,27 @@ require 'rails_helper'
 describe 'task', type: :system do
   let!(:user1) { create(:user, name: 'user1') }
   let!(:user2) { create(:user, name: 'user2') }
-  let!(:user3) { create(:user, name: 'user3') }
+  let!(:auth1) { create(:auth, user: user1) }
+
   let!(:task1) do
     create(:task, name: 'task1', description: 'a', status: 1,
-                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: user3)
+                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: user1)
   end
   let!(:task2) do
     create(:task, name: 'task2', description: 'c', status: 2,
-                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: user2)
+                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: user1)
   end
   let!(:task3) do
     create(:task, name: 'task3', description: 'b', status: 0,
                   have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), user: user1)
+  end
+  let!(:task4) { create(:task, name: 'task4', user: user2) }
+
+  before do
+    visit 'login'
+    fill_in 'Email', with: 'test@example.com'
+    fill_in 'Password', with: 'testpassword'
+    click_on 'ログイン'
   end
 
   describe '#index' do
@@ -43,8 +52,7 @@ describe 'task', type: :system do
           { button: '説明', order: %w[task2 task3 task1] },
           { button: '作成日', order: %w[task3 task2 task1] },
           { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] },
-          { button: 'ステータス', order: %w[task2 task1 task3] },
-          { button: '作成者', order: %w[task1 task2 task3] }
+          { button: 'ステータス', order: %w[task2 task1 task3] }
         ]
 
         test_cases.each do |test_case|
@@ -129,7 +137,7 @@ describe 'task', type: :system do
         expect(page).to have_content 'a'
         expect(page).to have_content '着手中'
         expect(page).to have_content '2020/09/30 17:30'
-        expect(page).to have_content 'user3'
+        expect(page).to have_content 'user1'
       end
     end
   end

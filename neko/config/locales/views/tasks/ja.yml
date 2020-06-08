@@ -9,4 +9,4 @@ ja:
     new:
       title: タスク作成
     delete:
-      confirm: タスクを削除しますか？
+      confirm: 'タスクを削除しますか？'

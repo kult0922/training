@@ -12,6 +12,16 @@
 
 ActiveRecord::Schema.define(version: 2020_06_05_041317) do
 
+  create_table "auth_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_auth_infos_on_email", unique: true
+    t.index ["user_id"], name: "index_auth_infos_on_user_id"
+  end
+
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -19,8 +29,8 @@ ActiveRecord::Schema.define(version: 2020_06_05_041317) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "due_at", null: false
     t.boolean "have_a_due", default: false, null: false
-    t.integer "status", default: 0, null: false
     t.bigint "user_id", null: false
+    t.integer "status", default: 0, null: false
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
@@ -32,5 +42,6 @@ ActiveRecord::Schema.define(version: 2020_06_05_041317) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
+  add_foreign_key "auth_infos", "users"
   add_foreign_key "tasks", "users"
 end

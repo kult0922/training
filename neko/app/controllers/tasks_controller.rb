@@ -1,11 +1,15 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  PER = 20
+  before_action :logged_in_user
 
   def index
     @search = { name: params[:name], status: params[:status] }
-    @tasks = Task.eager_load(:user).search(@search).rearrange(sort_column, sort_direction).page(params[:page]).per(PER)
+    @tasks = Task.eager_load(:user)
+                 .where(user: @current_user)
+                 .search(@search)
+                 .rearrange(sort_column, sort_direction)
+                 .page(params[:page])
   end
 
   def new
@@ -13,16 +17,14 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = @current_user.tasks.new(task_params)
     trunc_sec_due_at
-    # TODO: Remove it as soon as the user's processing is implemented.
-    @task.user = User.first
 
     if @task.save
-      flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
       redirect_to tasks_path
+      flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
     else
-      flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '作成')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @task.model_name.human, action: I18n.t(action_name))
       render :new
     end
   end
@@ -35,20 +37,20 @@ class TasksController < ApplicationController
     trunc_sec_due_at
 
     if @task.update(task_params)
-      flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '更新')
       redirect_to task_path(@task)
+      flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
     else
-      flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '更新')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @task.model_name.human, action: I18n.t(action_name))
       render :edit
     end
   end
 
   def destroy
     if @task.destroy
-      flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '削除')
       redirect_to tasks_path
+      flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
     else
-      flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '削除')
+      flash.now[:danger] = I18n.t('flash.model.failed', target: @task.model_name.human, action: I18n.t(action_name))
       render :show
     end
   end

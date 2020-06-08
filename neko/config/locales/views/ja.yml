@@ -1,9 +1,15 @@
 ja:
   flash:
-    succeeded: "%{target}を%{action}しました"
-    failed: "%{target}の%{action}に失敗しました"
+    model:
+      succeeded: "%{target}を%{action}しました"
+      failed: "%{target}の%{action}に失敗しました"
+    session:
+      succeeded: "%{action}しました"
+      failed: "%{action}に失敗しました"
 
-  edit: 編集
-  delete: 削除
-  back: 戻る
-  search: 検索
+  edit: '編集'
+  delete: '削除'
+  back: '戻る'
+  search: '検索'
+  login: 'ログイン'
+  logout: 'ログアウト'
