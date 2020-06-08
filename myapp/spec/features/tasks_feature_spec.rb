@@ -73,7 +73,6 @@ describe 'Task', type: :feature do
         fill_in 'Memo', with: 'hogehoge'
         select_date('2020,10,10', from: 'Deadline')
         select('完了', from: 'Status')
-        select('Taro', from: 'User', match: :first)
         click_button '登録する'
         expect(page).to have_content 'Taskは正常に作成されました'
       end
@@ -89,7 +88,6 @@ describe 'Task', type: :feature do
         fill_in 'Memo', with: 'testtest'
         select_date('2020,10,10', from: 'Deadline')
         select('着手中', from: 'Status')
-        select('Taro', from: 'User', match: :first)
 
         click_button '更新する'
         expect(page).to have_content 'Taskは正常に更新されました'
