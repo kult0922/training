@@ -2,7 +2,6 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
-  PER = 20
 
   def index
     @search = { name: params[:name], status: params[:status] }
