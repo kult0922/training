@@ -11,12 +11,12 @@
     <ul class="navbar-nav">
       <% if logged_in? %>
         <li class="nav-item">
-          <span class="nav-link text-light"><%= current_user.name %><%= t 'navbar.Mr' %></span>
+          <span class="nav-link text-light"><%= current_admin.name %><%= t 'navbar.Mr' %></span>
         </li>
       <% end %>
       <li class="nav-item">
         <%=
-          if session[:user_id]
+          if session[:admin_id]
             link_to t('navbar.logout'), sessions_path, method: :delete, class: 'nav-link'
           else
             link_to t('navbar.login'), new_sessions_path, class: 'nav-link'
