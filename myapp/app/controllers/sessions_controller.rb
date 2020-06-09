@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   def create
     if @user.authenticate(session_params[:password])
       log_in(@user)
+      remember(@user)
       flash[:success] = t '.flash.sesson_success'
       redirect_to tasks_path
     else
