@@ -21,4 +21,6 @@
   <% end %>
 </table>
 
+<%= paginate @tasks %>
+
 <%= link_to t('admin.users.link.back'), admin_users_path, class: 'btn btn-outline-dark' %>
