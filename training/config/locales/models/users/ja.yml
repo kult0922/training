@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: ユーザ名
+        email: メールアドレス
+        password: パスワード
+        is_admin: 管理者権限
+        task_count: 総タスク数
+        created_at: 作成日時
+        updated_at: 更新日時
