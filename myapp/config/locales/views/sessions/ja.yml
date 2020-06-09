@@ -8,3 +8,5 @@ ja:
     destroy:
       flash:
         logout_success: 'ログアウトしました'
+    new:
+      here: 'こちら'

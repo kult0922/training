@@ -4,3 +4,5 @@ ja:
       flash:
         success: 'ユーザー登録ができました'
         danger: 'ユーザーの作成に失敗しました'
+    new:
+      here: 'こちら'
