@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     end
   end
 
-  # どのルーティングにもマッチしなかったら、404ページにリダイレクト
-  get '*path', controller: 'application', action: 'rescue404'
+  if Rails.env.production? || Rails.env.test?
+    # どのルーティングにもマッチしなかったら、404ページにリダイレクト
+    get '*path', controller: 'application', action: 'rescue404'
+  end
 end
