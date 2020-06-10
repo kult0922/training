@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions", type: :system do
-  include LoginSupport
-
   let(:user) { FactoryBot.create(:user) }
 
   context 'not login' do

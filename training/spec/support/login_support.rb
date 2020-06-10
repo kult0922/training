@@ -6,7 +6,3 @@ module LoginSupport
     click_button I18n.t('sessions.new.login_button')
   end
 end
-
-RSpec.configure do |config|
-  config.include LoginSupport
-end

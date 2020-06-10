@@ -62,8 +62,7 @@ class TasksController < ApplicationController
 
   def restrict_own_task
     task_user_id = Task.find(params[:id]).user_id
-    unless current_user.id == task_user_id
-      redirect_to root_path, alert: t('tasks.flash.restrict_own_task')
-    end
+    return if current_user.id == task_user_id
+    redirect_to root_path, alert: t('tasks.flash.restrict_own_task')
   end
 end

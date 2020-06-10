@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Tasks", type: :system do
-  include LoginSupport
-
   before do
     login(user)
   end
