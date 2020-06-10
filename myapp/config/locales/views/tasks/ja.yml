@@ -17,12 +17,14 @@ ja:
       confirm: '消しますか？'
     edit:
       title: 'Task編集'
+      back: 'Back'
     update:
       flash:
         success: 'Taskは正常に更新されました'
         danger: 'Taskの更新に失敗しました'
     new:
       title: 'Task作成'
+      back: 'Back'
     create:
       flash:
         success: 'Taskは正常に作成されました'

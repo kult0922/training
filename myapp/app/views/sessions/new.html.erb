@@ -3,11 +3,11 @@
 <div>
   <div>
     <div><%= f.label t('.email'), class: 'col-form-label' %></div>
-    <div><%= f.text_field t('.email'), class: 'form-control' %></div>
+    <div><%= f.text_field :email, class: 'form-control' %></div>
   </div>
   <div>
     <div><%= f.label t('.password'), class: 'col-form-label' %></div>
-    <div><%= f.password_field t('.password'), class: 'form-control' %></div>
+    <div><%= f.password_field :password, class: 'form-control' %></div>
   </div>
   <div><%= f.submit t('.login'), class: 'btn btn-primary mt-2' %></div>
   <p><%= t('.registration_message') %><%= link_to t('.here'), new_user_path %></p>
