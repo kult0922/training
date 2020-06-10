@@ -12,20 +12,7 @@
 
   <body>
     <div class="wrapper">
-      <% if logged_in? %>
-        <div class="side">
-          <nav>
-            <h1><%= link_to 'Neko', root_path, class: 'title-neko' %></h1>
-            <div class="user-name">
-              <p><%= current_user.name %></p>
-            </div>
-            <div class="button-container">
-              <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
-            </div>
-          </nav>
-          <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout' %>
-        </div>
-      <% end %>
+      <%= render partial: 'layouts/sidemenu' %>
       <div class="container main">
         <%= render partial: 'layouts/notification' %>
         <%= yield %>

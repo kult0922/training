@@ -3,13 +3,18 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
 
-  def index
+  def index(user = current_user)
     @search = { name: params[:name], status: params[:status] }
     @tasks = Task.eager_load(:user)
-                 .where(user: @current_user)
+                 .where(user: user)
                  .search(@search)
                  .rearrange(sort_column, sort_direction)
                  .page(params[:page])
+  end
+
+  def list
+    @user = User.find(params[:id])
+    render action: index(@user), template: 'tasks/index'
   end
 
   def new

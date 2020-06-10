@@ -1,0 +1,28 @@
+<h2><%= I18n.t('users.index.title') %></h2>
+
+<div class='scroll'>
+  <table class='table table-striped'>
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"><%= User.human_attribute_name(:name) %></th>
+        <th scope="col"><%= I18n.t('users.index.tasks') %></th>
+        <th scope="col"><%= User.human_attribute_name(:created_at) %></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td class="user-name"><%= user.name %></td>
+          <td class="user-tasks"><%= link_to user.tasks.size, "/admin/users/#{user.id}/tasks_list" %></td>
+          <td class="user-created_at"><%= I18n.l(user.created_at) %></td>
+          <td class="user-edit"><%= link_to I18n.t('edit'), edit_user_path(user) %></td>
+          <td class="user-delete"><%= link_to I18n.t('delete'), user_path(user), method: :delete, data: { confirm: I18n.t('users.delete.confirm') } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @users %>

@@ -1,0 +1,11 @@
+ja:
+  users:
+    index: 
+      title: 'ユーザー一覧'
+      tasks: 'タスク数'
+    edit:
+      title: 'ユーザー編集'
+    new:
+      title: 'ユーザー作成'
+    delete:
+      confirm: 'ユーザーを削除しますか？'

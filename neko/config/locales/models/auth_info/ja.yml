@@ -1,10 +1,10 @@
 ja:
   activerecord:
     models:
-      auth_info: タスク
+      auth_info: ユーザー認証情報
     attributes:
       auth_info:
         email: メールアドレス
         password: パスワード
-        password_confirm: パスワード（確認用）
+        password_confirmation: パスワード（確認用）
         user: ユーザー

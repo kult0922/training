@@ -3,5 +3,5 @@ class AuthInfo < ApplicationRecord
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   has_secure_password
 
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
 end
