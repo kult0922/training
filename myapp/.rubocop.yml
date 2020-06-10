@@ -24,3 +24,6 @@ Metrics/AbcSize:
   Max: 25
 Style/BlockComments:
   Enabled: false
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'app/models/user.rb'
