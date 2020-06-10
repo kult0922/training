@@ -10,3 +10,4 @@ ja:
         logout_success: 'ログアウトしました'
     new:
       here: 'こちら'
+      login: 'ログイン'

@@ -9,7 +9,7 @@
     <div><%= f.label :password, class: 'col-form-label' %></div>
     <div><%= f.password_field :password, class: 'form-control' %></div>
   </div>
-  <div><%= f.submit 'ログイン', class: 'btn btn-primary mt-2' %></div>
+  <div><%= f.submit t('.login'), class: 'btn btn-primary mt-2' %></div>
   <p>新規登録の方は<%= link_to t('.here'), new_user_path %></p>
 </div>
 <% end %>

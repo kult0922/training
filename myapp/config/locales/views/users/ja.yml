@@ -6,3 +6,4 @@ ja:
         danger: 'ユーザーの作成に失敗しました'
     new:
       here: 'こちら'
+      registration: '登録'
