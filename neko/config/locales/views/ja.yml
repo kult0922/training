@@ -3,9 +3,9 @@ ja:
     model:
       succeeded: "%{target}を%{action}しました"
       failed: "%{target}の%{action}に失敗しました"
-    login:
-      succeeded: "ログインしました"
-      failed: "ログインに失敗しました"
+    session:
+      succeeded: "%{action}しました"
+      failed: "%{action}に失敗しました"
 
   edit: '編集'
   delete: '削除'
