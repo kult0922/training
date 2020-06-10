@@ -5,7 +5,7 @@ RSpec.describe "Admin::Sessions", type: :request do
   let(:not_admin) { FactoryBot.create(:user, is_admin: false) }
 
   context 'not logged in' do
-    it 'can not access to tasks page' do
+    it 'can not access to admin users list page' do
       get admin_users_path
       expect(response).to redirect_to(new_admin_sessions_path)
     end
@@ -35,8 +35,8 @@ RSpec.describe "Admin::Sessions", type: :request do
           expect(response).to redirect_to(admin_users_path)
         end
 
-        it 'access tasks page' do
-          get admin_root_path
+        it 'access admin users list page' do
+          get admin_users_path
           expect(response).to be_successful
         end
       end
@@ -51,7 +51,7 @@ RSpec.describe "Admin::Sessions", type: :request do
             expect(response).to redirect_to(new_admin_sessions_path)
           end
 
-          it 'can not access to tasks page' do
+          it 'can not access to admin users list page' do
             get admin_users_path
             expect(response).to redirect_to(new_admin_sessions_path)
           end
@@ -66,7 +66,7 @@ RSpec.describe "Admin::Sessions", type: :request do
             expect(response).to redirect_to(new_admin_sessions_path)
           end
 
-          it 'can not access to tasks page' do
+          it 'can not access to admin users list page' do
             get admin_users_path
             expect(response).to redirect_to(new_admin_sessions_path)
           end
@@ -84,7 +84,7 @@ RSpec.describe "Admin::Sessions", type: :request do
         expect(response).to redirect_to(new_admin_sessions_path)
       end
 
-      it 'can not access to tasks page' do
+      it 'can not access to admin users list page' do
         get admin_users_path
         expect(response).to redirect_to(new_admin_sessions_path)
       end
