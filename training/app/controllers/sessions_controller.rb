@@ -15,6 +15,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to new_sessions_path, alert: t('sessions.flash.destroy')
+    redirect_to new_sessions_path, notice: t('sessions.flash.destroy')
   end
 end
