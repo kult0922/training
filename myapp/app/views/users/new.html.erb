@@ -1,4 +1,4 @@
-<h1>ユーザー登録</h1>
+<h1><%= t('.user_registration') %></h1>
 <%= form_for(@user) do |f| %>
 <%= render 'layouts/error_messages', model: f.object %>
 <div>
@@ -19,6 +19,6 @@
     <div><%= f.text_field :password_confirmation, class: 'form-control' %></div>
   </div>
   <div><%= f.submit t('.registration'), class: 'btn btn-primary mt-2' %></div>
-  <p>ログインは<%= link_to t('.here'), login_path %></p>
+  <p><%= t('.login_message') %><%= link_to t('.here'), login_path %></p>
 </div>
 <% end %>

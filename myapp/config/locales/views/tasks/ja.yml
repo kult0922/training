@@ -5,6 +5,7 @@ ja:
       detail: '詳細'
       edit: '編集'
       delete: '削除'
+      logout: 'ログアウト'
       confirm: '消しますか？'
       flash:
         danger: '検索できない値が入力されました'

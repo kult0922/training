@@ -9,5 +9,8 @@ ja:
       flash:
         logout_success: 'ログアウトしました'
     new:
+      email: 'メールアドレス'
+      password: 'パスワード'
       here: 'こちら'
       login: 'ログイン'
+      registration_message: '新規登録の方は'
