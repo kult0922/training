@@ -14,7 +14,9 @@
       </div>
       <div class="menu">
         <p><%= link_to I18n.t('tasks.index.title'), tasks_path %></p>
-        <p><%= link_to I18n.t('users.index.title'), users_path %></p>
+        <% if admin? %>
+          <p><%= link_to I18n.t('users.index.title'), users_path %></p>
+        <% end %>
       <div>
     </nav>
     <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout' %>
