@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Errors", type: :system do
   before do
-    Rails.env = 'production'
+    login(user)
   end
+
+  let(:user) { FactoryBot.create(:user) }
 
   scenario 'forbidden' do
     allow(Task).to receive(:all).and_raise(ErrorHandlers::Forbidden)

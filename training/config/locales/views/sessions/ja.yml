@@ -2,6 +2,8 @@ ja:
   sessions:
     new:
       title: ログインフォーム
+      email: メールアドレス
+      password: パスワード
       login_button: ログイン
     flash:
       create: ログインに成功しました

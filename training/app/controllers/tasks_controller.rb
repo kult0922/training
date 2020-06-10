@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :restrict_own_task, only: %i[show edit update destroy]
 
   def index
     @tasks = current_user.tasks.order(created_at: :desc).page(params[:page])
@@ -57,5 +58,11 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
     @title ||= @task.title
+  end
+
+  def restrict_own_task
+    task_user_id = Task.find(params[:id]).user_id
+    return if current_user.id == task_user_id
+    redirect_to root_path, alert: t('tasks.flash.restrict_own_task')
   end
 end
