@@ -4,14 +4,14 @@ RSpec.describe "Admin::Sessions", type: :request do
   let(:admin) { FactoryBot.create(:user) }
   let(:not_admin) { FactoryBot.create(:user, is_admin: false) }
 
-  describe 'not login' do
+  context 'not logged in' do
     it 'can not access to tasks page' do
       get admin_users_path
       expect(response).to redirect_to(new_admin_sessions_path)
     end
   end
 
-  context 'admin' do
+  context 'login as admin' do
     describe 'new' do
       it 'access ok' do
         get new_admin_sessions_path

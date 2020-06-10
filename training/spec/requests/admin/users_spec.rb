@@ -64,6 +64,4 @@ RSpec.describe 'Admin::Users', type: :request do
       expect(response).to be_successful
     end
   end
-
-# validation
 end
