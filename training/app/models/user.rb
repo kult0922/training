@@ -6,4 +6,6 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, on: :create
+
+  scope :admin, -> { where(is_admin: true) }
 end
