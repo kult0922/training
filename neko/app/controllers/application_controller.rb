@@ -44,6 +44,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_url unless logged_in?
   end
 
+  def admin?
+    current_user.role == User.roles.keys.first
+  end
+
   def only_admin
     redirect_to root_url unless admin?
   end
