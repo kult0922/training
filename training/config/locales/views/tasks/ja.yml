@@ -9,8 +9,7 @@ ja:
       title: '%{title}のタスク更新'
     new:
       title: 新しいタスクの作成
-  admin:
-    tasks:
+    admin:
       index:
         title: タスク一覧
     search_form:
