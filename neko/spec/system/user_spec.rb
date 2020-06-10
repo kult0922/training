@@ -17,8 +17,8 @@ describe 'user', type: :system do
   end
 
   describe "#index(GET '/admin/users/')" do
-    context 'a context' do
-      it '' do
+    context 'accress users_path' do
+      it 'should be success to access the task list' do
         visit users_path
 
         expect(page).to have_content 'ユーザー一覧'
@@ -28,8 +28,8 @@ describe 'user', type: :system do
   end
 
   describe "#new (GET '/admin/users/new')" do
-    context 'a context' do
-      it '' do
+    context 'create new user' do
+      it 'should be success' do
         visit new_user_path
 
         fill_in '名前', with: 'testuser4'
