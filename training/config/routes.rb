@@ -7,6 +7,16 @@ Rails.application.routes.draw do
   end
   resource :sessions, only: [:new, :create, :destroy]
 
-  # どのルーティングにもマッチしなかったら、404ページにリダイレクト
-  get '*path', controller: 'application', action: 'rescue404'
+  namespace :admin do
+    root to: 'admin/users#index'
+    resource :sessions, only: [:new, :create, :destroy]
+    resources :users do
+      resources :tasks, only: [:index]
+    end
+  end
+
+  if Rails.env.production? || Rails.env.test?
+    # どのルーティングにもマッチしなかったら、404ページにリダイレクト
+    get '*path', controller: 'application', action: 'rescue404'
+  end
 end

@@ -1,0 +1,13 @@
+<h1><%= t 'sessions.admin.title' %></h1>
+
+<%= form_with url: admin_sessions_path, local: true, method: :post, class: 'form-group' do |f| %>
+  <div class="form-group">
+    <%= f.label t('sessions.new.email') %>
+    <%= f.email_field :email, class: 'form-control col-4' %>
+  </div>
+  <div class="form-group">
+    <%= f.label t('sessions.new.password') %>
+    <%= f.password_field :password, class: 'form-control col-4' %>
+  </div>
+  <%= f.submit t('sessions.new.login_button'), class: 'btn btn-primary col-4' %>
+<% end %>
