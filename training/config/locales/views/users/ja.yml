@@ -1,4 +1,24 @@
 ja:
   admin:
     users:
-      index: ユーザ一覧
+      index:
+        title: ユーザ一覧
+        new_user: 新しいユーザの作成
+      show:
+        title: 'ユーザ詳細'
+      edit:
+        title: 'ユーザ更新'
+      new:
+        title: 新しいユーザの作成
+      link:
+        show: 詳細
+        edit: 編集
+        delete: 削除
+        tasks: タスク一覧
+        back: 戻る
+      confirm:
+        delete: 削除しますか？
+      flash:
+        create: ユーザが作成されました
+        update: ユーザが更新されました
+        delete: ユーザが削除されました

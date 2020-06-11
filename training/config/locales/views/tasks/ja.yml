@@ -9,6 +9,9 @@ ja:
       title: '%{title}のタスク更新'
     new:
       title: 新しいタスクの作成
+    admin:
+      index:
+        title: タスク一覧
     search_form:
       title: 検索フォーム
       search_for_title: タイトルで検索

@@ -1,0 +1,22 @@
+<%= render 'shared/error_messages', model: user %>
+<%= form_with model: [:admin, user], local: true, class: 'form-group' do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control col-4' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control col-4' %>
+  </div>
+  <% if f.object.new_record? %>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control col-4' %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :is_admin %>
+    <%= f.check_box :is_admin %>
+  </div>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resource :sessions, only: [:new, :create, :destroy]
 
   namespace :admin do
-    root to: 'admin/users#index'
+    root to: 'users#index'
     resource :sessions, only: [:new, :create, :destroy]
     resources :users do
       resources :tasks, only: [:index]

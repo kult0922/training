@@ -1,0 +1,31 @@
+<h1><%= t '.title', title: @title %></h1>
+
+<table class="table table-striped">
+  <tr>
+      <th><%= User.human_attribute_name(:name) %></th>
+      <td><%= @user.name %></td>
+    </tr>
+  <tr>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <td><%= @user.email %></td>
+    </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:is_admin) %></th>
+    <td><%= @user.is_admin %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:created_at) %></th>
+    <td><%= l @user.created_at, format: :long %></td>
+  </tr>
+  <tr>
+    <th><%= Task.human_attribute_name(:updated_at) %></th>
+    <td><%= l @user.updated_at, format: :long %></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <%= link_to t('admin.users.link.edit'), edit_admin_user_path(@user), class: 'btn btn-outline-primary mr-2' %>
+      <%= link_to t('admin.users.link.delete'), admin_user_path(@user), method: :delete, class: 'btn btn-outline-danger mr-2' %>
+      <%= link_to t('admin.users.link.back'), admin_users_path, class: 'btn btn-outline-dark' %>
+    </td>
+  </tr>
+</table>

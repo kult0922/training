@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <%= link_to t('navbar.admin.title'), root_path, class: 'navbar-brand' %>
+  <%= link_to t('navbar.admin.title'), admin_root_path, class: 'navbar-brand' %>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <%= link_to t('admin.users.index'), tasks_path, class: 'nav-link' %>
+        <%= link_to t('admin.users.index.title'), admin_users_path, class: 'nav-link' %>
       </li>
     </ul>
 
@@ -17,9 +17,9 @@
       <li class="nav-item">
         <%=
           if session[:admin_id]
-            link_to t('navbar.logout'), sessions_path, method: :delete, class: 'nav-link'
+            link_to t('navbar.logout'), admin_sessions_path, method: :delete, class: 'nav-link'
           else
-            link_to t('navbar.login'), new_sessions_path, class: 'nav-link'
+            link_to t('navbar.login'), new_admin_sessions_path, class: 'nav-link'
           end
         %>
       </li>

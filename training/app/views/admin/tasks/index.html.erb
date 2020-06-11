@@ -1,0 +1,28 @@
+<h1><%= t 'tasks.admin.index.title' %></h1>
+
+<table class="table table-striped">
+  <tr>
+    <th><%= Task.human_attribute_name(:title) %></th>
+    <th><%= Task.human_attribute_name(:description) %></th>
+    <th><%= Task.human_attribute_name(:priority) %></th>
+    <th><%= Task.human_attribute_name(:status) %></th>
+    <th><%= Task.human_attribute_name(:due_date) %></th>
+    <th><%= Task.human_attribute_name(:created_at) %></th>
+    <th><%= Task.human_attribute_name(:updated_at) %></th>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= truncate(task.description, length: 50) %></td>
+      <td><%= task.priority_i18n %></td>
+      <td><%= task.status_i18n %></td>
+      <td><%= task.due_date.presence && l(task.due_date, format: :short) %></td>
+      <td><%= l task.created_at, format: :long %></td>
+      <td><%= l task.updated_at, format: :long %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @tasks %>
+
+<%= link_to t('admin.users.link.back'), admin_users_path, class: 'btn btn-outline-dark' %>
