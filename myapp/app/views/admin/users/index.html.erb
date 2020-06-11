@@ -1,5 +1,5 @@
-<h1><%= t('.title') %></h1>
-<%= link_to 'New User', new_admin_user_path, class: 'btn btn-primary float-right new-task' %> 
+<h1 class='admn-user-headline'><%= t('.title') %></h1>
+<%= link_to 'New User', new_admin_user_path, class: 'btn btn-primary float-right new-admin-user mt-2' %> 
 <table class="table">
   <thead>
     <tr>
@@ -24,3 +24,4 @@
     <% end %>
   </tbody>
 </table>
+<%= link_to t('.task'), tasks_path, class: 'btn btn-primary' %>

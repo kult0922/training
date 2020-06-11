@@ -33,4 +33,7 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @tasks %>
+<div>
+  <div class="task-paginate"><%= paginate @tasks %></div>
+  <div class="admin-user"><%= link_to t('.admin_user'), admin_users_path, class: 'btn btn-primary' %></div>
+</div>
