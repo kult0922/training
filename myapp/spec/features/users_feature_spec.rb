@@ -6,10 +6,10 @@ describe 'User', type: :feature do
     context 'when user create' do
       it 'show success message' do
         visit new_user_path
-        fill_in 'ユーザー名', with: 'Test'
-        fill_in 'Email', with: 'test@example.com'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password confirmation', with: 'password'
+        fill_in User.human_attribute_name(:name), with: 'Test'
+        fill_in User.human_attribute_name(:email), with: 'test@example.com'
+        fill_in User.human_attribute_name(:password), with: 'password'
+        fill_in User.human_attribute_name(:password_confirmation), with: 'password'
         click_button '登録'
         expect(page).to have_content 'ユーザー登録ができました'
       end
@@ -19,7 +19,7 @@ describe 'User', type: :feature do
       it 'show login form' do
         visit new_user_path
         click_link 'こちら'
-        expect(page).to have_content 'Login'
+        expect(page).to have_content I18n.t('sessions.new.login')
       end
     end
   end

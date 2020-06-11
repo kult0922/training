@@ -7,8 +7,8 @@ describe 'Session', type: :feature do
     context 'when login' do
       it 'show login message' do
         visit login_path
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password
+        fill_in 'email', with: user.email
+        fill_in 'password', with: user.password
         click_on 'ログイン'
         expect(page).to have_content 'ログインしました'
       end
@@ -17,8 +17,8 @@ describe 'Session', type: :feature do
     context 'when inputting wrong email' do
       it 'show error message' do
         visit login_path
-        fill_in 'Email', with: 'a'
-        fill_in 'Password', with: user.password
+        fill_in 'email', with: 'a'
+        fill_in 'password', with: user.password
         click_on 'ログイン'
         expect(page).to have_content 'emailと一致するユーザーがいません'
       end
@@ -27,8 +27,8 @@ describe 'Session', type: :feature do
     context 'when inputting wrong password' do
       it 'show error message' do
         visit login_path
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: 'a'
+        fill_in 'email', with: user.email
+        fill_in 'password', with: 'a'
         click_on 'ログイン'
         expect(page).to have_content 'パスワードが一致しません'
       end
@@ -47,8 +47,8 @@ describe 'Session', type: :feature do
     context 'when logout' do
       it 'show logout message' do
         visit login_path
-        fill_in 'Email', with: user.email
-        fill_in 'Password', with: user.password
+        fill_in 'email', with: user.email
+        fill_in 'password', with: user.password
         click_on 'ログイン'
         click_on 'ログアウト'
         expect(page).to have_content 'ログアウトしました'

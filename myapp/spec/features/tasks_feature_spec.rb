@@ -8,8 +8,8 @@ describe 'Task', type: :feature do
   let(:user) { create(:user) }
   before do
     visit login_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
     click_on 'ログイン'
   end
   describe '#index' do
@@ -56,8 +56,8 @@ describe 'Task', type: :feature do
       let!(:current_users_task) { create(:task, deadline: Time.zone.today, user: current_user) }
       it 'return current users tasks size' do
         visit login_path
-        fill_in 'Email', with: current_user.email
-        fill_in 'Password', with: current_user.password
+        fill_in 'email', with: current_user.email
+        fill_in 'password', with: current_user.password
         click_on 'ログイン'
         task_all = all('.task')
         expect(task_all.size).to eq 1
