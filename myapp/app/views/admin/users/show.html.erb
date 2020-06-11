@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <td><%= Admin::User.human_attribute_name(:role) %></td>
-      <td><%= @admin_user.role %></td>
+      <td><%= @admin_user.human_attribute_enum(:role) %></td>
     </tr>
   </tbody>
 </table>

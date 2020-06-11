@@ -19,6 +19,9 @@ ja:
           password: パスワード
           password_confirmation: パスワード（確認用）
           role: 役割
+        user/role:
+          default: 一般ユーザー
+          admin: 管理ユーザー
         login:
           email: メールアドレス
           password: パスワード
