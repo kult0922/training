@@ -51,10 +51,32 @@ RSpec.describe 'Admin::Users', type: :request do
   end
 
   describe 'delete' do
-    it 'delete 1 record' do
-      expect {
-        delete admin_user_path(user)
-      }.to change { User.count }.by(-1)
+    context 'delete normal user' do
+      let!(:normal_user) { FactoryBot.create(:user, is_admin: false) }
+      it 'delete 1 record' do
+        expect {
+          delete admin_user_path(normal_user)
+        }.to change { User.count }.by(-1)
+      end
+    end
+
+    context 'delete admin user' do
+      context 'two admin remain' do
+        let!(:other_admin_user) { FactoryBot.create(:user) }
+        it 'delete 1 record' do
+          expect {
+            delete admin_user_path(other_admin_user)
+          }.to change { User.count }.by(-1)
+        end
+      end
+
+      context 'one admin remain' do
+        it 'not delete record' do
+          expect {
+            delete admin_user_path(user)
+          }.to change { User.count }.by(0)
+        end
+      end
     end
   end
 

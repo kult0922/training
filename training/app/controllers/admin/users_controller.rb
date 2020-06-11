@@ -32,8 +32,12 @@ class Admin::UsersController < Admin::Base
   end
 
   def destroy
-    @user.destroy!
-    redirect_to admin_users_path, notice: t('admin.users.flash.delete')
+    if @user.is_admin? && last_admin_user?
+      redirect_to admin_users_path, alert: t('admin.users.flash.last_admin_user')
+    else
+      @user.destroy!
+      redirect_to admin_users_path, notice: t('admin.users.flash.delete')
+    end
   end
 
   private
@@ -44,5 +48,9 @@ class Admin::UsersController < Admin::Base
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def last_admin_user?
+    User.admin.count == 1
   end
 end
