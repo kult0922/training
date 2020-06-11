@@ -1,0 +1,23 @@
+ja:
+  admin:
+    users:
+      flash:
+        success: 'ユーザーの%{action}に成功しました'
+        danger: 'ユーザーの%{action}に失敗しました'
+      index:
+        title: 'ユーザー一覧'
+        detail: '詳細'
+        edit: '編集'
+        delete: '削除'
+        confirm: '削除しますか？'
+      show:
+        title: 'ユーザー詳細'
+        back: '戻る'
+        edit: '編集'
+        delete: '削除'
+      new:
+        title: 'ユーザー作成'
+      edit:
+        title: 'ユーザー編集'
+      form:
+        create: '作成'
