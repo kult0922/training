@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(version: 2020_06_11_064033) do
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["code"], name: "index_labels_on_code", unique: true
   end
 
