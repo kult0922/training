@@ -1,6 +1,6 @@
 module Admin
   class UsersController < ApplicationController
-  before_action :set_admin_user_role, only: %i[index new edit]
+  before_action :set_admin_user_role, only: %i[new create edit update]
     def index
       @admin_users = Admin::User.all
     end
