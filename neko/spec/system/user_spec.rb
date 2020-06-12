@@ -43,7 +43,7 @@ describe 'user', type: :system do
     end
   end
 
-  describe "#new (GET '/admin/users/:id/edit')" do
+  describe "#edit (GET '/admin/users/:id/edit')" do
     before { visit edit_user_path(user1.id) }
     context 'information is correct' do
       it 'should be success to update' do
@@ -80,26 +80,53 @@ describe 'user', type: :system do
         expect(page).to have_content 'ユーザーの更新に失敗しました'
       end
     end
+
+    context 'password(confirm) is wrong' do
+      it 'should be failure to update' do
+        fill_in '名前', with: 'testuser'
+        fill_in 'メールアドレス', with: 'test@example.com'
+        select '一般ユーザー', from: 'user_role'
+        fill_in 'パスワード', with: 'testpassword'
+        fill_in 'パスワード（確認用）', with: 'testpassword'
+
+        click_on '更新する'
+        expect(page).to have_content '管理ユーザーが1人なので更新できません'
+      end
+    end
   end
 
   describe '#delete (DELETE /tasks/:id)', js: true do
-    context 'push delete' do
-      before { visit users_path }
+    before { visit users_path }
 
-      it 'should be success to delete the user' do
+    context "delete a general user" do
+      it 'should be success to delete ' do
         # confirm dialog
         page.accept_confirm do
           page.all('.user-delete a')[1].click
         end
         expect(page).to have_content 'ユーザーを削除しました'
       end
+    end
 
-      it 'should be failure to delete the user' do
+    context "delete only one administrator" do
+      it 'should be failure' do
         page.accept_confirm do
           click_on '削除', match: :first
         end
-        expect(page).to have_content '管理ユーザーが一人なので削除できません'
+        expect(page).to have_content '管理ユーザーが1人なので削除できません'
       end
     end
+
+    context "delete only one administrator" do
+      it 'should be failure' do
+        create(:user, name: 'user3')
+        page.accept_confirm do
+          click_on '削除', match: :first
+        end
+        current_path.to eq(login_path)
+        expect(page).to have_content 'ユーザーを削除しました'
+      end
+    end
+
   end
 end
