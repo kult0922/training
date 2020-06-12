@@ -49,6 +49,6 @@ class ApplicationController < ActionController::Base
   end
 
   def only_admin
-    redirect_to root_url unless admin?
+    redirect_to root_url, flash: { danger: '管理者権限が必要です。' } unless admin?
   end
 end
