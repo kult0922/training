@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
-  before_action :only_admin
   before_action :logged_in_user
+  before_action :only_admin
+
 
   def index
     @users = User.includes(:tasks).all.page(params[:page])
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if only_one_admin? && params[:role_id] == 2
+    if only_one_admin? && params[:role] == 1
       flash.now[:danger] = '管理ユーザーが一人なので変更できません'
       render :edit
     elsif @user.update(user_params)
