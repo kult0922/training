@@ -22,6 +22,14 @@
     <td><%= l @task.due_date, format: :short %></td>
   </tr>
   <tr>
+    <th><%= Task.human_attribute_name(:label) %></th>
+    <td>
+      <% @task.labels.each do |label| %>
+        <span class="badge badge-primary"><%= label.name %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <td><%= l @task.created_at, format: :long %></td>
   </tr>
