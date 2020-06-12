@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :logged_in_user
   before_action :only_admin
 
-
   def index
     @users = User.includes(:tasks).all.page(params[:page])
   end
@@ -28,8 +27,9 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if only_one_admin? && params[:role] == 1
-      flash.now[:danger] = '管理ユーザーが一人なので変更できません'
+    exit(1)
+    if only_one_admin? && params[:user][:role] == User.roles.keys.first
+      flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       render :edit
     elsif @user.update(user_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def destroy
     if only_one_admin?
-      flash[:danger] = '管理ユーザーが一人なので削除できません'
+      flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       redirect_to users_path
     elsif @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   private
 
   def only_one_admin?
-    User.where(role: 0).size == 1 && @user.role == 'administrator'
+    User.where(role: 0).size == 1 && @user.role == User.roles.keys.first
   end
 
   def set_user
