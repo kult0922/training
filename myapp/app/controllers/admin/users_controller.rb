@@ -1,6 +1,6 @@
 module Admin
   class UsersController < ApplicationController
-  before_action :set_admin_user_role, only: %i[new create edit update]
+    before_action :set_admin_user_role, only: %i[new create edit update]
     def index
       @admin_users = Admin::User.all
     end
@@ -58,6 +58,5 @@ module Admin
     def set_admin_user_role
       @admin_user_roles = Admin::User.roles.map { |k, _| [Admin::User.human_attribute_enum_val(:role, k), k] }.to_h
     end
-
   end
 end
