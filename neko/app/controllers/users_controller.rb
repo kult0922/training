@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if only_one_admin? && params[:user][:role] == User.roles.keys.first
+    if only_one_admin? && params[:user][:role] != User.roles.keys.first
       flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       render :edit
     elsif @user.update(user_params)
