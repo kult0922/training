@@ -35,6 +35,11 @@ class Task < ApplicationRecord
     where(status: status)
   end
 
+  def self.search_by_label(label_id)
+    return all if label_id.blank?
+    eager_load(:task_labels).where(task_labels: { label_id: label_id })
+  end
+
   def due_date_not_before_today
     errors.add(:due_date, I18n.t('errors.messages.due_date_is_past')) if due_date.present? && due_date < Date.today
   end
