@@ -74,9 +74,10 @@ describe 'User', type: :feature do
   end
 
   describe '#delete' do
+    let(:default_user) { create(:user) }
     context 'when admin user is deleted' do
       it 'redirect_to index' do
-        visit admin_user_path(user)
+        visit admin_user_path(default_user)
         click_on I18n.t('admin.users.show.delete')
         expect(page).to have_content I18n.t('admin.users.flash.success', action: :削除)
       end
