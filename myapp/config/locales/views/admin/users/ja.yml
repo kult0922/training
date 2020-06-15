@@ -6,6 +6,7 @@ ja:
         danger: 'ユーザーの%{action}に失敗しました'
       index:
         title: 'ユーザー一覧'
+        task_size: 'タスク数'
         detail: '詳細'
         edit: '編集'
         delete: '削除'

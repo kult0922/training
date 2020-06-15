@@ -18,6 +18,7 @@ describe 'User', type: :feature do
         expect(page).to have_content I18n.t('activerecord.attributes.user.name')
         expect(page).to have_content I18n.t('activerecord.attributes.user.email')
         expect(page).to have_content I18n.t('activerecord.attributes.user.role')
+        expect(page).to have_content I18n.t('admin.users.index.task_size')
       end
     end
   end
