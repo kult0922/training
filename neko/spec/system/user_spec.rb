@@ -98,7 +98,7 @@ describe 'user', type: :system do
   describe '#delete (DELETE /tasks/:id)', js: true do
     before { visit users_path }
 
-    context "delete a general user" do
+    context 'delete a general user' do
       it 'should be success to delete ' do
         # confirm dialog
         page.accept_confirm do
@@ -108,7 +108,7 @@ describe 'user', type: :system do
       end
     end
 
-    context "delete only one administrator" do
+    context 'delete only one administrator' do
       it 'should be failure' do
         page.accept_confirm do
           click_on '削除', match: :first
@@ -117,16 +117,15 @@ describe 'user', type: :system do
       end
     end
 
-    context "delete only one administrator" do
-      it 'should be failure' do
+    context 'delete current user' do
+      it 'should be success' do
         create(:user, name: 'user3')
         page.accept_confirm do
           click_on '削除', match: :first
         end
-        current_path.to eq(login_path)
+        expect(page).to have_current_path login_path, ignore_query: true
         expect(page).to have_content 'ユーザーを削除しました'
       end
     end
-
   end
 end

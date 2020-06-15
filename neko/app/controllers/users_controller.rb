@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def destroy
     if only_one_admin?
-      flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
+      flash[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       redirect_to users_path
     elsif @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
