@@ -186,5 +186,41 @@ RSpec.describe Task, type: :model do
         end
       end
     end
+
+    describe 'search_by_label' do
+      let(:label_function_addition) { FactoryBot.create(:label_function_addition) }
+      let(:label_infrastructure) { FactoryBot.create(:label_infrastructure) }
+      let(:label_system_issue) { FactoryBot.create(:label_system_issue) }
+      let(:label_refactoring) { FactoryBot.create(:label_refactoring) }
+      let(:tasks) { FactoryBot.create_list(:task, 5) }
+
+      before do
+        tasks[0].labels << label_function_addition
+        tasks[1].labels << label_function_addition
+        tasks[2].labels << label_infrastructure
+        tasks[3].labels << label_refactoring
+        tasks[4].labels << label_infrastructure
+      end
+
+      let(:search_tasks) { Task.search_by_label(label_function_addition.id) }
+      context 'status is present' do
+        let(:status) { 'done' }
+        it 'is 2 records' do
+          expect(search_tasks.size).to eq(2)
+        end
+
+        it 'include search record' do
+          expect(search_tasks[0].labels[0].code).to eq('function_addition')
+          expect(search_tasks[1].labels[0].code).to eq('function_addition')
+        end
+      end
+
+      context 'status is blank' do
+        let(:status) { '' }
+        it 'all records' do
+          expect(tasks.size).to eq(5)
+        end
+      end
+    end
   end
 end

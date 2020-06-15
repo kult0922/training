@@ -42,6 +42,7 @@ class TasksController < ApplicationController
         .order_by_due_date(params[:due_date_order].to_sym)
         .search_by_title(params[:title])
         .search_by_status(params[:status])
+        .search_by_label(params[:label_id])
         .page(params[:page])
       render 'index'
     rescue
@@ -52,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def tasks_params
-    params.require(:task).permit(:title, :description, :priority, :status, :due_date)
+    params.require(:task).permit(:title, :description, :priority, :status, :due_date, label_ids: [])
   end
 
   def set_task

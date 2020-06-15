@@ -11,6 +11,7 @@
     <th><%= Task.human_attribute_name(:priority) %></th>
     <th><%= Task.human_attribute_name(:status) %></th>
     <th><%= Task.human_attribute_name(:due_date) %></th>
+    <th><%= Task.human_attribute_name(:label) %></th>
     <th><%= Task.human_attribute_name(:created_at) %></th>
     <th></th>
   </tr>
@@ -21,6 +22,11 @@
       <td><%= task.priority_i18n %></td>
       <td><%= task.status_i18n %></td>
       <td><%= task.due_date.presence && l(task.due_date, format: :short) %></td>
+      <td>
+        <% task.labels.each do |label| %>
+          <span class="badge badge-primary"><%= label.name %></span><br/>
+        <% end %>
+      </td>
       <td><%= l task.created_at, format: :long %></td>
       <td>
         <%= link_to t('tasks.link.show'), task_path(task) %>

@@ -14,6 +14,10 @@
         <%= form.label t('tasks.search_form.due_date_order') %>
         <%= form.select :due_date_order, [[t('tasks.search_form.due_date_order_asc'), 'asc'], [t('tasks.search_form.due_date_order_desc'), 'desc']], {selected: params[:due_date_order]}, {class: 'custom-select col-5'} %>
       </div>
+      <div class="form-group">
+        <%= form.label t('tasks.search_form.search_for_label') %>
+        <%= form.select :label_id, Label.all.map { |label| [label.name, label.id] }, {selected: params[:label_id], include_blank: t('tasks.search_form.search_for_label')}, {class: 'custom-select col-5'} %>
+      </div>
       <%= form.submit t('tasks.search_form.button'), class: 'btn btn-primary' %>
     <% end %>
   </div>

@@ -19,6 +19,7 @@ ja:
       due_date_order: 期限で並べ替え
       due_date_order_asc: 昇順
       due_date_order_desc: 降順
+      search_for_label: ラベルで検索
       button: 検索する
       search_error: 検索でエラーが発生しました。時間を置いて再度お試しください
     link:
