@@ -88,6 +88,18 @@ describe 'User', type: :feature do
       end
     end
 
+    context 'when inputting wrong confirmation passowrd' do
+      it 'show error message' do
+        visit new_user_path
+        fill_in User.human_attribute_name(:name), with: 'Test'
+        fill_in User.human_attribute_name(:email), with: 'test@example.com'
+        fill_in User.human_attribute_name(:password), with: 'password'
+        fill_in User.human_attribute_name(:password_confirmation), with: 'a'
+        click_button '登録'
+        expect(page).to have_content 'パスワード（確認用）とパスワードの入力が一致しません'
+      end
+    end
+
     context 'if you have account' do
       it 'show login form' do
         visit new_user_path
