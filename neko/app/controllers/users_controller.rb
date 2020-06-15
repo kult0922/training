@@ -27,10 +27,13 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if only_one_admin? && params[:user][:role] != User.roles.keys.first
+    if only_one_admin? && params[:user][:role] != User.roles.key(0)
       flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       render :edit
-    elsif @user.update(user_params)
+      return
+    end
+
+    if @user.update(user_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       redirect_to users_path
     else
@@ -43,7 +46,10 @@ class UsersController < ApplicationController
     if only_one_admin?
       flash[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       redirect_to users_path
-    elsif @user.destroy
+      return
+    end
+    
+    if @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       log_out if @user == current_user
       redirect_to users_path
@@ -56,7 +62,7 @@ class UsersController < ApplicationController
   private
 
   def only_one_admin?
-    User.where(role: 0).size == 1 && @user.role == User.roles.keys.first
+    User.where(role: :administrator).size == 1 && @user.administrator?
   end
 
   def set_user

@@ -14,7 +14,7 @@
       </div>
       <div class="menu">
         <p><%= link_to I18n.t('tasks.index.title'), tasks_path %></p>
-        <% if admin? %>
+        <% if current_user.administrator? %>
           <p><%= link_to I18n.t('users.index.title'), users_path %></p>
         <% end %>
       <div>
