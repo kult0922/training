@@ -2,7 +2,7 @@
 <%= form_for(:session, url: login_path) do |f| %>
 <div>
   <div>
-    <div><%= f.label 'メールアドレス', class: 'col-form-label' %></div>
+    <div><%= f.label t('.email'), class: 'col-form-label' %></div>
     <div><%= f.text_field :email, class: 'form-control', id: 'email' %></div>
   </div>
   <div>
