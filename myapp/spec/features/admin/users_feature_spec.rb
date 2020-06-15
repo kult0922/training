@@ -23,12 +23,19 @@ describe 'User', type: :feature do
   end
 
   describe '#show' do
+    let!(:task) { create(:task, user: user) }
     context 'when opening admin user show' do
-      it 'returns user' do
+      it 'returns user and tasks' do
         visit admin_user_path(user)
         expect(page).to have_content user.name
         expect(page).to have_content user.email
         expect(page).to have_content I18n.t('activerecord.attributes.user/role.admin')
+
+        expect(page).to have_content task.title
+        expect(page).to have_content task.memo
+        expect(page).to have_content task.deadline.strftime('%Y/%m/%d')
+        expect(page).to have_content I18n.l(task.created_at, format: :short)
+        expect(page).to have_content task.human_attribute_enum(:status)
       end
     end
   end

@@ -22,6 +22,7 @@ module Admin
 
     def show
       @admin_user = Admin::User.find(params[:id])
+      @tasks = @admin_user.tasks 
     end
 
     def edit
