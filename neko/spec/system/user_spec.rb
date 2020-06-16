@@ -95,7 +95,7 @@ describe 'user', type: :system do
     end
   end
 
-  describe '#delete (DELETE /tasks/:id)', js: true do
+  describe '#delete (DELETE /users/:id)', js: true do
     before { visit users_path }
 
     context 'delete a general user' do
