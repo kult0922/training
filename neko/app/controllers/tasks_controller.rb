@@ -41,7 +41,6 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
-    action_name = I18n.t('update')
     trunc_sec_due_at
 
     if @task.update(task_params)
@@ -54,7 +53,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    action_name = I18n.t('delete')
     if @task.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
       redirect_to tasks_path

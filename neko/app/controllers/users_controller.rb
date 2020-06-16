@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    action_name = I18n.t('create')
     @user = User.new(user_params)
 
     if @user.save
@@ -43,7 +42,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    action_name = I18n.t('delete')
     if only_one_admin?
       flash[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
       return redirect_to users_path
