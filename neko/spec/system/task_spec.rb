@@ -20,40 +20,10 @@ describe 'task', type: :system do
   let!(:task4) { create(:task, name: 'task4', user: user2) }
 
   before do
-    visit '/login'
+    visit 'login'
     fill_in 'Email', with: 'test@example.com'
     fill_in 'Password', with: 'testpassword'
     click_on 'ログイン'
-  end
-
-  describe '#login' do
-    before { click_on 'ログアウト' }
-    context 'enter invailed email' do
-      it 'should be failure to login' do
-        fill_in 'Email', with: 'wrong@example.com'
-        fill_in 'Password', with: 'testpassword'
-        click_on 'ログイン'
-        expect(page).to have_current_path '/login'
-      end
-    end
-
-    context 'enter invailed email' do
-      it 'should be failure to login' do
-        fill_in 'Email', with: 'test@example.com'
-        fill_in 'Password', with: 'wrongpassword'
-        click_on 'ログイン'
-        expect(page).to have_current_path '/login'
-      end
-    end
-
-    context 'enter vailed email & password' do
-      it 'should be success to login' do
-        fill_in 'Email', with: 'test@example.com'
-        fill_in 'Password', with: 'testpassword'
-        click_on 'ログイン'
-        expect(page).to have_current_path '/'
-      end
-    end
   end
 
   describe '#index' do

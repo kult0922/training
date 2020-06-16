@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   scope '/admin' do
-    resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :users, except: [:show]
     get '/users/:id/tasks_list', to: 'tasks#list'
   end
 

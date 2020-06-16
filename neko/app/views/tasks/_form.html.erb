@@ -1,12 +1,12 @@
 <%= form_for(task) do |f| %>
   <div class="form">
-    <div class="form-group row">
-      <%= f.label :name, class: 'col-2 col-form-label' %>
-      <div class="col-11"><%= f.text_field :name, class:'form-control' %></div>
+    <div class="form-group">
+      <%= f.label :name, class: 'col-form-label' %>
+      <div><%= f.text_field :name, class:'form-control' %></div>
     </div>
-    <div class="form-group row">
-      <%= f.label :description, class: 'col-2 col-form-label' %>
-      <div class="col-11"><%= f.text_area :description, class:'form-control scroll' %></div>
+    <div class="form-group">
+      <%= f.label :description, class: 'col-form-label' %>
+      <div><%= f.text_area :description, class:'form-control scroll' %></div>
     </div>
     <div class="form-group row">
       <%= f.label :label_ids, class: 'col-2 col-form-label' %>

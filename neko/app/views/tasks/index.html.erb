@@ -1,16 +1,16 @@
 <h2><%= link_to I18n.t('tasks.index.title'), tasks_path %></h2>
 
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
-  <div class='row search'>
+  <div class="row search">
     <div class='form-group col-6'>
       <%= f.text_field :name, value: @search[:name], class: 'form-control form-control-sm', placeholder: Task.human_attribute_name(:name) %>
     </div>
     <div class='form-group col-2 scroll-x label'>
       <%= f.collection_check_boxes(:label_ids, @labels, :id, :name, include_hidden: false, checked: @search[:label_ids]) do |l|
         l.label { l.check_box(checked: true) + l.text }
-      end%>
+      end %>
     </div>
-    <div class='form-group col-4'>
+    <div class="form-group col">
       <%= f.label :status, "#{Task.human_attribute_name(:status)}:" ,class: 'col-form-label' %>
       <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, include_blank: true, selected: @search[:status], class: 'form-control form-control-sm' %>
       <%= f.submit I18n.t('search'), name: nil, class: 'btn btn-dark' %>
@@ -18,8 +18,8 @@
   </div>
 <% end %>
 
-<div class='scroll'>
-  <table class='table table-striped'>
+<div class="scroll">
+  <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
         <th scope="col"><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
@@ -34,7 +34,7 @@
     <tbody>
       <% @tasks.each do |task| %>
         <tr>
-          <td class="task-name"><%= link_to task.name, task %></td>
+          <td class="task-name"><%= link_to task.name.truncate(25), task %></td>
           <td class="task-description"><%= task.description.truncate(50) %></td>
           <td class="task-status"><%= task.status_i18n %></td>
           <td class="task-labels">
