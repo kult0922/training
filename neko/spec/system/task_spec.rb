@@ -34,6 +34,7 @@ describe 'task', type: :system do
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
         expect(page).to have_content 'ステータス'
+        expect(page).to have_content 'ラベル'
         expect(page).to have_content '作成者'
         expect(page).to have_content '期限'
         expect(page).to have_content '作成日'
