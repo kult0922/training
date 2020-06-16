@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'capybara/rspec'
 
 describe 'User', type: :feature do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, role: 1) }
   before do
     visit login_path
     fill_in 'email', with: user.email
@@ -21,7 +21,7 @@ describe 'User', type: :feature do
         expect(page).to have_content I18n.t('admin.users.index.task_size')
       end
     end
-  end
+   end
 
   describe '#show' do
     let!(:task) { create(:task, user: user) }
@@ -30,7 +30,7 @@ describe 'User', type: :feature do
         visit admin_user_path(user)
         expect(page).to have_content user.name
         expect(page).to have_content user.email
-        expect(page).to have_content I18n.t('activerecord.attributes.user/role.default')
+        expect(page).to have_content I18n.t('activerecord.attributes.user/role.admin')
 
         expect(page).to have_content task.title
         expect(page).to have_content task.memo
@@ -83,9 +83,8 @@ describe 'User', type: :feature do
       end
     end
     context 'when admin user is alone (ex role.size < 2 )' do
-      let(:admin_user) { create(:user, role: 1) }
       it 'return error message' do
-        visit admin_user_path(admin_user)
+        visit admin_user_path(user)
         click_on I18n.t('admin.users.show.delete')
         expect(page).to have_content I18n.t('admin.users.flash.danger', action: :削除)
       end
