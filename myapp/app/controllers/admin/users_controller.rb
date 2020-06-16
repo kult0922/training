@@ -1,6 +1,7 @@
 module Admin
   class UsersController < ApplicationController
     include SessionsHelper
+    before_action :check_admin_user
     before_action :set_admin_user_role, only: %i[new create edit update]
     before_action :require_login
     PAGE_PER = 5
@@ -66,6 +67,10 @@ module Admin
 
     def valid_user_role
       @admin_user = nil if @admin_user.admin? && Admin::User.where(role: 1).size < 2
+    end
+
+    def check_admin_user
+      redirect_to tasks_path unless current_user.admin?
     end
   end
 end

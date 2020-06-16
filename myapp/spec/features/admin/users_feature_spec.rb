@@ -7,7 +7,7 @@ describe 'User', type: :feature do
     visit login_path
     fill_in 'email', with: user.email
     fill_in 'password', with: user.password
-    click_on 'ログイン'
+    click_on I18n.t('sessions.new.login')
   end
 
   describe '#index' do
@@ -21,7 +21,7 @@ describe 'User', type: :feature do
         expect(page).to have_content I18n.t('admin.users.index.task_size')
       end
     end
-   end
+  end
 
   describe '#show' do
     let!(:task) { create(:task, user: user) }
@@ -87,6 +87,27 @@ describe 'User', type: :feature do
         visit admin_user_path(user)
         click_on I18n.t('admin.users.show.delete')
         expect(page).to have_content I18n.t('admin.users.flash.danger', action: :削除)
+      end
+    end
+  end
+
+  describe 'check admin user when showing admin user page', :skip_before do
+    context 'when user is default' do
+      let(:default_user) { create(:user) }
+      it 'dont show admin user button' do
+        visit login_path
+        fill_in 'email', with: default_user.email
+        fill_in 'password', with: default_user.password
+        click_on I18n.t('sessions.new.login')
+        expect(page).to have_no_content I18n.t('tasks.index.admin_user')
+      end
+      it 'return tasks page' do
+        visit login_path
+        fill_in 'email', with: default_user.email
+        fill_in 'password', with: default_user.password
+        click_on I18n.t('sessions.new.login')
+        visit admin_users_path
+        expect(page).to have_no_content I18n.t('admin.users.index.title')
       end
     end
   end
