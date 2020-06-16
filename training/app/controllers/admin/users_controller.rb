@@ -34,6 +34,8 @@ class Admin::UsersController < Admin::Base
   def destroy
     if @user.is_admin? && last_admin_user?
       redirect_to admin_users_path, alert: t('admin.users.flash.last_admin_user')
+    elsif @user == current_admin
+      redirect_to admin_users_path, alert: t('admin.users.flash.current_login_user')
     else
       @user.destroy!
       redirect_to admin_users_path, notice: t('admin.users.flash.delete')

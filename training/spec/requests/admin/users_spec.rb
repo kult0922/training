@@ -68,6 +68,14 @@ RSpec.describe 'Admin::Users', type: :request do
             delete admin_user_path(other_admin_user)
           }.to change { User.count }.by(-1)
         end
+
+        context 'not delete current login admin' do
+          it 'not delete record' do
+            expect {
+              delete admin_user_path(user)
+            }.to change { User.count }.by(0)
+          end
+        end
       end
 
       context 'one admin remain' do
