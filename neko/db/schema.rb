@@ -39,7 +39,9 @@ ActiveRecord::Schema.define(version: 2020_06_05_041317) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "role", default: 0, null: false
     t.index ["name"], name: "index_users_on_name", unique: true
+    t.index ["role"], name: "index_users_on_role"
   end
 
   add_foreign_key "auth_infos", "users"

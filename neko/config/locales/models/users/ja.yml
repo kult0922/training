@@ -2,3 +2,12 @@ ja:
   activerecord:
     models:
       user: ユーザー
+    attributes:
+      user:
+        auth_info: 認証情報
+        role: ロール
+  enums:
+    user:
+      role:
+        administrator: 管理者
+        general_user: 一般ユーザー

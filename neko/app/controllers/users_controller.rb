@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
   before_action :logged_in_user
+  before_action :only_admin
 
   def index
     @users = User.includes(:tasks).all.page(params[:page])
@@ -26,6 +27,11 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
+    if only_one_admin? && params[:user][:role] != User.roles.key(0)
+      flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
+      return render :edit
+    end
+
     if @user.update(user_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       redirect_to users_path
@@ -36,6 +42,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if only_one_admin?
+      flash[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
+      return redirect_to users_path
+    end
+
     if @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       log_out if @user == current_user
@@ -48,11 +59,15 @@ class UsersController < ApplicationController
 
   private
 
+  def only_one_admin?
+    User.where(role: :administrator).size == 1 && @user.administrator?
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, auth_info_attributes: [:email, :password, :password_confirmation])
+    params.require(:user).permit(:name, :role, auth_info_attributes: [:email, :password, :password_confirmation])
   end
 end

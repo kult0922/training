@@ -43,4 +43,8 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     redirect_to login_url unless logged_in?
   end
+
+  def only_admin
+    redirect_to root_url, flash: { danger: I18n.t('flash.admin.permit') } unless current_user.administrator?
+  end
 end
