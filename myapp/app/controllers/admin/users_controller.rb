@@ -3,8 +3,9 @@ module Admin
     include SessionsHelper
     before_action :set_admin_user_role, only: %i[new create edit update]
     before_action :require_login
+    PAGE_PER = 5
     def index
-      @admin_users = Admin::User.all
+      @admin_users = Admin::User.all.page(params[:page]).per(PAGE_PER)
     end
 
     def new

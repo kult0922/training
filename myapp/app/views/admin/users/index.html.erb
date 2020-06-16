@@ -26,4 +26,7 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to t('.task'), tasks_path, class: 'btn btn-primary' %>
+<div>
+  <div class="task-paginate"><%= paginate @admin_users %></div>
+  <div><%= link_to t('.task'), tasks_path, class: 'btn btn-primary' %></div>
+</div>

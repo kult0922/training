@@ -83,4 +83,26 @@ describe 'User', type: :feature do
       end
     end
   end
+
+  describe 'paginate' do
+    let!(:users) { create_list(:user, 19) }
+    context 'when 2 button clicked' do
+      it 'show 5 to 10 task' do
+        visit admin_users_path
+        click_on '2'
+        expect(page).to have_content users[4].email
+        expect(page).to have_content users[8].email
+      end
+    end
+    context 'when end button clicked' do
+      it 'show 16 to 20 task' do
+        visit admin_users_path
+        click_on '最後'
+        expect(page).to have_content users[14].email
+        expect(page).to have_content users[18].email
+      end
+    end
+  end
+
+
 end
