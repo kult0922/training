@@ -8,7 +8,7 @@ class Task < ApplicationRecord
 
   scope :where_status, ->(status) { where(tasks: { status: status }) if status.present? }
   scope :include_name, ->(name) { where(['tasks.name LIKE ?', "%#{name}%"]) if name.present? }
-  scope :have_label,   ->(label_ids) { where(labels: { id: label_ids }) if label_ids.present?}
+  scope :have_label,   ->(label_ids) { where(labels: { id: label_ids }) if label_ids.present? }
   scope :order_due_at, ->(column) { order(have_a_due: :desc) if column == 'due_at' }
 
   def self.rearrange(column, direction)

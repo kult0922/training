@@ -22,7 +22,6 @@ describe 'lebel', type: :system do
         expect(page).to have_content '作成日時'
       end
     end
-
   end
 
   describe '#new' do
@@ -71,5 +70,4 @@ describe 'lebel', type: :system do
       end
     end
   end
-  
 end
