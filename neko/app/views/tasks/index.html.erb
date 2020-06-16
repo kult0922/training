@@ -7,7 +7,7 @@
     </div>
     <div class='form-group col-2 scroll-x label'>
       <%= f.collection_check_boxes(:label_ids, @labels, :id, :name, include_hidden: false, checked: @search[:label_ids]) do |l|
-        l.label { l.check_box(checked: true) + l.text }
+        l.label { l.check_box(checked: false) + l.text }
       end %>
     </div>
     <div class="form-group col">
