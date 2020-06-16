@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'labels/index'
-  get 'labels/new'
-  get 'labels/edit'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
