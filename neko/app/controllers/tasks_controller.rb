@@ -42,6 +42,7 @@ class TasksController < ApplicationController
 
   def update
     trunc_sec_due_at
+    @task.labels = []
 
     if @task.update(task_params)
       flash[:success] = I18n.t('flash.model.succeeded', target: @task.model_name.human, action: I18n.t(action_name))
