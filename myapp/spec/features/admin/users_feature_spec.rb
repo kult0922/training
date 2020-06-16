@@ -103,6 +103,4 @@ describe 'User', type: :feature do
       end
     end
   end
-
-
 end
