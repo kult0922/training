@@ -1,11 +1,11 @@
-Dir[Rails.root.join('lib/logger/*.rb')].each {|file| require file }
+require Rails.root.join('lib/logger/task_logger.rb')
 
 namespace :maintenance do
+  MAINTENANCE_DIR = "#{Rails.root.join('tmp/maintenance')}"
+  logger = Logger::TaskLogger.new('maintenance')
+
   desc 'set maintenance start time, end date and start maintenance'
   task :start, ['start_at', 'end_at'] do |_, args|
-    MAINTENANCE_DIR = "#{Rails.root.join('tmp/maintenance')}"
-    logger = Logger::TaskLogger.new('maintenance')
-
     if args.start_at.blank? || args.end_at.blank?
       logger.info "メンテナンスの開始時間と終了時間を入力してください"
       p "メンテナンスの開始時間と終了時間を入力してください"
@@ -19,7 +19,7 @@ namespace :maintenance do
     end
 
     Dir.mkdir(MAINTENANCE_DIR)
-    File.open("#{MAINTENANCE_DIR}/maintenance.txt", 'w') do |file|
+    File.open("#{MAINTENANCE_DIR}/timing.txt", 'w') do |file|
       file.write("start_at => #{args.start_at}\n")
       file.write("end_at => #{args.end_at}")
     end
@@ -28,9 +28,8 @@ namespace :maintenance do
     p "メンテナンス開始時間を#{args.start_at} ~ #{args.end_at}で設定しました"
   end
 
+  desc 'end maintenance'
   task :end do
-    MAINTENANCE_DIR = "#{Rails.root.join('tmp/maintenance')}"
-    logger = Logger::TaskLogger.new('maintenance')
     FileUtils.rm_rf(MAINTENANCE_DIR)
     logger.info "メンテナンスを終了しました"
     p "メンテナンスを終了しました"

@@ -1,7 +1,7 @@
 module Maintenance
   extend ActiveSupport::Concern
 
-  MAINTENANCE_FILE = "#{Rails.root.join('tmp/maintenance/maintenance.txt')}"
+  MAINTENANCE_FILE = "#{Rails.root.join('tmp/maintenance/timing.txt')}"
 
   included do
     before_action :do_maintenance
