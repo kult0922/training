@@ -1,0 +1,16 @@
+ja:
+  sessions:
+    create:
+      flash:
+        sesson_danger: 'パスワードが一致しません'
+        mail_danger: 'emailと一致するユーザーがいません'
+        sesson_success: 'ログインしました'
+    destroy:
+      flash:
+        logout_success: 'ログアウトしました'
+    new:
+      email: 'メールアドレス'
+      password: 'パスワード'
+      here: 'こちら'
+      login: 'ログイン'
+      registration_message: '新規登録の方は'

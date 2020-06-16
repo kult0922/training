@@ -1,0 +1,11 @@
+ja:
+  users:
+    create:
+      flash:
+        success: 'ユーザー登録ができました'
+        danger: 'ユーザーの作成に失敗しました'
+    new:
+      user_registration: 'ユーザー登録'
+      here: 'こちら'
+      registration: '登録'
+      login_message: 'ログインは'

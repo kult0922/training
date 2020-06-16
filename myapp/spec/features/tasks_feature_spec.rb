@@ -2,9 +2,16 @@ require 'rails_helper'
 require 'capybara/rspec'
 
 describe 'Task', type: :feature do
-  let!(:task1) { create(:task, deadline: Time.zone.today) }
-  let!(:task2) { create(:task, deadline: Time.zone.today + 1) }
-  let!(:task3) { create(:task, deadline: Time.zone.today + 2) }
+  let!(:task1) { create(:task, deadline: Time.zone.today, user: user) }
+  let!(:task2) { create(:task, deadline: Time.zone.today + 1, user: user) }
+  let!(:task3) { create(:task, deadline: Time.zone.today + 2, user: user) }
+  let(:user) { create(:user) }
+  before do
+    visit login_path
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    click_on 'ログイン'
+  end
   describe '#index' do
     context 'when opning index' do
       it 'The screen is displayed collectly' do
@@ -43,6 +50,19 @@ describe 'Task', type: :feature do
         expect(page).to have_content '完了'
       end
     end
+
+    context 'when showing current_user', :skip_before do
+      let(:current_user) { create(:user) }
+      let!(:current_users_task) { create(:task, deadline: Time.zone.today, user: current_user) }
+      it 'return current users tasks size' do
+        visit login_path
+        fill_in 'email', with: current_user.email
+        fill_in 'password', with: current_user.password
+        click_on 'ログイン'
+        task_all = all('.task')
+        expect(task_all.size).to eq 1
+      end
+    end
   end
 
   describe '#new' do
@@ -53,7 +73,6 @@ describe 'Task', type: :feature do
         fill_in 'Memo', with: 'hogehoge'
         select_date('2020,10,10', from: 'Deadline')
         select('完了', from: 'Status')
-        select('Taro', from: 'User', match: :first)
         click_button '登録する'
         expect(page).to have_content 'Taskは正常に作成されました'
       end
@@ -69,7 +88,6 @@ describe 'Task', type: :feature do
         fill_in 'Memo', with: 'testtest'
         select_date('2020,10,10', from: 'Deadline')
         select('着手中', from: 'Status')
-        select('Taro', from: 'User', match: :first)
 
         click_button '更新する'
         expect(page).to have_content 'Taskは正常に更新されました'
@@ -103,7 +121,7 @@ describe 'Task', type: :feature do
   end
 
   describe 'paginate' do
-    let!(:tasks) { create_list(:task, 17) }
+    let!(:tasks) { create_list(:task, 17, user: user) }
     context 'when 2 button clicked' do
       it 'show 5 and 10 task' do
         visit tasks_path
