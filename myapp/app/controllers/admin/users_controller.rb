@@ -1,6 +1,5 @@
 module Admin
   class UsersController < ApplicationController
-    include SessionsHelper
     before_action :set_admin_user_role, only: %i[new create edit update]
     before_action :require_login
     PAGE_PER = 5
