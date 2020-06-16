@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :logged_in?, :current_user, :admin?
+  helper_method :logged_in?, :current_user
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render500

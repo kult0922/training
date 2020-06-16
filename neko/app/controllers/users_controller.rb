@@ -29,8 +29,7 @@ class UsersController < ApplicationController
   def update
     if only_one_admin? && params[:user][:role] != User.roles.key(0)
       flash.now[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
-      render :edit
-      return
+      return render :edit
     end
 
     if @user.update(user_params)
@@ -45,10 +44,9 @@ class UsersController < ApplicationController
   def destroy
     if only_one_admin?
       flash[:danger] = I18n.t('flash.admin.only_one_admin', action: I18n.t(action_name))
-      redirect_to users_path
-      return
+      return redirect_to users_path
     end
-    
+
     if @user.destroy
       flash[:success] = I18n.t('flash.model.succeeded', target: @user.model_name.human, action: I18n.t(action_name))
       log_out if @user == current_user
