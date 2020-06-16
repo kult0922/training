@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_064240) do
+ActiveRecord::Schema.define(version: 2020_06_16_074724) do
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_labels_on_name", unique: true
+  end
+
+  create_table "task_label_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "label_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "index_task_label_relationships_on_label_id"
+    t.index ["task_id"], name: "index_task_label_relationships_on_task_id"
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -43,5 +52,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_064240) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "task_label_relationships", "labels"
+  add_foreign_key "task_label_relationships", "tasks"
   add_foreign_key "tasks", "users"
 end
