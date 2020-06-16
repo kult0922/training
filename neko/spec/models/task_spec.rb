@@ -14,7 +14,7 @@ RSpec.describe Task, type: :model do
     it 'should be failure' do
       task = Task.new(name: '', description: '', user: user1)
       expect(task.valid?).to eq false
-      expect(task.errors.full_messages).to eq ['名前を入力してください']
+      expect(task.errors.full_messages).to eq ['名前は2文字以上で入力してください']
     end
   end
 

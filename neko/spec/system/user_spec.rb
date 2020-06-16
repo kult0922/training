@@ -22,7 +22,10 @@ describe 'user', type: :system do
         visit users_path
 
         expect(page).to have_content 'ユーザー一覧'
+        expect(page).to have_content '名前'
+        expect(page).to have_content 'ロール'
         expect(page).to have_content 'タスク数'
+        expect(page).to have_content '作成日時'
       end
     end
   end
