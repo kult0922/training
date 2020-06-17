@@ -7,7 +7,7 @@ describe 'User', type: :feature do
     visit login_path
     fill_in 'email', with: user.email
     fill_in 'password', with: user.password
-    click_on I18n.t('sessions.new.login')
+    click_on 'ログイン'
   end
 
   describe '#index' do
@@ -69,7 +69,7 @@ describe 'User', type: :feature do
         visit edit_admin_user_path(user)
         fill_in 'ユーザー名', with: 'Ziro'
         fill_in 'メールアドレス', with: 'ziro@example.com'
-        select '一般ユーザー', from: '役割'
+        select '管理ユーザー', from: '役割'
         fill_in 'パスワード', with: 'password2'
         fill_in 'パスワード（確認用）', with: 'password2'
 
@@ -77,7 +77,7 @@ describe 'User', type: :feature do
         expect(page).to have_content 'ユーザーの更新に成功しました'
         expect(page).to have_content 'Ziro'
         expect(page).to have_content 'ziro@example.com'
-        expect(page).to have_content '一般ユーザー'
+        expect(page).to have_content '管理ユーザー'
       end
     end
   end
@@ -97,8 +97,8 @@ describe 'User', type: :feature do
     context 'when admin user is alone (ex role.size < 2 )' do
       it 'return error message' do
         visit admin_user_path(user)
-        click_on I18n.t('admin.users.show.delete')
-        expect(page).to have_content I18n.t('admin.users.flash.danger', action: :削除)
+        click_on '削除'
+        expect(page).to have_content 'ユーザーの削除に失敗しました'
       end
     end
   end
@@ -110,16 +110,16 @@ describe 'User', type: :feature do
         visit login_path
         fill_in 'email', with: default_user.email
         fill_in 'password', with: default_user.password
-        click_on I18n.t('sessions.new.login')
-        expect(page).to have_no_content I18n.t('tasks.index.admin_user')
+        click_on 'ログイン'
+        expect(page).to have_no_content 'ユーザー管理画面'
       end
       it 'return tasks page' do
         visit login_path
         fill_in 'email', with: default_user.email
         fill_in 'password', with: default_user.password
-        click_on I18n.t('sessions.new.login')
+        click_on 'ログイン'
         visit admin_users_path
-        expect(page).to have_no_content I18n.t('admin.users.index.title')
+        expect(page).to have_no_content 'ユーザー一覧'
       end
     end
   end
