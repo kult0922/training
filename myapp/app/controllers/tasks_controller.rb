@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_users, only: %i[new edit]
-  before_action :set_task_statuses, only: %i[index new edit]
+  before_action :set_task_statuses, only: %i[index new create edit update]
   before_action :require_login
   PAGE_PER = 5
 
