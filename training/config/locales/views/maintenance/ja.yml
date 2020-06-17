@@ -1,0 +1,5 @@
+ja:
+  maintenance:
+    normal:
+      title: メンテナンス
+      body: "%{start_at} 〜 %{end_at}までメンテナンスを行っております。"
