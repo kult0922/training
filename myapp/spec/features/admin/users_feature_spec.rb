@@ -11,6 +11,7 @@ describe 'User', type: :feature do
   end
 
   describe '#index' do
+    let!(:tasks) { create_list(:task, 5, user: user) }
     context 'when opening admin user index' do
       it 'The screen is displayed collectly' do
         visit admin_users_path
@@ -19,6 +20,11 @@ describe 'User', type: :feature do
         expect(page).to have_content 'メールアドレス'
         expect(page).to have_content '役割'
         expect(page).to have_content 'タスク数'
+
+        expect(page).to have_content user.name
+        expect(page).to have_content user.email
+        expect(page).to have_content '管理ユーザー'
+        expect(page).to have_content tasks.size
       end
     end
   end
@@ -69,17 +75,23 @@ describe 'User', type: :feature do
 
         click_button '更新する'
         expect(page).to have_content 'ユーザーの更新に成功しました'
+        expect(page).to have_content 'Ziro'
+        expect(page).to have_content 'ziro@example.com'
+        expect(page).to have_content '一般ユーザー'
       end
     end
   end
 
-  describe '#delete' do
-    let(:default_user) { create(:user) }
+  describe '#destroy' do
+    let(:user2) { create(:user, name: 'Ziro') }
     context 'when admin user is deleted' do
       it 'redirect_to index' do
-        visit admin_user_path(default_user)
+        visit admin_user_path(user2)
         click_on '削除'
         expect(page).to have_content 'ユーザーの削除に成功しました'
+
+        expect(page).to have_no_content user2.name
+        expect(page).to have_no_content user2.email
       end
     end
   end
