@@ -1,5 +1,15 @@
 <%= form_for(task) do |f| %>
   <div class="form">
+    <% if task.errors.any? %>
+      <div class="error-message">
+        <ul>
+          <% task.errors.full_messages.each do |message| %>
+            <%= message %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <%= f.label :name, class: 'col-form-label' %>
       <div><%= f.text_field :name, class:'form-control' %></div>

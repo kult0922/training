@@ -145,8 +145,18 @@ h1 a, h2 a {
 .form {
   width: 700px;
   margin: 0 auto;
-  margin-top: 70px;
   padding: 0 20px;
+
+  .field_with_errors .form-control {
+    border:1px solid #ff0000;
+  }
+  
+  .error-message {
+    ul {
+      color: #c50e21;
+      padding: 0;
+    }
+  }
   
   select {
   margin-top: 5px;
@@ -188,9 +198,8 @@ h1 a, h2 a {
 }
 
 .back {
-  margin-top: 40px;
-  margin-top: 40px;
   width: 100px;
+  margin-bottom: 50px;
 }
 
 .search {
@@ -222,7 +231,7 @@ table th a {
 }
 
 .login {
-  margin-top: 50px;
+  margin-top: 5 0 0px;
   height: 100vm;
 
   h1 {
