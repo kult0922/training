@@ -21,7 +21,7 @@ namespace :maintenance do
       exit
     end
 
-    if args.start_at.in_time_zone < Time.current || args.end_at.in_time_zone <= Time.current
+    if args.end_at.in_time_zone <= Time.current
       logger.info 'メンテナンス時間は現在時刻より未来を入力してください'
       p 'メンテナンス時間は現在時刻より未来を入力してください'
       exit
