@@ -1,18 +1,22 @@
-class Logger::TaskLogger
-  attr_reader :logger
+# frozen_string_literal: true
 
-  delegate(
-    :debug,
-    :info,
-    :warn,
-    :error,
-    :fatal,
-    to: :logger,
-  )
+module Logger
+  class TaskLogger
+    attr_reader :logger
 
-  def initialize(log_name)
-    @logger =  ActiveSupport::Logger.new(Rails.root.join('log', "#{log_name}.log"))
-    @logger.formatter = ::Logger::Formatter.new
-    logger.datetime_format = '%Y-%m-%d %H:%M:%S'
+    delegate(
+      :debug,
+      :info,
+      :warn,
+      :error,
+      :fatal,
+      to: :logger,
+    )
+
+    def initialize(log_name)
+      @logger = ActiveSupport::Logger.new(Rails.root.join('log', "#{log_name}.log"))
+      @logger.formatter = ::Logger::Formatter.new
+      logger.datetime_format = '%Y-%m-%d %H:%M:%S'
+    end
   end
 end

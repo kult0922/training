@@ -1,20 +1,22 @@
-require Rails.root.join('lib/logger/task_logger.rb')
+# frozen_string_literal: true
+
+require Rails.root.join('lib', 'logger', 'task_logger.rb')
 
 namespace :maintenance do
-  MAINTENANCE_DIR = "#{Rails.root.join('tmp/maintenance')}"
+  MAINTENANCE_DIR = Rails.root.join('tmp', 'maintenance')
   logger = Logger::TaskLogger.new('maintenance')
 
   desc 'set maintenance start time, end date and start maintenance'
   task :start, ['start_at', 'end_at'] do |_, args|
     if args.start_at.blank? || args.end_at.blank?
-      logger.info "メンテナンスの開始時間と終了時間を入力してください"
-      p "メンテナンスの開始時間と終了時間を入力してください"
+      logger.info 'メンテナンスの開始時間と終了時間を入力してください'
+      p 'メンテナンスの開始時間と終了時間を入力してください'
       exit
     end
 
     if Dir.exist?(MAINTENANCE_DIR)
-      logger.info "前回のメンテナンスが終了しておりません。前回のメンテナンスを終了させる場合はrake maintetance:endを実行してください"
-      p "前回のメンテナンスが終了しておりません。前回のメンテナンスを終了させる場合はrake maintetance:endを実行してください"
+      logger.info '前回のメンテナンスが終了しておりません。前回のメンテナンスを終了させる場合はrake maintetance:endを実行してください'
+      p '前回のメンテナンスが終了しておりません。前回のメンテナンスを終了させる場合はrake maintetance:endを実行してください'
       exit
     end
 
@@ -31,7 +33,7 @@ namespace :maintenance do
   desc 'end maintenance'
   task :end do
     FileUtils.rm_rf(MAINTENANCE_DIR)
-    logger.info "メンテナンスを終了しました"
-    p "メンテナンスを終了しました"
+    logger.info 'メンテナンスを終了しました'
+    p 'メンテナンスを終了しました'
   end
 end
