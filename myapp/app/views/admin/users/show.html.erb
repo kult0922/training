@@ -2,15 +2,15 @@
 <table class="table">
   <tbody>
     <tr>
-      <td><%= Admin::User.human_attribute_name(:name) %></td>
+      <td><%= User.human_attribute_name(:name) %></td>
       <td><%= @admin_user.name %></td>
     </tr>
     <tr>
-      <td><%= Admin::User.human_attribute_name(:email) %></td>
+      <td><%= User.human_attribute_name(:email) %></td>
       <td><%= @admin_user.email %></td>
     </tr>
     <tr>
-      <td><%= Admin::User.human_attribute_name(:role) %></td>
+      <td><%= User.human_attribute_name(:role) %></td>
       <td><%= @admin_user.human_attribute_enum(:role) %></td>
     </tr>
   </tbody>
@@ -33,13 +33,13 @@
   </thead>
   <tbody>
     <% @tasks.each do |t| %>
-    <tr>
-      <td><%= t.title %></td>
-      <td><%= t.memo %></td>
-      <td><%= l t.deadline if t.deadline.present? %></td>
-      <td><%= l t.created_at, format: :short %></td>
-      <td><%= t.human_attribute_enum(:status) %></td>
-    </tr>
+      <tr>
+        <td><%= t.title %></td>
+        <td><%= t.memo %></td>
+        <td><%= l t.deadline if t.deadline.present? %></td>
+        <td><%= l t.created_at, format: :short %></td>
+        <td><%= t.human_attribute_enum(:status) %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>

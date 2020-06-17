@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
   unless Rails.env.development?
     rescue_from StandardError, with: :rescue500
     rescue_from RuntimeError, with: :rescue500
