@@ -22,8 +22,8 @@ namespace :maintenance do
     end
 
     if args.end_at.in_time_zone <= Time.current
-      logger.info 'メンテナンス時間は現在時刻より未来を入力してください'
-      p 'メンテナンス時間は現在時刻より未来を入力してください'
+      logger.info 'メンテナンス終了は現在時刻より未来を入力してください'
+      p 'メンテナンス終了は現在時刻より未来を入力してください'
       exit
     end
 
