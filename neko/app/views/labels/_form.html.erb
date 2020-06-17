@@ -1,5 +1,15 @@
 <%= form_for(label) do |f| %>
   <div class="form">
+    <% if label.errors.any? %>
+      <div class="error-message">
+        <ul>
+          <% label.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="form-group row">
       <%= f.label :name, class: 'col-2 col-form-label' %>
       <div class="col-11"><%= f.text_field :name, class:'form-control' %></div>
