@@ -33,13 +33,13 @@
   </thead>
   <tbody>
     <% @tasks.each do |t| %>
-    <tr>
-      <td><%= t.title %></td>
-      <td><%= t.memo %></td>
-      <td><%= l t.deadline if t.deadline.present? %></td>
-      <td><%= l t.created_at, format: :short %></td>
-      <td><%= t.human_attribute_enum(:status) %></td>
-    </tr>
+      <tr>
+        <td><%= t.title %></td>
+        <td><%= t.memo %></td>
+        <td><%= l t.deadline if t.deadline.present? %></td>
+        <td><%= l t.created_at, format: :short %></td>
+        <td><%= t.human_attribute_enum(:status) %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
