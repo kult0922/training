@@ -3,9 +3,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th><%= Admin::User.human_attribute_name(:name) %></th>
-      <th><%= Admin::User.human_attribute_name(:email) %></th> 
-      <th><%= Admin::User.human_attribute_name(:role) %></th>
+      <th><%= User.human_attribute_name(:name) %></th>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <th><%= User.human_attribute_name(:role) %></th>
       <th><%= t('.task_size') %></th>
       <th></th>
     </tr>
@@ -18,7 +18,7 @@
         <td><%= u.human_attribute_enum(:role) %></td>
         <td><%= u.tasks.size %></td>
         <td class="btn-group">
-          <%= link_to t('.detail'), u, class: 'btn btn-secondary' %>
+          <%= link_to t('.detail'), admin_user_path(u), class: 'btn btn-secondary' %>
           <%= link_to t('.edit'), edit_admin_user_path(u), class: 'btn btn-primary' %>
           <%= link_to t('.delete'), admin_user_path(u), method: :delete, data: { confirm: t('.confirm') }, class: 'btn btn-danger' %>
         </td>

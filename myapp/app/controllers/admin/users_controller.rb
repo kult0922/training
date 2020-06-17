@@ -5,15 +5,15 @@ module Admin
     before_action :require_login
     PAGE_PER = 5
     def index
-      @admin_users = Admin::User.all.page(params[:page]).per(PAGE_PER)
+      @admin_users = User.all.page(params[:page]).per(PAGE_PER)
     end
 
     def new
-      @admin_user = Admin::User.new
+      @admin_user = User.new
     end
 
     def create
-      @admin_user = Admin::User.new(admin_user_params)
+      @admin_user = User.new(admin_user_params)
       if @admin_user.save
         flash[:success] = t '.flash.success', action: :作成
         redirect_to admin_users_path
@@ -52,15 +52,15 @@ module Admin
     private
 
     def admin_user_params
-      params.require(:admin_user).permit(:name, :email, :password, :password_confirmatin, :role)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
     end
 
     def set_admin_user
-      @admin_user = Admin::User.find(params[:id])
+      @admin_user = User.find(params[:id])
     end
 
     def set_admin_user_role
-      @admin_user_roles = Admin::User.roles.map { |k, _| [Admin::User.human_attribute_enum_val(:role, k), k] }.to_h
+      @admin_user_roles = User.roles.map { |k, _| [User.human_attribute_enum_val(:role, k), k] }.to_h
     end
   end
 end
