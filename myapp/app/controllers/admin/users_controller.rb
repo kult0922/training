@@ -13,7 +13,7 @@ module Admin
     end
 
     def create
-      @admin_user = Admin::User.create(admin_user_params)
+      @admin_user = Admin::User.new(admin_user_params)
       if @admin_user.save
         flash[:success] = t '.flash.success', action: :作成
         redirect_to admin_users_path
