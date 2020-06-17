@@ -1,5 +1,6 @@
 module Admin
   class UsersController < ApplicationController
+    before_action :set_admin_user, only: %i[show edit update destroy]
     before_action :set_admin_user_role, only: %i[new create edit update]
     before_action :require_login
     PAGE_PER = 5
@@ -23,16 +24,13 @@ module Admin
     end
 
     def show
-      @admin_user = Admin::User.find(params[:id])
       @tasks = @admin_user.tasks
     end
 
     def edit
-      @admin_user = Admin::User.find(params[:id])
     end
 
     def update
-      @admin_user = Admin::User.find(params[:id])
       if @admin_user.update(admin_user_params)
         flash[:success] = t '.flash.success', action: :更新
         redirect_to admin_user_path
@@ -43,7 +41,6 @@ module Admin
     end
 
     def destroy
-      @admin_user = Admin::User.find(params[:id])
       if @admin_user.destroy
         flash[:success] = t '.flash.success', action: :削除
       else
@@ -56,6 +53,10 @@ module Admin
 
     def admin_user_params
       params.require(:admin_user).permit(:name, :email, :password, :password_confirmatin, :role)
+    end
+
+    def set_admin_user
+      @admin_user = Admin::User.find(params[:id])
     end
 
     def set_admin_user_role
