@@ -30,6 +30,6 @@ module Maintenance
 
   def do_maintenance
     period = maintenance_time
-    render 'maintenance/normal', locals: { start_at: period['start_at'], end_at: period['end_at'] } if maintenance_mode? && maintenance_period?
+    render 'maintenance/normal', layout: false, locals: { start_at: period['start_at'], end_at: period['end_at'] } if maintenance_mode? && maintenance_period?
   end
 end
