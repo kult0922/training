@@ -8,7 +8,7 @@ class Task < ApplicationRecord
 
   scope :where_status, ->(status) { where(tasks: { status: status }) if status.present? }
   scope :include_name, ->(name) { where(['tasks.name LIKE ?', "%#{name}%"]) if name.present? }
-  scope :have_label,   ->(label_ids) {
+  scope :have_label,   lambda { |label_ids|
     if label_ids.present?
       task_ids = Task.joins(:labels).where(labels: { id: label_ids }).select('id')
       where(id: task_ids)
