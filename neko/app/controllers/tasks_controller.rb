@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_labels, only: [:index, :list, :new, :create, :edit, :update]
   before_action :logged_in_user
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_labels, except: [:show, :destroy]
 
   def index(user = current_user)
     @search = { name: params[:name], status: params[:status], label_ids: params[:label_ids] }
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @current_user.tasks.new(task_params)
+    @task = current_user.tasks.new(task_params)
     trunc_sec_due_at
 
     if @task.save
