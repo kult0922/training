@@ -1,0 +1,45 @@
+<h1><%= t('.title') %></h1>
+<table class="table">
+  <tbody>
+    <tr>
+      <td><%= User.human_attribute_name(:name) %></td>
+      <td><%= @admin_user.name %></td>
+    </tr>
+    <tr>
+      <td><%= User.human_attribute_name(:email) %></td>
+      <td><%= @admin_user.email %></td>
+    </tr>
+    <tr>
+      <td><%= User.human_attribute_name(:role) %></td>
+      <td><%= @admin_user.human_attribute_enum(:role) %></td>
+    </tr>
+  </tbody>
+</table>
+<div class="btn-group">
+  <%= link_to t('.back'), admin_users_path , class: 'btn btn-secondary' %>
+  <%= link_to t('.edit'), edit_admin_user_path(@admin_user), class: 'btn btn-primary' %>
+  <%= link_to t('.delete'), admin_user_path(@admin_user), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
+</div>
+
+<table class="table mt-5">
+  <thead>
+    <tr>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th><%= Task.human_attribute_name(:memo) %></th>
+      <th><%= Task.human_attribute_name(:deadline) %></th>
+      <th><%= Task.human_attribute_name(:created_at) %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |t| %>
+      <tr>
+        <td><%= t.title %></td>
+        <td><%= t.memo %></td>
+        <td><%= l t.deadline if t.deadline.present? %></td>
+        <td><%= l t.created_at, format: :short %></td>
+        <td><%= t.human_attribute_enum(:status) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

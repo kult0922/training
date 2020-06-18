@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  include SessionsHelper
-  before_action :set_users, only: %i[new edit]
-  before_action :set_task_statuses, only: %i[index new edit]
+  before_action :find_task, only: %i[show edit update destroy]
+  before_action :find_users, only: %i[new edit]
+  before_action :find_task_statuses, only: %i[index new create edit update]
   before_action :require_login
   PAGE_PER = 5
 
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @current_user.tasks.create(task_params)
+    @task = @current_user.tasks.new(task_params)
     if @task.save
       flash[:success] = t '.flash.success'
       redirect_to tasks_path
@@ -33,16 +33,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
-
     if @task.update(task_params)
       flash[:success] = t '.flash.success'
       redirect_to task_path(@task)
@@ -53,8 +49,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
-
     @task.destroy
     flash[:success] = 'Taskは正常に削除されました'
     redirect_to tasks_path
@@ -81,11 +75,15 @@ class TasksController < ApplicationController
     end
   end
 
-  def set_task_statuses
+  def find_task
+    @task = Task.find(params[:id])
+  end
+
+  def find_task_statuses
     @task_statuses = Task.statuses.map { |k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
   end
 
-  def set_users
+  def find_users
     @users = User.all
   end
 end

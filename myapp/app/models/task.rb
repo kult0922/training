@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   belongs_to :user
 
   enum status: { not_start: 0, underway: 10, done: 20 }
-
+  include Enum
   scope :search_title, (lambda do |title|
     title.present? ? where('title like ?', "%#{title}%") : all
   end)
@@ -15,13 +15,5 @@ class Task < ApplicationRecord
 
   def self.search(title, status)
     search_title(title).search_status(status)
-  end
-
-  def self.human_attribute_enum_val(attr_name, val)
-    human_attribute_name("#{attr_name}.#{val}")
-  end
-
-  def human_attribute_enum(attr_name)
-    self.class.human_attribute_enum_val(attr_name, self[attr_name])
   end
 end
