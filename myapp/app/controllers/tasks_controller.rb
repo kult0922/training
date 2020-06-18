@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
   before_action :find_users, only: %i[new edit]
+  before_action :find_labels, only: %i[new create edit update]
   before_action :find_task_statuses, only: %i[index new create edit update]
   before_action :require_login
   PAGE_PER = 5
@@ -85,5 +86,9 @@ class TasksController < ApplicationController
 
   def find_users
     @users = User.all
+  end
+
+  def find_labels
+    @labels = Label.all
   end
 end
