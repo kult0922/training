@@ -30,6 +30,7 @@ describe 'task', type: :system do
     before { visit tasks_path }
     context 'accress root' do
       it 'should be success to access the task list' do
+        expect(page).to have_current_path tasks_path
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
@@ -85,35 +86,42 @@ describe 'task', type: :system do
   describe '#new (GET /tasks/new)' do
     before { visit new_task_path }
 
-    context 'name is more than one letter' do
-      it 'should be success to create' do
-        fill_in '名前', with: 'hoge'
-        fill_in '説明', with: 'fuga'
+    context 'name is more than 2 letters' do
+      it 'should be success to create a task' do
+        expect {
+          fill_in '名前', with: 'hoge'
+          fill_in '説明', with: 'fuga'
+          click_on '登録する'
+        }.to change(Task, :count).by(1)
 
-        click_on '登録する'
+        expect(page).to have_current_path tasks_path
         expect(page).to have_content 'タスクを作成しました'
       end
     end
 
-    context 'name is blank' do
-      it 'should be failure to create' do
-        fill_in '名前', with: ''
-        fill_in '説明', with: 'piyo'
+    context 'name is less than 2 letters' do
+      it 'should be failure to create a task' do
+        expect {
+          fill_in '名前', with: ''
+          fill_in '説明', with: 'piyo'
+          click_on '登録する'
+        }.to change(Task, :count).by(0)
 
-        click_on '登録する'
         expect(page).to have_content 'タスクの作成に失敗しました'
+        expect(page).to have_content '名前は2文字以上で入力してください'
       end
     end
   end
 
   describe '#edit (GET /tasks/:id/edit)' do
     before { visit edit_task_path(task1.id) }
-    context 'name is more than one letter' do
+    context 'name is more than 2 letters' do
       it 'should be success to update' do
         fill_in '名前', with: 'hogehoge'
         fill_in '説明', with: 'fugaguga'
 
         click_on '更新する'
+        expect(page).to have_current_path task_path(task1.id)
         expect(page).to have_content 'タスクを更新しました'
       end
     end
@@ -124,7 +132,9 @@ describe 'task', type: :system do
         fill_in '説明', with: 'piyopiyo'
 
         click_on '更新する'
+        expect(page).to have_current_path task_path(task1.id)
         expect(page).to have_content 'タスクの更新に失敗しました'
+        expect(page).to have_content '名前は2文字以上で入力してください'
       end
     end
   end
@@ -134,6 +144,7 @@ describe 'task', type: :system do
       it 'should be success' do
         visit task_path(task1.id)
 
+        expect(page).to have_current_path task_path(task1.id)
         expect(page).to have_content 'task1'
         expect(page).to have_content 'a'
         expect(page).to have_content '着手中'
@@ -148,10 +159,36 @@ describe 'task', type: :system do
       it 'should be success to delete the task' do
         visit task_path(task1.id)
 
-        # confirm dialog
-        page.accept_confirm do
+        expect {
           click_on '削除'
-        end
+          expect(page.accept_confirm).to eq 'タスクを削除しますか？'
+          expect(page).to have_current_path tasks_path
+        }.to change(Task, :count).by(-1)
+
+        expect(page).to have_content 'タスクを削除しました'
+      end
+    end
+  end
+
+  describe '#delete (DELETE /tasks/:id)', js: true do
+    before { visit task_path(task1.id) }
+
+    context 'delete a general label' do
+      it 'able to cancel' do
+        expect {
+          click_on '削除'
+          expect(page.dismiss_confirm).to eq 'タスクを削除しますか？'
+          expect(page).to have_current_path task_path(task1.id)
+        }.to change(Task, :count).by(0)
+      end
+
+      it 'should be success to delete' do
+        expect {
+          click_on '削除'
+          expect(page.accept_confirm).to eq 'タスクを削除しますか？'
+          expect(page).to have_current_path tasks_path
+        }.to change(Task, :count).by(-1)
+
         expect(page).to have_content 'タスクを削除しました'
       end
     end

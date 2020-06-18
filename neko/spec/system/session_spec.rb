@@ -11,7 +11,7 @@ describe 'session', type: :system do
         fill_in 'Email', with: 'wrong@example.com'
         fill_in 'Password', with: 'testpassword'
         click_on 'ログイン'
-        expect(page).to have_current_path '/login'
+        expect(page).to have_current_path login_path
         expect(page).to have_content 'ログインに失敗しました'
       end
     end
@@ -21,7 +21,7 @@ describe 'session', type: :system do
         fill_in 'Email', with: 'test@example.com'
         fill_in 'Password', with: 'wrongpassword'
         click_on 'ログイン'
-        expect(page).to have_current_path '/login'
+        expect(page).to have_current_path login_path
         expect(page).to have_content 'ログインに失敗しました'
       end
     end
@@ -31,7 +31,7 @@ describe 'session', type: :system do
         fill_in 'Email', with: 'test@example.com'
         fill_in 'Password', with: 'testpassword'
         click_on 'ログイン'
-        expect(page).to have_current_path '/'
+        expect(page).to have_current_path root_path
         expect(page).to have_content 'ログインしました'
       end
     end
@@ -45,7 +45,7 @@ describe 'session', type: :system do
         click_on 'ログイン'
         expect(page).to have_current_path '/'
         click_on 'ログアウト'
-        expect(page).to have_current_path '/login'
+        expect(page).to have_current_path login_path
         expect(page).to have_content 'ログアウトしました'
       end
     end
