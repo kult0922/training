@@ -1,8 +1,8 @@
 module Admin
   class UsersController < ApplicationController
     before_action :check_admin_user
-    before_action :set_admin_user, only: %i[show edit update destroy]
-    before_action :set_admin_user_role, only: %i[new create edit update]
+    before_action :find_admin_user, only: %i[show edit update destroy]
+    before_action :find_admin_user_role, only: %i[new create edit update]
     before_action :require_login
     PAGE_PER = 5
     def index
@@ -57,11 +57,11 @@ module Admin
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
     end
 
-    def set_admin_user
+    def find_admin_user
       @admin_user = User.find(params[:id])
     end
 
-    def set_admin_user_role
+    def find_admin_user_role
       @admin_user_roles = User.roles.map { |k, _| [User.human_attribute_enum_val(:role, k), k] }.to_h
     end
 
