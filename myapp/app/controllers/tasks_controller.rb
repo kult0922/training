@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update destroy]
-  before_action :set_users, only: %i[new edit]
-  before_action :set_task_statuses, only: %i[index new create edit update]
+  before_action :find_task, only: %i[show edit update destroy]
+  before_action :find_users, only: %i[new edit]
+  before_action :find_task_statuses, only: %i[index new create edit update]
   before_action :require_login
   PAGE_PER = 5
 
@@ -75,15 +75,15 @@ class TasksController < ApplicationController
     end
   end
 
-  def set_task
+  def find_task
     @task = Task.find(params[:id])
   end
 
-  def set_task_statuses
+  def find_task_statuses
     @task_statuses = Task.statuses.map { |k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
   end
 
-  def set_users
+  def find_users
     @users = User.all
   end
 end
