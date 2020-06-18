@@ -6,6 +6,8 @@ describe 'Task', type: :feature do
   let!(:task2) { create(:task, deadline: Time.zone.today + 1, user: user) }
   let!(:task3) { create(:task, deadline: Time.zone.today + 2, user: user) }
   let(:user) { create(:user) }
+  let(:label) { create(:label) }
+  let!(:task_label_relationship) { create(:task_label_relationship, task: task1, label: label) }
   before do
     visit login_path
     fill_in 'email', with: user.email
@@ -22,6 +24,7 @@ describe 'Task', type: :feature do
         expect(page).to have_content 'Deadline'
         expect(page).to have_content 'Status'
         expect(page).to have_content 'ユーザー名'
+        expect(page).to have_content 'ラベル'
       end
     end
 
@@ -73,6 +76,7 @@ describe 'Task', type: :feature do
         fill_in 'Memo', with: 'hogehoge'
         select_date('2020,10,10', from: 'Deadline')
         select('完了', from: 'Status')
+        check 'priority'
         click_button '登録する'
         expect(page).to have_content 'Taskは正常に作成されました'
       end
@@ -88,6 +92,7 @@ describe 'Task', type: :feature do
         fill_in 'Memo', with: 'testtest'
         select_date('2020,10,10', from: 'Deadline')
         select('着手中', from: 'Status')
+        uncheck 'priority'
 
         click_button '更新する'
         expect(page).to have_content 'Taskは正常に更新されました'
@@ -104,6 +109,7 @@ describe 'Task', type: :feature do
         expect(page).to have_content task1.title
         expect(page).to have_content task1.memo
         expect(page).to have_content task1.deadline.strftime('%Y/%m/%d')
+        expect(page).to have_content label.name
         expect(page).to have_content '完了'
       end
     end
