@@ -14,5 +14,5 @@ AuthInfo.create!(email: 'abc@example.com', password: 'password', user: user)
 end
 
 ('A'..'E').each do |s|
-  Label.create!(name: "Label_#{s}")
+  Label.create!(name: "Label_#{s}", user: user)
 end

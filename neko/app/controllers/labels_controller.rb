@@ -4,7 +4,7 @@ class LabelsController < ApplicationController
   MODEL_NAME = Label.model_name.human
 
   def index
-    @labels = Label.preload(:tasks).all.page(params[:page])
+    @labels = Label.preload(:tasks).eager_load(:user).all.page(params[:page])
   end
 
   def new
@@ -12,7 +12,7 @@ class LabelsController < ApplicationController
   end
 
   def create
-    @label = Label.new(label_params)
+    @label = current_user.labels.new(label_params)
 
     if @label.save
       flash[:success] = I18n.t('flash.model.succeeded', target: MODEL_NAME, action: I18n.t(action_name))
