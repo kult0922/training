@@ -1,72 +1,44 @@
 require 'rails_helper'
 
-describe 'lebel', type: :system do
-  let!(:user1) { create(:user, name: 'user1') }
-  let!(:auth1) { create(:auth, user: user1) }
-  let!(:label1) { create(:label) }
-
-  before do
-    visit '/login'
-    fill_in 'Email', with: 'test@example.com'
-    fill_in 'Password', with: 'testpassword'
-    click_on 'ログイン'
-  end
-
-  describe '#index' do
-    context 'accress root' do
-      it 'should be success to access the task list' do
-        visit labels_path
-
-        expect(page).to have_content '名前'
-        expect(page).to have_content 'タスク数'
-        expect(page).to have_content '作成日時'
-      end
+RSpec.describe Label, type: :model do
+  context 'name is between 2 and 24 characters' do
+    let!(:label) { build(:label, name: 'hoge') }
+    it 'should be OK' do
+      expect(label).to be_valid
     end
   end
 
-  describe '#new' do
-    before { visit new_label_path(label1.id) }
-
-    context 'name is more than one letter' do
-      it 'should be success to create' do
-        fill_in '名前', with: 'ラベルA'
-
-        click_on '登録する'
-        expect(page).to have_content 'ラベルを作成しました'
-      end
-    end
-
-    context 'name is blank' do
-      it 'should be failure to create' do
-        fill_in '名前', with: ''
-
-        click_on '登録する'
-        expect(page).to have_content 'ラベルの作成に失敗しました'
-      end
+  context 'name is less than 2 letters' do
+    let!(:label) { build(:label, name: '1') }
+    it 'raise a error' do
+      expect(label.valid?).to eq false
+      expect(label.errors.full_messages).to eq ['名前は2文字以上で入力してください']
     end
   end
 
-  describe '#edit' do
-    context 'name is more than one letter' do
-      it 'should be success to update' do
-        visit edit_label_path(label1.id)
-        fill_in '名前', with: 'ラベルB'
-
-        click_on '更新する'
-        expect(page).to have_content 'ラベルを更新しました'
-      end
+  context 'name is more than 24 letters' do
+    let!(:label) { build(:label, name: 'abcdefghijklmnopqrstuvwxy') }
+    it 'raise a error' do
+      expect(label.valid?).to eq false
+      expect(label.errors.full_messages).to eq ['名前は24文字以内で入力してください']
     end
   end
 
-  describe '#delete', js: true do
-    context 'push delete button' do
-      it 'should be success to delete the label' do
-        visit labels_path
+  context 'name is duplicate' do
+    let!(:label) { create(:label, name: 'label') }
+    context ' & case is same' do
+      let!(:duplicate_label) { build(:label, name: label.name) }
+      it 'raise a error' do
+        expect(duplicate_label.valid?).to eq false
+        expect(duplicate_label.errors.full_messages).to eq ['名前はすでに存在します']
+      end
+    end
 
-        page.accept_confirm do
-          click_on '削除', match: :first
-        end
-        expect(page).to have_content 'ラベルを削除しました'
+    context ' & case is different' do
+      let!(:duplicate_label) { build(:label, name: label.name.upcase) }
+      it 'raise a error' do
+        expect(duplicate_label.valid?).to eq false
+        expect(duplicate_label.errors.full_messages).to eq ['名前はすでに存在します']
       end
     end
   end

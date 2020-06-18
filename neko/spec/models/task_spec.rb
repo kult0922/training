@@ -1,45 +1,50 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let!(:user1) { create(:user) }
-
-  context 'name is not blank' do
-    it 'should be success' do
-      task = Task.new(name: 'hoge', description: '', status: 1, user: user1)
+  context 'name is between 2 and 24 characters' do
+    let!(:task) { build(:task, name: 'hoge') }
+    it 'should be OK' do
       expect(task).to be_valid
     end
   end
 
-  context 'name is blank' do
-    it 'should be failure' do
-      task = Task.new(name: '', description: '', user: user1)
+  context 'name is less than 2 characters' do
+    let!(:task) { build(:task, name: '1') }
+    it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['名前は2文字以上で入力してください']
     end
   end
 
+  context 'name is more than 24 characters' do
+    let!(:task) { build(:task, name: 'abcdefghijklmnopqrstuvwxy') }
+    it 'raise a error' do
+      expect(task.valid?).to eq false
+      expect(task.errors.full_messages).to eq ['名前は24文字以内で入力してください']
+    end
+  end
+
   context 'user_id is null' do
-    it 'should be failure' do
-      task = Task.new(name: 'hoge', description: '')
+    let!(:task) { build(:task, name: 'task', user: nil) }
+    it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['作成者を入力してください']
     end
   end
 
   context 'search function' do
-    let!(:task1) { create(:task, name: 'task1', status: 0, user: user1) }
-    let!(:task2) { create(:task, name: 'task2', status: 1, user: user1) }
-    let!(:task3) { create(:task, name: 'task3', status: 2, user: user1) }
-    let!(:task4) { create(:task, name: 'task4', status: 1, user: user1) }
-    let!(:taskA) { create(:task, name: 'タスクA', status: 0, user: user1) }
-    let!(:taskB) { create(:task, name: 'タスクB', status: 2, user: user1) }
-
+    let!(:task1) { create(:task, name: 'task1', status: 0) }
+    let!(:task2) { create(:task, name: 'task2', status: 1) }
+    let!(:task3) { create(:task, name: 'task3', status: 2) }
+    let!(:task4) { create(:task, name: 'task4', status: 1) }
+    let!(:taskA) { create(:task, name: 'タスクA', status: 0) }
+    let!(:taskB) { create(:task, name: 'タスクB', status: 2) }
     it 'search tasks by name & status' do
       test_cases = [
-        { name: 'task', status: 1, user: user1 },
-        { name: 'タスク', status: nil, user: user1 },
-        { name: '', status: 2, user: user1 },
-        { name: '', status: nil, user: user1 }
+        { name: 'task', status: 1 },
+        { name: 'タスク', status: nil },
+        { name: '', status: 2 },
+        { name: '', status: nil }
       ]
 
       outputs = [
@@ -50,7 +55,7 @@ RSpec.describe Task, type: :model do
       ]
 
       test_cases.each_with_index do |test_case, i|
-        expect(Task.where(user: test_case[:user]).search(test_case)).to eq outputs[i]
+        expect(Task.search(test_case)).to eq outputs[i]
       end
     end
   end
