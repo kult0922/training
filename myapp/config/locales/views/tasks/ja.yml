@@ -8,6 +8,7 @@ ja:
       logout: 'ログアウト'
       confirm: '消しますか？'
       admin_user: 'ユーザー管理画面'
+      label: 'ラベル'
       flash:
         danger: '検索できない値が入力されました'
     show:
@@ -15,6 +16,7 @@ ja:
       back: 'Back'
       edit: 'Edit'
       delete: 'Delete'
+      label: 'Label'
       confirm: '消しますか？'
     edit:
       title: 'Task編集'

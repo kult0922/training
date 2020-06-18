@@ -11,6 +11,7 @@
       <th><%= create_sort_link('deadline', @search_tasks.title, @search_tasks.status, @sort) %></th>
       <th><%= Task.human_attribute_name(:created_at) %></th>
       <th><%= create_sort_link('status', @search_tasks.title, @search_tasks.status, @sort) %></th>
+      <th><%= t('.label') %></th>
       <th><%= User.human_attribute_name(:name) %></th>
       <th></th>
     </tr>
@@ -23,6 +24,11 @@
         <td><%= l t.deadline if t.deadline.present? %></td>
         <td><%= l t.created_at, format: :short %></td>
         <td><%= t.human_attribute_enum(:status) %></td>
+        <td>
+          <% t&.labels.each do |l| %>
+            <div class="badge badge-info"><%= l.name %></div>
+          <% end %>
+        </td>
         <td><%= t.user.name %></td>
         <td class="btn-group">
           <%= link_to t('.detail'), t, class: 'btn btn-secondary' %>

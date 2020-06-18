@@ -18,6 +18,14 @@
       <td><%= Task.human_attribute_name(:status) %></td>
       <td><%= @task.human_attribute_enum(:status) %></td>
     </tr>
+    <tr>
+      <td><%= t('.label') %></td>
+      <td>
+        <% @task.labels.each do |l| %>
+            <div class="badge badge-info"><%= l.name %></div>
+        <% end %>
+      </td>
+    </tr>
   </tbody>
 </table>
 <div class="btn-group">
