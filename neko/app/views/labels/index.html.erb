@@ -6,6 +6,7 @@
       <tr>
         <th scope="col"><%= Label.human_attribute_name(:name) %></th>
         <th scope="col"><%= I18n.t('num_tasks') %></th>
+        <th scope="col"><%= Label.human_attribute_name(:user) %></th>
         <th scope="col"><%= Label.human_attribute_name(:created_at) %></th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -16,9 +17,15 @@
         <tr>
           <td class="label-name"><%= label.name %></td>
           <td class="label-tasks"><%= label.tasks.size %></td>
+          <td class="label-user"><%= label.user.name %></td>
           <td class="label-created_at"><%= I18n.l(label.created_at) %></td>
-          <td class="label-edit"><%= link_to I18n.t('edit'), edit_label_path(label) %></td>
-          <td class="label-delete"><%= link_to I18n.t('delete'), label_path(label), method: :delete, data: { confirm: I18n.t('dialog.delete', target: Label.model_name.human) } %></td>
+          <% if owner?(label) || current_user.administrator? %>
+            <td class="label-edit"><%= link_to I18n.t('edit'), edit_label_path(label) %></td>
+            <td class="label-delete"><%= link_to I18n.t('delete'), label_path(label), method: :delete, data: { confirm: I18n.t('dialog.delete', target: Label.model_name.human) } %></td>
+          <% else %>
+            <td class="label-edit"></td>
+            <td class="label-delete"></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

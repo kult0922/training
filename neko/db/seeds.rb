@@ -1,6 +1,15 @@
-user = User.create!(name: 'user')
+admin = User.create!(name: 'admin')
+general = User.create!(name: 'general-user', role: 1)
+AuthInfo.create!(email: 'abc@example.com', password: 'password', user: admin)
+AuthInfo.create!(email: '123@example.com', password: 'password', user: general)
 
-AuthInfo.create!(email: 'abc@example.com', password: 'password', user: user)
+('A'..'E').each do |s|
+  Label.create!(name: "Label_#{s}", user: admin)
+end
+
+(1..5).each do |n|
+  Label.create!(name: "Label_#{n}", user: general)
+end
 
 30.times do |n|
   Task.create!(
@@ -11,8 +20,4 @@ AuthInfo.create!(email: 'abc@example.com', password: 'password', user: user)
     status: Task.statuses.values.sample,
     user: User.all.sample
   )
-end
-
-('A'..'E').each do |s|
-  Label.create!(name: "Label_#{s}", user: user)
 end
