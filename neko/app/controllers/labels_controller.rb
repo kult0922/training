@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :set_label, only: [:edit, :update, :destroy]
+  before_action :set_label_if_admin_or_owner, only: [:edit, :update, :destroy]
   before_action :logged_in_user
   MODEL_NAME = Label.model_name.human
 
@@ -47,8 +47,9 @@ class LabelsController < ApplicationController
 
   private
 
-  def set_label
+  def set_label_if_admin_or_owner
     @label = Label.find(params[:id])
+    not_permit('flash.admin_or_owner.permit') unless current_user.administrator? || owner?(@label)
   end
 
   def label_params

@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :logged_in_user
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :only_admin, only: [:list]
+  before_action :set_task_if_admin_or_owner, only: [:show, :edit, :update, :destroy]
   before_action :set_labels, except: [:show, :destroy]
 
   def index(user = current_user)
@@ -65,8 +66,9 @@ class TasksController < ApplicationController
 
   private
 
-  def set_task
+  def set_task_if_admin_or_owner
     @task = Task.find(params[:id])
+    not_permit('flash.admin_or_owner.permit') unless current_user.administrator? || owner?(@task)
   end
 
   def task_params

@@ -9,6 +9,8 @@ ja:
     admin:
       only_one_admin: "管理ユーザーが1人なので%{action}できません"
       permit: 管理者権限が必要です
+    admin_or_owner:
+      permit: 管理者かもしくは作成者でなればアクセスできません
   dialog:
     delete: "%{target}を削除しますか？"
 

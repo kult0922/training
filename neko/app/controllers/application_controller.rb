@@ -43,12 +43,12 @@ class ApplicationController < ActionController::Base
     redirect_to login_url unless logged_in?
   end
 
-  def only_admin
-    redirect_to root_url, flash: { danger: I18n.t('flash.admin.permit') } unless current_user.administrator?
+  def not_permit(msg)
+    redirect_to root_url, flash: { danger: I18n.t(msg) }
   end
 
-  def only_admin_or_owner(model)
-    owner?(model) || admin?
+  def only_admin
+    not_permit('flash.admin.permit') unless current_user.administrator?
   end
 
   def owner?(model)
