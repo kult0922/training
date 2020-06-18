@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_user, only: [:create]
+  before_action :find_user, only: [:create]
   def new
   end
 
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
     params.require(:session).permit(:email, :password)
   end
 
-  def set_user
+  def find_user
     @user = User.find_by(email: params[:session][:email])
     if @user.blank?
       flash.now[:danger] = t '.flash.mail_danger'
