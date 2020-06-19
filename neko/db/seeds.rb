@@ -1,17 +1,21 @@
-admin = User.create!(name: 'admin')
-general = User.create!(name: 'general-user', role: 1)
-AuthInfo.create!(email: 'abc@example.com', password: 'password', user: admin)
-AuthInfo.create!(email: '123@example.com', password: 'password', user: general)
-
-('A'..'E').each do |s|
-  Label.create!(name: "Label_#{s}", user: admin)
+if User.all.empty?
+  admin = User.create!(name: 'admin')
+  general = User.create!(name: 'general-user', role: :general_user)
+  AuthInfo.create!(email: 'abc@example.com', password: 'password', user: admin)
+  AuthInfo.create!(email: '123@example.com', password: 'password', user: general)
 end
 
-(1..5).each do |n|
-  Label.create!(name: "Label_#{n}", user: general)
+if Label.all.empty?
+  ('A'..'E').each do |s|
+    Label.create!(name: "Label_#{s}", user: admin)
+  end
+
+  (1..5).each do |n|
+    Label.create!(name: "Label_#{n}", user: general)
+  end
 end
 
-30.times do |n|
+50.times do |n|
   Task.create!(
     name: "task#{'%02d' % n}",
     description: "This is task#{'%02d' % n}",
