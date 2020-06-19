@@ -26,7 +26,7 @@ RSpec.describe User, type: :model do
 
   context 'name is duplicate' do
     let!(:user) { create(:user, name: 'user') }
-    context ' & case is same' do
+    context '& case is same' do
       let!(:duplicate_user) { build(:user, name: user.name) }
       it 'raise a error' do
         expect(duplicate_user.valid?).to eq false
@@ -34,7 +34,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context ' & case is different' do
+    context '& case is different' do
       let!(:duplicate_user) { build(:user, name: user.name.upcase) }
       it 'raise a error' do
         expect(duplicate_user.valid?).to eq false

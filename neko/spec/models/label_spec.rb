@@ -34,7 +34,7 @@ RSpec.describe Label, type: :model do
       end
     end
 
-    context ' & case is different' do
+    context '& case is different' do
       let!(:duplicate_label) { build(:label, name: label.name.upcase) }
       it 'raise a error' do
         expect(duplicate_label.valid?).to eq false
