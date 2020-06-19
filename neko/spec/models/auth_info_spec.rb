@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AuthInfo, type: :model do
   context 'all informations are correct' do
-    let!(:auth) { create(:auth, email: 'asbc@example.com', password: 'password', password_confirmation: 'password') }
+    let!(:auth) { build(:auth, email: 'asbc@example.com', password: 'password', password_confirmation: 'password') }
     it 'should be OK' do
       expect(auth).to be_valid
     end
