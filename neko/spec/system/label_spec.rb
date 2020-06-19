@@ -6,7 +6,7 @@ RSpec.describe 'label', type: :system do
   let!(:label1) { create(:label, name: 'label1', user: admin) }
   let!(:label2) { create(:label, name: 'label2', user: owner) }
 
-  shared_context 'login as a administrator' do
+  shared_context 'login as an administrator' do
     let!(:auth1) { create(:auth, user: admin) }
     before do
       visit '/login'
@@ -39,7 +39,7 @@ RSpec.describe 'label', type: :system do
 
   describe "#index(GET '/labels/')" do
     context 'access labels_path' do
-      include_context 'login as a administrator'
+      include_context 'login as an administrator'
       before { visit labels_path }
       it 'should be success to access the task list' do
         expect(page).to have_current_path labels_path
@@ -52,7 +52,7 @@ RSpec.describe 'label', type: :system do
   end
 
   describe "#new (GET '/labels/new')" do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit new_label_path }
     context 'name is more than 2 letters' do
       it 'should be success to create a label' do
@@ -80,7 +80,7 @@ RSpec.describe 'label', type: :system do
   end
 
   describe "#edit (GET '/labels/:id/edit')" do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit edit_label_path(label1.id) }
     context 'name is more than 2 letters' do
       it 'should be success to update' do
@@ -105,7 +105,7 @@ RSpec.describe 'label', type: :system do
 
   describe '#edit permissions' do
     context 'access edit_label_path as general user' do
-      include_context 'login as a administrator'
+      include_context 'login as an administrator'
       it 'could not access' do
         visit edit_label_path(label2.id)
 
@@ -134,7 +134,7 @@ RSpec.describe 'label', type: :system do
   end
 
   describe '#delete (DELETE /labels/:id)', js: true do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit labels_path }
     context 'delete a general label' do
       it 'able to cancel' do

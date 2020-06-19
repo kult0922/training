@@ -4,7 +4,7 @@ RSpec.describe 'user', type: :system do
   let!(:admin) { create(:user, name: 'admin') }
   let!(:general) { create(:user, name: 'general', role: 1) }
 
-  shared_context 'login as a administrator' do
+  shared_context 'login as an administrator' do
     let!(:auth1) { create(:auth, user: admin) }
     before do
       visit login_path
@@ -26,7 +26,7 @@ RSpec.describe 'user', type: :system do
 
   describe "#index(GET '/admin/users/')" do
     context 'accress users_path' do
-      include_context 'login as a administrator'
+      include_context 'login as an administrator'
       it 'should be success to access the task list' do
         visit users_path
 
@@ -51,7 +51,7 @@ RSpec.describe 'user', type: :system do
   end
 
   describe "#new (GET '/admin/users/new')" do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit new_user_path }
     context 'information is correct' do
       it 'should be success to create a user' do
@@ -157,7 +157,7 @@ RSpec.describe 'user', type: :system do
   end
 
   describe "#edit (GET '/admin/users/:id/edit')" do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit edit_user_path(admin.id) }
     context 'information is correct' do
       it 'should be success to update' do
@@ -251,7 +251,7 @@ RSpec.describe 'user', type: :system do
   end
 
   describe '#delete (DELETE /users/:id)', js: true do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     context 'delete a general user' do
       it 'should be success to delete ' do
         visit users_path

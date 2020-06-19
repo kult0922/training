@@ -21,7 +21,7 @@ RSpec.describe 'task', type: :system do
                   have_a_due: true, due_at: Time.zone.local(2020, 10, 15, 11, 59), user: owner)
   end
 
-  shared_context 'login as a administrator' do
+  shared_context 'login as an administrator' do
     let!(:auth1) { create(:auth, user: admin) }
     before do
       visit '/login'
@@ -53,7 +53,7 @@ RSpec.describe 'task', type: :system do
   end
 
   describe '#index' do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit tasks_path }
     context 'accress root' do
       it 'should be success to access the task list' do
@@ -111,7 +111,7 @@ RSpec.describe 'task', type: :system do
   end
 
   describe '#new (GET /tasks/new)' do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit new_task_path }
     context 'name is more than 2 letters' do
       it 'should be success to create a task' do
@@ -142,7 +142,7 @@ RSpec.describe 'task', type: :system do
 
   describe '#show (GET /tasks/:id)' do
     context 'access edit_task_path as administrator' do
-      include_context 'login as a administrator'
+      include_context 'login as an administrator'
       it 'could not access' do
         visit task_path(task4.id)
 
@@ -176,7 +176,7 @@ RSpec.describe 'task', type: :system do
   end
 
   describe '#edit (GET /tasks/:id/edit)' do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit edit_task_path(task1.id) }
     context 'name is more than 2 letters' do
       it 'should be success to update' do
@@ -204,7 +204,7 @@ RSpec.describe 'task', type: :system do
 
   describe '#edit permissions' do
     context 'access edit_task_path as general user' do
-      include_context 'login as a administrator'
+      include_context 'login as an administrator'
       it 'could not access' do
         visit edit_task_path(task4.id)
 
@@ -233,7 +233,7 @@ RSpec.describe 'task', type: :system do
   end
 
   describe '#delete (DELETE /tasks/:id)', js: true do
-    include_context 'login as a administrator'
+    include_context 'login as an administrator'
     before { visit task_path(task1.id) }
     context 'delete a general label' do
       it 'able to cancel' do
