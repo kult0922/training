@@ -1,32 +1,59 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:user1) { create(:user, name: 'user1') }
-  let!(:user2) { create(:user, name: 'user2') }
-  let!(:auth1) { create(:auth, user: user1) }
+  let!(:admin) { create(:user, name: 'admin') }
+  let!(:owner) { create(:user, name: 'owner', role: 1) }
 
   let!(:task1) do
     create(:task, name: 'task1', description: 'a', status: 1,
-                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: user1)
+                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: admin)
   end
   let!(:task2) do
     create(:task, name: 'task2', description: 'c', status: 2,
-                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: user1)
+                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: admin)
   end
   let!(:task3) do
     create(:task, name: 'task3', description: 'b', status: 0,
-                  have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), user: user1)
+                  have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), user: admin)
   end
-  let!(:task4) { create(:task, name: 'task4', user: user2) }
+  let!(:task4) do
+    create(:task, name: 'task4', description: 'e', status: 0,
+                  have_a_due: true, due_at: Time.zone.local(2020, 10, 15, 11, 59), user: owner)
+  end
 
-  before do
-    visit 'login'
-    fill_in 'Email', with: 'test@example.com'
-    fill_in 'Password', with: 'testpassword'
-    click_on 'ログイン'
+  shared_context 'login as a administrator' do
+    let!(:auth1) { create(:auth, user: admin) }
+    before do
+      visit '/login'
+      fill_in 'Email', with: 'test@example.com'
+      fill_in 'Password', with: 'testpassword'
+      click_on 'ログイン'
+    end
+  end
+
+  shared_context 'login as owner' do
+    let!(:auth3) { create(:auth, user: owner, email: '12345@example.com', password: 'password') }
+    before do
+      visit '/login'
+      fill_in 'Email', with: '12345@example.com'
+      fill_in 'Password', with: 'password'
+      click_on 'ログイン'
+    end
+  end
+
+  shared_context 'login as a general user' do
+    let!(:general) { create(:user, name: 'general', role: 1) }
+    let!(:auth2) { create(:auth, user: general, email: 'abcde@example.com', password: 'password') }
+    before do
+      visit '/login'
+      fill_in 'Email', with: 'abcde@example.com'
+      fill_in 'Password', with: 'password'
+      click_on 'ログイン'
+    end
   end
 
   describe '#index' do
+    include_context 'login as a administrator'
     before { visit tasks_path }
     context 'accress root' do
       it 'should be success to access the task list' do
@@ -84,8 +111,8 @@ describe 'task', type: :system do
   end
 
   describe '#new (GET /tasks/new)' do
+    include_context 'login as a administrator'
     before { visit new_task_path }
-
     context 'name is more than 2 letters' do
       it 'should be success to create a task' do
         expect {
@@ -113,7 +140,43 @@ describe 'task', type: :system do
     end
   end
 
+  describe '#show (GET /tasks/:id)' do
+    context 'access edit_task_path as administrator' do
+      include_context 'login as a administrator'
+      it 'could not access' do
+        visit task_path(task4.id)
+
+        expect(page).to have_current_path task_path(task4.id)
+        expect(page).to have_content 'task4'
+        expect(page).to have_content 'e'
+        expect(page).to have_content '未着手'
+        expect(page).to have_content '2020/10/15 11:59'
+        expect(page).to have_content 'owner'
+      end
+    end
+
+    context 'access edit_task_path as owner' do
+      include_context 'login as owner'
+      it 'could not access' do
+        visit task_path(task4.id)
+
+        expect(page).to have_current_path task_path(task4.id)
+      end
+    end
+
+    context 'access edit_task_path as general user' do
+      include_context 'login as a general user'
+      it 'could not access' do
+        visit task_path(task4.id)
+
+        expect(page).to have_current_path root_path
+        expect(page).to have_content '管理者かもしくは作成者でなればアクセスできません'
+      end
+    end
+  end
+
   describe '#edit (GET /tasks/:id/edit)' do
+    include_context 'login as a administrator'
     before { visit edit_task_path(task1.id) }
     context 'name is more than 2 letters' do
       it 'should be success to update' do
@@ -139,40 +202,39 @@ describe 'task', type: :system do
     end
   end
 
-  describe '#show (GET /tasks/:id)' do
-    context 'access the detail page' do
-      it 'should be success' do
-        visit task_path(task1.id)
+  describe '#edit permissions' do
+    context 'access edit_task_path as general user' do
+      include_context 'login as a administrator'
+      it 'could not access' do
+        visit edit_task_path(task4.id)
 
-        expect(page).to have_current_path task_path(task1.id)
-        expect(page).to have_content 'task1'
-        expect(page).to have_content 'a'
-        expect(page).to have_content '着手中'
-        expect(page).to have_content '2020/09/30 17:30'
-        expect(page).to have_content 'user1'
+        expect(page).to have_current_path edit_task_path(task4.id)
+      end
+    end
+
+    context 'access edit_task_path as general user' do
+      include_context 'login as a general user'
+      it 'could not access' do
+        visit edit_task_path(task4.id)
+
+        expect(page).to have_current_path root_path
+        expect(page).to have_content '管理者かもしくは作成者でなればアクセスできません'
+      end
+    end
+
+    context 'access edit_task_path as owner' do
+      include_context 'login as owner'
+      it 'could not access' do
+        visit edit_task_path(task4.id)
+
+        expect(page).to have_current_path edit_task_path(task4.id)
       end
     end
   end
 
   describe '#delete (DELETE /tasks/:id)', js: true do
-    context 'push delete button from detail page' do
-      it 'should be success to delete the task' do
-        visit task_path(task1.id)
-
-        expect {
-          click_on '削除'
-          expect(page.accept_confirm).to eq 'タスクを削除しますか？'
-          expect(page).to have_current_path tasks_path
-        }.to change(Task, :count).by(-1)
-
-        expect(page).to have_content 'タスクを削除しました'
-      end
-    end
-  end
-
-  describe '#delete (DELETE /tasks/:id)', js: true do
+    include_context 'login as a administrator'
     before { visit task_path(task1.id) }
-
     context 'delete a general label' do
       it 'able to cancel' do
         expect {
