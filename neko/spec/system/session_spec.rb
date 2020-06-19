@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'session', type: :system do
-  let!(:user1) { create(:user, name: 'user1') }
-  let!(:auth1) { create(:auth, user: user1) }
+  let!(:auth) { create(:auth, user: create(:user)) }
   before { visit '/login' }
 
   describe '#login' do
