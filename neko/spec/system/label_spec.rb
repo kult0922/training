@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'label', type: :system do
+RSpec.describe 'label', type: :system do
   let!(:admin) { create(:user, name: 'admin') }
   let!(:owner) { create(:user, name: 'owner', role: 1) }
   let!(:label1) { create(:label, name: 'label1', user: admin) }

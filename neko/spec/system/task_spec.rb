@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'task', type: :system do
+RSpec.describe 'task', type: :system do
   let!(:admin) { create(:user, name: 'admin') }
   let!(:owner) { create(:user, name: 'owner', role: 1) }
 

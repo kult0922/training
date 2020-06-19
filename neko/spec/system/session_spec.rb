@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'session', type: :system do
+RSpec.describe 'session', type: :system do
   let!(:user1) { create(:user, name: 'user1') }
   let!(:auth1) { create(:auth, user: user1) }
   before { visit '/login' }
