@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'task', type: :system do
   let!(:admin) { create(:user, name: 'admin') }
-  let!(:owner) { create(:user, name: 'owner', role: 1) }
+  let!(:owner) { create(:user, name: 'owner', role: :general_user) }
 
   let!(:task1) do
     create(:task, name: 'task1', description: 'a', status: 1,
@@ -32,7 +32,7 @@ RSpec.describe 'task', type: :system do
   end
 
   shared_context 'login as owner' do
-    let!(:auth3) { create(:auth, user: owner, email: '12345@example.com', password: 'password') }
+    let!(:auth2) { create(:auth, user: owner, email: '12345@example.com', password: 'password') }
     before do
       visit '/login'
       fill_in 'Email', with: '12345@example.com'
@@ -42,8 +42,8 @@ RSpec.describe 'task', type: :system do
   end
 
   shared_context 'login as a general user' do
-    let!(:general) { create(:user, name: 'general', role: 1) }
-    let!(:auth2) { create(:auth, user: general, email: 'abcde@example.com', password: 'password') }
+    let!(:general) { create(:user, name: 'general', role: :general_user) }
+    let!(:auth3) { create(:auth, user: general, email: 'abcde@example.com', password: 'password') }
     before do
       visit '/login'
       fill_in 'Email', with: 'abcde@example.com'

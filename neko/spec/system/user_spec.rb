@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'user', type: :system do
   let!(:admin) { create(:user, name: 'admin') }
-  let!(:general) { create(:user, name: 'general', role: 1) }
+  let!(:general) { create(:user, name: 'general', role: :general_user) }
 
   shared_context 'login as an administrator' do
     let!(:auth1) { create(:auth, user: admin) }
