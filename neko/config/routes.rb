@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-  get 'labels/index'
-  get 'labels/new'
-  get 'labels/edit'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
   scope '/admin' do
-    resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :users, except: [:show]
     get '/users/:id/tasks_list', to: 'tasks#list'
   end
 

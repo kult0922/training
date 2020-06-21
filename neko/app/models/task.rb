@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  validates :name, presence: true
+  validates :name, length: { in: 2..24 }
   belongs_to :user
   has_many :task_labels, dependent: :delete_all
   has_many :labels, through: :task_labels
@@ -8,7 +8,13 @@ class Task < ApplicationRecord
 
   scope :where_status, ->(status) { where(tasks: { status: status }) if status.present? }
   scope :include_name, ->(name) { where(['tasks.name LIKE ?', "%#{name}%"]) if name.present? }
-  scope :have_label,   ->(label_ids) { where(labels: { id: label_ids }) if label_ids.present?}
+  scope :have_label,   lambda { |label_ids|
+    if label_ids.present?
+      task_ids = Task.joins(:labels).where(labels: { id: label_ids }).select('id')
+      where(id: task_ids)
+    end
+  }
+
   scope :order_due_at, ->(column) { order(have_a_due: :desc) if column == 'due_at' }
 
   def self.rearrange(column, direction)
@@ -20,11 +26,6 @@ class Task < ApplicationRecord
   end
 
   def self.design_column(column)
-    case column
-    when 'user_id'
-      'users.name'
-    else
-      "tasks.#{column}"
-    end
+    column == 'user_id' ? 'users.name' : "tasks.#{column}"
   end
 end

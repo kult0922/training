@@ -4,9 +4,14 @@ ja:
     id: ID
     created_at: 作成日時
     updated_at: 更新日時
+    user: 作成者
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
   errors:
     messages:
       blank: "を入力してください"
+
+  create: '作成'
+  update: '更新'
+  destroy: '削除'

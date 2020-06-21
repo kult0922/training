@@ -68,3 +68,7 @@ Metrics/BlockLength:
 Style/TernaryParentheses:
   Exclude:
     - 'app/helpers/tasks_helper.rb'
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'

@@ -3,9 +3,14 @@ ja:
     model:
       succeeded: "%{target}を%{action}しました"
       failed: "%{target}の%{action}に失敗しました"
-    login:
-      succeeded: ログインしました
-      failed: ログインに失敗しました
+    session:
+      succeeded: "%{action}しました"
+      failed: "%{action}に失敗しました"
+    admin:
+      only_one_admin: "管理ユーザーが1人なので%{action}できません"
+      permit: 管理者権限が必要です
+    admin_or_owner:
+      permit: 管理者かもしくは作成者でなればアクセスできません
   dialog:
     delete: "%{target}を削除しますか？"
 

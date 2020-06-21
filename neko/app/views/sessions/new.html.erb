@@ -2,17 +2,18 @@
   <div class="text-center">
     <h1 class="title-neko">Neko</h1>
   </div>
+
   <%= form_for(:session, url: login_path) do |f| %>
-  <div class="form-group">
-    <div class="input-wrapper">
-      <%= f.label :email %>
-      <%= f.email_field :email, class: "form-control", placeholder:"Enter email" %>
-      <%= f.label :password %>
-      <%= f.password_field :password, class: "form-control", placeholder:"Password" %>
-      <div class="button-container">
-        <%= f.submit I18n.t('login'), class: "btn-push" %>
+    <div class="form-group">
+      <div class="input-wrapper">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control", placeholder:"Enter email" %>
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control", placeholder:"Password" %>
+        <div class="button-container">
+          <%= f.submit I18n.t('login'), class: "btn-push" %>
+        </div>
       </div>
     </div>
-  </div>
   <% end %>
 </div>
