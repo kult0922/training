@@ -15,7 +15,11 @@ class Task < ApplicationRecord
     status.present? ? where(status: status) : all
   end)
 
-  def self.search(title, status)
-    search_title(title).search_status(status)
+  scope :search_labels, (lambda do |label_ids|
+    label_ids.present? ? where(labels: { id: label_ids }) : all
+  end)
+
+  def self.search(title, status, label_ids)
+    search_title(title).search_status(status).search_labels(label_ids)
   end
 end
