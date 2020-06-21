@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :logged_in?, :current_user
-
+  helper_method :logged_in?, :current_user, :owner?
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
     rescue_from ActionController::RoutingError, with: :render404
@@ -44,7 +43,15 @@ class ApplicationController < ActionController::Base
     redirect_to login_url unless logged_in?
   end
 
+  def not_permit(msg)
+    redirect_to root_url, flash: { danger: I18n.t(msg) }
+  end
+
   def only_admin
-    redirect_to root_url, flash: { danger: I18n.t('flash.admin.permit') } unless current_user.administrator?
+    not_permit('flash.admin.permit') unless current_user.administrator?
+  end
+
+  def owner?(model)
+    model.user == current_user
   end
 end

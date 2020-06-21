@@ -3,11 +3,13 @@
     <nav>
       <h1><%= link_to 'Neko', root_path, class: 'title-neko' %></h1>
       <div class="user-name">
-        <p><%= current_user.name %></p>
+        <p><%= @current_user.name %></p>
       </div>
       <div class="button-container">
-        <% if current_page?(controller: 'users') %>
+        <% if request.path_info.include?('users')  %>
           <%= link_to I18n.t('users.new.title'), new_user_path , class: "btn-push" %>
+        <% elsif request.path_info.include?('labels') %>
+          <%= link_to I18n.t('labels.new.title'), new_label_path , class: "btn-push" %>
         <% else %>
           <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
         <% end %>
@@ -17,7 +19,8 @@
         <% if current_user.administrator? %>
           <p><%= link_to I18n.t('users.index.title'), users_path %></p>
         <% end %>
-      <div>
+        <p><%= link_to I18n.t('labels.index.title'), labels_path %></p>
+      </div>
     </nav>
     <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout' %>
   </div>

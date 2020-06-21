@@ -2,8 +2,13 @@
 
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
   <div class="row search">
-    <div class="form-group col">
+    <div class='form-group col-6'>
       <%= f.text_field :name, value: @search[:name], class: 'form-control form-control-sm', placeholder: Task.human_attribute_name(:name) %>
+    </div>
+    <div class='form-group col-2 scroll-x label'>
+      <%= f.collection_check_boxes(:label_ids, @labels, :id, :name, include_hidden: false, checked: @search[:label_ids]) do |l|
+        l.label { l.check_box(checked: false) + l.text }
+      end %>
     </div>
     <div class="form-group col">
       <%= f.label :status, "#{Task.human_attribute_name(:status)}:" ,class: 'col-form-label' %>
@@ -20,6 +25,7 @@
         <th scope="col"><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
         <th scope="col"><%= sortable @search, 'description', Task.human_attribute_name(:description) %></th>
         <th scope="col"><%= sortable @search, 'status', Task.human_attribute_name(:status) %></th>
+        <th scope="col"><%= Task.human_attribute_name(:label_ids) %></th>
         <th scope="col"><%= sortable @search, 'user_id', Task.human_attribute_name(:user) %></th>
         <th scope="col"><%= sortable @search, 'due_at', Task.human_attribute_name(:due_at) %></th>
         <th scope="col"><%= sortable @search, 'created_at', Task.human_attribute_name(:created_at) %></th>
@@ -29,8 +35,14 @@
       <% @tasks.each do |task| %>
         <tr>
           <td class="task-name"><%= link_to task.name.truncate(25), task %></td>
-          <td class="task-description"><%= task.description.truncate(60) %></td>
+          <td class="task-description"><%= task.description.truncate(50) %></td>
           <td class="task-status"><%= task.status_i18n %></td>
+          <td class="task-labels">
+            <% task.labels.first(3).each do |label| %>
+              <%= label.name %>
+              <%= ', ' unless label == task.labels.last || label == task.labels.third %>
+            <% end %>
+          </td>
           <td class="task-user"><%= task.user.name %></td>
           <td class="task-due_at">
             <%= I18n.l(task.due_at) if task.have_a_due %>

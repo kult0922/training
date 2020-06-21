@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get '/users/:id/tasks_list', to: 'tasks#list'
   end
 
+  resources :labels, only: [:index, :new, :create, :edit, :update, :destroy]
+
   resources :tasks
   root 'tasks#index'
   unless Rails.env.development?

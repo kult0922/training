@@ -7,5 +7,3 @@ ja:
       title: 'ユーザー編集'
     new:
       title: 'ユーザー作成'
-    delete:
-      confirm: 'ユーザーを削除しますか？'

@@ -8,5 +8,3 @@ ja:
       title: タスク編集
     new:
       title: タスク作成
-    delete:
-      confirm: 'タスクを削除しますか？'
