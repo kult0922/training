@@ -17,7 +17,7 @@ RSpec.describe AuthInfo, type: :model do
   end
 
   context 'email address entered is a duplicate' do
-    let(:auth) { create(:auth) }
+    let!(:auth) { create(:auth) }
     context '& case is same' do
       let(:duplicate_auth) { build(:auth, email: auth.email) }
       it 'raise a error' do

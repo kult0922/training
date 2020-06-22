@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let(:task) { build(:task, name: task_name) }
+
   context 'name is between 2 and 24 characters' do
-    let(:task) { build(:task, name: 'hoge') }
+    let(:task_name) { 'hoge' }
     it 'should be OK' do
       expect(task).to be_valid
     end
   end
 
   context 'name is less than 2 characters' do
-    let(:task) { build(:task, name: '1') }
+    let(:task_name) { '1' }
     it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['名前は2文字以上で入力してください']
@@ -17,7 +19,7 @@ RSpec.describe Task, type: :model do
   end
 
   context 'name is more than 24 characters' do
-    let(:task) { build(:task, name: 'abcdefghijklmnopqrstuvwxy') }
+    let(:task_name) { 'abcdefghijklmnopqrstuvwxy' }
     it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['名前は24文字以内で入力してください']

@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Label, type: :model do
+  let(:label) { build(:label, name: label_name) }
+
   context 'name is between 2 and 24 characters' do
-    let(:label) { build(:label, name: 'hoge') }
+    let(:label_name) { 'hoge' }
     it 'should be OK' do
       expect(label).to be_valid
     end
   end
 
   context 'name is less than 2 letters' do
-    let(:label) { build(:label, name: '1') }
+    let(:label_name) { '1' }
     it 'raise a error' do
       expect(label.valid?).to eq false
       expect(label.errors.full_messages).to eq ['名前は2文字以上で入力してください']
@@ -17,7 +19,7 @@ RSpec.describe Label, type: :model do
   end
 
   context 'name is more than 24 letters' do
-    let(:label) { build(:label, name: 'abcdefghijklmnopqrstuvwxy') }
+    let(:label_name) { 'abcdefghijklmnopqrstuvwxy' }
     it 'raise a error' do
       expect(label.valid?).to eq false
       expect(label.errors.full_messages).to eq ['名前は24文字以内で入力してください']
@@ -25,7 +27,7 @@ RSpec.describe Label, type: :model do
   end
 
   context 'name is duplicate' do
-    let(:label) { create(:label, name: 'label') }
+    let!(:label) { create(:label) }
     context ' & case is same' do
       let(:duplicate_label) { build(:label, name: label.name) }
       it 'raise a error' do
