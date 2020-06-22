@@ -11,8 +11,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true
   validates :role, presence: true
-  before_destroy :valid_admin_for_destroy
-  validate :valid_admin_for_update, on: :update
+  before_destroy :valid_admin, if: :admin?
+  validate :valid_admin, if: :general?, on: :update
 
   enum role: { general: 0, admin: 1 }
 
@@ -45,13 +45,5 @@ class User < ApplicationRecord
     return if 1 < User.where(role: 1).size
     errors.add(:role, I18n.t('admin.users.flash.admin_danger'))
     throw :abort
-  end
-
-  def valid_admin_for_destroy
-    valid_admin if admin?
-  end
-
-  def valid_admin_for_update
-    valid_admin if general?
   end
 end
