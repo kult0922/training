@@ -1,5 +1,6 @@
 module Admin
   class UsersController < ApplicationController
+    before_action :check_admin_user
     before_action :find_admin_user, only: %i[show edit update destroy]
     before_action :find_admin_user_role, only: %i[new create edit update]
     before_action :require_login
@@ -44,7 +45,7 @@ module Admin
       if @admin_user.destroy
         flash[:success] = t '.flash.success', action: :削除
       else
-        flash.now[:danger] = t '.flash.danger', action: :削除
+        flash[:danger] = t '.flash.danger', action: :削除
       end
       redirect_to admin_users_path
     end
@@ -61,6 +62,10 @@ module Admin
 
     def find_admin_user_role
       @admin_user_roles = User.roles.map { |k, _| [User.human_attribute_enum_val(:role, k), k] }.to_h
+    end
+
+    def check_admin_user
+      redirect_to tasks_path unless current_user.admin?
     end
   end
 end

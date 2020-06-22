@@ -69,7 +69,7 @@ describe 'User', type: :feature do
         visit edit_admin_user_path(user)
         fill_in 'ユーザー名', with: 'Ziro'
         fill_in 'メールアドレス', with: 'ziro@example.com'
-        select '一般ユーザー', from: '役割'
+        select '管理ユーザー', from: '役割'
         fill_in 'パスワード', with: 'password2'
         fill_in 'パスワード（確認用）', with: 'password2'
 
@@ -77,7 +77,15 @@ describe 'User', type: :feature do
         expect(page).to have_content 'ユーザーの更新に成功しました'
         expect(page).to have_content 'Ziro'
         expect(page).to have_content 'ziro@example.com'
-        expect(page).to have_content '一般ユーザー'
+        expect(page).to have_content '管理ユーザー'
+      end
+    end
+    context 'when admin is none' do
+      it 'raise error message' do
+        visit edit_admin_user_path(user)
+        select '一般ユーザー', from: '役割'
+        click_button '更新する'
+        expect(page).to have_content '役割は１人以上管理者がいる必要があります。'
       end
     end
   end
@@ -92,6 +100,36 @@ describe 'User', type: :feature do
 
         expect(page).to have_no_content user2.name
         expect(page).to have_no_content user2.email
+      end
+    end
+    context 'when admin user is alone (ex role.size < 2 )' do
+      it 'return error message' do
+        visit admin_user_path(user)
+        click_on '削除'
+        expect(page).to have_content 'ユーザーの削除に失敗しました'
+        expect(page).to have_content '管理ユーザー'
+        expect(User.count).to eq 1
+      end
+    end
+  end
+
+  describe 'check admin user when showing admin user page', :skip_before do
+    context 'when user is general' do
+      let(:general_user) { create(:user) }
+      it 'dont show admin user button' do
+        visit login_path
+        fill_in 'email', with: general_user.email
+        fill_in 'password', with: general_user.password
+        click_on 'ログイン'
+        expect(page).to have_no_content 'ユーザー管理画面'
+      end
+      it 'return tasks page' do
+        visit login_path
+        fill_in 'email', with: general_user.email
+        fill_in 'password', with: general_user.password
+        click_on 'ログイン'
+        visit admin_users_path
+        expect(page).to have_no_content 'ユーザー一覧'
       end
     end
   end

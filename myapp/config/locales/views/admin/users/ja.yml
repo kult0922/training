@@ -4,6 +4,7 @@ ja:
       flash:
         success: 'ユーザーの%{action}に成功しました'
         danger: 'ユーザーの%{action}に失敗しました'
+        admin_danger: 'は１人以上管理者がいる必要があります。'
       index:
         title: 'ユーザー一覧'
         task_size: 'タスク数'
