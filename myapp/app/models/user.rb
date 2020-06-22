@@ -11,6 +11,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true
   validates :role, presence: true
+  before_destroy :valid_admin_for_destroy
+  validate :valid_admin_for_update, on: :update
 
   enum role: { general: 0, admin: 1 }
 
@@ -35,5 +37,21 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  private
+
+  def valid_admin
+    return if 1 < User.where(role: 1).size
+    errors.add(:role, I18n.t('admin.users.flash.admin_danger'))
+    throw :abort
+  end
+
+  def valid_admin_for_destroy
+    valid_admin if self.admin?
+  end
+
+  def valid_admin_for_update
+    valid_admin if self.general?
   end
 end

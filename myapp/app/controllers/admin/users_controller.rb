@@ -42,8 +42,7 @@ module Admin
     end
 
     def destroy
-      valid_user_role
-      if @admin_user.present? && @admin_user.destroy
+      if @admin_user.destroy
         flash[:success] = t '.flash.success', action: :削除
       else
         flash[:danger] = t '.flash.danger', action: :削除
@@ -63,10 +62,6 @@ module Admin
 
     def find_admin_user_role
       @admin_user_roles = User.roles.map { |k, _| [User.human_attribute_enum_val(:role, k), k] }.to_h
-    end
-
-    def valid_user_role
-      @admin_user = nil if @admin_user.admin? && User.where(role: 1).size < 2
     end
 
     def check_admin_user

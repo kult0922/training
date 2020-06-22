@@ -80,6 +80,14 @@ describe 'User', type: :feature do
         expect(page).to have_content '管理ユーザー'
       end
     end
+    context 'when admin is none' do
+      it 'raise error message' do
+        visit edit_admin_user_path(user)
+        select '一般ユーザー', from: '役割'
+        click_button '更新する'
+        expect(page).to have_content '役割は１人以上管理者がいる必要があります。'
+      end
+    end
   end
 
   describe '#destroy' do
@@ -99,6 +107,8 @@ describe 'User', type: :feature do
         visit admin_user_path(user)
         click_on '削除'
         expect(page).to have_content 'ユーザーの削除に失敗しました'
+        expect(page).to have_content '管理ユーザー'
+        expect(User.count).to eq 1
       end
     end
   end
