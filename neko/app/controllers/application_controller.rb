@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper
   helper_method :logged_in?, :current_user, :owner?
 
   if Rails.env.production?
