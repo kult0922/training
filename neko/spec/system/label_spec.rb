@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'label', type: :system do
   let(:admin) { create(:user, name: 'admin') }
   let(:owner) { create(:user, name: 'owner', role: :general_user) }
-  let!(:label1) { create(:label, name: 'label1', user: admin) }
+  let(:label1) { create(:label, name: 'label1', user: admin) }
   let!(:label2) { create(:label, name: 'label2', user: owner) }
 
   shared_context 'login as an administrator' do
