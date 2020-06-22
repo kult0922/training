@@ -4,19 +4,7 @@ RSpec.describe 'task', type: :system do
   let(:admin) { create(:user, name: 'admin') }
   let(:owner) { create(:user, name: 'owner', role: :general_user) }
 
-  let!(:task1) do
-    create(:task, name: 'task1', description: 'a', status: 1,
-                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: admin)
-  end
-  let!(:task2) do
-    create(:task, name: 'task2', description: 'c', status: 2,
-                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: admin)
-  end
-  let!(:task3) do
-    create(:task, name: 'task3', description: 'b', status: 0,
-                  have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), user: admin)
-  end
-  let!(:task4) do
+  let(:task) do
     create(:task, name: 'task4', description: 'e', status: 0,
                   have_a_due: true, due_at: Time.zone.local(2020, 10, 15, 11, 59), user: owner)
   end
@@ -53,6 +41,23 @@ RSpec.describe 'task', type: :system do
   end
 
   describe '#index' do
+    let!(:task1) do
+      create(:task, name: 'task1', description: 'a', status: 1,
+                    have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), user: admin)
+    end
+    let!(:task2) do
+      create(:task, name: 'task2', description: 'c', status: 2,
+                    have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), user: admin)
+    end
+    let!(:task3) do
+      create(:task, name: 'task3', description: 'b', status: 0,
+                    have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), user: admin)
+    end
+    let!(:task4) do
+      create(:task, name: 'task4', description: 'e', status: 0,
+                    have_a_due: true, due_at: Time.zone.local(2020, 10, 15, 11, 59), user: owner)
+    end
+
     include_context 'login as an administrator'
     before { visit tasks_path }
     context 'accress root' do
@@ -144,9 +149,9 @@ RSpec.describe 'task', type: :system do
     context 'access edit_task_path as administrator' do
       include_context 'login as an administrator'
       it 'could not access' do
-        visit task_path(task4.id)
+        visit task_path(task.id)
 
-        expect(page).to have_current_path task_path(task4.id)
+        expect(page).to have_current_path task_path(task.id)
         expect(page).to have_content 'task4'
         expect(page).to have_content 'e'
         expect(page).to have_content '未着手'
@@ -158,16 +163,16 @@ RSpec.describe 'task', type: :system do
     context 'access edit_task_path as owner' do
       include_context 'login as owner'
       it 'could not access' do
-        visit task_path(task4.id)
+        visit task_path(task.id)
 
-        expect(page).to have_current_path task_path(task4.id)
+        expect(page).to have_current_path task_path(task.id)
       end
     end
 
     context 'access edit_task_path as general user' do
       include_context 'login as a general user'
       it 'could not access' do
-        visit task_path(task4.id)
+        visit task_path(task.id)
 
         expect(page).to have_current_path root_path
         expect(page).to have_content '管理者かもしくは作成者でなればアクセスできません'
@@ -177,14 +182,14 @@ RSpec.describe 'task', type: :system do
 
   describe '#edit (GET /tasks/:id/edit)' do
     include_context 'login as an administrator'
-    before { visit edit_task_path(task1.id) }
+    before { visit edit_task_path(task.id) }
     context 'name is more than 2 letters' do
       it 'should be success to update' do
         fill_in '名前', with: 'hogehoge'
         fill_in '説明', with: 'fugaguga'
 
         click_on '更新する'
-        expect(page).to have_current_path task_path(task1.id)
+        expect(page).to have_current_path task_path(task.id)
         expect(page).to have_content 'タスクを更新しました'
       end
     end
@@ -195,7 +200,7 @@ RSpec.describe 'task', type: :system do
         fill_in '説明', with: 'piyopiyo'
 
         click_on '更新する'
-        expect(page).to have_current_path task_path(task1.id)
+        expect(page).to have_current_path task_path(task.id)
         expect(page).to have_content 'タスクの更新に失敗しました'
         expect(page).to have_content '名前は2文字以上で入力してください'
       end
@@ -206,16 +211,16 @@ RSpec.describe 'task', type: :system do
     context 'access edit_task_path as general user' do
       include_context 'login as an administrator'
       it 'could not access' do
-        visit edit_task_path(task4.id)
+        visit edit_task_path(task.id)
 
-        expect(page).to have_current_path edit_task_path(task4.id)
+        expect(page).to have_current_path edit_task_path(task.id)
       end
     end
 
     context 'access edit_task_path as general user' do
       include_context 'login as a general user'
       it 'could not access' do
-        visit edit_task_path(task4.id)
+        visit edit_task_path(task.id)
 
         expect(page).to have_current_path root_path
         expect(page).to have_content '管理者かもしくは作成者でなればアクセスできません'
@@ -225,22 +230,22 @@ RSpec.describe 'task', type: :system do
     context 'access edit_task_path as owner' do
       include_context 'login as owner'
       it 'could not access' do
-        visit edit_task_path(task4.id)
+        visit edit_task_path(task.id)
 
-        expect(page).to have_current_path edit_task_path(task4.id)
+        expect(page).to have_current_path edit_task_path(task.id)
       end
     end
   end
 
   describe '#delete (DELETE /tasks/:id)', js: true do
-    include_context 'login as an administrator'
-    before { visit task_path(task1.id) }
-    context 'delete a general label' do
+    include_context 'login as owner'
+    before { visit task_path(task.id) }
+    context 'delete a label' do
       it 'able to cancel' do
         expect {
           click_on '削除'
           expect(page.dismiss_confirm).to eq 'タスクを削除しますか？'
-          expect(page).to have_current_path task_path(task1.id)
+          expect(page).to have_current_path task_path(task.id)
         }.to change(Task, :count).by(0)
       end
 
