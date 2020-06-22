@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'label', type: :system do
-  let!(:admin) { create(:user, name: 'admin') }
-  let!(:owner) { create(:user, name: 'owner', role: :general_user) }
+  let(:admin) { create(:user, name: 'admin') }
+  let(:owner) { create(:user, name: 'owner', role: :general_user) }
   let!(:label1) { create(:label, name: 'label1', user: admin) }
   let!(:label2) { create(:label, name: 'label2', user: owner) }
 
@@ -140,7 +140,7 @@ RSpec.describe 'label', type: :system do
       it 'able to cancel' do
         expect {
           page.dismiss_confirm 'ラベルを削除しますか？' do
-            page.all('.label-delete a')[1].click
+            page.all('.label-delete > a')[1].click
           end
           expect(page).to have_current_path labels_path
         }.to change(Label, :count).by(0)

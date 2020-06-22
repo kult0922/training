@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   context 'name is between 2 and 24 characters' do
-    let!(:task) { build(:task, name: 'hoge') }
+    let(:task) { build(:task, name: 'hoge') }
     it 'should be OK' do
       expect(task).to be_valid
     end
   end
 
   context 'name is less than 2 characters' do
-    let!(:task) { build(:task, name: '1') }
+    let(:task) { build(:task, name: '1') }
     it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['名前は2文字以上で入力してください']
@@ -17,7 +17,7 @@ RSpec.describe Task, type: :model do
   end
 
   context 'name is more than 24 characters' do
-    let!(:task) { build(:task, name: 'abcdefghijklmnopqrstuvwxy') }
+    let(:task) { build(:task, name: 'abcdefghijklmnopqrstuvwxy') }
     it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['名前は24文字以内で入力してください']
@@ -25,7 +25,7 @@ RSpec.describe Task, type: :model do
   end
 
   context 'user_id is null' do
-    let!(:task) { build(:task, name: 'task', user: nil) }
+    let(:task) { build(:task, name: 'task', user: nil) }
     it 'raise a error' do
       expect(task.valid?).to eq false
       expect(task.errors.full_messages).to eq ['作成者を入力してください']
@@ -39,7 +39,7 @@ RSpec.describe Task, type: :model do
     let!(:task4) { create(:task, name: 'task4', status: 1) }
     let!(:taskA) { create(:task, name: 'タスクA', status: 0) }
     let!(:taskB) { create(:task, name: 'タスクB', status: 2) }
-    it 'search tasks by name & status' do
+    it 'could search tasks by name & status' do
       test_cases = [
         { name: 'task', status: 1 },
         { name: 'タスク', status: nil },
