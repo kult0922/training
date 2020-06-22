@@ -48,10 +48,10 @@ class User < ApplicationRecord
   end
 
   def valid_admin_for_destroy
-    valid_admin if self.admin?
+    valid_admin if admin?
   end
 
   def valid_admin_for_update
-    valid_admin if self.general?
+    valid_admin if general?
   end
 end
