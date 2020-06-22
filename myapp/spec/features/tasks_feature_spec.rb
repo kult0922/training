@@ -52,6 +52,13 @@ describe 'Task', type: :feature do
         click_button 'Search'
         expect(page).to have_content '完了'
       end
+      it 'search by label' do
+        visit tasks_path
+        check 'priority'
+        click_button 'Search'
+        label_all = all('.label')
+        expect(label_all.size).to eq 1
+      end
     end
 
     context 'when showing current_user', :skip_before do
