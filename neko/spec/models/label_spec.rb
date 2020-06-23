@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Label, type: :model do
   let(:label) { build(:label, name: label_name) }
-  subject { label } 
+  subject { label }
 
   context 'name is between 2 and 24 characters' do
     let(:label_name) { 'hoge' }

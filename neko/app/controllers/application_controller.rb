@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
   include SessionHundle
 
-  if Rails.env.production?
-    before_action :render503_except_for_whitelisted_ips, if: :maintenance_mode
-  end
+  before_action :render503_except_for_whitelisted_ips, if: :maintenance_mode if Rails.env.production?
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
@@ -22,12 +20,14 @@ class ApplicationController < ActionController::Base
   end
 
   def render503_except_for_whitelisted_ips
-    ips_in_whitelist = (ENV["ALLOWED_IPS"] || "").split(",")
+    ips_in_whitelist = (ENV['ALLOWED_IPS'] || '').split(',')
     return if ips_in_whitelist.include?(request.remote_ip)
+
     render 'errors/503', layout: 'error', status: :service_unavailable
   end
 
   private
+
   def maintenance_mode
     File.exist?('tmp/maintenance.txt')
   end
