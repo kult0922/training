@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'task', type: :system do
-  let!(:admin) { create(:user, name: 'admin') }
-  let!(:owner) { create(:user, name: 'owner', role: :general_user) }
+  let(:admin) { create(:user, name: 'admin') }
+  let(:owner) { create(:user, name: 'owner', role: :general_user) }
 
   let!(:task1) do
     create(:task, name: 'task1', description: 'a', status: 1,
@@ -42,7 +42,7 @@ RSpec.describe 'task', type: :system do
   end
 
   shared_context 'login as a general user' do
-    let!(:general) { create(:user, name: 'general', role: :general_user) }
+    let(:general) { create(:user, name: 'general', role: :general_user) }
     let!(:auth3) { create(:auth, user: general, email: 'abcde@example.com', password: 'password') }
     before do
       visit '/login'

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'label', type: :system do
-  let!(:admin) { create(:user, name: 'admin') }
-  let!(:owner) { create(:user, name: 'owner', role: :general_user) }
-  let!(:label1) { create(:label, name: 'label1', user: admin) }
+  let(:admin) { create(:user, name: 'admin') }
+  let(:owner) { create(:user, name: 'owner', role: :general_user) }
+  let(:label1) { create(:label, name: 'label1', user: admin) }
   let!(:label2) { create(:label, name: 'label2', user: owner) }
 
   shared_context 'login as an administrator' do
@@ -140,7 +140,7 @@ RSpec.describe 'label', type: :system do
       it 'able to cancel' do
         expect {
           page.dismiss_confirm 'ラベルを削除しますか？' do
-            page.all('.label-delete a')[1].click
+            find(:linkhref, "/labels/#{label2.id}").click
           end
           expect(page).to have_current_path labels_path
         }.to change(Label, :count).by(0)
@@ -149,7 +149,7 @@ RSpec.describe 'label', type: :system do
       it 'should be success to delete' do
         expect {
           page.accept_confirm 'ラベルを削除しますか？' do
-            page.all('.label-delete a')[1].click
+            find(:linkhref, "/labels/#{label2.id}").click
           end
           expect(page).to have_current_path labels_path
         }.to change(Label, :count).by(-1)

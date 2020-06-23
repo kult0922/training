@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :logged_in?, :current_user, :owner?
+  include SessionHundle
 
   if Rails.env.production?
     before_action :render503_except_for_whitelisted_ips, if: :maintenance_mode
@@ -25,48 +25,5 @@ class ApplicationController < ActionController::Base
     ips_in_whitelist = (ENV["ALLOWED_IPS"] || "").split(",")
     return if ips_in_whitelist.include?(request.remote_ip)
     render 'errors/503', layout: 'error', status: :service_unavailable
-  end
-
-  private
-
-  def log_in(user)
-    session[:user_id] = user.id
-  end
-
-  def logged_in?
-    current_user
-  end
-
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-  end
-
-  def current_user?(user)
-    user == current_user
-  end
-
-  def log_out
-    session.delete(:user_id)
-    @current_user = nil
-  end
-
-  def logged_in_user
-    redirect_to login_url unless logged_in?
-  end
-
-  def not_permit(msg)
-    redirect_to root_url, flash: { danger: I18n.t(msg) }
-  end
-
-  def only_admin
-    not_permit('flash.admin.permit') unless current_user.administrator?
-  end
-
-  def owner?(model)
-    model.user == current_user
-  end
-
-  def maintenance_mode?
-    File.exist?('tmp/maintenance.txt')
   end
 end
