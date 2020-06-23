@@ -70,7 +70,7 @@ class TasksController < ApplicationController
   def search_form
     search_title = params[:title]
     search_status = params[:status]
-    search_label_ids = params[:label_ids].select(&:present?) if params[:label_ids].present?
+    search_label_ids = params[:label_ids]
     @search_tasks = TaskSearchParam.new(title: search_title, status: search_status, label_ids: search_label_ids)
     if @search_tasks.invalid?
       flash[:danger] = t '.flash.danger'

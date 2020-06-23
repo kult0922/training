@@ -28,6 +28,7 @@ ja:
     new:
       title: 'Task作成'
       back: 'Back'
+      label: 'Label'
     create:
       flash:
         success: 'Taskは正常に作成されました'
