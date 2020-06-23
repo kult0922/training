@@ -22,6 +22,8 @@
         <p><%= link_to I18n.t('labels.index.title'), labels_path %></p>
       </div>
     </nav>
-    <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout' %>
+    <div class="button-container logout">
+      <%= link_to I18n.t('logout'), logout_path, method: :delete, class: 'logout btn-push' %> 
+    </div>
   </div>
 <% end %>
