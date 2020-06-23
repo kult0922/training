@@ -2,7 +2,9 @@
   <h1 class="task-index-headline"><%= t('tasks.index.title') %></h1>
   <div class="logout mt-4"><%= button_to t('.logout'), logout_path, method: :delete, class: 'btn btn-danger' %></div>
 </div>
-<div><%= render 'search', search_tasks: @search_tasks, task_statuses: @task_statuses %></div>
+<div>
+  <%= render 'search', search_tasks: @search_tasks, task_statuses: @task_statuses %>
+</div>
 <table class="table mt-2">
   <thead class="thead-light">
     <tr>
