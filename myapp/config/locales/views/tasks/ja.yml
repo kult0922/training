@@ -36,6 +36,7 @@ ja:
       title_search: 'title'
       status_search: 'status'
       search_placeholder: 'タイトルを入力'
+      label: 'ラベル'
   views:
     pagination:
       first: '&laquo; 最初'

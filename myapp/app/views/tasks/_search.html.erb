@@ -8,7 +8,7 @@
     <%= f.select :status, options_for_select(task_statuses, search_tasks.title), {include_blank: true}, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :label_ids_search, 'ラベル', class: 'col-form-label mx-2' %>
+    <%= f.label :label_ids_search, t('.label'), class: 'col-form-label mx-2' %>
     <%= f.collection_check_boxes(:label_ids, @labels, :id, :name, {checked: search_tasks.label_ids}, {class: 'mx-1'}) %>
   </div>
   <div><%= f.submit 'Search', class: 'btn btn-secondary ml-2' %></div>
