@@ -2,44 +2,44 @@ require 'rails_helper'
 
 RSpec.describe AuthInfo, type: :model do
   context 'all informations are correct' do
-    let(:auth) { build(:auth, email: 'asbc@example.com', password: 'password', password_confirmation: 'password') }
-    it 'should be OK' do
-      expect(auth).to be_valid
-    end
+    subject { build(:auth, email: 'asbc@example.com', password: 'password', password_confirmation: 'password') }
+    it { is_expected.to be_valid }
   end
 
   context 'email formatting is not correct' do
-    let(:auth) { build(:auth, email: 'abcdefg12345') }
+    subject { build(:auth, email: 'abcdefg12345') }
     it 'raise a error' do
-      expect(auth.valid?).to eq false
-      expect(auth.errors.full_messages).to eq ['メールアドレスは不正な値です']
+      is_expected.not_to be_valid
+      expect(subject.errors.full_messages).to eq ['メールアドレスは不正な値です']
     end
   end
 
   context 'email address entered is a duplicate' do
-    let!(:auth) { create(:auth) }
+    subject { build(:auth, email: auth_email) }
+    let!(:auth_existed) { create(:auth) }
+
     context '& case is same' do
-      let(:duplicate_auth) { build(:auth, email: auth.email) }
+      let(:auth_email){ auth_existed.email }
       it 'raise a error' do
-        expect(duplicate_auth.valid?).to eq false
-        expect(duplicate_auth.errors.full_messages).to eq ['メールアドレスはすでに存在します']
+        is_expected.not_to be_valid
+        expect(subject.errors.full_messages).to eq ['メールアドレスはすでに存在します']
       end
     end
 
     context '& case is different' do
-      let(:duplicate_auth) { build(:auth, email: auth.email.upcase) }
+      let(:auth_email){ auth_existed.email.upcase }
       it 'raise a error' do
-        expect(duplicate_auth.valid?).to eq false
-        expect(duplicate_auth.errors.full_messages).to eq ['メールアドレスはすでに存在します']
+        is_expected.not_to be_valid
+        expect(subject.errors.full_messages).to eq ['メールアドレスはすでに存在します']
       end
     end
   end
 
   context 'password-confirm is not correct' do
-    let(:auth) { build(:auth, password_confirmation: 'wrongpassword') }
+    subject { build(:auth, password_confirmation: 'wrongpassword') }
     it 'raise a error' do
-      expect(auth.valid?).to eq false
-      expect(auth.errors.full_messages).to eq ['パスワード（確認用）とパスワードの入力が一致しません']
+      is_expected.not_to be_valid
+      expect(subject.errors.full_messages).to eq ['パスワード（確認用）とパスワードの入力が一致しません']
     end
   end
 end
