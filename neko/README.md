@@ -66,7 +66,8 @@ rails s
 
 ---
 ## メンテナンスモード
-メンテナンスモードは下記のコマンドで操作できます。
+メンテナンスモード中は本番環境で指定したIPアドレス以外からのアクセスされた場合、メンテナンスページにリダイレクトさせます。
+下記のコマンドで操作できます。
 ```shell
 # メンテナンスモード開始
 rails maintenance:start
@@ -75,6 +76,10 @@ rails maintenance:start
 rails maintenance:finish
 ```
 
+IPアドレスに関しては、.envファイルを作成し以下のようにを記載することで設定可能。
+```
+ips_in_whitelist  = ''
+```
 ---
 ## 画面遷移図
 以下画像は[Adobe_XDで作成したプロトタイプ](https://xd.adobe.com/view/21c0eada-c16b-4efc-477f-39e5affc1df6-57f1/)から
