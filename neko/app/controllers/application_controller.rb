@@ -26,4 +26,9 @@ class ApplicationController < ActionController::Base
     return if ips_in_whitelist.include?(request.remote_ip)
     render 'errors/503', layout: 'error', status: :service_unavailable
   end
+
+  private
+  def maintenance_mode
+    File.exist?('tmp/maintenance.txt')
+  end
 end
