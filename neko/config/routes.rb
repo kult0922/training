@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get '/users/:id/tasks_list', to: 'tasks#list'
   end
 
-  resources :labels, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :labels, except: [:show]
 
   resources :tasks
   root 'tasks#index'
