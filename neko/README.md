@@ -81,6 +81,7 @@ IPアドレスに関しては、`config/maintenance.yml`に以下のように記
 allow_ip:
   - ip_adress1
   - ip_adress2
+```
 ---
 ## 画面遷移図
 以下画像は[Adobe_XDで作成したプロトタイプ](https://xd.adobe.com/view/21c0eada-c16b-4efc-477f-39e5affc1df6-57f1/)から
