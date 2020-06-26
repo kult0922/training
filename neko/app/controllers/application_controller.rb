@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   def render503_except_for_whitelisted_ips
-    ips_in_whitelist = YAML.load_file('config/maintenance.yml')
-    if ips_in_whitelist['allow_ips'].present?
-      return if ips_in_whitelist['allow_ips'].include?(request.remote_ip)
+    maintenance = YAML.load_file('config/maintenance.yml')
+    if maintenance['allow_ips'].present?
+      return if maintenance['allow_ips'].include?(request.remote_ip)
     end
     render 'errors/503', layout: 'error', status: :service_unavailable
   end
