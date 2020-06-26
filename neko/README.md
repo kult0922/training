@@ -76,10 +76,11 @@ rails maintenance:start
 rails maintenance:finish
 ```
 
-IPアドレスに関しては、.envファイルを作成し以下のようにを記載することで設定可能。
+IPアドレスに関しては、`config/maintenance.yml`に以下のように記載することで設定可能。
 ```
-ips_in_whitelist  = ''
-```
+allow_ip:
+  - ip_adress1
+  - ip_adress2
 ---
 ## 画面遷移図
 以下画像は[Adobe_XDで作成したプロトタイプ](https://xd.adobe.com/view/21c0eada-c16b-4efc-477f-39e5affc1df6-57f1/)から
