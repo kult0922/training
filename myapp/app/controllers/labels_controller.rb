@@ -1,4 +1,5 @@
 class LabelsController < ApplicationController
+  before_action :check_admin_user
   before_action :find_label, only: %i[show edit update destroy]
   PER = 5
 
@@ -52,5 +53,9 @@ class LabelsController < ApplicationController
 
   def find_label
     @label = Label.find(params[:id])
+  end
+
+  def check_admin_user
+    redirect_to tasks_path unless current_user.admin?
   end
 end
