@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
   before_action :find_labels, only: %i[index new create edit update]
   before_action :find_task_statuses, only: %i[index new create edit update]
+  before_action :find_label_names, only: %i[index new create edit update]
   before_action :require_login
   PAGE_PER = 5
 
@@ -83,6 +84,10 @@ class TasksController < ApplicationController
 
   def find_task_statuses
     @task_statuses = Task.statuses.map { |k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
+  end
+
+  def find_label_names
+    @label_names = Label.all.map { |label| [label.name, label.id]}.to_h
   end
 
   def find_labels
