@@ -1,0 +1,21 @@
+ja:
+  labels:
+    flash:
+      success: 'ラベルの%{action}に成功しました'
+      danger: 'ラベルの%{action}に失敗しました'
+    index:
+      title: 'ラベル一覧'
+      detail: '詳細'
+      edit: '編集'
+      delete: '削除'
+      confirm: '削除しますか'
+    show:
+      title: 'ラベル詳細'
+      back: '戻る'
+      edit: '編集'
+      delete: '削除'
+    new:
+      title: 'ラベル作成'
+      back: '戻る'
+    edit:
+      title: 'ラベル編集'
