@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
-  before_action :find_users, only: %i[new edit]
   before_action :find_labels, only: %i[index new create edit update]
   before_action :find_task_statuses, only: %i[index new create edit update]
   before_action :require_login
@@ -84,10 +83,6 @@ class TasksController < ApplicationController
 
   def find_task_statuses
     @task_statuses = Task.statuses.map { |k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
-  end
-
-  def find_users
-    @users = User.all
   end
 
   def find_labels
