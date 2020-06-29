@@ -13,6 +13,9 @@ ja:
         delete: '削除'
         confirm: '削除しますか？'
         task: 'タスク一覧'
+        label: 'ラベル一覧'
+        new_label: 'New Label'
+        new_user: 'New User'
       show:
         title: 'ユーザー詳細'
         back: '戻る'
