@@ -36,19 +36,19 @@ RSpec.describe Task, type: :model do
 
     context 'when searching by title' do
       it 'return search result only for title' do
-        expect(Task.search('hoge', nil)).to eq([task1])
+        expect(Task.search('hoge', nil, nil)).to eq([task1])
       end
     end
 
     context 'when searching by status' do
       it 'return search result only for status' do
-        expect(Task.search(nil, 'underway')).to eq([task2])
+        expect(Task.search(nil, 'underway', nil)).to eq([task2])
       end
     end
 
     context 'when searching by title and status' do
       it 'return search result for title, status' do
-        expect(Task.search('gau', 'done')).to eq([task3])
+        expect(Task.search('gau', 'done', nil)).to eq([task3])
       end
     end
   end
