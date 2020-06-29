@@ -5,7 +5,7 @@ RSpec.describe Task, type: :model do
   subject { task }
 
   context 'name is between 2 and 24 characters' do
-    let(:task_name) { 'hoge '}
+    let(:task_name) { 'hoge ' }
     it { is_expected.to be_valid }
   end
 
@@ -40,7 +40,7 @@ RSpec.describe Task, type: :model do
     let!(:task4) { create(:task, name: 'task4', status: 1) }
     let!(:taskA) { create(:task, name: 'タスクA', status: 0) }
     let!(:taskB) { create(:task, name: 'タスクB', status: 2) }
-  
+
     it 'could search tasks by name & status' do
       test_cases = [
         { name: 'task', status: 1 },

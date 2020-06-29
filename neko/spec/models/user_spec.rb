@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { build(:user, name: user_name) }
-  subject { user } 
+  subject { user }
 
   context 'name is between 4 and 15 characters' do
     let(:user_name) { 'user' }

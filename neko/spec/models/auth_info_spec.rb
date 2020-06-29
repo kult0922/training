@@ -19,7 +19,7 @@ RSpec.describe AuthInfo, type: :model do
     let!(:auth_existed) { create(:auth) }
 
     context '& case is same' do
-      let(:auth_email){ auth_existed.email }
+      let(:auth_email) { auth_existed.email }
       it 'raise a error' do
         is_expected.not_to be_valid
         expect(subject.errors.full_messages).to eq ['メールアドレスはすでに存在します']
@@ -27,7 +27,7 @@ RSpec.describe AuthInfo, type: :model do
     end
 
     context '& case is different' do
-      let(:auth_email){ auth_existed.email.upcase }
+      let(:auth_email) { auth_existed.email.upcase }
       it 'raise a error' do
         is_expected.not_to be_valid
         expect(subject.errors.full_messages).to eq ['メールアドレスはすでに存在します']
