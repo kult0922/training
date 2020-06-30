@@ -87,7 +87,7 @@ class TasksController < ApplicationController
   end
 
   def find_label_names
-    @label_names = Label.all.map { |label| [label.name, label.id]}.to_h
+    @label_names = Label.all.map { |label| [label.name, label.id] }.to_h
   end
 
   def find_labels
