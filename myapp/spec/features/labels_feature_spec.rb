@@ -42,9 +42,24 @@ describe 'Label', type: :feature do
       it 'label is saved' do
         visit new_label_path
         fill_in 'ラベル名', with: 'green'
-
         click_button '登録する'
         expect(page).to have_content 'ラベルの作成に成功しました'
+      end
+    end
+    context 'when name is blank' do
+      it 'show error message' do
+        visit new_label_path
+        fill_in 'ラベル名', with: ''
+        click_button '登録する'
+        expect(page).to have_content 'ラベル名を入力してください'
+      end
+    end
+    context 'when name is same' do
+      it 'show error message' do
+        visit new_label_path
+        fill_in 'ラベル名', with: 'priority'
+        click_button '登録する'
+        expect(page).to have_content 'ラベル名はすでに存在します'
       end
     end
   end
