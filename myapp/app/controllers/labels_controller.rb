@@ -40,8 +40,8 @@ class LabelsController < ApplicationController
   end
 
   def destroy
-    @label.delete
-    flash[:success] = t '.flash.success', action: t('.sakuzyo')
+    @label.destroy
+    flash[:success] = t '.flash.success', action: t('.delete')
     redirect_to labels_path
   end
 

@@ -43,9 +43,9 @@ module Admin
 
     def destroy
       if @admin_user.destroy
-        flash[:success] = t '.flash.success', action: t('.sakuzyo')
+        flash[:success] = t '.flash.success', action: t('.delete')
       else
-        flash[:danger] = t '.flash.danger', action: t('.sakuzyo')
+        flash[:danger] = t '.flash.danger', action: t('.delete')
       end
       redirect_to admin_users_path
     end

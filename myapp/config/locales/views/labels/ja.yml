@@ -2,7 +2,7 @@ ja:
   labels:
     sakusei: '作成'
     koushin: '更新'
-    sakuzyo: '削除'
+    delete: '削除'
     flash:
       success: 'ラベルの%{action}に成功しました'
       danger: 'ラベルの%{action}に失敗しました'
