@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :task_label_relationship do
+  factory :task_label do
     task
     label
   end

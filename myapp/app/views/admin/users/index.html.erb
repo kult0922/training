@@ -1,5 +1,6 @@
 <h1 class='admn-user-headline'><%= t('.title') %></h1>
-<%= link_to 'New User', new_admin_user_path, class: 'btn btn-primary float-right new-admin-user mt-2' %> 
+<%= link_to t('new_label'), new_label_path, class: 'btn btn-info float-right new-admin-user mt-2' %>
+<%= link_to t('new_user'), new_admin_user_path, class: 'btn btn-primary float-right new-admin-user mt-2 mx-5' %> 
 <table class="table">
   <thead>
     <tr>
@@ -17,10 +18,12 @@
         <td><%= u.email %></td>
         <td><%= u.human_attribute_enum(:role) %></td>
         <td><%= u.tasks.size %></td>
-        <td class="btn-group">
-          <%= link_to t('.detail'), admin_user_path(u), class: 'btn btn-secondary' %>
-          <%= link_to t('.edit'), edit_admin_user_path(u), class: 'btn btn-primary' %>
-          <%= link_to t('.delete'), admin_user_path(u), method: :delete, data: { confirm: t('.confirm') }, class: 'btn btn-danger' %>
+        <td>
+          <div class="btn-group">
+            <%= link_to t('.detail'), admin_user_path(u), class: 'btn btn-secondary' %>
+            <%= link_to t('.edit'), edit_admin_user_path(u), class: 'btn btn-primary' %>
+            <%= link_to t('.delete'), admin_user_path(u), method: :delete, data: { confirm: t('.confirm') }, class: 'btn btn-danger' %>
+          </div>
         </td>
       </tr>
     <% end %>
@@ -28,5 +31,8 @@
 </table>
 <div>
   <div class="task-paginate"><%= paginate @admin_users %></div>
-  <div><%= link_to t('.task'), tasks_path, class: 'btn btn-primary' %></div>
+  <div>
+    <%= link_to t('.task'), tasks_path, class: 'btn btn-primary' %>
+    <%= link_to t('.label'), labels_path, class: 'btn btn-info' %>
+  </div>
 </div>

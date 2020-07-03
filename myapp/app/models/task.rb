@@ -2,8 +2,8 @@ class Task < ApplicationRecord
   SORTABLE_COLUMNS = %w[deadline status].freeze
   validates :title, presence: true, length: { maximum: 20 }
   belongs_to :user
-  has_many :task_label_relationships, dependent: :destroy
-  has_many :labels, through: :task_label_relationships
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
 
   enum status: { not_start: 0, underway: 10, done: 20 }
   include Enum

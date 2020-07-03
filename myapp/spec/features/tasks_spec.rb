@@ -7,7 +7,7 @@ describe 'Task', type: :feature do
   let!(:task3) { create(:task, deadline: Time.zone.today + 2, user: user) }
   let(:user) { create(:user) }
   let(:label) { create(:label) }
-  let!(:task_label_relationship) { create(:task_label_relationship, task: task1, label: label) }
+  let!(:task_label) { create(:task_label, task: task1, label: label) }
   before do
     visit login_path
     fill_in 'email', with: user.email
@@ -54,7 +54,7 @@ describe 'Task', type: :feature do
       end
       it 'search by label' do
         visit tasks_path
-        check 'priority'
+        select('priority', from: 'label_ids')
         click_button 'Search'
         label_all = all('.label')
         expect(label_all.size).to eq 1

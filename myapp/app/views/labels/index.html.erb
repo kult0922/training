@@ -1,0 +1,28 @@
+<h1 class="label-headline"><%= t('.title') %></h1>
+<%= link_to t('.new_label'), new_label_path, class: 'btn btn-primary float-right new-admin-user mt-2' %>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= Label.human_attribute_name(:name) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @labels.each do |l| %>
+      <tr>
+        <td><%= l.name %></td>
+        <td>
+          <div class="btn-group">
+            <%= link_to t('.detail'), label_path(l), class: 'btn btn-secondary' %>
+            <%= link_to t('.edit'), edit_label_path(l), class: 'btn btn-primary' %>
+            <%= link_to t('.delete'), label_path(l), method: :delete, data: { confirm: t('.confirm') }, class: 'btn btn-danger' %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div>
+  <div class="task-paginate"><%= paginate @labels %></div>
+  <div><%= link_to t('.admin_user'), admin_users_path, class: 'btn btn-primary' %></div>
+</div>
