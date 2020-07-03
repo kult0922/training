@@ -16,10 +16,10 @@ module Admin
     def create
       @admin_user = User.new(admin_user_params)
       if @admin_user.save
-        flash[:success] = t '.flash.success', action: t('.sakusei')
+        flash[:success] = t '.flash.success', action: t('.make')
         redirect_to admin_users_path
       else
-        flash.now[:danger] = t '.flash.danger', action: t('.sakusei')
+        flash.now[:danger] = t '.flash.danger', action: t('.make')
         render :new
       end
     end
@@ -33,10 +33,10 @@ module Admin
 
     def update
       if @admin_user.update(admin_user_params)
-        flash[:success] = t '.flash.success', action: t('.koushin')
+        flash[:success] = t '.flash.success', action: t('.renewal')
         redirect_to admin_user_path
       else
-        flash.now[:danger] = t '.flash.danger', action: t('.koushin')
+        flash.now[:danger] = t '.flash.danger', action: t('.renewal')
         render :edit
       end
     end

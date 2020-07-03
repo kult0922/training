@@ -15,10 +15,10 @@ class LabelsController < ApplicationController
     @label = Label.new(label_params)
 
     if @label.save
-      flash[:success] = t '.flash.success', action: t('.sakusei')
+      flash[:success] = t '.flash.success', action: t('.make')
       redirect_to labels_path
     else
-      flash.now[:danger] = t '.flash.danger', action: t('.sakusei')
+      flash.now[:danger] = t '.flash.danger', action: t('.make')
       render :new
     end
   end
@@ -31,10 +31,10 @@ class LabelsController < ApplicationController
 
   def update
     if @label.update(label_params)
-      flash[:success] = t '.flash.success', action: t('.koushin')
+      flash[:success] = t '.flash.success', action: t('.renewal')
       redirect_to label_path
     else
-      flash.now[:danger] = t '.flash.danger', action: t('.koushin')
+      flash.now[:danger] = t '.flash.danger', action: t('.renewal')
       render :edit
     end
   end

@@ -1,8 +1,8 @@
 ja:
   admin:
     users:
-      sakusei: '作成'
-      koushin: '更新'
+      make: '作成'
+      renewal: '更新'
       delete: '削除'
       flash:
         success: 'ユーザーの%{action}に成功しました'
