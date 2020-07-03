@@ -8,6 +8,7 @@ ja:
       logout: 'ログアウト'
       confirm: '消しますか？'
       admin_user: 'ユーザー管理画面'
+      label: 'ラベル'
       flash:
         danger: '検索できない値が入力されました'
     show:
@@ -15,6 +16,7 @@ ja:
       back: 'Back'
       edit: 'Edit'
       delete: 'Delete'
+      label: 'Label'
       confirm: '消しますか？'
     edit:
       title: 'Task編集'
@@ -26,6 +28,7 @@ ja:
     new:
       title: 'Task作成'
       back: 'Back'
+      label: 'Label'
     create:
       flash:
         success: 'Taskは正常に作成されました'
@@ -34,6 +37,7 @@ ja:
       title_search: 'title'
       status_search: 'status'
       search_placeholder: 'タイトルを入力'
+      label: 'Label'
   views:
     pagination:
       first: '&laquo; 最初'

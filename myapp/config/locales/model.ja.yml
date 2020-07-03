@@ -25,6 +25,8 @@ ja:
         login:
           email: メールアドレス
           password: パスワード
+        label:
+          name: ラベル名
   attributes:
     created_at: 作成日
     updated_at: 更新日

@@ -1,0 +1,10 @@
+<%= form_for label do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
+  <div>
+    <div class="col-md-6">
+      <div><%= f.label :name, class: 'col-form-label' %></div>
+      <div><%= f.text_field :name, class: 'form-control' %></div>
+    </div>
+    <div class="label-submit"><%= f.submit(class: 'btn btn-primary mt-2') %></div>
+  </div>
+<% end %>

@@ -1,8 +1,16 @@
-<%= form_tag(tasks_path, method: :get, class: 'form-row py-5') do %>
-  <%= label_tag :title_search, t('.title_search'), class: 'col-form-label' %>
-  <%= text_field_tag(:title, search_tasks.title, placeholder: t('.search_placeholder'), class: 'form-control col-sm-6') %>
-  <%= label_tag :status_search, t('.status_search'), class: 'col-form-label' %>
-  <%= select_tag(:status, options_for_select(task_statuses, search_tasks.title), include_blank: true, class: 'form-control col-sm-2') %>
-  <%= submit_tag 'Search', class: 'btn btn-secondary ml-2' %>
-  <%= link_to 'New Task', new_task_path, class: 'btn btn-primary float-right new-task' %>
+<%= form_with url: tasks_path, method: :get, local: true, class: 'form-inline py-5' do |f| %>
+  <div class="form-group">
+    <%= f.label :title_search, t('.title_search'), class: 'col-form-label mx-2' %>
+    <%= f.text_field :title, value: search_tasks.title, placeholder: t('.search_placeholder'), class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status_search, t('.status_search'), class: 'col-form-label mx-2' %>
+    <%= f.select :status, options_for_select(task_statuses, search_tasks.title), {include_blank: true}, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :label_ids_search, t('.label'), class: 'col-form-label mx-2' %>
+    <%= f.select :label_ids, options_for_select(@label_names, search_tasks.label_ids), {include_blank: true}, class: 'form-control' %>
+  </div>
+  <div><%= f.submit 'Search', class: 'btn btn-secondary ml-2' %></div>
+  <div class="new-task"><%= link_to 'New Task', new_task_path, class: 'btn btn-primary' %></div>
 <% end %>

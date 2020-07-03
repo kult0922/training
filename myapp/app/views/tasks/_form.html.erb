@@ -17,6 +17,10 @@
       <div><%= f.label :status, class: 'col-form-label' %></div>
       <div><%= f.select :status, @task_statuses, {}, {class: 'form-control col-sm-2'} %></div>
     </div>
+    <div>
+      <div><%= f.label :label_ids, t('.label'), class: 'col-form-label' %></div>
+      <div><%= f.collection_check_boxes(:label_ids, @labels, :id, :name, {include_hidden: false}, {class: 'm-1'}) %></div>
+    </div>
     <div><%= f.submit(class: 'btn btn-primary form-control mt-2') %></div>
   <div>
 <% end %>

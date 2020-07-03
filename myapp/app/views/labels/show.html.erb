@@ -1,0 +1,14 @@
+<h1><%= t('.title') %></h1>
+<table class="table">
+  <tbody>
+    <tr>
+      <td><%= Label.human_attribute_name(:name) %></td>
+      <td><%= @label.name %></td>
+    </tr>
+  </tbody>
+</table>
+<div class="btn-group">
+  <%= link_to t('.back'), labels_path , class: 'btn btn-secondary' %>
+  <%= link_to t('.edit'), edit_label_path(@label), class: 'btn btn-primary' %>
+  <%= link_to t('.delete'), label_path(@label), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
+</div>

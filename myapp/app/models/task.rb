@@ -2,6 +2,8 @@ class Task < ApplicationRecord
   SORTABLE_COLUMNS = %w[deadline status].freeze
   validates :title, presence: true, length: { maximum: 20 }
   belongs_to :user
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
 
   enum status: { not_start: 0, underway: 10, done: 20 }
   include Enum
@@ -13,7 +15,11 @@ class Task < ApplicationRecord
     status.present? ? where(status: status) : all
   end)
 
-  def self.search(title, status)
-    search_title(title).search_status(status)
+  scope :search_labels, (lambda do |label_ids|
+    label_ids.present? ? where(labels: { id: label_ids }) : all
+  end)
+
+  def self.search(title, status, label_ids)
+    search_title(title).search_status(status).search_labels(label_ids)
   end
 end

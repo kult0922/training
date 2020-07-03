@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :find_task, only: %i[show edit update destroy]
-  before_action :find_users, only: %i[new edit]
+  before_action :find_labels, only: %i[index new create edit update]
   before_action :find_task_statuses, only: %i[index new create edit update]
+  before_action :find_label_names, only: %i[index new create edit update]
   before_action :require_login
   PAGE_PER = 5
 
@@ -11,7 +12,8 @@ class TasksController < ApplicationController
     search_form
     @tasks = Task.where(user_id: current_user.id)
                  .includes(:user)
-                 .search(@search_tasks.title, @search_tasks.status)
+                 .includes(:labels)
+                 .search(@search_tasks.title, @search_tasks.status, @search_tasks.label_ids)
                  .order(@sort)
                  .page(params[:page])
                  .per(PAGE_PER)
@@ -57,7 +59,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :memo, :deadline, :status, :user_id)
+    params.require(:task).permit(:title, :memo, :deadline, :status, :user_id, { label_ids: [] })
   end
 
   def allowed_name
@@ -68,7 +70,8 @@ class TasksController < ApplicationController
   def search_form
     search_title = params[:title]
     search_status = params[:status]
-    @search_tasks = TaskSearchParam.new(title: search_title, status: search_status)
+    search_label_ids = params[:label_ids]
+    @search_tasks = TaskSearchParam.new(title: search_title, status: search_status, label_ids: search_label_ids)
     if @search_tasks.invalid?
       flash[:danger] = t '.flash.danger'
       redirect_to tasks_path
@@ -83,7 +86,11 @@ class TasksController < ApplicationController
     @task_statuses = Task.statuses.map { |k, _| [Task.human_attribute_enum_val(:status, k), k] }.to_h
   end
 
-  def find_users
-    @users = User.all
+  def find_label_names
+    @label_names = Label.all.map { |label| [label.name, label.id] }.to_h
+  end
+
+  def find_labels
+    @labels = Label.all
   end
 end

@@ -1,6 +1,9 @@
 ja:
   admin:
     users:
+      make: '作成'
+      renewal: '更新'
+      delete: '削除'
       flash:
         success: 'ユーザーの%{action}に成功しました'
         danger: 'ユーザーの%{action}に失敗しました'
@@ -13,6 +16,9 @@ ja:
         delete: '削除'
         confirm: '削除しますか？'
         task: 'タスク一覧'
+        label: 'ラベル一覧'
+        new_label: 'New Label'
+        new_user: 'New User'
       show:
         title: 'ユーザー詳細'
         back: '戻る'

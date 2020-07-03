@@ -42,7 +42,7 @@ class User < ApplicationRecord
   private
 
   def valid_admin
-    return if 1 < User.where(role: 1).size
+    return if User.where(role: 1).size > 1
     errors.add(:role, I18n.t('admin.users.flash.admin_danger'))
     throw :abort
   end
