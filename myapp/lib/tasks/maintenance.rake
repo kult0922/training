@@ -10,6 +10,7 @@ namespace :maintenance do
 
   desc 'end maintenance mode'
   task :end do
+    next unless File.exist?('tmp/maintenace.yml')
     File.delete('tmp/maintenance.yml')
     puts 'off'
   end
