@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  before_action :find_maintenance, if: :under_maintenance?
   unless Rails.env.development?
     rescue_from StandardError, with: :rescue500
     rescue_from RuntimeError, with: :rescue500
@@ -20,5 +21,13 @@ class ApplicationController < ActionController::Base
       flash[:danger] = t 'flash.danger'
       redirect_to login_path
     end
+  end
+
+  def under_maintenance?
+    File.exist?('tmp/maintenance.yml')
+  end
+
+  def find_maintenance
+    render 'maintenance/index', layout: false
   end
 end
