@@ -1,6 +1,6 @@
 <% if @task.errors.any? %>
-  <div>
-    <ul>
+  <div class="alert alert-danger">
+    <ul class="list-unstyled">
       <% @task.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>

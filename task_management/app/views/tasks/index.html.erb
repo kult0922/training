@@ -1,45 +1,42 @@
 <div>
-  <h1><%= I18n.t('tasks.index.title') %></h1>
+  <h2><%= I18n.t('tasks.index.title') %></h2>
 </div>
-<% flash.each do |message_type, message| %>
-  <div>
-    <%= message %>
-  <div>
-<% end %>
-<%= form_with url: tasks_path, method: :get, local: true do |f| %>
-  <div>
+<%= form_with url: tasks_path, method: :get, local: true, class: 'form-inline' do |f| %>
+  <div class="form-group mb-2">
     <%= f.label I18n.t('activerecord.attributes.task.title') %>
-    <%= f.text_field :title, value: @search_params[:title] %>
+    <%= f.text_field :title, value: @search_params[:title], class: 'form-control' %>
   </div>
-  <div>
+  <div class="form-group mx-sm-3 mb-2">
     <%= f.label I18n.t('activerecord.attributes.task.status') %>
-    <%= f.select :status, Task.statuses_i18n.invert, { include_blank: true, selected: @search_params[:status] } %>
+    <%= f.select :status, Task.statuses_i18n.invert, { include_blank: true, selected: @search_params[:status] }, class: 'form-control' %>
   </div>
-  <%= f.submit I18n.t('tasks.button') %>
+  <div class="form-group mx-sm-3 mb-2">
+    <%= f.submit I18n.t('tasks.button.search'), class: 'btn btn-primary' %>
+  </div>
 <% end %>
-<%# 暫定対応：テーブルのレイアウトはCSSで整える予定だが、現時点ではCSSを使うステップにいない為、border="1"を使用 %>
-<table border="1">
-  <tr>
-    <th><%= I18n.t('activerecord.attributes.task.title') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.status') %></th>
-    <th><%= sortable 'due', I18n.t('activerecord.attributes.task.due') %></th>
-    <th><%= I18n.t('tasks.link.show') %></th>
-    <th><%= I18n.t('tasks.link.edit') %></th>
-    <th><%= I18n.t('tasks.link.delete') %></th>
-  </tr>
-
-<% @tasks.each do |t| %>
-  <tr>
-    <td><%= t.title %></td>
-    <td><%= t.priority_i18n %></td>
-    <td><%= t.status_i18n %></td>
-    <td><%= t.due %></td>
-    <td><%= link_to I18n.t('tasks.link.show'), task_path(t.id) %></td>
-    <td><%= link_to I18n.t('tasks.link.edit'), edit_task_path(t.id) %></td>
-    <td><%= link_to I18n.t('tasks.link.delete'), task_path(t.id), method: :delete, data: { confirm: I18n.t('tasks.confirm.delete') } %></td>
-  </tr>
-<% end %>
+<%= link_to I18n.t('tasks.link.new'), new_task_path %>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th class="w-25"><%= I18n.t('activerecord.attributes.task.title') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
+      <th class="w-15"><%= I18n.t('activerecord.attributes.task.status') %></th>
+      <th class="w-15"><%= sortable 'due', I18n.t('activerecord.attributes.task.due') %></th>
+      <th><%= I18n.t('tasks.link.edit') %></th>
+      <th><%= I18n.t('tasks.link.delete') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |t| %>
+      <tr>
+        <td><%= link_to t.title, task_path(t.id) %></td>
+        <td><%= t.priority_i18n %></td>
+        <td><%= t.status_i18n %></td>
+        <td><%= t.due %></td>
+        <td><%= link_to I18n.t('tasks.link.edit'), edit_task_path(t.id), class: 'btn btn-secondary btn-sm' %></td>
+        <td><%= link_to I18n.t('tasks.link.delete'), task_path(t.id), method: :delete, data: { confirm: I18n.t('tasks.confirm.delete') }, class: 'btn btn-danger btn-sm' %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 <%= paginate @tasks %>
-<%= link_to I18n.t('tasks.link.new'), new_task_path %>

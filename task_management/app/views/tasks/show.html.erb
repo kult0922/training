@@ -1,26 +1,48 @@
 <div>
-  <h1><%= I18n.t('tasks.show.title') %></h1>
-<div>
-
-<div>
-  <label><%= I18n.t('activerecord.attributes.task.title') %>：</label>
-  <%= @task.title %>
+  <h2><%= I18n.t('tasks.show.title') %></h2>
 </div>
-<div>
-  <label><%= I18n.t('activerecord.attributes.task.description') %>：</label>
-  <%= @task.description %>
-</div>
-<div>
-  <label><%= I18n.t('activerecord.attributes.task.priority') %>：</label>
-　<%= @task.priority_i18n %>
-</div>
-<div>
-  <label><%= I18n.t('activerecord.attributes.task.status') %>：</label>
-　<%= @task.status_i18n %>
-</div>
-<div>
-  <label><%= I18n.t('activerecord.attributes.task.due') %>：</label>
-　<%# TODO：日付フォーマットへの変換 %>
-  <%= @task.due %>
-</div>
-<%= link_to I18n.t('tasks.link.back'), tasks_path %>
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.task.title') %></label>
+      </th>
+      <td>
+        <%= @task.title %>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.task.description') %></label>
+      </th>
+      <td>
+        <%= simple_format(h(@task.description)) %>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.task.priority') %></label>
+      </th>
+      <td>
+        <%= @task.priority_i18n %>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.task.status') %></label>
+      </th>
+      <td>
+        <%= @task.status_i18n %>
+      </td>
+    </tr>
+    <tr class="w-25">
+      <th>
+        <label><%= I18n.t('activerecord.attributes.task.due') %></label>
+      </th>
+      <td>
+        <%= @task.due %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to I18n.t('tasks.link.back'), tasks_path, class: 'btn btn-dark' %>

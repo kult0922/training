@@ -11,10 +11,13 @@ ja:
     link:
       show: 詳細
       edit: 編集
-      new: タスクの登録
+      new: 新規登録
       delete: 削除
       back: 戻る
-    button: 送信
+    button:
+      search: 検索
+      update: 更新
+      register: 登録
     confirm:
       delete: タスクを削除しますか？
     flash:
@@ -25,3 +28,12 @@ ja:
     message:
       404: お探しのページが見つかりません。
       500: サーバーの問題でお探しのページを表示できません。再度時間をおいてアクセスしてください。
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
+  system:
+    name: タスク管理
