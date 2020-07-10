@@ -68,7 +68,7 @@ RSpec.describe 'Tasks', type: :system do
       context 'タイトルで検索した場合' do
         it '入力された値と部分一致したタスクが表示される' do
           fill_in 'title', with: 'task'
-          click_button '送信'
+          click_button '検索'
           # table headerの行数を１引く
           expect(page.find('table').all('tr').length - 1).to eq(3)
           expect(page).to have_content 'task1'
@@ -80,7 +80,7 @@ RSpec.describe 'Tasks', type: :system do
       context 'ステータスで検索した場合' do
         it '指定されたステータスに合致するタスクが表示される' do
           select '着手', from: 'status'
-          click_button '送信'
+          click_button '検索'
           # table headerの行数を１引く
           expect(page.find('table').all('tr').length - 1).to eq(1)
           expect(page).to have_content '2task2'
@@ -115,7 +115,7 @@ RSpec.describe 'Tasks', type: :system do
     context '正常な値が入力された場合' do
       before do
         fill_in 'task_title', with: 'NEW TASK'
-        click_button '送信'
+        click_button '登録'
       end
 
       it 'タスク一覧画面に遷移し、新規タスクが一覧に表示されている' do
@@ -135,7 +135,7 @@ RSpec.describe 'Tasks', type: :system do
       context 'タイトルが空欄の場合' do
         it 'タイトルを入力してくださいとのメッセージが表示される' do
           fill_in 'task_title', with: ''
-          click_button '送信'
+          click_button '登録'
           expect(page).to have_content 'タイトルを入力してください'
         end
       end
@@ -143,7 +143,7 @@ RSpec.describe 'Tasks', type: :system do
       context 'タイトルに最大文字数を超過した値が入力された場合' do
         it 'タイトルは20文字以内で入力してくださいとのメッセージが表示される' do
           fill_in 'task_title', with: '123456789123456789123456789'
-          click_button '送信'
+          click_button '登録'
           expect(page).to have_content 'タイトルは20文字以内で入力してください'
         end
       end
@@ -162,7 +162,7 @@ RSpec.describe 'Tasks', type: :system do
     context '正常な値が入力された場合' do
       before do
         fill_in 'task_title', with: 'EDIT TASK'
-        click_button '送信'
+        click_button '更新'
       end
 
       it 'タスク一覧画面に遷移し、編集されたタスクが一覧に表示されている' do
@@ -182,7 +182,7 @@ RSpec.describe 'Tasks', type: :system do
       context 'タイトルが空欄の場合' do
         it 'タイトルを入力してくださいとのメッセージが表示される' do
           fill_in 'task_title', with: ''
-          click_button '送信'
+          click_button '更新'
           expect(page).to have_content 'タイトルを入力してください'
         end
       end
@@ -190,7 +190,7 @@ RSpec.describe 'Tasks', type: :system do
       context 'タイトルに最大文字数を超過した値が入力された場合' do
         it 'タイトルは20文字以内で入力してくださいとのメッセージが表示される' do
           fill_in 'task_title', with: '123456789123456789123456789'
-          click_button '送信'
+          click_button '更新'
           expect(page).to have_content 'タイトルは20文字以内で入力してください'
         end
       end
