@@ -1,11 +1,11 @@
 # README
 
 
-##Database tables
+## Database tables
 
 users
-|カラム名|名称|タイプ|制約|
-|:---||:---||:---||:---|
+| カラム名 | 名称 | タイプ | 制約 |
+|:---|:---|:---|:---|
 |id|ユーザID|INT|primarykey|
 |account_name|ユーザ名|VARCHAR||
 |password|パスワード|VARCHAR||
@@ -14,7 +14,7 @@ users
 
 projects
 |カラム名|名称|タイプ|制約|
-|:---||:---||:---||:---|
+|:---|:---|:---|:---|
 |id|プロジェクトID|INT|primarykey|
 |project_name|プロジェクト名称|varchar||
 |status|プロジェクトステータス|INT||
@@ -26,7 +26,7 @@ projects
 
 user_projects
 |カラム名|名称|タイプ|制約|
-|:---||:---||:---||:---|
+|:---|:---|:---|:---|
 |id|ユーザプロジェクトID|INT|primarykey|
 |user_id|ユーザID|INT|foreigenkey|
 |project_id|プロジェクトID|INT|foreigenkey|
@@ -35,7 +35,7 @@ user_projects
 
 tasks
 |カラム名|名称|タイプ|制約|
-|:---||:---||:---||:---|
+|:---|:---|:---|:---|
 |id|タスクID|INT|primarykey|
 |task_name|タスク名|VARCHAR||
 |project_id|プロジェクトID|INT|foreigenkey|
@@ -49,6 +49,8 @@ tasks
 |update_timestamp|更新タイムスタンプ|DATETIME||
 
 task_labels
+|カラム名|名称|タイプ|制約|
+|:---|:---|:---|:---|
 |id|ラベルID|INT|primarykey|
 |task_id|タスクID|VARCHAR|foreigenkey|
 |color|ラベル色|VARCHAR||
@@ -56,10 +58,10 @@ task_labels
 |create_timestamp|作成タイムスタンプ|DATETIME||
 |update_timestamp|更新タイムスタンプ|DATETIME||
 
-##ERD
+## ERD
 ![image](pics/erd.png)
 
-##画面
+## 画面
 
 1.ログイン画面
 ![image](pics/login_page.png)
