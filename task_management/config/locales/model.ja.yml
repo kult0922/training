@@ -7,6 +7,9 @@ ja:
         status: ステータス
         due: 期限
         description: 説明
+      user:
+        mail_address: メールアドレス
+        password: パスワード
   enums:
     task:
       priority:

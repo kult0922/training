@@ -24,6 +24,16 @@ ja:
       create: タスクが登録されました
       update: タスクが編集されました
       destroy: タスクを削除しました
+  sessions:
+    new:
+      title: ログイン
+    button:
+      login: ログイン
+    flash:
+      create: ログインに成功しました
+      failed_create: ログインに失敗しました
+      destroy: ログアウトしました
+
   errors:
     message:
       404: お探しのページが見つかりません。
@@ -35,5 +45,7 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
-  system:
-    name: タスク管理
+  navbar:
+    title: タスク管理
+    link:
+      logout: ログアウト

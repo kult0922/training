@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       title: params[:title], status: params[:status],
       sort_column: sort_column, sort_direction: sort_direction,
     }
-    @tasks = Task.search(@search_params).page(params[:page])
+    @tasks = current_user.tasks.search(@search_params).page(params[:page])
   end
 
   def show
@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: I18n.t('tasks.flash.create')
     else
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def sort_direction
