@@ -9,8 +9,8 @@ users
 |id|ユーザID|INT|primarykey|
 |account_name|ユーザ名|VARCHAR||
 |password|パスワード|VARCHAR||
-|create_timestamp|作成タイムスタンプ|DATETIME||
-|update_timestamp|更新タイムスタンプ|DATETIME||
+|create_at|作成タイムスタンプ|DATETIME||
+|update_at|更新タイムスタンプ|DATETIME||
 
 projects
 |カラム名|名称|タイプ|制約|
@@ -19,10 +19,10 @@ projects
 |project_name|プロジェクト名称|varchar||
 |status|プロジェクトステータス|INT||
 |description|説明|VARCHAR||
-|start_timestamp|開始タイムスタンプ|DATETIME||
-|end_timestamp|終了タイムスタンプ|DATETIME||
-|create_timestamp|作成タイムスタンプ|DATETIME||
-|update_timestamp|更新タイムスタンプ|DATETIME||
+|start_at|開始タイムスタンプ|DATETIME||
+|end_at|終了タイムスタンプ|DATETIME||
+|create_at|作成タイムスタンプ|DATETIME||
+|update_at|更新タイムスタンプ|DATETIME||
 
 user_projects
 |カラム名|名称|タイプ|制約|
@@ -30,8 +30,8 @@ user_projects
 |id|ユーザプロジェクトID|INT|primarykey|
 |user_id|ユーザID|INT|foreigenkey|
 |project_id|プロジェクトID|INT|foreigenkey|
-|create_timestamp|作成タイムスタンプ|DATETIME||
-|update_timestamp|更新タイムスタンプ|DATETIME||
+|create_at|作成タイムスタンプ|DATETIME||
+|update_at|更新タイムスタンプ|DATETIME||
 
 tasks
 |カラム名|名称|タイプ|制約|
@@ -40,13 +40,15 @@ tasks
 |task_name|タスク名|VARCHAR||
 |project_id|プロジェクトID|INT|foreigenkey|
 |prioperty|優先順位|INT||
-|assignee_id|担当ユーザid|VARCHAR|foreigenkey|
-|repoter_id|報告者ユーザid|VARCHAR|foreigenkey|
+|assignee_id|担当ユーザid|INT|foreigenkey|
+|assignee_name|担当ユーザ名|VARCHAR||
+|repoter_id|報告者ユーザid|INT|foreigenkey|
+|repoter_name|報告者ユーザ名|VARCHAR||
 |description|説明|VARCHAR||
-|start_timestamp|開始タイムスタンプ|DATETIME||
-|end_timestamp|終了タイムスタンプ|DATETIME||
-|create_timestamp|作成タイムスタンプ|DATETIME||
-|update_timestamp|更新タイムスタンプ|DATETIME||
+|start_at|開始タイムスタンプ|DATETIME||
+|end_at|終了タイムスタンプ|DATETIME||
+|create_at|作成タイムスタンプ|DATETIME||
+|update_at|更新タイムスタンプ|DATETIME||
 
 task_labels
 |カラム名|名称|タイプ|制約|
@@ -55,8 +57,8 @@ task_labels
 |task_id|タスクID|VARCHAR|foreigenkey|
 |color|ラベル色|VARCHAR||
 |color_group|色グループ|VARCHAR||
-|create_timestamp|作成タイムスタンプ|DATETIME||
-|update_timestamp|更新タイムスタンプ|DATETIME||
+|create_at|作成タイムスタンプ|DATETIME||
+|update_at|更新タイムスタンプ|DATETIME||
 
 ## ERD
 ![image](pics/erd.png)
