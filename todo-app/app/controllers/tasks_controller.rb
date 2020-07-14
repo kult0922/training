@@ -17,7 +17,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       flash.alert = error_message
-      render edit_task_path
+      render 'edit'
     end
   end
 
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       flash.alert = error_message
-      render new_task_path
+      render 'new'
     end
   end
 
