@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'error handling', type: :system do
+  let(:user) { create(:user) }
+
+  before do
+    visit login_path
+    fill_in 'session_mail_address', with: user.mail_address
+    fill_in 'session_password', with: 'password'
+    click_button 'ログイン'
+  end
+
   describe '#render404' do
     context '存在しないパスにアクセスし、RoutingErrorが発生した場合' do
       it 'エラーコード404用のベージに遷移すること' do

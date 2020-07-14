@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let!(:user) { create(:user) }
+
   describe 'バリデーション' do
     describe 'タイトル' do
       subject { task }
 
-      let!(:task) { build(:task, title: title) }
+      let!(:task) { build(:task, title: title, user_id: user.id) }
 
       context '入力が正しい場合' do
         let(:title) { 'TASK' }
@@ -35,7 +37,7 @@ RSpec.describe Task, type: :model do
     describe '優先度' do
       subject { task }
 
-      let(:task) { build(:task, priority: priority) }
+      let(:task) { build(:task, priority: priority, user_id: user.id) }
 
       context '入力が正しい場合' do
         let(:priority) { 0 }
@@ -65,7 +67,7 @@ RSpec.describe Task, type: :model do
     describe 'ステータス' do
       subject { task }
 
-      let(:task) { build(:task, status: status) }
+      let(:task) { build(:task, status: status, user_id: user.id) }
 
       context '入力が正しい場合' do
         let(:status) { 0 }
@@ -95,7 +97,7 @@ RSpec.describe Task, type: :model do
     describe '期日' do
       subject { task }
 
-      let!(:task) { build(:task, due: due) }
+      let!(:task) { build(:task, due: due, user_id: user.id) }
 
       context '入力が正しい場合' do
         let(:due) { '2020/07/02' }
@@ -126,10 +128,10 @@ RSpec.describe Task, type: :model do
   describe '検索機能' do
     subject { Task.search(search_params) }
 
-    let!(:task1) { create(:task, title: 'task1', status: 0) }
-    let!(:task2) { create(:task, title: '2task2', status: 1) }
-    let!(:task3) { create(:task, title: '3task', status: 2) }
-    let!(:task4) { create(:task, title: 'English', status: 2) }
+    let!(:task1) { create(:task, title: 'task1', status: 0, user_id: user.id) }
+    let!(:task2) { create(:task, title: '2task2', status: 1, user_id: user.id) }
+    let!(:task3) { create(:task, title: '3task', status: 2, user_id: user.id) }
+    let!(:task4) { create(:task, title: 'English', status: 2, user_id: user.id) }
 
     context 'タイトルで検索した場合' do
       context 'タイトルを入力して検索した場合' do

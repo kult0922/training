@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task) { create(:task) }
+  let!(:user) { create(:user) }
+  let!(:task) { create(:task, user_id: user.id) }
+
+  before do
+    visit login_path
+    fill_in 'session_mail_address', with: task.user.mail_address
+    fill_in 'session_password', with: 'password'
+    click_on 'ログイン'
+  end
 
   describe '#index' do
-    before do
-      visit root_path
-    end
-
     it '登録済みタスクの一覧が表示される' do
       expect(page).to have_content task.title
       expect(page).to have_content '中'
@@ -16,8 +20,10 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context '複数のタスクが表示されている場合' do
-      let!(:old_task) { create(:task, title: 'OLD', created_at: Time.now) }
-      let!(:new_task) { create(:task, title: 'NEW', created_at: Time.now + 1.second) }
+      let!(:old_task) { create(:task, title: 'OLD', created_at: Time.now, user_id: user.id) }
+      let!(:new_task) do
+        create(:task, title: 'NEW', created_at: Time.now + 1.second, user_id: user.id)
+      end
 
       it 'タスクが作成日の降順で表示されている' do
         visit current_path
@@ -27,9 +33,9 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context '項目リンクを押下した場合' do
-      let!(:taskA) { create(:task, title: 'TASKA', due: Date.today) }
-      let!(:taskB) { create(:task, title: 'TASKB', due: Date.today + 10) }
-      let!(:taskC) { create(:task, title: 'TASKC', due: Date.today + 20) }
+      let!(:taskA) { create(:task, title: 'TASKA', due: Date.today, user_id: user.id) }
+      let!(:taskB) { create(:task, title: 'TASKB', due: Date.today + 10, user_id: user.id) }
+      let!(:taskC) { create(:task, title: 'TASKC', due: Date.today + 20, user_id: user.id) }
 
       context '期限の項目リンクを押下した場合' do
         context 'タスクが期限の降順でソートされていない場合' do
@@ -38,8 +44,8 @@ RSpec.describe 'Tasks', type: :system do
             visit root_path
             click_link '期限'
 
-            expect(page.body.index(taskA.title)).to be > page.body.index(taskB.title)
-            expect(page.body.index(taskB.title)).to be > page.body.index(taskC.title)
+            expect(page.body.index(taskA.title)).to be < page.body.index(taskB.title)
+            expect(page.body.index(taskB.title)).to be < page.body.index(taskC.title)
           end
         end
 
@@ -50,8 +56,8 @@ RSpec.describe 'Tasks', type: :system do
             click_link '期限' # 期限の降順でソートされている状態を作る
             click_link '期限'
 
-            expect(page.body.index(taskA.title)).to be < page.body.index(taskB.title)
-            expect(page.body.index(taskB.title)).to be < page.body.index(taskC.title)
+            expect(page.body.index(taskA.title)).to be > page.body.index(taskB.title)
+            expect(page.body.index(taskB.title)).to be > page.body.index(taskC.title)
           end
         end
       end
@@ -60,10 +66,10 @@ RSpec.describe 'Tasks', type: :system do
     context '検索機能を使用した場合' do
       subject { Task.search(search_params) }
 
-      let!(:task1) { create(:task, title: 'task1', status: 0) }
-      let!(:task2) { create(:task, title: '2task2', status: 1) }
-      let!(:task3) { create(:task, title: '3task', status: 2) }
-      let!(:task4) { create(:task, title: 'English', status: 2) }
+      let!(:task1) { create(:task, title: 'task1', status: 0, user_id: user.id) }
+      let!(:task2) { create(:task, title: '2task2', status: 1, user_id: user.id) }
+      let!(:task3) { create(:task, title: '3task', status: 2, user_id: user.id) }
+      let!(:task4) { create(:task, title: 'English', status: 2, user_id: user.id) }
 
       context 'タイトルで検索した場合' do
         it '入力された値と部分一致したタスクが表示される' do
