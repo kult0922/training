@@ -39,7 +39,9 @@ RSpec.describe 'Sessions', type: :system do
         end
       end
     end
+  end
 
+  describe '#destroy' do
     context 'ログアウトした場合' do
       it 'ログイン画面に遷移する' do
         fill_in 'session_mail_address', with: user.mail_address
