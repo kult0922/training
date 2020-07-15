@@ -6,7 +6,7 @@ RSpec.describe 'error handling', type: :system do
   before do
     visit login_path
     fill_in 'session_mail_address', with: user.mail_address
-    fill_in 'session_password', with: 'password'
+    fill_in 'session_password', with: 'pAssw0rd'
     click_button 'ログイン'
   end
 

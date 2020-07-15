@@ -10,7 +10,7 @@ RSpec.describe 'Sessions', type: :system do
       context '正しい認証情報を入力した場合' do
         it 'タスク一覧画面に遷移する' do
           fill_in 'session_mail_address', with: user.mail_address
-          fill_in 'session_password', with: 'password'
+          fill_in 'session_password', with: 'pAssw0rd'
           click_button 'ログイン'
           expect(page).to have_current_path '/'
           expect(page).to have_content 'ログインに成功しました'
@@ -21,7 +21,7 @@ RSpec.describe 'Sessions', type: :system do
         context '誤ったメールアドレスを入力した場合' do
           it 'ログインに失敗する' do
             fill_in 'session_mail_address', with: 'wrong_mail_address'
-            fill_in 'session_password', with: 'password'
+            fill_in 'session_password', with: 'pAssw0rd'
             click_button 'ログイン'
             expect(page).to have_current_path '/login'
             expect(page).to have_content 'ログインに失敗しました'
@@ -45,7 +45,7 @@ RSpec.describe 'Sessions', type: :system do
     context 'ログアウトした場合' do
       it 'ログイン画面に遷移する' do
         fill_in 'session_mail_address', with: user.mail_address
-        fill_in 'session_password', with: 'password'
+        fill_in 'session_password', with: 'pAssw0rd'
         click_button 'ログイン'
         click_link 'ログアウト'
         expect(page).to have_current_path '/login'

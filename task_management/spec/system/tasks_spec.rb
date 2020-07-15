@@ -7,7 +7,7 @@ RSpec.describe 'Tasks', type: :system do
   before do
     visit login_path
     fill_in 'session_mail_address', with: task.user.mail_address
-    fill_in 'session_password', with: 'password'
+    fill_in 'session_password', with: 'pAssw0rd'
     click_on 'ログイン'
   end
 
@@ -211,7 +211,7 @@ RSpec.describe 'Tasks', type: :system do
     it 'ダイアログが表示される' do
       page.dismiss_confirm do
         click_link '削除'
-        expect(page.driver.browser.switch_to.alert.text).to eq 'タスクを削除しますか？'
+        expect(page.driver.browser.switch_to.alert.text).to eq '削除しますか？'
       end
     end
 
