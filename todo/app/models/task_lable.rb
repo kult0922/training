@@ -1,0 +1,2 @@
+class TaskLable < ApplicationRecord
+end
