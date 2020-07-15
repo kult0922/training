@@ -34,6 +34,7 @@ ja:
       create: ユーザが登録されました
       update: ユーザが編集されました
       destroy: ユーザを削除しました
+      last_admin_user: 他に管理者ユーザが存在しないため削除できません
   button:
     search: 検索
     update: 更新
@@ -46,6 +47,7 @@ ja:
     delete: 削除
     back: 戻る
     logout: ログアウト
+    user_list: ユーザ一覧
   confirm:
     delete: 削除しますか？
   errors:

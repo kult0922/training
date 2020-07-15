@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_022828) do
+ActiveRecord::Schema.define(version: 2020_07_15_075325) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_022828) do
     t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "role", limit: 1, null: false
     t.index ["mail_address"], name: "index_users_on_mail_address", unique: true
   end
 

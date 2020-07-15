@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy
 
+  enum role: { admin: 0, general: 1 }
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,100}\z/.freeze
 

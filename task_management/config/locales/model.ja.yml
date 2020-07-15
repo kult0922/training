@@ -14,6 +14,7 @@ ja:
         password: パスワード
         password_confirmation: パスワード確認
         task_count: タスク数
+        role: ロール
       common:
         created_at: 作成日時
         updated_at: 更新日時
@@ -27,6 +28,10 @@ ja:
         waiting: 未着手
         working: 着手
         completed: 完了
+    user:
+      role:
+        admin: 管理者
+        general: 一般ユーザ
   errors:
     message:
       invalid_date: 無効な日付です
