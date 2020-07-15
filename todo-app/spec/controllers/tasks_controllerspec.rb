@@ -26,6 +26,11 @@ describe TasksController, type: :controller do
     expect(response.status).to eq 302
   end
 
+  it 'Create new task fail' do
+    post :create, params: { task: { due_date: '2020/07/01' } }
+    expect(response).to render_template :new
+  end
+
   it 'Display update screen' do
     get :edit, params: { id: @task[:id] }
     expect(response.status).to eq 200
@@ -34,6 +39,11 @@ describe TasksController, type: :controller do
   it 'Update task' do
     put :update, params: { id: @task[:id], task: { name: @task[:name] + ' Edit' } }
     expect(response.status).to eq 302
+  end
+
+  it 'Update task fail' do
+    put :update, params: { id: @task[:id], task: { name: '' } }
+    expect(response).to render_template :edit
   end
 
   it 'Update task not found' do
