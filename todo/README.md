@@ -9,8 +9,8 @@ users
 |id|ユーザID|INT|primarykey|
 |account_name|ユーザ名|VARCHAR||
 |password|パスワード|VARCHAR||
-|create_at|作成タイムスタンプ|DATETIME||
-|update_at|更新タイムスタンプ|DATETIME||
+|created_at|作成タイムスタンプ|DATETIME||
+|updated_at|更新タイムスタンプ|DATETIME||
 
 projects
 |カラム名|名称|タイプ|制約|
@@ -21,44 +21,44 @@ projects
 |description|説明|VARCHAR||
 |started_at|開始タイムスタンプ|DATETIME||
 |finished_at|終了タイムスタンプ|DATETIME||
-|create_at|作成タイムスタンプ|DATETIME||
-|update_at|更新タイムスタンプ|DATETIME||
+|created_at|作成タイムスタンプ|DATETIME||
+|updated_at|更新タイムスタンプ|DATETIME||
 
 user_projects
 |カラム名|名称|タイプ|制約|
 |:---|:---|:---|:---|
 |id|ユーザプロジェクトID|INT|primarykey|
-|user_id|ユーザID|INT|foreigenkey|
-|project_id|プロジェクトID|INT|foreigenkey|
-|create_at|作成タイムスタンプ|DATETIME||
-|update_at|更新タイムスタンプ|DATETIME||
+|user_id|ユーザID|INT|foreignkey|
+|project_id|プロジェクトID|INT|foreignkey|
+|created_at|作成タイムスタンプ|DATETIME||
+|updated_at|更新タイムスタンプ|DATETIME||
 
 tasks
 |カラム名|名称|タイプ|制約|
 |:---|:---|:---|:---|
 |id|タスクID|INT|primarykey|
 |task_name|タスク名|VARCHAR||
-|project_id|プロジェクトID|INT|foreigenkey|
-|prioperty|優先順位|INT||
-|assignee_id|担当ユーザid|INT|foreigenkey|
+|project_id|プロジェクトID|INT|foreignkey|
+|priority|優先順位|INT||
+|assignee_id|担当ユーザid|INT|foreignkey|
 |assignee_name|担当ユーザ名|VARCHAR||
-|repoter_id|報告者ユーザid|INT|foreigenkey|
-|repoter_name|報告者ユーザ名|VARCHAR||
+|reporter_id|報告者ユーザid|INT|foreignkey|
+|reporter_name|報告者ユーザ名|VARCHAR||
 |description|説明|VARCHAR||
 |started_at|開始タイムスタンプ|DATETIME||
 |finished_at|終了タイムスタンプ|DATETIME||
-|create_at|作成タイムスタンプ|DATETIME||
-|update_at|更新タイムスタンプ|DATETIME||
+|created_at|作成タイムスタンプ|DATETIME||
+|updated_at|更新タイムスタンプ|DATETIME||
 
 task_labels
 |カラム名|名称|タイプ|制約|
 |:---|:---|:---|:---|
 |id|ラベルID|INT|primarykey|
-|task_id|タスクID|VARCHAR|foreigenkey|
+|task_id|タスクID|VARCHAR|foreignkey|
 |color|ラベル色|VARCHAR||
 |color_group|色グループ|VARCHAR||
-|create_at|作成タイムスタンプ|DATETIME||
-|update_at|更新タイムスタンプ|DATETIME||
+|created_at|作成タイムスタンプ|DATETIME||
+|updated_at|更新タイムスタンプ|DATETIME||
 
 ## ERD
 ![image](pics/erd.png)
