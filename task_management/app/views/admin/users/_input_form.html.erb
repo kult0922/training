@@ -1,0 +1,26 @@
+<%= form_with model: [:admin, @user], local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :mail_address %>
+    <%= f.text_field :mail_address, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.text_field :password, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.text_field :password_confirmation, class: 'form-control' %>
+  </div>
+  <div>
+    <%= link_to I18n.t('link.back'), admin_users_path, class: 'btn btn-dark' %>
+    <% if request.path_info == new_admin_user_path %>
+      <%= f.submit I18n.t('button.register'), class: 'btn btn-primary' %>
+    <% else %>
+      <%= f.submit I18n.t('button.update'), class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+<% end %>

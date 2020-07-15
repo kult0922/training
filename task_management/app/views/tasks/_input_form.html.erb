@@ -22,11 +22,11 @@
     <%= f.text_area :description, class: 'form-control' %>
   </div>
   <div>
-    <%= link_to I18n.t('tasks.link.back'), tasks_path, class: 'btn btn-dark' %>
+    <%= link_to I18n.t('link.back'), tasks_path, class: 'btn btn-dark' %>
     <% if request.path_info == new_task_path %>
-      <%= f.submit I18n.t('tasks.button.register'), class: 'btn btn-primary' %>
+      <%= f.submit I18n.t('button.register'), class: 'btn btn-primary' %>
     <%else%>
-      <%= f.submit I18n.t('tasks.button.update'), class: 'btn btn-primary' %>
+      <%= f.submit I18n.t('button.update'), class: 'btn btn-primary' %>
     <% end%>
   <div>
 <% end %>

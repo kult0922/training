@@ -8,8 +8,15 @@ ja:
         due: 期限
         description: 説明
       user:
+        id: ユーザID
+        name: ユーザ名
         mail_address: メールアドレス
         password: パスワード
+        password_confirmation: パスワード確認
+        task_count: タスク数
+      common:
+        created_at: 作成日時
+        updated_at: 更新日時
   enums:
     task:
       priority:
@@ -20,6 +27,7 @@ ja:
         waiting: 未着手
         working: 着手
         completed: 完了
-  erroes:
+  errors:
     message:
       invalid_date: 無効な日付です
+      invalid_mail_address: は半角6~100文字英大文字・小文字・数字それぞれ１文字以上含む必要があります

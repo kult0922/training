@@ -1,0 +1,74 @@
+<div>
+  <h2><%= I18n.t('users.show.title') %></h2>
+</div>
+<br/>
+<h4><%= I18n.t('users.show.user_info') %></h4>
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.user.id') %></label>
+      </th>
+      <td>
+        <%= @user.id%>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.user.name') %></label>
+      </th>
+      <td>
+        <%= @user.name%>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.user.mail_address') %></label>
+      </th>
+      <td>
+        <%= @user.mail_address%>
+      </td>
+    </tr>
+    <tr>
+      <th class="w-25">
+        <label><%= I18n.t('activerecord.attributes.common.created_at') %></label>
+      </th>
+      <td>
+        <%= l @user.created_at%>
+      </td>
+    </tr>
+    <tr class="w-25">
+      <th>
+        <label><%= I18n.t('activerecord.attributes.common.updated_at') %></label>
+      </th>
+      <td>
+        <%= l @user.updated_at%>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h4><%= I18n.t('users.show.task_info') %></h4>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th class="w-25"><%= I18n.t('activerecord.attributes.task.title') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
+      <th class="w-15"><%= I18n.t('activerecord.attributes.task.status') %></th>
+      <th class="w-15"><%= I18n.t('activerecord.attributes.task.due') %></th>
+      <th><%= I18n.t('activerecord.attributes.common.created_at') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |t| %>
+    <tr>
+      <td><%= t.title %></td>
+      <td><%= t.priority_i18n %></td>
+      <td><%= t.status_i18n %></td>
+      <td><%= t.due %></td>
+      <td><%= l t.created_at %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>
+<%= link_to I18n.t('link.back'), admin_users_path, class: 'btn btn-dark' %>
