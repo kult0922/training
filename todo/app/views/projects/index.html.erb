@@ -3,63 +3,55 @@
 
 <div class = "pj_todo">
     <p>To Do</p>
-    <% @projects.each do |project| %>
+    <% @todo_project.each do |project| %>
     <%= link_to project.project_name, project %>
-      <% if project.status == 0 %>
         <%= project.description %>
         <%= link_to 'タスク一覧', tasks_url %>
         <%= link_to '修正', edit_project_path(project) %>
         <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-      <% end %>
     <% end %>
 </div>
 <br>
 <div class = "pj_inprogress">
     <p>In Progress</p>
-    <% @projects.each do |project| %>
-        <% if project.status == 1 %>
+    <% @progress_project.each do |project| %>
         <%= link_to project.project_name, project %>
         <%= project.description %>
         <%= link_to 'タスク一覧', tasks_url %>
         <%= link_to '修正', edit_project_path(project) %>
         <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-        <% end %>
     <% end %>
 </div>
 <br>
 <div class = "pj_inreview">
     <p>In Review</p>
-     <% @projects.each do |project| %>
-      <% if project.status == 2 %>
+     <% @review_project.each do |project| %>
         <%= link_to project.project_name, project %>
         <%= project.description %>
         <%= link_to 'タスク一覧', tasks_url %>
         <%= link_to '修正', edit_project_path(project) %>
         <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-      <% end %>
     <% end %>
 </div>
+<br>
 <div class = "pj_release">
     <p>Waiting Approval / Release</p>
-     <% @projects.each do |project| %>
-        <% if project.status == 3 %>
+     <% @relese_project.each do |project| %>
             <%= link_to project.project_name, project %>
             <%= project.description %>
             <%= link_to 'タスク一覧', tasks_url %>
             <%= link_to '修正', edit_project_path(project) %>
             <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-        <% end %>
     <% end %>
 </div>
+<br>
 <div class = "pj_done">
     <p>Resolved / Done</p>
-     <% @projects.each do |project| %>
-        <% if project.status == 4 %>
+     <% @resolved_project.each do |project| %>
             <%= link_to project.project_name, project %>
             <%= project.description %>
             <%= link_to 'タスク一覧', tasks_url %>
             <%= link_to '修正', edit_project_path(project) %>
             <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-        <% end %>
     <% end %>
 </div>

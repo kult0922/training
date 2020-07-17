@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @projects = Project.all
+    @todo_project = Project.where(status: 0)
+    @progress_project = Project.where(status: 1)
+    @review_project = Project.where(status: 2)
+    @relese_project = Project.where(status: 3)
+    @resolved_project = Project.where(status: 4)
   end
 
   def show
@@ -16,11 +22,11 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     if @project.save
-      flash[:notice] = 'プロジェクトが追加されました。' 
       redirect_to @project
+      flash[:notice] = 'プロジェクトが追加されました。'
     else
-      flash[:error] = 'プロジェクトが追加に失敗しました。'
       render :new
+      flash[:error] = 'プロジェクトが追加に失敗しました。'
     end
   end
 
@@ -29,21 +35,21 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      flash[:notice] = 'プロジェクトが更新されました。' 
-      redirect_to @project
+      redirect_to projects_url
+      flash[:notice] = 'プロジェクトが更新されました。'
     else
-      flash[:error] = 'プロジェクトが更新に失敗しました。'
       render :edit
+      flash[:error] = 'プロジェクトが更新に失敗しました。'
     end
   end
 
   def destroy
     if @project.destroy
       flash[:notice] = 'プロジェクトが削除されました。'
-      redirect_to @project
+      redirect_to projects_url
     else
-      flash[:error] = 'プロジェクトが削除に失敗しました。'
       render :edit
+      flash[:error] = 'プロジェクトが削除に失敗しました。'
     end
   end
 
