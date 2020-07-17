@@ -26,4 +26,14 @@ class ApplicationController < ActionController::Base
       render 'errors/not_found', status: 404
     end
   end
+
+  private
+
+  def current_user
+    if session[:current_user_id]
+      @current_user ||= AppUser.find_by(id: session[:current_user_id])
+    end
+  end
+
+  helper_method :current_user
 end

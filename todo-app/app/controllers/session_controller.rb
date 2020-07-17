@@ -1,0 +1,39 @@
+# frozen_string_literal: true
+
+class SessionController < ApplicationController
+  def new
+    session.delete(:current_user_id)
+    @login_form = LoginForm.new
+  end
+
+  def create
+    @login_form = LoginForm.new(login_params)
+
+    unless @login_form.valid?
+      flash.alert = t('login-error')
+      render 'new'
+    end
+
+    app_user = AppUser.find_by name: @login_form.name
+    if app_user && app_user.check_login(@login_form.pass)
+      session[:current_user_id] = app_user.id
+      flash.notice = t('logged-in')
+      redirect_to tasks_path
+    else
+      flash.alert = t('login-error')
+      render 'new'
+    end
+  end
+
+  def destroy
+    session.delete(:current_user_id)
+    flash.notice = t('logged-out')
+    redirect_to login_path
+  end
+
+  private
+
+  def login_params
+    params.require(:login_form).permit(:name, :pass)
+  end
+end
