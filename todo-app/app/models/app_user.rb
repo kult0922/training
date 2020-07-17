@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AppUser < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 100 }, allow_blank: false
+  validates :name, presence: true, length: { maximum: 100 }, allow_blank: false, uniqueness: true
   validates :hashed_password, presence: true, allow_blank: false
   validates :start_date, presence: true
 

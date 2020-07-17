@@ -7,13 +7,17 @@ class Task < ApplicationRecord
 
   belongs_to :app_user, dependent: :destroy
 
+  # rubocop:disable Metrics/AbcSize
   def self.search_with_condition(search, page)
     if search.status.blank?
       Task.all.order(updated_at: search.sort_direction)
+          .includes(:app_user)
           .page(page).per(10)
     else
       Task.where(status: search.status).order(updated_at: search.sort_direction)
+          .includes(:app_user)
           .page(page).per(10)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
