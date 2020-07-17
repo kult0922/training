@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   validates :due_date, presence: true
   validates :status, inclusion: { in: (0..2).to_a }
 
+  belongs_to :app_user, dependent: :destroy
+
   def self.search_with_condition(search, page)
     if search.status.blank?
       Task.all.order(updated_at: search.sort_direction)
