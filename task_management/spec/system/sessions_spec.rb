@@ -20,7 +20,7 @@ RSpec.describe 'Sessions', type: :system do
       context '誤った認証情報を入力した場合' do
         context '誤ったメールアドレスを入力した場合' do
           it 'ログインに失敗する' do
-            fill_in 'session_mail_address', with: 'wrong_mail_address'
+            fill_in 'session_mail_address', with: 'wrong_mail_address@example.com'
             fill_in 'session_password', with: 'password'
             click_button 'ログイン'
             expect(page).to have_current_path '/login'
