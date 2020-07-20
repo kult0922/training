@@ -9,7 +9,7 @@ describe 'Tasks', type: :system do
   end
 
   it 'Display and Create new task' do
-    login()
+    login
 
     visit tasks_path
 
@@ -28,7 +28,7 @@ describe 'Tasks', type: :system do
   end
 
   it 'Edit task' do
-    login()
+    login
 
     visit tasks_path
 
@@ -46,7 +46,7 @@ describe 'Tasks', type: :system do
   end
 
   it 'Delete task' do
-    login()
+    login
 
     visit tasks_path
 
