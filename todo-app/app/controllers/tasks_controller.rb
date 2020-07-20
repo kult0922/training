@@ -2,9 +2,7 @@
 
 class TasksController < ApplicationController
   def index
-    unless current_user
-      redirect_to login_path
-    end
+    return redirect_to login_path unless current_user
 
     if params[:search_form]
       @search_form = SearchForm.new(search_form_params)

@@ -42,7 +42,7 @@
     <th  scope="col">No.</th>
     <th  scope="col">タスク</th>
     <th scope="col">ステータス</th>
-    <% if current_user.is_admin? %>
+    <% if current_user.admin? %>
       <th scope="col">作成者</th>
     <% end %>
     <th scope="col">更新日</th>
@@ -56,7 +56,7 @@
       <td><%= t.id %></td>
       <td><%= t.name %></td>
       <td><%= to_status_str(t.status) %></td>
-      <% if current_user.is_admin? %>
+      <% if current_user.admin? %>
         <td><%= t.app_user.name %></td>
       <% end %>
       <td><%= t.updated_at.strftime("%Y/%m/%d %H:%M:%S") %></td>

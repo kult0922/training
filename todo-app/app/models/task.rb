@@ -7,26 +7,19 @@ class Task < ApplicationRecord
 
   belongs_to :app_user
 
-  # rubocop:disable Metrics/AbcSize
   def self.search_with_condition(search, page, current_user)
     if search.status.blank?
-      if current_user.is_admin?
-        query = Task.all
-      else
-        query = Task.where(app_user: current_user)
-      end
-      query.order(updated_at: search.sort_direction)
-          .includes(:app_user)
-          .page(page).per(10)
+      query = if current_user&.admin?
+                Task.all
+              else
+                Task.where(app_user: current_user)
+              end
     else
       query = Task.where(status: search.status)
-      unless current_user.is_admin?
-        query = query.where(app_user: current_user)
-      end
-      query.order(updated_at: search.sort_direction)
-          .includes(:app_user)
-          .page(page).per(10)
+      query = query.where(app_user: current_user) unless current_user.admin?
     end
+    query.order(updated_at: search.sort_direction)
+        .includes(:app_user)
+        .page(page).per(10)
   end
-  # rubocop:enable Metrics/AbcSize
 end

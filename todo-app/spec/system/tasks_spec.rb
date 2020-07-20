@@ -6,11 +6,9 @@ describe 'Tasks', type: :system do
   before do
     @app_user = FactoryBot.create(:app_user)
     @task = FactoryBot.create(:task, app_user: @app_user)
-
   end
 
   it 'Display and Create new task' do
-
     login()
 
     visit tasks_path
@@ -30,7 +28,6 @@ describe 'Tasks', type: :system do
   end
 
   it 'Edit task' do
-
     login()
 
     visit tasks_path
@@ -67,7 +64,7 @@ describe 'Tasks', type: :system do
   def login
     visit login_path
     fill_in 'ユーザ名', with: @app_user.name
-    fill_in 'パスワード', with: "pass"
+    fill_in 'パスワード', with: 'pass'
 
     click_link_or_button('ログイン')
   end

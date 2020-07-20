@@ -6,6 +6,7 @@ class SessionController < ApplicationController
     @login_form = LoginForm.new
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     @login_form = LoginForm.new(login_params)
 
@@ -15,7 +16,7 @@ class SessionController < ApplicationController
     end
 
     app_user = AppUser.find_by name: @login_form.name
-    if app_user && app_user.check_login(@login_form.pass)
+    if app_user&.check_login(@login_form.pass)
       session[:current_user_id] = app_user.id
       flash.notice = t('logged-in')
       redirect_to tasks_path
@@ -24,6 +25,7 @@ class SessionController < ApplicationController
       render 'new'
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     session.delete(:current_user_id)
