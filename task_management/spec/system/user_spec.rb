@@ -113,11 +113,12 @@ RSpec.describe 'Users', type: :system do
 
         context 'メールアドレスに使用できない文字列が含まれる場合' do
           it 'エラーメッセージが表示される' do
-            fill_in 'user_mail_address', with: '<>!?@example.com'
+            fill_in 'user_mail_address', with: '!?@example.com'
             click_on '登録'
             expect(page).to have_content 'メールアドレスは不正な値です'
           end
         end
+
         context '既に登録済みのメールアドレスの場合' do
           it 'エラーメッセージが表示される' do
             fill_in 'user_mail_address', with: general.mail_address
@@ -196,11 +197,12 @@ RSpec.describe 'Users', type: :system do
 
         context 'メールアドレスに使用できない文字列が含まれる場合' do
           it 'エラーメッセージが表示される' do
-            fill_in 'user_mail_address', with: '<>!?@example.com'
+            fill_in 'user_mail_address', with: '!?@example.com'
             click_on '更新'
             expect(page).to have_content 'メールアドレスは不正な値です'
           end
         end
+
         context '既に登録済みのメールアドレスの場合' do
           it 'エラーメッセージが表示される' do
             fill_in 'user_mail_address', with: admin.mail_address
@@ -227,7 +229,7 @@ RSpec.describe 'Users', type: :system do
           end
         end
       end
-  end
+    end
 
     context '一般ユーザの場合' do
       it 'ユーザ登録画面に遷移できない' do
@@ -264,6 +266,7 @@ RSpec.describe 'Users', type: :system do
     context '管理者を削除する場合' do
       context 'DBに登録されている管理者が複数件ある場合' do
         let!(:admin) { create(:user, role: 0) }
+
         it '一覧画面にユーザ削除完了のメッセージが表示される' do
           page.accept_confirm do
             click_link '削除', match: :first
