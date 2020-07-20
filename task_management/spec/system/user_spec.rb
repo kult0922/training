@@ -265,11 +265,13 @@ RSpec.describe 'Users', type: :system do
 
     context '管理者を削除する場合' do
       context 'DBに登録されている管理者が複数件ある場合' do
-        let!(:admin) { create(:user, role: 0) }
+        let!(:adminA) { create(:user, role: 0) }
 
         it '一覧画面にユーザ削除完了のメッセージが表示される' do
+          visit current_path
+          expect(User.admin.size).to eq 2
           page.accept_confirm do
-            click_link '削除', match: :first
+            all(:link, '削除')[2].click
           end
           expect(page).to have_content 'ユーザを削除しました'
           expect(User.admin.size).to eq 1

@@ -106,4 +106,17 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe '削除機能' do
+    let!(:user) { create(:user) }
+    let!(:task) { create(:task, user_id: user.id) }
+
+    context 'ユーザを削除した場合' do
+      it 'ユーザに紐づくタスクが削除される' do
+        User.find_by(id: user.id).destroy
+        expect(Task.where(user_id: user.id).size).to eq 0
+      end
+    end
+
+  end
 end
