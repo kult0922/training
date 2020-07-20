@@ -117,6 +117,5 @@ RSpec.describe Task, type: :model do
         expect(Task.where(user_id: user.id).size).to eq 0
       end
     end
-
   end
 end
