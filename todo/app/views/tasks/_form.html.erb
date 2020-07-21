@@ -1,0 +1,46 @@
+<%= form_with(model: task, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :'プロジェクト名' %>
+    <%= form.collection_select(:project_id, @project, :id, :project_name) %> 
+  </div>
+
+  <div class="field">
+    <%= form.label :'タスク名' %>
+    <%= form.text_field :task_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :'説明' %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :'優先順位' %>
+    <%= form.select :priority, [ ["小",1], ["中", 2], ["高", 3 ] ] , class: "hoge" %>
+  </div>
+
+  <div class ="field">
+    <%= form.label :'開始日付' %>
+    <%= form.date_field :started_at %>
+  </div>
+
+  <div class ="field">
+    <%= form.label :'終了日付' %>
+    <%= form.date_field :finished_at %>
+  </div>
+
+  <div class ="field">
+    <%= form.label :'担当ユーザ' %>
+    <%= form.collection_select(:assignee_id, @users, :id, :account_name) %>
+    <%= form.hidden_field(:assignee_name) %>
+  </div>
+
+  <div class ="field">
+    <%= form.label :'報告者ユーザ' %>
+    <%= form.collection_select(:reporter_id, @users, :id, :account_name) %>
+  </div>
+
+  <div class="create">
+    <%= form.submit %>
+  </div>
+<% end %>
