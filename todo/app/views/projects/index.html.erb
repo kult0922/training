@@ -6,7 +6,7 @@
     <% @todo_project.each do |project| %>
     <%= link_to project.project_name, project %>
         <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url %>
+        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
         <%= link_to '修正', edit_project_path(project) %>
         <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
     <% end %>
@@ -17,7 +17,7 @@
     <% @progress_project.each do |project| %>
         <%= link_to project.project_name, project %>
         <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url %>
+        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
         <%= link_to '修正', edit_project_path(project) %>
         <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
     <% end %>
@@ -28,7 +28,7 @@
      <% @review_project.each do |project| %>
         <%= link_to project.project_name, project %>
         <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url %>
+        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
         <%= link_to '修正', edit_project_path(project) %>
         <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
     <% end %>
@@ -39,7 +39,7 @@
      <% @relese_project.each do |project| %>
             <%= link_to project.project_name, project %>
             <%= project.description %>
-            <%= link_to 'タスク一覧', tasks_url %>
+        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
             <%= link_to '修正', edit_project_path(project) %>
             <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
     <% end %>
@@ -50,7 +50,7 @@
      <% @resolved_project.each do |project| %>
             <%= link_to project.project_name, project %>
             <%= project.description %>
-            <%= link_to 'タスク一覧', tasks_url %>
+            <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
             <%= link_to '修正', edit_project_path(project) %>
             <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
     <% end %>
