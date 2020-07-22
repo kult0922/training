@@ -11,17 +11,6 @@ class TasksController < ApplicationController
   def show
     @project = Project.find_by(id: @task.project_id)
     @project_name = @project.project_name
-    @priority =
-      case @task.priority
-      when 0
-        '小'
-      when 1
-        '中'
-      when 2
-        '高'
-      else
-        'Not Found'
-      end
   end
 
   def new
