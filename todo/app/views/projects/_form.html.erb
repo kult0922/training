@@ -11,7 +11,7 @@
 
   <div class="field">
     <%= form.label :'状態' %>
-    <%= form.select :status, [ ["To Do", "todo"], ["In Progress", "in_progress"], ["In Review", "in_review"] ,["Waiting Approval / Release", "release"], ["Resolved / Done", "done"] ] %>
+    <%= form.select :status, [ ["To Do", :todo], ["In Progress", :in_progress], ["In Review", :in_review] ,["Waiting Approval / Release", :release], ["Resolved / Done", :done] ] %>
   </div>
 
   <div class ="field">
