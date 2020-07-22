@@ -12,19 +12,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @status =
-      case @project.status
-      when 0
-        'To Do'
-      when 1
-        'In Progress'
-      when 2
-        'In Review'
-      when 3
-        'Waiting Approval / Release'
-      when 4
-        'Resolved / Done'
-      end
   end
 
   def new

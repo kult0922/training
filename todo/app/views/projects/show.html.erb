@@ -2,7 +2,7 @@
 
 <p>PJ名: <%= @project.project_name %></p>
 <p>説明: <%= @project.description %></p>
-<p>状態: <%= @status %></p>
+<p>状態: <%= @project.status %></p>
 <p>開始日: <%= @project.started_at %></p>
 <p>終了日: <%= @project.finished_at %></p>
 <%= link_to 'Back', projects_path %>
