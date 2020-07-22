@@ -32,7 +32,6 @@
   <div class ="field">
     <%= form.label :'担当ユーザ' %>
     <%= form.collection_select(:assignee_id, @users, :id, :account_name) %>
-    <%= form.hidden_field(:assignee_name) %>
   </div>
 
   <div class ="field">
