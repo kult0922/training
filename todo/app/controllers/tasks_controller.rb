@@ -9,8 +9,10 @@ class TasksController < ApplicationController
   end
 
   def show
-    @project = Project.find_by(id: @task.project_id)
-    @project_name = @project.project_name
+    @assignee_user = User.find_by(id: @task.assignee_id)
+    @assignee_username = @assignee_user.account_name
+    @reporter_user = User.find_by(id: @task.reporter_id)
+    @reporter_username = @reporter_user.account_name
   end
 
   def new
@@ -23,7 +25,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      update_username
       redirect_to @task
       flash[:notice] = 'タスクが作成されました。'
     else
@@ -36,12 +37,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @users = User.all
     @pjid = params[:project_id]
-    @project = Project.where(id: @pjid)
+    @project = Project.where(id: @task.project_id)
   end
 
   def update
     if @task.update(task_params)
-      update_username
       flash[:notice] = 'タスクが更新されました。'
       redirect_to @task
     else
@@ -52,22 +52,13 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    @users = User.all
-    @pjid = params[:project_id]
     if @task.destroy
       flash[:notice] = 'タスクが削除されました。'
-      redirect_to tasks_path
+      redirect_to tasks_path(project_id: @task.project_id)
     else
       flash[:error] = 'タスクが削除されませんでした。'
       render :edit
     end
-  end
-
-  def update_username
-    @assignee_user = User.find_by(id: @task.assignee_id)
-    @reporter_user = User.find_by(id: @task.reporter_id)
-    @task.update(assignee_name: @assignee_user.account_name)
-    @task.update(reporter_name: @reporter_user.account_name)
   end
 
   def set_task
