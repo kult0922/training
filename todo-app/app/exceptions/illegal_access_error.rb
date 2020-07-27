@@ -1,0 +1,2 @@
+class IllegalAccessError < StandardError
+end

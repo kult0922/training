@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class UsersController < ApplicationController
+  class UsersController < Admin::AdminBase
     def index
       @app_users = AppUser.all.includes(:tasks).page(params[:page]).per(10)
     end

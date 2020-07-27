@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     rescue_from StandardError, with: :rescue500
     rescue_from ActionController::RoutingError, with: :rescue404
     rescue_from ActiveRecord::RecordNotFound, with: :rescue404
+    rescue_from IllegalAccessError, with: :rescure403
 
     def routing_error(exception = nil)
       raise exception if exception
@@ -21,6 +22,11 @@ class ApplicationController < ActionController::Base
     def rescue404(exception = nil)
       logger.info "Rendering 404 with exception: #{exception.message}" if exception
       render 'errors/not_found', status: 404
+    end
+
+    def rescue403(exception = nil)
+      logger.info "Rendering 403 with exception: #{exception.message}" if exception
+      render 'errors/forbidden', status: 403
     end
   end
 
