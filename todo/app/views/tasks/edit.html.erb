@@ -2,4 +2,4 @@
 
 <%= render 'form', task: @task, users: @users, project: @project %>
 
-<%= link_to 'Back', tasks_path(project_id: @pjid) %>
+<%= link_to 'Back', tasks_path(project_id: @task.project_id) %>

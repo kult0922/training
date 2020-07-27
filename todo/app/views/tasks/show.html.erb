@@ -3,7 +3,14 @@
 <p>プロジェクト名: <%= @task.project.project_name %></p>
 <p>タスク名: <%= @task.task_name %></p>
 <p>説明: <%= @task.description %></p>
-<p>優先順位: <%= @task.priority %></p>
+<p>優先順位: <% case @task.priority 
+  when 'low'%>
+    <%= '低' %>
+  <% when 'mid' %>
+    <%= '中' %>
+  <% when 'high' %>
+    <%= '高' %>
+  <% end %></p>
 <p>担当者: <%= @assignee_username %></p>
 <p>承認者: <%= @reporter_username%></p>
 <p>開始日: <%= @task.started_at %></p>

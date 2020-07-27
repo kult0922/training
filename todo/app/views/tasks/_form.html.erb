@@ -1,7 +1,7 @@
 <%= form_with(model: task, local: true) do |form| %>
   <div class="field">
     <%= form.label :'プロジェクト名' %>
-    <%= form.collection_select(:project_id, @project, :id, :project_name) %> 
+    <%= @project_name %>
   </div>
 
   <div class="field">

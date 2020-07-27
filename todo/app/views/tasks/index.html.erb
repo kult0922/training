@@ -17,20 +17,20 @@
       <th>タスク</th>
       <th>優先順位</th>
       <th>期限日</th>
-      <th colspan = 3></th>
+      <th colspan = 2></th>
     </tr>
     
     <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.task_name, task %></td>
-      <% case task.priority
-        when 0 %>
-          <td>小</td>
-        <% when 1 %>
-          <td>中</td>
-        <% when 2 %>
-          <td>高</td>
-      <% end %>
+      <td><% case task.priority
+         when 'low' %>
+          <%= '低' %>
+        <% when 'mid' %>
+          <%= '中' %>
+        <% when 'high' %>
+          <%= '高' %>
+      <% end %></td>
       <td><%= task.finished_at%></td>
       <td><%= link_to '修正', edit_task_path(task,project_id: @pjid) %></td>
       <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %></td>

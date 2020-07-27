@@ -9,17 +9,15 @@ class TasksController < ApplicationController
   end
 
   def show
-    @assignee_user = User.find_by(id: @task.assignee_id)
-    @assignee_username = @assignee_user.account_name
-    @reporter_user = User.find_by(id: @task.reporter_id)
-    @reporter_username = @reporter_user.account_name
+    @assignee_username = @task.assignee.account_name
+    @reporter_username = @task.reporter.account_name
   end
 
   def new
     @users = User.all
     @task = Task.new
     @pjid = params[:project_id]
-    @project = Project.where(id: @pjid)
+    @project_name = Project.find(@pjid).project_name
   end
 
   def create
@@ -34,10 +32,8 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
     @users = User.all
-    @pjid = params[:project_id]
-    @project = Project.where(id: @task.project_id)
+    @project_name = Project.find(@task.project_id).project_name
   end
 
   def update
@@ -51,7 +47,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     if @task.destroy
       flash[:notice] = 'タスクが削除されました。'
       redirect_to tasks_path(project_id: @task.project_id)
@@ -66,6 +61,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :assignee_name, :reporter_id, :reporter_name, :description, :started_at, :finished_at)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at)
   end
 end
