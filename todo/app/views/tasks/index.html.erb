@@ -1,13 +1,7 @@
-<h1>タスク一覧<h1>
+<h1><%= @project.project_name %>タスク一覧</h1>
 <div class = "top_bar">
-  <div class = "search_bar">
-    <form>
-      <p>タスク検索：
-      <input type="text" name="task_name"></p>
-    </form>
-  </div>
-  <div class = "search_bar">
-    <p><%= link_to 'タスク登録', new_task_path(project_id: @pjid) %></p>
+  <div class = "create_task">
+    <p><%= link_to 'タスク登録', new_task_path(project_id: @project.id) %></p>
   </div>
 </div>
 
@@ -32,7 +26,7 @@
           <%= '高' %>
       <% end %></td>
       <td><%= task.finished_at%></td>
-      <td><%= link_to '修正', edit_task_path(task,project_id: @pjid) %></td>
+      <td><%= link_to '修正', edit_task_path(task) %></td>
       <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %></td>
     </tr>
     <% end %>

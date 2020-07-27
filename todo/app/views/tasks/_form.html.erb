@@ -1,7 +1,8 @@
 <%= form_with(model: task, local: true) do |form| %>
   <div class="field">
     <%= form.label :'プロジェクト名' %>
-    <%= @project_name %>
+    <%= @project.project_name %>
+    <%= form.hidden_field :project_id, value: @project.id %>
   </div>
 
   <div class="field">

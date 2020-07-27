@@ -4,20 +4,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @pjid = params[:project_id]
-    @tasks = Task.where(project_id: @pjid)
+    @project = Project.find(params[:project_id])
+    @tasks = @project.tasks
   end
 
   def show
-    @assignee_username = @task.assignee.account_name
-    @reporter_username = @task.reporter.account_name
   end
 
   def new
     @users = User.all
     @task = Task.new
-    @pjid = params[:project_id]
-    @project_name = Project.find(@pjid).project_name
+    @project = Project.find(params[:project_id])
   end
 
   def create
@@ -33,7 +30,7 @@ class TasksController < ApplicationController
 
   def edit
     @users = User.all
-    @project_name = Project.find(@task.project_id).project_name
+    @project = @task.project
   end
 
   def update
@@ -52,7 +49,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path(project_id: @task.project_id)
     else
       flash[:error] = 'タスクが削除されませんでした。'
-      render :edit
+      render :index
     end
   end
 
