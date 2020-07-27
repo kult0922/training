@@ -32,6 +32,10 @@ module Admin
 
     def destroy
       @app_user = AppUser.find(params[:id])
+
+      raise IllegalAccessError, 'Unexpected Operation' if @app_user.admin?
+      raise ActiveRecord::ActiveRecordError, 'Delete user failed' unless @app_user.destroy!
+
       respond_to do |format|
         format.js
       end
