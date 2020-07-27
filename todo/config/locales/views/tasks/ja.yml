@@ -1,0 +1,16 @@
+ja:
+  projects:
+    index:
+      title: 'タスク一覧'
+      new: 'タスク登録'
+      update: '修正'
+      delete: '削除'
+    show:
+      title: 'タスク詳細'
+    edit:
+      title: 'タスク修正'
+    new:
+      title: 'タスク作成'
+    delete:
+      confirm: '削除してもよろしいでしょうか？'
+    back: '戻る'
