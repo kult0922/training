@@ -24,17 +24,16 @@ RSpec.describe Project, type: :system do
       fill_in 'project_project_name', with: 'input_test'
       fill_in 'project_description', with: 'test'
       select 'In Progress', from: 'project_status'
-      fill_in 'project_started_at', with: Time.new(2020, 01, 02, 12)
-      fill_in 'project_finished_at', with: Time.new(2020, 01, 02, 12)
+      fill_in 'project_started_at', with: Time.zone.parse('07/12/2020')
+      fill_in 'project_finished_at', with: Time.zone.parse('07/12/2020')
     end
-    
     it 'Create new project' do
       click_on 'Create Project'
       expect(page).to have_content 'プロジェクトが追加されました。'
       expect(Project.find_by(project_name: 'input_test'))
     end
   end
-  
+
   describe '#show' do
     it 'check project detail page' do
       visit project_path(project.id)
@@ -53,8 +52,8 @@ RSpec.describe Project, type: :system do
       fill_in 'project_project_name', with: 'edit_test'
       fill_in 'project_description', with: 'test2'
       select 'To Do', from: 'project_status'
-      fill_in 'project_started_at', with: Date.today
-      fill_in 'project_finished_at', with: Date.today
+      fill_in 'project_started_at', with: Time.zone.today
+      fill_in 'project_finished_at', with: Time.zone.today
     end
 
     it 'edit project' do
@@ -70,7 +69,7 @@ RSpec.describe Project, type: :system do
     end
     it 'delete project' do
       click_link '削除', href: project_path(project.id)
-      expect(page.driver.browser.switch_to.alert.text).to eq "削除してもよろしいでしょうか?"
+      expect(page.driver.browser.switch_to.alert.text).to eq '削除してもよろしいでしょうか?'
       page.driver.browser.switch_to.alert.accept
 
       expect(page).to have_content 'プロジェクトが削除されました。'

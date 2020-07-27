@@ -26,8 +26,8 @@ RSpec.describe Task, type: :system do
       fill_in 'task_task_name', with: 'add_task'
       fill_in 'task_description', with: 'add_description'
       select '中', from: 'task_priority'
-      fill_in 'task_started_at', with: Date.today
-      fill_in 'task_finished_at', with: Date.today
+      fill_in 'task_started_at', with: Time.zone.parse('07/12/2020')
+      fill_in 'task_finished_at', with: Time.zone.parse('07/12/2020')
       select username, from: 'task_assignee_id'
       select username, from: 'task_reporter_id'
     end
@@ -59,8 +59,8 @@ RSpec.describe Task, type: :system do
       fill_in 'task_task_name', with: 'edit_task'
       fill_in 'task_description', with: 'edit_description'
       select '高', from: 'task_priority'
-      fill_in 'task_started_at', with: Date.tomorrow
-      fill_in 'task_finished_at', with: Date.tomorrow
+      fill_in 'task_started_at', with: Time.zone.today
+      fill_in 'task_finished_at', with: Time.zone.today
       select username, from: 'task_assignee_id'
       select username, from: 'task_reporter_id'
     end
@@ -78,11 +78,10 @@ RSpec.describe Task, type: :system do
     end
     it 'delete task' do
       click_link '削除', href: task_path(task.id)
-      expect(page.driver.browser.switch_to.alert.text).to eq "削除してもよろしいでしょうか?"
+      expect(page.driver.browser.switch_to.alert.text).to eq '削除してもよろしいでしょうか?'
       page.driver.browser.switch_to.alert.accept
 
       expect(page).to have_content 'タスクが削除されました。'
     end
   end
-
 end

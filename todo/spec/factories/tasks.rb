@@ -8,7 +8,7 @@ FactoryBot.define do
     sequence(:assignee_id) {'1'}
     sequence(:reporter_id) {'1'}
     sequence(:description) {'test_discription'}
-    sequence(:started_at) {Date.today}
-    sequence(:finished_at) {Date.today}
+    sequence(:started_at) {Time.zone.today}
+    sequence(:finished_at) {Time.zone.today}
   end
 end
