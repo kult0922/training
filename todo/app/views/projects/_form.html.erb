@@ -1,0 +1,30 @@
+<%= form_with(model: project, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :'PJ名' %>
+    <%= form.text_field :project_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :'説明' %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :'状態' %>
+    <%= form.select :status, [ ["To Do", :todo], ["In Progress", :in_progress], ["In Review", :in_review] ,["Waiting Approval / Release", :release], ["Resolved / Done", :done] ] %>
+  </div>
+
+  <div class ="field">
+    <%= form.label :'開始日付' %>
+    <%= form.date_field :started_at %>
+  </div>
+
+  <div class ="field">
+    <%= form.label :'終了日付' %>
+    <%= form.date_field :finished_at %>
+  </div>
+
+  <div class="create">
+    <%= form.submit %>
+  </div>
+<% end %>
