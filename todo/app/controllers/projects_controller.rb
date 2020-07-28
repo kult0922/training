@@ -4,27 +4,14 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @todo_project = Project.where(status: 0)
-    @progress_project = Project.where(status: 1)
-    @review_project = Project.where(status: 2)
-    @relese_project = Project.where(status: 3)
-    @resolved_project = Project.where(status: 4)
+    @todo_projects = Project.todo
+    @progress_projects = Project.in_progress
+    @review_projects = Project.in_review
+    @relese_projects = Project.release
+    @resolved_projects = Project.done
   end
 
   def show
-    @status =
-      case @project.status
-      when 0
-        'To Do'
-      when 1
-        'In Progress'
-      when 2
-        'In Review'
-      when 3
-        'Waiting Approval / Release'
-      when 4
-        'Resolved / Done'
-      end
   end
 
   def new
