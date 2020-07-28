@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :task do
     sequence(:task_name) {'test_task'}
     sequence(:project_id) {Project.first.id}
-    sequence(:priority) {'2'}
+    sequence(:priority) {:high}
     sequence(:assignee_id) {'1'}
     sequence(:reporter_id) {'1'}
     sequence(:description) {'test_discription'}

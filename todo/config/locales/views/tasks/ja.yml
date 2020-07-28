@@ -1,16 +1,27 @@
 ja:
-  projects:
+  tasks:
     index:
       title: 'タスク一覧'
+      name: 'タスク名'
       new: 'タスク登録'
+      priority: '優先順位'
       update: '修正'
       delete: '削除'
+      finished_at: '期限日'
     show:
       title: 'タスク詳細'
+      project_name: 'プロジェクト名'
+      name: 'タスク名'
+      description: '説明'
+      priority: '優先順位'
+      assignee: '担当者'
+      reporter: '承認者'
+      started_at: '開始日'
+      finished_at: '終了日'
     edit:
       title: 'タスク修正'
     new:
       title: 'タスク作成'
     delete:
-      confirm: '削除してもよろしいでしょうか？'
+      confirm: '削除してもよろしいでしょうか?'
     back: '戻る'

@@ -1,16 +1,16 @@
-<h1><%= @project.project_name %>タスク一覧</h1>
+<h1><%= @project.project_name %><%= I18n.t('tasks.index.title') %></h1>
 <div class = "top_bar">
   <div class = "create_task">
-    <p><%= link_to 'タスク登録', new_task_path(project_id: @project.id) %></p>
+    <p><%= link_to I18n.t('tasks.index.new'), new_task_path(project_id: @project.id) %></p>
   </div>
 </div>
 
 <div class = "task_table">
   <table>
     <tr>
-      <th>タスク</th>
-      <th>優先順位</th>
-      <th>期限日</th>
+      <th><%= I18n.t('tasks.index.name') %></th>
+      <th><%= I18n.t('tasks.index.priority') %></th>
+      <th><%= I18n.t('tasks.index.finished_at') %></th>
       <th colspan = 2></th>
     </tr>
     
@@ -19,15 +19,15 @@
       <td><%= link_to task.task_name, task %></td>
       <td><% case task.priority
          when 'low' %>
-          <%= '低' %>
+          <%= Task.human_attribute_name(:low) %>
         <% when 'mid' %>
-          <%= '中' %>
+          <%= Task.human_attribute_name(:mid) %>
         <% when 'high' %>
-          <%= '高' %>
+          <%= Task.human_attribute_name(:high) %>
       <% end %></td>
       <td><%= task.finished_at%></td>
-      <td><%= link_to '修正', edit_task_path(task) %></td>
-      <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %></td>
+      <td><%= link_to I18n.t('tasks.index.update'), edit_task_path(task) %></td>
+      <td><%= link_to I18n.t('tasks.index.delete'), task, method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') } %></td>
     </tr>
     <% end %>
   </table>

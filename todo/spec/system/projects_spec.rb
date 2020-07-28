@@ -28,8 +28,8 @@ RSpec.describe Project, type: :system do
       fill_in 'project_finished_at', with: Time.zone.parse('07/12/2020')
     end
     it 'Create new project' do
-      click_on 'Create Project'
-      expect(page).to have_content 'プロジェクトが追加されました。'
+      click_on '登録する'
+      expect(page).to have_content 'プロジェクトが作成されました。'
       expect(Project.find_by(project_name: 'input_test'))
     end
   end
@@ -39,7 +39,7 @@ RSpec.describe Project, type: :system do
       visit project_path(project.id)
       expect(page).to have_content project.project_name
       expect(page).to have_content project.description
-      expect(page).to have_content project.status
+      expect(page).to have_content Project.human_attribute_name(:in_progress)
       expect(page).to have_content project.started_at
       expect(page).to have_content project.finished_at
     end
@@ -57,7 +57,7 @@ RSpec.describe Project, type: :system do
     end
 
     it 'edit project' do
-      click_on 'Update Project'
+      click_on '更新する'
       expect(page).to have_content 'プロジェクトが更新されました。'
       expect(Project.find_by(project_name: 'edit_test'))
     end
