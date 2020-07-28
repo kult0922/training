@@ -8,10 +8,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+UNAMES = %w[taro hanako test].freeze
+
+users = []
+
+UNAMES.each do |uname|
+  users << AppUser.create(name: uname, password: 'pass', start_date: Time.zone.yesterday, suspended: false)
+end
+
 TASKS = %w[掃除 洗濯 買い物 読書 勉強 散歩 ジム 食事].freeze
 
 (1..3).to_a.each do |num|
   TASKS.each do |task|
-    Task.create(name: task + '  ' + num.to_s, status: rand(0..2), due_date: Time.zone.now + 1)
+    user = users.sample
+    Task.create(name: task + '  ' + num.to_s, status: rand(0..2), due_date: Time.zone.now + 1, app_user: user)
   end
 end
