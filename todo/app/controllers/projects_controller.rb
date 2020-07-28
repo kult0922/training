@@ -23,10 +23,10 @@ class ProjectsController < ApplicationController
 
     if @project.save
       redirect_to projects_url
-      flash[:notice] = 'プロジェクトが追加されました。'
+      flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '作成')
     else
       render :new
-      flash[:error] = 'プロジェクトが追加に失敗しました。'
+      flash[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '作成')
     end
   end
 
@@ -36,20 +36,20 @@ class ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
       redirect_to projects_url
-      flash[:notice] = 'プロジェクトが更新されました。'
+      flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '更新')
     else
       render :edit
-      flash[:error] = 'プロジェクトが更新に失敗しました。'
+      flash[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '更新')
     end
   end
 
   def destroy
     if @project.destroy
-      flash[:notice] = 'プロジェクトが削除されました。'
+      flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '削除')
       redirect_to projects_url
     else
       render :edit
-      flash[:error] = 'プロジェクトが削除に失敗しました。'
+      flash[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '削除')
     end
   end
 

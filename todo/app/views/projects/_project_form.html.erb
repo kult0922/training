@@ -1,5 +1,5 @@
 <%= link_to project.project_name, project %>
 <%= project.description %>
-<%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
-<%= link_to '修正', edit_project_path(project) %>
-<%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
+<%= link_to I18n.t('projects.index.tasklist'), tasks_url(project_id: project.id) %>
+<%= link_to I18n.t('projects.index.update'), edit_project_path(project) %>
+<%= link_to I18n.t('projects.index.delete'), project, method: :delete, data: { confirm: I18n.t('projects.delete.confirm') } %>

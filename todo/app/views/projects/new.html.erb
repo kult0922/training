@@ -1,5 +1,5 @@
-<h1>PJ追加</h1>
+<h1><%= I18n.t('projects.new.title') %></h1>
 
 <%= render 'form', project: @project %>
 
-<%= link_to 'Back', projects_path %>
+<%= link_to I18n.t('projects.back'), projects_path %>
