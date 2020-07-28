@@ -36,3 +36,9 @@ en:
   action-update: updated
   action-create: created
   action-delete: deleted
+  enum:
+    task:
+      status:
+        - New
+        - Doing
+        - Done

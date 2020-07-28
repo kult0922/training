@@ -5,3 +5,9 @@ ja:
   action-update: 更新
   action-create: 作成
   action-delete: 削除
+  enum:
+    task:
+      status:
+        - 開始前
+        - 実施中
+        - 完了
