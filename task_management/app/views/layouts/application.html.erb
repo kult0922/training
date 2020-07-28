@@ -12,13 +12,23 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
       <span class="navbar-brand mb-0 h1"><%= I18n.t('navbar.title') %></span>
       <% if current_user %>
-        <% if current_user.admin? && request.path_info != admin_users_path %>
-          <ul class="navbar-nav">
+        <ul class="navbar-nav">
+          <% if request.path_info != tasks_path && request.path_info != root_path %>
+            <li class="nav-item">
+              <%= link_to I18n.t('link.task_list'), tasks_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+          <% if request.path_info != labels_path %>
+            <li class="nav-item">
+              <%= link_to I18n.t('link.label_list'), labels_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+          <% if current_user.admin? && request.path_info != admin_users_path %>
             <li class="nav-item">
               <%= link_to I18n.t('link.user_list'), admin_users_path, class: 'nav-link' %>
             </li>
-          </ul>
-        <% end %>
+          <% end %>
+        </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <%= link_to I18n.t('link.logout'), logout_path, method: :delete, class: 'nav-link' %>

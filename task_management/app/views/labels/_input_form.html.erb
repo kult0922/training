@@ -1,0 +1,14 @@
+<%= form_with model: @label, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div>
+    <%= link_to I18n.t('link.back'), labels_path, class: 'btn btn-dark' %>
+    <% if request.path_info == new_label_path %>
+      <%= f.submit I18n.t('button.register'), class: 'btn btn-primary' %>
+    <%else%>
+      <%= f.submit I18n.t('button.update'), class: 'btn btn-primary' %>
+    <% end%>
+  <div>
+<% end %>

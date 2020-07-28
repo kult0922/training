@@ -35,6 +35,17 @@ ja:
       update: ユーザが編集されました
       destroy: ユーザを削除しました
       last_admin_user: 他に管理者ユーザが存在しないため削除できません
+  labels:
+    index:
+      title: ラベル一覧
+    new:
+      title: ラベル登録
+    edit:
+      title: ラベル編集
+    flash:
+      create: ラベルが登録されました
+      update: ラベルが編集されました
+      destroy: ラベルを削除しました
   button:
     search: 検索
     update: 更新
@@ -47,7 +58,9 @@ ja:
     delete: 削除
     back: 戻る
     logout: ログアウト
+    task_list: タスク一覧
     user_list: ユーザ一覧
+    label_list: ラベル一覧
   confirm:
     delete: 削除しますか？
   errors:

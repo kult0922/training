@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @search_params = {
-      title: params[:title], status: params[:status],
+      title: params[:title], status: params[:status], label_ids: params[:label_ids],
       sort_column: sort_column, sort_direction: sort_direction,
     }
     @tasks = current_user.tasks.search(@search_params).page(params[:page])
@@ -16,6 +16,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @task.task_labels.build
   end
 
   def create
@@ -45,7 +46,8 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :priority, :status, :due, :description)
+    params.require(:task).
+      permit(:title, :priority, :status, :due, :description, { :label_ids => [] })
   end
 
   def set_task

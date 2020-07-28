@@ -10,6 +10,10 @@
     <%= f.label I18n.t('activerecord.attributes.task.status') %>
     <%= f.select :status, Task.statuses_i18n.invert, { include_blank: true, selected: @search_params[:status] }, class: 'form-control' %>
   </div>
+  <div class="form-group mb-2">
+    <%= f.label I18n.t('activerecord.attributes.task.label') %>
+    <%= f.select :label_ids, current_user.labels.collect {|l| [ l.name, l.id] }, { include_blank: true, selected: @search_params[:label_ids] }, class: 'form-control' %>
+  </div>
   <div class="form-group mx-sm-3 mb-2">
     <%= f.submit I18n.t('button.search'), class: 'btn btn-primary' %>
   </div>
@@ -21,6 +25,7 @@
       <th class="w-25"><%= I18n.t('activerecord.attributes.task.title') %></th>
       <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
       <th class="w-15"><%= I18n.t('activerecord.attributes.task.status') %></th>
+      <th class="w-25"><%= I18n.t('activerecord.attributes.task.label') %></th>
       <th class="w-15"><%= sortable 'due', I18n.t('activerecord.attributes.task.due') %></th>
       <th><%= I18n.t('link.edit') %></th>
       <th><%= I18n.t('link.delete') %></th>
@@ -32,6 +37,11 @@
         <td><%= link_to t.title, task_path(t.id) %></td>
         <td><%= t.priority_i18n %></td>
         <td><%= t.status_i18n %></td>
+        <td>
+          <% t.task_labels.each do |l| %>
+            <%= l.label.name %>
+          <% end %>
+        </td>
         <td><%= t.due %></td>
         <td><%= link_to I18n.t('link.edit'), edit_task_path(t.id), class: 'btn btn-secondary btn-sm' %></td>
         <td><%= link_to I18n.t('link.delete'), task_path(t.id), method: :delete, data: { confirm: I18n.t('confirm.delete') }, class: 'btn btn-danger btn-sm' %></td>

@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   end
   root 'tasks#index'
   resources :tasks
+  resources :labels, only: [:index, :new, :create, :edit, :update, :destroy]
   get '*path', to: 'application#render404'
 end
