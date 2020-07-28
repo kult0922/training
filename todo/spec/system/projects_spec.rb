@@ -39,7 +39,7 @@ RSpec.describe Project, type: :system do
       visit project_path(project.id)
       expect(page).to have_content project.project_name
       expect(page).to have_content project.description
-      expect(page).to have_content project.status
+      expect(page).to have_content 'To Do'
       expect(page).to have_content project.started_at
       expect(page).to have_content project.finished_at
     end

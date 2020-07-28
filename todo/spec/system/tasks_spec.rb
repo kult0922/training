@@ -44,7 +44,7 @@ RSpec.describe Task, type: :system do
       visit task_path(task.id, project_id: pj.id)
       expect(page).to have_content pj.project_name
       expect(page).to have_content task.description
-      expect(page).to have_content task.priority
+      expect(page).to have_content '高'
       expect(page).to have_content task.assignee_name
       expect(page).to have_content task.reporter_name
       expect(page).to have_content task.started_at
