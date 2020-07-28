@@ -17,6 +17,16 @@ RSpec.describe Task, type: :system do
       expect(page).to have_content '修正'
       expect(page).to have_content '削除'
     end
+
+    it 'task sorder by created_at' do
+      tasks = FactoryBot.create_list(:task, 2, :order_by_created_at)
+
+      visit tasks_path(project_id: pj.id)
+  
+      #tasks[1]はtasks[0]より1日前の日付
+      expect(tasks[1].created_at < tasks[0].created_at).to be true
+      expect(page.body.index(tasks[1].task_name)).to be < page.body.index(tasks[0].task_name)
+    end
   end
 
   describe '#new' do
