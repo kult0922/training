@@ -1,0 +1,22 @@
+ja:
+  projects:
+    index:
+      title: 'プロジェクト一覧'
+      new: 'PJ登録'
+      tasklist: 'タスク一覧'
+      update: '修正'
+      delete: '削除'
+    show:
+      title: 'PJ詳細'
+      name: 'PJ名'
+      description: '説明'
+      status: '状態'
+      started_at: '開始日'
+      finished_at: '終了日'
+    edit:
+      title: 'PJ修正'
+    new:
+      title: 'PJ作成'
+    delete:
+      confirm: '削除してもよろしいでしょうか?'
+    back: '戻る'
