@@ -6,6 +6,7 @@ class Task < ApplicationRecord
   validates :status, inclusion: { in: (0..2).to_a }
 
   belongs_to :app_user
+  has_many :task_labels, dependent: :destroy
 
   def self.search_with_condition(search, page, current_user)
     if search.status.blank?
@@ -20,6 +21,7 @@ class Task < ApplicationRecord
     end
     query.order(updated_at: search.sort_direction)
         .includes(:app_user)
+        .includes(:task_labels)
         .page(page).per(10)
   end
 end
