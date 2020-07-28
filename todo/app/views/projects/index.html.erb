@@ -2,56 +2,36 @@
 <p><%= link_to 'PJ登録', new_project_path %></p>
 
 <div class = "pj_todo">
-    <p>To Do</p>
-    <% @todo_project.each do |project| %>
-    <%= link_to project.project_name, project %>
-        <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
-        <%= link_to '修正', edit_project_path(project) %>
-        <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-    <% end %>
+  <p>To Do</p>
+  <% @todo_projects.each do |project| %>
+    <%= render partial: "project_form", locals: {project: project} %>
+  <% end %>
 </div>
 <br>
 <div class = "pj_inprogress">
-    <p>In Progress</p>
-    <% @progress_project.each do |project| %>
-        <%= link_to project.project_name, project %>
-        <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
-        <%= link_to '修正', edit_project_path(project) %>
-        <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-    <% end %>
+  <p>In Progress</p>
+  <% @progress_projects.each do |project| %>
+    <%= render partial: "project_form", locals: {project: project} %>
+  <% end %>
 </div>
 <br>
 <div class = "pj_inreview">
-    <p>In Review</p>
-     <% @review_project.each do |project| %>
-        <%= link_to project.project_name, project %>
-        <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
-        <%= link_to '修正', edit_project_path(project) %>
-        <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-    <% end %>
+  <p>In Review</p>
+  <% @review_projects.each do |project| %>
+    <%= render partial: "project_form", locals: {project: project} %>
+  <% end %>
 </div>
 <br>
 <div class = "pj_release">
-    <p>Waiting Approval / Release</p>
-     <% @relese_project.each do |project| %>
-            <%= link_to project.project_name, project %>
-            <%= project.description %>
-        <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
-            <%= link_to '修正', edit_project_path(project) %>
-            <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-    <% end %>
+  <p>Waiting Approval / Release</p>
+  <% @relese_projects.each do |project| %>
+    <%= render partial: "project_form", locals: {project: project} %>
+  <% end %>
 </div>
 <br>
 <div class = "pj_done">
-    <p>Resolved / Done</p>
-     <% @resolved_project.each do |project| %>
-            <%= link_to project.project_name, project %>
-            <%= project.description %>
-            <%= link_to 'タスク一覧', tasks_url(project_id: project.id) %>
-            <%= link_to '修正', edit_project_path(project) %>
-            <%= link_to '削除', project, method: :delete, data: { confirm: '削除してもよろしいでしょうか?' } %>
-    <% end %>
+  <p>Resolved / Done</p>
+  <% @resolved_projects.each do |project| %>
+    <%= render partial: "project_form", locals: {project: project} %>
+  <% end %>
 </div>
