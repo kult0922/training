@@ -43,7 +43,7 @@ describe TasksController, type: :controller do
 
   it 'Update task' do
     new_task_name = @task[:name] + ' Edit'
-    put :update, params: { id: @task[:id], task: { name: new_task_name} }
+    put :update, params: { id: @task[:id], task: { name: new_task_name } }
     expect(response.status).to eq 302
     expect(Task.find(@task.id).name).to eq new_task_name
   end
