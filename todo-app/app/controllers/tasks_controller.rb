@@ -69,10 +69,10 @@ class TasksController < ApplicationController
   end
 
   def as_success_message(name, action_key)
-    t('msg-success', name: name, action: t(action_key))
+    I18n.t('msg-success', name: name, action: t(action_key))
   end
 
   def error_message
-    t('msg-error')
+    I18n.t('msg-error')
   end
 end

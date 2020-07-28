@@ -11,17 +11,17 @@ class SessionController < ApplicationController
     @login_form = LoginForm.new(login_params)
 
     unless @login_form.valid?
-      flash.alert = t('login-error')
+      flash.alert = I18n.t('login-error')
       render 'new'
     end
 
     app_user = AppUser.find_by name: @login_form.name
     if app_user&.check_login(@login_form.pass)
       session[:current_user_id] = app_user.id
-      flash.notice = t('logged-in')
+      flash.notice = I18n.t('logged-in')
       redirect_to tasks_path
     else
-      flash.alert = t('login-error')
+      flash.alert = I18n.t('login-error')
       render 'new'
     end
   end
@@ -29,7 +29,7 @@ class SessionController < ApplicationController
 
   def destroy
     session.delete(:current_user_id)
-    flash.notice = t('logged-out')
+    flash.notice = I18n.t('logged-out')
     redirect_to login_path
   end
 

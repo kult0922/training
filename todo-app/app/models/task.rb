@@ -8,17 +8,12 @@ class Task < ApplicationRecord
   belongs_to :app_user
 
   def self.search_with_condition(search, page, current_user)
-    if search.status.blank?
-      query = if current_user&.admin?
-                Task.all
-              else
-                Task.where(app_user: current_user)
-              end
-    else
-      query = Task.where(status: search.status)
-      query = query.where(app_user: current_user) unless current_user.admin?
-    end
-    query.order(updated_at: search.sort_direction)
+    condition = {}
+    condition[:app_user] = current_user unless current_user&.admin?
+    condition[:status] = search.status if search.status.present?
+
+    Task.where(condition).order(updated_at: search.sort_direction)
+        .order(updated_at: search.sort_direction)
         .includes(:app_user)
         .page(page).per(10)
   end
