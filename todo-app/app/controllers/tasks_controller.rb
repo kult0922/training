@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       @search_form = SearchForm.new
       @search_form.sort_direction = 'desc'
     end
-    @tasks = Task.all.order(updated_at: @search_form.sort_direction).page(params[:page]).per(10)
+    @tasks = Task.all.order(created_at: @search_form.sort_direction).page(params[:page]).per(10)
   end
 
   def show
