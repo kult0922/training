@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_024109) do
+ActiveRecord::Schema.define(version: 2020_07_29_021203) do
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "project_name", null: false
     t.integer "status", null: false
     t.text "description"
-    t.date "started_at"
-    t.date "finished_at"
+    t.date "started_at", null: false
+    t.date "finished_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

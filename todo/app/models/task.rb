@@ -5,4 +5,7 @@ class Task < ApplicationRecord
   belongs_to :project
   belongs_to :assignee, class_name: 'User' 
   belongs_to :reporter, class_name: 'User' 
+  validates :task_name, presence: true
+  validates :started_at, presence: true
+  validates :finished_at, presence: true
 end
