@@ -58,7 +58,34 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def add_label
+    task = Task.find(params[:task_id])
+    name = params[:name]
+    labels = task.task_labels || []
+
+    if labels.map(&:name).include?(name)
+      @error_message = I18n.t('msg-label.already-exist')
+    else
+      @task_label = TaskLabel.new(name: name, task: task)
+      unless @task_label.save
+        @error_message = I18n.t('msg-label.save-error')
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def delete_label
+    byebug
+    p "delete_label"
+  end
+
   private
+
+
+
 
   def task_params
     params.require(:task).permit(:name, :due_date, :status)

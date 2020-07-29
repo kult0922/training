@@ -62,7 +62,7 @@
       <% end %>
       <td><%= t.updated_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
       <td><%= t.due_date&.strftime("%Y/%m/%d") %></td>
-      <td><%= render "task_labels", task: t, action: 'show' %></td>
+      <td><%= render "task_labels", task: t, action: 'show aaa' %></td>
       <td>
         <%= link_to "編集", edit_task_path(t), class: "badge badge-success" %>
         <%= link_to "削除",  task_path(t), method: :delete, data: {confirm: "本当に削除しますか？"} , class: "badge badge-secondary"%>
@@ -74,3 +74,8 @@
 <%= paginate @tasks %>
 
 </div>
+
+
+
+
+<%= render "label_handler" %>

@@ -1,1 +1,34 @@
-<pre>memo memo</pre>
+<div class="d-inline">
+  <div id="label-area_<%= task.id %>" class="d-inline">
+    <span class="badge badge-pill badge-info">fsadfasfds</span>
+    <% task.task_labels&.each do |label| %>
+      <span class="badge badge-pill badge-info <%= action =='show' ? '' : 'label-badge' %>" id="tsk-label_<%=label.id %>"><%= label.name %>
+      <% unless action == 'show' %>
+        <span class="label-badge-del" id="tsk-label-del_<%=label.id %>" style="display: none">
+          <a href="##" class="tsk-label-del-link" id="tsk-label-del-link_<%= task.id %>_<%=label.id %>">&times;</a>
+        </span>
+      <% end %>
+      </span>
+    <% end %>
+  </div>
+
+  <% unless action == 'show' %>
+    <%= form_with url: task_add_label_path(task.id), local: false, class: 'form-inline label-form', method: :post do |f| %>
+      <div class="label-input" id="label-input-div_<%= task.id %>" style="display: none">
+        <div class="label-input-inner">
+          <div class="col-xs-2">
+            <%= f.text_field :name, class: 'form-control add-label', required: true, placeholder: 'ラベルを入力', id: "label_#{task.id}"%>
+          </div>
+        </div>
+      </div>
+      <div class="btn-area ml-1">
+        <%= f.button "+", type: "button", class: "btn btn-sm btn-info", id: "add-label_#{task.id}" %>
+      </div>
+    <% end  %>
+  <% end %>
+
+  <%= form_with url: task_delete_label_path(task.id), local: false, id: "form-label-del_#{task.id}",  method: :post do |f| %>
+    <%= f.hidden_field :label_id %>
+  <% end %>
+
+</div>
