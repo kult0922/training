@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  attribute :input_task_label, :string
+  attr_accessor :input_task_label
   validates :name, presence: true, length: { maximum: 100 }
   validates :due_date, presence: true
   validates :status, inclusion: { in: (0..2).to_a }

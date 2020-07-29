@@ -37,6 +37,11 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.app_user = current_user
     if @task.save
+
+      if @task.input_task_label
+        @task.input_task_label.split(",").select { |name| name.length > 0}.map { |name| TaskLabel.new(name: name, task: @task).save}
+      end
+
       flash.notice = as_success_message(@task.name, 'action-create')
 
       redirect_to tasks_path
@@ -59,17 +64,23 @@ class TasksController < ApplicationController
   end
 
   def add_label
-    task = Task.find(params[:task_id])
-    name = params[:name]
-    labels = task.task_labels || []
 
-    if labels.map(&:name).include?(name)
-      @error_message = I18n.t('msg-label.already-exist')
-    else
-      @task_label = TaskLabel.new(name: name, task: task)
-      unless @task_label.save
-        @error_message = I18n.t('msg-label.save-error')
+    begin
+      task = Task.find(params[:task_id])
+      name = params[:name]
+      labels = task.task_labels || []
+
+      if labels.map(&:name).include?(name)
+        @error_message = I18n.t('msg-label.already-exist')
+      else
+        @task_label = TaskLabel.new(name: name, task: task)
+        unless @task_label.save
+          @error_message = I18n.t('msg-label.save-error')
+        end
       end
+    rescue => e
+      Rails.logger.error e
+      @error_message = I18n.t('msg-label.save-error')
     end
 
     respond_to do |format|
@@ -78,17 +89,26 @@ class TasksController < ApplicationController
   end
 
   def delete_label
-    byebug
-    p "delete_label"
+    begin
+      @task_label = TaskLabel.find(params[:label_id])
+
+      unless @task_label.destroy!
+        @error_message = I18n.t('msg-label.delete-error')
+      end
+    rescue => e
+      Rails.logger.error e
+      @error_message = I18n.t('msg-label.delete-error')
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
 
-
-
-
   def task_params
-    params.require(:task).permit(:name, :due_date, :status)
+    params.require(:task).permit(:name, :due_date, :status, :input_task_label)
   end
 
   def search_form_params

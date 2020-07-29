@@ -26,12 +26,12 @@ $(function(){
     })
 
     $('.tsk-label-del-link').on('click', function(){
+        console.log('delete label !')
         const taskId = $(this).attr('id').split('_')[1]
         const labelId = $(this).attr('id').split('_')[2]
         console.log('delete ids ', taskId, labelId)
-        $('#form-label-del_' + taskId).find('input[type=hidden]').first().val(labelId)
-        $('#form-label-del_' + taskId).submit()
+        $('#label-del_' + taskId).val(labelId)
+        $('#form-label-del_' + taskId).find('button.btn-invisible').first().click()
     })
-
 })
 </script>
