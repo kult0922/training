@@ -10,6 +10,7 @@ class Task < ApplicationRecord
   belongs_to :app_user
   has_many :task_labels, dependent: :destroy
 
+  # rubocop:disable Metrics/AbcSize
   def self.search_with_condition(search, page, current_user)
     if search.status.blank?
       query = if current_user&.admin?
@@ -26,4 +27,5 @@ class Task < ApplicationRecord
         .includes(:task_labels)
         .page(page).per(10)
   end
+  # rubocop:enable Metrics/AbcSize
 end
