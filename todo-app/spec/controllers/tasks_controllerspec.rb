@@ -61,7 +61,7 @@ describe TasksController, type: :controller do
     expect(response.status).to eq 302
   end
 
-  it 'Sort by updated_at desc' do
+  it 'Sort by created_at desc' do
     get :index, params: { search_form: { sort_direction: 'desc' } }
     expect(response.status).to eq 200
 
@@ -70,10 +70,10 @@ describe TasksController, type: :controller do
     task1_index = res_str.index('task1')
     task2_index = res_str.index('task2')
 
-    expect(task1_index).to be > task2_index
+    expect(task1_index).to be < task2_index
   end
 
-  it 'Sort by updated_at asc' do
+  it 'Sort by created_at asc' do
     get :index, params: { search_form: { sort_direction: 'asc' } }
     expect(response.status).to eq 200
 
@@ -82,6 +82,6 @@ describe TasksController, type: :controller do
     task1_index = res_str.index('task1')
     task2_index = res_str.index('task2')
 
-    expect(task1_index).to be < task2_index
+    expect(task1_index).to be > task2_index
   end
 end
