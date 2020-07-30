@@ -18,9 +18,9 @@ RSpec.describe Task, type: :system do
     end
 
     it 'task sorder by created_at' do
-      tasks = FactoryBot.create_list(:task, 2, :order_by_created_at)
+      tasks = FactoryBot.create_list(:task, 2, :order_by_created_at, assignee_id: user.id, reporter_id: user.id)
 
-      visit tasks_path(project_id: pj.id)
+      visit tasks_path(project_id: task.project.id)
   
       #tasks[1]はtasks[0]より1日前の日付
       expect(tasks[1].created_at < tasks[0].created_at).to be true
