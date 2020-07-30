@@ -21,10 +21,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       redirect_to @task
-      flash[:notice] = 'タスクが作成されました。'
+      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
     else
       render :new
-      flash[:error] = 'タスク作成に失敗しました。'
+      flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
     end
   end
 
@@ -35,20 +35,20 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:notice] = 'タスクが更新されました。'
+      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
       redirect_to @task
     else
-      flash[:error] = 'タスクが更新に失敗しました。'
+      flash[:error] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
       render :edit
     end
   end
 
   def destroy
     if @task.destroy
-      flash[:notice] = 'タスクが削除されました。'
+      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '削除')
       redirect_to tasks_path(project_id: @task.project_id)
     else
-      flash[:error] = 'タスクが削除されませんでした。'
+      flash[:error] = I18n.t('flash.succeeded', model: 'タスク', action: '削除')
       render :index
     end
   end

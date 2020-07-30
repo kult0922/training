@@ -32,7 +32,7 @@ RSpec.describe Task, type: :system do
     end
 
     it 'Create new task' do
-      click_on 'Create Task'
+      click_on '登録する'
       expect(page).to have_content 'タスクが作成されました。'
       expect(Task.find_by(task_name: 'add_task'))
     end
@@ -43,7 +43,7 @@ RSpec.describe Task, type: :system do
       visit task_path(task.id, project_id: task.project.id)
       expect(page).to have_content task.project.project_name
       expect(page).to have_content task.description
-      expect(page).to have_content '高'
+      expect(page).to have_content Task.human_attribute_name(:high)
       expect(page).to have_content task.assignee_name
       expect(page).to have_content task.reporter_name
       expect(page).to have_content task.started_at
@@ -65,7 +65,7 @@ RSpec.describe Task, type: :system do
     end
 
     it 'edit task' do
-      click_on 'Update Task'
+      click_on '更新する'
       expect(page).to have_content 'タスクが更新されました。'
       expect(Task.find_by(task_name: 'edit_task'))
     end

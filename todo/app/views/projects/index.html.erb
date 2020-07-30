@@ -1,36 +1,36 @@
-<h1>プロジェクト一覧<h1>
-<p><%= link_to 'PJ登録', new_project_path %></p>
+<h1><%= I18n.t('projects.index.title') %><h1>
+<p><%= link_to I18n.t('projects.index.new'), new_project_path %></p>
 
 <div class = "pj_todo">
-  <p>To Do</p>
+  <p><%= Project.human_attribute_name(:todo) %></p>
   <% @todo_projects.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_inprogress">
-  <p>In Progress</p>
+  <p><%= Project.human_attribute_name(:in_progress) %></p>
   <% @progress_projects.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_inreview">
-  <p>In Review</p>
+  <p><%= Project.human_attribute_name(:in_review) %></p>
   <% @review_projects.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_release">
-  <p>Waiting Approval / Release</p>
+  <p><%= Project.human_attribute_name(:release) %></p>
   <% @relese_projects.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_done">
-  <p>Resolved / Done</p>
+  <p><%= Project.human_attribute_name(:done) %></p>
   <% @resolved_projects.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>

@@ -1,18 +1,11 @@
-<h1>タスク詳細</h1>
+<h1><%= I18n.t('tasks.show.title') %></h1>
 
-<p>プロジェクト名: <%= @task.project.project_name %></p>
-<p>タスク名: <%= @task.task_name %></p>
-<p>説明: <%= @task.description %></p>
-<p>優先順位: <% case @task.priority 
-  when 'low'%>
-    <%= '低' %>
-  <% when 'mid' %>
-    <%= '中' %>
-  <% when 'high' %>
-    <%= '高' %>
-  <% end %></p>
-<p>担当者: <%= @task.assignee.account_name %></p>
-<p>承認者: <%= @task.reporter.account_name %></p>
-<p>開始日: <%= @task.started_at %></p>
-<p>終了日: <%= @task.finished_at %></p>
-<%= link_to 'Back', tasks_path(project_id: @task.project_id) %>
+<p><%= I18n.t('tasks.show.project_name') %> : <%= @task.project.project_name %></p>
+<p><%= I18n.t('tasks.show.name') %> : <%= @task.task_name %></p>
+<p><%= I18n.t('tasks.show.description') %> : <%= @task.description %></p>
+<p><%= I18n.t('tasks.show.priority') %> : <%= @task.priority_i18n  %></p>
+<p><%= I18n.t('tasks.show.assignee') %> : <%= @task.assignee.account_name %></p>
+<p><%= I18n.t('tasks.show.reporter') %> : <%= @task.reporter.account_name %></p>
+<p><%= I18n.t('tasks.show.started_at') %> : <%= @task.started_at %></p>
+<p><%= I18n.t('tasks.show.finished_at') %> : <%= @task.finished_at %></p>
+<%= link_to I18n.t('tasks.back'), tasks_path(project_id: @task.project_id) %>

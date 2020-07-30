@@ -1,19 +1,8 @@
-<h1>PJ詳細</h1>
+<h1><%= I18n.t('projects.show.title') %></h1>
 
-<p>PJ名: <%= @project.project_name %></p>
-<p>説明: <%= @project.description %></p>
-<p>状態: <% case @project.status
-         when 'todo' %>
-          <%= 'To Do' %>
-        <% when 'in_progress' %>
-          <%= 'In Progress' %>
-        <% when 'in_review' %>
-          <%= 'In Review' %>
-        <% when 'release' %>
-          <%= 'Waiting Approval / Release' %>
-        <% when 'done' %>
-          <%= 'Resolved / Done' %>
-      <% end %></p>
-<p>開始日: <%= @project.started_at %></p>
-<p>終了日: <%= @project.finished_at %></p>
-<%= link_to 'Back', projects_path %>
+<p><%= I18n.t('projects.show.name') %> : <%= @project.project_name %></p>
+<p><%= I18n.t('projects.show.description') %> : <%= @project.description %></p>
+<p><%= I18n.t('projects.show.status') %> : <%= @project.status_i18n %></p>
+<p><%= I18n.t('projects.show.started_at') %> : <%= @project.started_at %></p>
+<p><%= I18n.t('projects.show.finished_at') %> : <%= @project.finished_at %></p>
+<%= link_to I18n.t('projects.back'), projects_path %>
