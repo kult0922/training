@@ -3,13 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-  let!(:task) { create(:task) }
-  let!(:pj) { Project.first }
-  let!(:username) { User.first.account_name }
+  let(:user) { FactoryBot.create(:user) }
+  let(:task) { FactoryBot.create(:task, assignee_id: user.id, reporter_id: user.id ) }
 
   describe '#index' do
     it 'visit task index page' do
-      visit tasks_path(project_id: pj.id)
+      visit tasks_path(project_id: task.project.id)
 
       expect(page).to have_content 'test_task'
       expect(page).to have_content '高'
@@ -21,15 +20,15 @@ RSpec.describe Task, type: :system do
 
   describe '#new' do
     before do
-      visit new_task_path(project_id: pj.id)
+      visit new_task_path(project_id: task.project.id)
 
       fill_in 'task_task_name', with: 'add_task'
       fill_in 'task_description', with: 'add_description'
       select '中', from: 'task_priority'
       fill_in 'task_started_at', with: Time.zone.parse('07/12/2020')
       fill_in 'task_finished_at', with: Time.zone.parse('07/12/2020')
-      select username, from: 'task_assignee_id'
-      select username, from: 'task_reporter_id'
+      select task.assignee.account_name, from: 'task_assignee_id'
+      select task.reporter.account_name, from: 'task_reporter_id'
     end
 
     it 'Create new task' do
@@ -41,8 +40,8 @@ RSpec.describe Task, type: :system do
 
   describe '#show' do
     it 'check task detail page' do
-      visit task_path(task.id, project_id: pj.id)
-      expect(page).to have_content pj.project_name
+      visit task_path(task.id, project_id: task.project.id)
+      expect(page).to have_content task.project.project_name
       expect(page).to have_content task.description
       expect(page).to have_content '高'
       expect(page).to have_content task.assignee_name
@@ -54,15 +53,15 @@ RSpec.describe Task, type: :system do
 
   describe '#edit' do
     before do
-      visit edit_task_path(task.id, project_id: pj.id)
+      visit edit_task_path(task.id, project_id: task.project.id)
 
       fill_in 'task_task_name', with: 'edit_task'
       fill_in 'task_description', with: 'edit_description'
       select '高', from: 'task_priority'
       fill_in 'task_started_at', with: Time.zone.today
       fill_in 'task_finished_at', with: Time.zone.today
-      select username, from: 'task_assignee_id'
-      select username, from: 'task_reporter_id'
+      select task.assignee.account_name, from: 'task_assignee_id'
+      select task.reporter.account_name, from: 'task_reporter_id'
     end
 
     it 'edit task' do
@@ -74,7 +73,7 @@ RSpec.describe Task, type: :system do
 
   describe '#delete' do
     before do
-      visit tasks_path(project_id: pj.id)
+      visit tasks_path(project_id: task.project.id)
     end
     it 'delete task' do
       click_link '削除', href: task_path(task.id)
