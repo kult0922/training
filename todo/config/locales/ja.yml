@@ -3,6 +3,17 @@ ja:
     models:
       project: 'プロジェクト' 
       task: 'タスク'
+    attributes:
+      project:
+        todo: 'To Do'
+        in_progress: 'In Progress'
+        in_review: 'In Review'
+        release: 'Waiting Approval / Release'
+        done: 'Resolved / Done'
+      task:
+        low: '低'
+        mid: '中'
+        high: '高'
   attributes:
     id: ID
     created_at: '作成日時'
