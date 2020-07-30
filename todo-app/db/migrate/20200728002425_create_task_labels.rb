@@ -8,6 +8,5 @@ class CreateTaskLabels < ActiveRecord::Migration[6.0]
       t.timestamps
     end
     add_reference :task_labels, :task, foreign_key: true
-
   end
 end
