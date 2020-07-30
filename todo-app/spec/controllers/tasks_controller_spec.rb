@@ -163,4 +163,12 @@ describe TasksController, type: :controller do
     expect(res_str).to include('task2')
     expect(res_str).to include('タスク名')
   end
+
+  it 'Search filter by label like' do
+    get :index, params: { search_form: { sort_direction: 'asc', task_label: 'テストラベ' } }
+    expect(response.status).to eq 200
+    res_str = response.body
+    expect(res_str).not_to include('task2')
+    expect(res_str).to include('タスク名')
+  end
 end

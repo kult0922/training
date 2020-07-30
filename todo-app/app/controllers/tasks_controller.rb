@@ -112,7 +112,7 @@ class TasksController < ApplicationController
   end
 
   def search_form_params
-    params.require(:search_form).permit(:sort_direction, :status)
+    params.require(:search_form).permit(:sort_direction, :status, :task_label)
   end
 
   def as_success_message(name, action_key)
