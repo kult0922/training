@@ -40,6 +40,7 @@ class TasksController < ApplicationController
     if @task.save
       if @task.input_task_label
         @task.input_task_label.split(',')
+            .map(&:strip)
             .reject(&:empty?)
             .map { |name| TaskLabel.new(name: name, task: @task).save }
       end
