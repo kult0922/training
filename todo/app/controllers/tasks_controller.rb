@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks = @project.tasks
+    @tasks = @project.tasks.order(created_at: :desc)
   end
 
   def show

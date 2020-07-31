@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-  let(:user) { FactoryBot.create(:user) }
-  let(:task) { FactoryBot.create(:task, assignee_id: user.id, reporter_id: user.id ) }
+  let(:user) { create(:user) }
+  let(:task) { create(:task, assignee_id: user.id, reporter_id: user.id) }
 
   describe '#index' do
     it 'visit task index page' do
@@ -15,6 +15,16 @@ RSpec.describe Task, type: :system do
       expect(page).to have_content '期限日'
       expect(page).to have_content '修正'
       expect(page).to have_content '削除'
+    end
+
+    it 'task sorder by created_at' do
+      tasks = create_list(:task, 2, :order_by_created_at, assignee_id: user.id, reporter_id: user.id)
+
+      visit tasks_path(project_id: task.project.id)
+
+      # tasks[1]はtasks[0]より1日前の日付
+      expect(tasks[1].created_at < tasks[0].created_at).to be true
+      expect(page.body.index(tasks[1].task_name)).to be < page.body.index(tasks[0].task_name)
     end
   end
 
