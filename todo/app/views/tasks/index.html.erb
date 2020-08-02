@@ -17,14 +17,7 @@
     <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.task_name, task %></td>
-      <td><% case task.priority
-         when 'low' %>
-          <%= Task.human_attribute_name(:low) %>
-        <% when 'mid' %>
-          <%= Task.human_attribute_name(:mid) %>
-        <% when 'high' %>
-          <%= Task.human_attribute_name(:high) %>
-      <% end %></td>
+      <td><%= task.priority_i18n %></td>
       <td><%= task.finished_at%></td>
       <td><%= link_to I18n.t('tasks.index.update'), edit_task_path(task) %></td>
       <td><%= link_to I18n.t('tasks.index.delete'), task, method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') } %></td>
