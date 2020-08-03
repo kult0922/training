@@ -20,6 +20,11 @@
     <%= form.select :priority, [ ["低", :low], ["中", :mid], ["高", :high] ] %>
   </div>
 
+  <div class="field">
+    <%= form.label :'状態' %>
+    <%= form.select :status, [ ["未着手", :todo], ["着手中", :in_progress], ["完了", :done] ] %>
+  </div>
+
   <div class ="field">
     <%= form.label :'開始日付' %>
     <%= form.date_field :started_at %>

@@ -10,6 +10,7 @@
     <tr>
       <th><%= I18n.t('tasks.index.name') %></th>
       <th><%= I18n.t('tasks.index.priority') %></th>
+      <th><%= I18n.t('tasks.index.status') %></th>
       <th><%= I18n.t('tasks.index.finished_at') %></th>
       <th colspan = 2></th>
     </tr>
@@ -18,6 +19,7 @@
     <tr>
       <td><%= link_to task.task_name, task %></td>
       <td><%= task.priority_i18n %></td>
+      <td><%= task.status_i18n %></td>
       <td><%= task.finished_at %></td>
       <td><%= link_to I18n.t('tasks.index.update'), edit_task_path(task) %></td>
       <td><%= link_to I18n.t('tasks.index.delete'), task, method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') } %></td>
