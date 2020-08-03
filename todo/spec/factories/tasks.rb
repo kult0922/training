@@ -15,5 +15,10 @@ FactoryBot.define do
       sequence(:task_name) { |task| task + 1 }
       sequence(:created_at) { |task| Time.zone.now - task.days }
     end
+    
+    trait :order_by_finished_at do
+      sequence(:task_name) { |task| task + 1 }
+      sequence(:finished_at) { |task| Time.zone.now - task.days }
+    end
   end
 end

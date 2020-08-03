@@ -17,7 +17,7 @@ RSpec.describe Task, type: :system do
       expect(page).to have_content '削除'
     end
 
-    it 'task sorder by created_at' do
+    it 'tasks order by created_at' do
       tasks = create_list(:task, 2, :order_by_created_at, assignee_id: user.id, reporter_id: user.id)
 
       visit tasks_path(project_id: task.project.id)
@@ -25,6 +25,32 @@ RSpec.describe Task, type: :system do
       # tasks[1]はtasks[0]より1日前の日付
       expect(tasks[1].created_at < tasks[0].created_at).to be true
       expect(page.body.index(tasks[1].task_name)).to be < page.body.index(tasks[0].task_name)
+    end
+
+    it 'tasks order by finished_at desc' do
+      tasks = create_list(:task, 2, :order_by_finished_at, assignee_id: user.id, reporter_id: user.id)
+  
+      visit tasks_path(project_id: task.project.id)
+
+      # order by finished_at desc
+      select I18n.t('tasks.search.order.desc_finished_at'), from: 'order_by'
+      click_on I18n.t('tasks.search.sort_button')
+      # tasks[1]はtasks[0]より1日前の日付
+      expect(tasks[1].finished_at < tasks[0].finished_at).to be true
+      expect(page.body.index(tasks[0].finished_at.to_s)).to be < page.body.index(tasks[1].finished_at.to_s)
+    end
+  
+    it 'tasks order by finished_at asc' do
+      tasks = create_list(:task, 2, :order_by_finished_at, assignee_id: user.id, reporter_id: user.id)
+
+      visit tasks_path(project_id: task.project.id)
+
+      # order by finished_at asc
+      select I18n.t('tasks.search.order.asc_finished_at'), from: 'order_by'
+      click_on I18n.t('tasks.search.sort_button')
+      # tasks[1]はtasks[0]より1日前の日付
+      expect(tasks[1].finished_at < tasks[0].finished_at).to be true
+      expect(page.body.index(tasks[1].finished_at.to_s)).to be < page.body.index(tasks[0].finished_at.to_s)
     end
   end
 
