@@ -6,8 +6,11 @@ class TasksController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @tasks =
-      if !params[:order_by].nil?
-        @project.tasks.order(finished_at: params[:order_by].to_sym)
+      if !params[:order_by].blank? || !params[:status].blank? || !params[:task_name].blank? || !params[:priority]
+        Task.name_search(params[:task_name], params[:project_id])
+        .status_search(params[:status], params[:project_id])
+        .priority_search(params[:priority], params[:project_id])
+        .order_search(params[:order_by].to_sym, params[:project_id])
       else
         @project.tasks.order(created_at: :desc)
       end
