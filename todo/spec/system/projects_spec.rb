@@ -37,11 +37,11 @@ RSpec.describe Project, type: :system do
   describe '#show' do
     it 'check project detail page' do
       visit project_path(project.id)
-      expect(page).to have_content project.project_name
-      expect(page).to have_content project.description
-      expect(page).to have_content Project.human_attribute_name(:in_progress)
-      expect(page).to have_content project.started_at
-      expect(page).to have_content project.finished_at
+      expect(page).to have_content 'PJ_Factory'
+      expect(page).to have_content 'factory_test'
+      expect(page).to have_content 'In Progress'
+      expect(page).to have_content '2020-08-01'
+      expect(page).to have_content '2020-08-05'
     end
   end
 
@@ -52,8 +52,8 @@ RSpec.describe Project, type: :system do
       fill_in 'project_project_name', with: 'edit_test'
       fill_in 'project_description', with: 'test2'
       select 'To Do', from: 'project_status'
-      fill_in 'project_started_at', with: Time.zone.today
-      fill_in 'project_finished_at', with: Time.zone.today
+      fill_in 'project_started_at', with: Time.zone.parse('10/12/2020')
+      fill_in 'project_finished_at', with: Time.zone.parse('15/12/2020')
     end
 
     it 'edit project' do
@@ -73,6 +73,39 @@ RSpec.describe Project, type: :system do
       page.driver.browser.switch_to.alert.accept
 
       expect(page).to have_content 'プロジェクトが削除されました。'
+    end
+  end
+
+  describe '#new error' do
+    before  do
+      visit new_project_path
+
+      fill_in 'project_description', with: 'test'
+      select 'In Progress', from: 'project_status'
+    end
+    it 'error new project' do
+      click_on '登録する'
+      expect(page).to have_content 'PJ名を入力してください'
+      expect(page).to have_content '開始日を入力してください'
+      expect(page).to have_content '終了日を入力してください'
+    end
+  end
+
+  describe '#edit error' do
+    before  do
+      visit edit_project_path(project)
+
+      fill_in 'project_project_name', with: ''
+      fill_in 'project_description', with: 'test'
+      select 'In Progress', from: 'project_status'
+      fill_in 'project_started_at', with: ''
+      fill_in 'project_finished_at', with: ''
+    end
+    it 'error edit project' do
+      click_on '更新する'
+      expect(page).to have_content 'PJ名を入力してください'
+      expect(page).to have_content '開始日を入力してください'
+      expect(page).to have_content '終了日を入力してください'
     end
   end
 end

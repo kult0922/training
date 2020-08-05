@@ -5,7 +5,7 @@ FactoryBot.define do
     project_name { 'PJ_Factory' }
     status { :in_progress }
     description { 'factory_test' }
-    started_at { Time.zone.today }
-    finished_at { Time.zone.today }
+    started_at { Time.zone.local(2020, 8, 1) }
+    finished_at { Time.zone.local(2020, 8, 5) }
   end
 end

@@ -19,7 +19,7 @@ RSpec.describe Task, type: :model do
 
     it 'task name invalid(blank)' do
       expect(task).to be_invalid
-      expect(task.errors[:task_name][0]).to eq I18n.t('tasks.errors.input')
+      expect(task.errors.full_messages[0]).to eq 'タスク名を入力してください'
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Task, type: :model do
 
     it 'task started_at invalid(blank)' do
       expect(task).to be_invalid
-      expect(task.errors[:started_at][0]).to eq I18n.t('tasks.errors.input')
+      expect(task.errors.full_messages[0]).to eq '開始日を入力してください'
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe Task, type: :model do
 
     it 'task finished_at invalid(blank)' do
       expect(task).to be_invalid
-      expect(task.errors[:finished_at][0]).to eq I18n.t('tasks.errors.input')
+      expect(task.errors.full_messages[0]).to eq '終了日を入力してください'
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe Task, type: :model do
 
     it 'task assignee_id invalid(blank)' do
       expect(task).to be_invalid
-      expect(task.errors[:assignee][0]).to eq I18n.t('tasks.errors.input')
+      expect(task.errors.full_messages[0]).to eq 'Assigneeを入力してください'
     end
   end
 
@@ -63,7 +63,7 @@ RSpec.describe Task, type: :model do
 
     it 'task reporter_id invalid(blank)' do
       expect(task).to be_invalid
-      expect(task.errors[:reporter][0]).to eq I18n.t('tasks.errors.input')
+      expect(task.errors.full_messages[0]).to eq 'Reporterを入力してください'
     end
   end
 end
