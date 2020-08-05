@@ -18,7 +18,7 @@ RSpec.describe Project, type: :model do
 
     it 'pj name invalid(blank)' do
       expect(project).to be_invalid
-      expect(project.errors[:project_name][0]).to eq I18n.t('projects.errors.input')
+      expect(project.errors.full_messages[0]).to eq 'PJ名を入力してください'
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Project, type: :model do
 
     it 'pj started_at invalid(blank)' do
       expect(project).to be_invalid
-      expect(project.errors[:started_at][0]).to eq I18n.t('projects.errors.input')
+      expect(project.errors.full_messages[0]).to eq '開始日を入力してください'
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe Project, type: :model do
 
     it 'pj finished_at invalid(blank)' do
       expect(project).to be_invalid
-      expect(project.errors[:finished_at][0]).to eq I18n.t('projects.errors.input')
+      expect(project.errors.full_messages[0]).to eq '終了日を入力してください'
     end
   end
 end

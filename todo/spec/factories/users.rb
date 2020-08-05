@@ -5,6 +5,6 @@ FactoryBot.define do
     sequence :account_name do |n|
       "user_#{n}"
     end
-    sequence(:password) { 'test' }
+    password { 'test' }
   end
 end
