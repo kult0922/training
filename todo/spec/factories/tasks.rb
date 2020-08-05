@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-project = FactoryBot.create(:project)
-
+# 実行前にprojects seedが登録済みであること
 FactoryBot.define do
   factory :task do
     sequence(:task_name) { 'test_task' }
-    sequence(:project_id) { project.id }
+    sequence(:project_id) { Project.first.id }
     sequence(:priority) { :high }
+    sequence(:status) { :todo }
     sequence(:description) { 'test_discription' }
     sequence(:started_at) { Time.zone.today }
     sequence(:finished_at) { Time.zone.today }
