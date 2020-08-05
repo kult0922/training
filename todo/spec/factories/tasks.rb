@@ -4,21 +4,21 @@ project = FactoryBot.create(:project)
 
 FactoryBot.define do
   factory :task do
-    sequence(:task_name) { 'test_task' }
-    sequence(:project_id) { project.id }
-    sequence(:priority) { :high }
-    sequence(:description) { 'test_discription' }
-    sequence(:started_at) { Time.zone.today }
-    sequence(:finished_at) { Time.zone.today }
+    task_name { 'test_task' }
+    project_id { project.id }
+    priority { :high }
+    description { 'test_discription' }
+    started_at { Time.zone.today }
+    finished_at { Time.zone.today }
 
     trait :order_by_created_at do
-      sequence(:task_name) { |task| task + 1 }
-      sequence(:created_at) { |task| Time.zone.now - task.days }
+      sequence(:task_name) { |n| "task_#{n}" }
+      sequence(:created_at) { |n| Time.zone.now + n.days }
     end
     
     trait :order_by_finished_at do
-      sequence(:task_name) { |task| task + 1 }
-      sequence(:finished_at) { |task| Time.zone.now - task.days }
+      sequence(:task_name) { |n| "task_#{n}" }
+      sequence(:finished_at) { |n| Time.zone.now - n.days }
     end
   end
 end

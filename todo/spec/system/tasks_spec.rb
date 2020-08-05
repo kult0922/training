@@ -22,9 +22,9 @@ RSpec.describe Task, type: :system do
 
       visit tasks_path(project_id: task.project.id)
 
-      # tasks[1]はtasks[0]より1日前の日付
-      expect(tasks[1].created_at < tasks[0].created_at).to be true
-      expect(page.body.index(tasks[1].task_name)).to be < page.body.index(tasks[0].task_name)
+      # tasks[1]はtasks[0]より1日後の日付
+      expect(tasks[1].created_at > tasks[0].created_at).to be true
+      expect(page.body.index(tasks[1].task_name)).to be < page.body.index('task_1')
     end
 
     it 'tasks order by finished_at desc' do
@@ -77,11 +77,11 @@ RSpec.describe Task, type: :system do
   describe '#show' do
     it 'check task detail page' do
       visit task_path(task.id, project_id: task.project.id)
-      expect(page).to have_content task.project.project_name
-      expect(page).to have_content task.description
-      expect(page).to have_content Task.human_attribute_name(:high)
-      expect(page).to have_content task.assignee_name
-      expect(page).to have_content task.reporter_name
+      expect(page).to have_content 'PJ_Factory'
+      expect(page).to have_content 'test_discription'
+      expect(page).to have_content '高'
+      expect(page).to have_content 'user_6'
+      expect(page).to have_content 'user_6'
       expect(page).to have_content task.started_at
       expect(page).to have_content task.finished_at
     end

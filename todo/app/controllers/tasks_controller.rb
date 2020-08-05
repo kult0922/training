@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @tasks =
-      if !params[:order_by].nil?
+      if params[:order_by].present?
         @project.tasks.order(finished_at: params[:order_by].to_sym)
       else
         @project.tasks.order(created_at: :desc)
@@ -54,8 +54,12 @@ class TasksController < ApplicationController
       redirect_to tasks_path(project_id: @task.project_id)
     else
       flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
-      render :index
+      redirect_to tasks_path(project_id: @task.project_id)
     end
+  end
+
+  private def check_parameter(params)
+    
   end
 
   def set_task

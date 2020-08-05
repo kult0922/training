@@ -4,11 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @todo_projects = Project.todo
-    @progress_projects = Project.in_progress
-    @review_projects = Project.in_review
-    @relese_projects = Project.release
-    @resolved_projects = Project.done
+    @projects = Project.all
   end
 
   def show

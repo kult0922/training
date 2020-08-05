@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :project do
-    sequence(:project_name) { 'PJ_Factory' }
-    sequence(:status) { :in_progress }
-    sequence(:description) { 'factory_test' }
-    sequence(:started_at) { Time.zone.today }
-    sequence(:finished_at) { Time.zone.today }
+    project_name { 'PJ_Factory' }
+    status { :in_progress }
+    description { 'factory_test' }
+    started_at { Time.zone.today }
+    finished_at { Time.zone.today }
   end
 end
