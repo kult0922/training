@@ -6,11 +6,8 @@ class TasksController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @tasks =
-      if !params[:order_by].blank? || !params[:status].blank? || !params[:task_name].blank? || !params[:priority]
-        Task.name_search(params[:task_name], params[:project_id])
-        .status_search(params[:status], params[:project_id])
-        .priority_search(params[:priority], params[:project_id])
-        .order_search(params[:order_by].to_sym, params[:project_id])
+      if params[:order_by].present?
+        getting_tasks(@project)
       else
         @project.tasks.order(created_at: :desc)
       end
@@ -59,6 +56,14 @@ class TasksController < ApplicationController
       flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
       render :index
     end
+  end
+
+  def getting_tasks(project)
+    pjid = project.id
+    Task.name_search(params[:task_name_input], pjid)
+    .sta_search(params[:status_search], pjid)
+    .pri_search(params[:priority_search], pjid)
+    .order_by(params[:order_by], pjid)
   end
 
   def set_task
