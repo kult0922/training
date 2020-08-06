@@ -5,12 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks =
-      if params[:order_by].present?
-        @project.tasks.order(finished_at: params[:order_by].to_sym)
-      else
-        @project.tasks.order(created_at: :desc)
-      end
+    @tasks = check_params(params,@project)
   end
 
   def show
@@ -58,8 +53,23 @@ class TasksController < ApplicationController
     end
   end
 
-  private def check_parameter(params)
-    
+  private
+  def check_params(params,project)
+    if params[:order_by].present?
+      @order_by = params[:order_by]
+      if @order_by == 'asc' || @order_by == 'desc'
+        @project.tasks.order(finished_at: @order_by.to_sym)
+      else
+        not_found
+      end
+    else
+      @project.tasks.order(created_at: :desc)
+    end
+  end
+
+  private
+  def not_found
+    render 'errors/404'
   end
 
   def set_task
@@ -67,6 +77,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :order_by)
   end
 end
