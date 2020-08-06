@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Project.create!(
   project_name: "seed PJ",
   status: :todo,
