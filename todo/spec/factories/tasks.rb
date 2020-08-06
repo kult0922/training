@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-project = FactoryBot.create(:project)
-
 FactoryBot.define do
   factory :task do
+    association :project
     task_name { 'test_task' }
     project_id { project.id }
     priority { :high }
