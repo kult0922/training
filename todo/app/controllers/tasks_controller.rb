@@ -6,11 +6,6 @@ class TasksController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @tasks = check_params(@project)
-      # if params[:order_by].present?
-      #   getting_tasks(@project)
-      # else
-      #   @project.tasks.order(created_at: :desc)
-      # end
   end
 
   def show
@@ -51,11 +46,10 @@ class TasksController < ApplicationController
   def destroy
     if @task.destroy
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '削除')
-      redirect_to tasks_path(project_id: @task.project_id)
     else
       flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
-      redirect_to tasks_path(project_id: @task.project_id)
     end
+    redirect_to tasks_path(project_id: @task.project_id)
   end
 
   def get_model_tasks(project)
@@ -67,11 +61,10 @@ class TasksController < ApplicationController
   end
 
   def check_params(project)
-    if params[:order_by].present?
-      @order_by = params[:order_by]
-      @status = params[:status_search]
-      @priority = params[:priority_search]
-
+    @order_by = params[:order_by]
+    @status = params[:status_search]
+    @priority = params[:priority_search]
+    if @order_by.present?
       if @order_by == 'asc' || @order_by == 'desc'
         get_model_tasks(project)
       else
@@ -83,6 +76,7 @@ class TasksController < ApplicationController
   end
 
   private
+
   def not_found
     render 'errors/404'
   end
@@ -92,6 +86,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :order_by)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :order_by, :status)
   end
 end
