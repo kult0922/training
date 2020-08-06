@@ -3,35 +3,35 @@
 
 <div class = "pj_todo">
   <p><%= Project.human_attribute_name(:todo) %></p>
-  <% @todo_projects.each do |project| %>
+  <% @projects.todo.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_inprogress">
   <p><%= Project.human_attribute_name(:in_progress) %></p>
-  <% @progress_projects.each do |project| %>
+  <% @projects.in_progress.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_inreview">
   <p><%= Project.human_attribute_name(:in_review) %></p>
-  <% @review_projects.each do |project| %>
+  <% @projects.in_review.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_release">
   <p><%= Project.human_attribute_name(:release) %></p>
-  <% @relese_projects.each do |project| %>
+  <% @projects.release.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>
 <br>
 <div class = "pj_done">
   <p><%= Project.human_attribute_name(:done) %></p>
-  <% @resolved_projects.each do |project| %>
+  <% @projects.done.each do |project| %>
     <%= render partial: "project_form", locals: {project: project} %>
   <% end %>
 </div>

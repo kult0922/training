@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-# 実行前にprojects seedが登録済みであること
 FactoryBot.define do
   factory :task do
-    sequence(:task_name) { 'test_task' }
-    sequence(:project_id) { Project.first.id }
-    sequence(:priority) { :high }
-    sequence(:status) { :todo }
-    sequence(:description) { 'test_discription' }
-    sequence(:started_at) { Time.zone.today }
-    sequence(:finished_at) { Time.zone.today }
+    association :project
+    task_name { 'test_task' }
+    project_id { project.id }
+    priority { :high }
+    status { :done }
+    description { 'test_discription' }
+    started_at { Time.zone.local(2020, 8, 1) }
+    finished_at { Time.zone.local(2020, 8, 5) }
 
     trait :order_by_created_at do
-      sequence(:task_name) { |task| task + 1 }
-      sequence(:created_at) { |task| Time.zone.now - task.days }
+      sequence(:task_name) { |n| "task_#{n}" }
+      sequence(:created_at) { |n| Time.zone.local(2020, 8, 1) + n.days }
     end
     
     trait :order_by_finished_at do
-      sequence(:task_name) { |task| task + 1 }
-      sequence(:finished_at) { |task| Time.zone.now - task.days }
+      sequence(:task_name) { |n| "task_#{n}" }
+      sequence(:finished_at) { |n| Time.zone.local(2020, 8, 5) - n.days }
     end
   end
 end

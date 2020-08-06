@@ -1,5 +1,19 @@
 # README
 
+## 環境設定方法
+1. bundle install
+
+`bundler insatll`
+
+2. db設定
+
+`rails db:migrate:reset`,
+
+`rails db:seed`
+
+3. server実行
+
+`rails s`
 
 ## Database tables
 

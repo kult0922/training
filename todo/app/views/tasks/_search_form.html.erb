@@ -8,7 +8,8 @@
     <%= form.label I18n.t('tasks.search.change_order') + ':' %>
     <%= form.select :order_by, 
     [[I18n.t('tasks.search.order.asc_finished_at'), 'asc'],
-    [I18n.t('tasks.search.order.desc_finished_at'), 'desc']] %>
+    [I18n.t('tasks.search.order.desc_finished_at'), 'desc']],
+    selected: @order_by %>
   </div>
   <div class = "field">
     <%= form.label I18n.t('tasks.search.status') + ':' %>
@@ -16,7 +17,8 @@
       [ [Task.human_attribute_name(:todo), :todo], 
       [Task.human_attribute_name(:in_progress), :in_progress],
       [Task.human_attribute_name(:done), :done], ],
-      include_blank: I18n.t('tasks.search.none') %>
+      include_blank: I18n.t('tasks.search.none'),
+      selected: @status %>
   </div>
   <div class = "field">
     <%= form.label I18n.t('tasks.search.priority') + ':' %>
@@ -24,7 +26,8 @@
       [ [Task.human_attribute_name(:low), :low], 
       [Task.human_attribute_name(:mid), :mid],
       [Task.human_attribute_name(:high), :high], ],
-      include_blank: I18n.t('tasks.search.none') %>
+      include_blank: I18n.t('tasks.search.none'),
+      selected: @priority %>
   </div>
   <div class = "send">
     <%= form.submit I18n.t('tasks.search.button') %>

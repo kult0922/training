@@ -5,12 +5,12 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks =
-      if params[:order_by].present?
-        getting_tasks(@project)
-      else
-        @project.tasks.order(created_at: :desc)
-      end
+    @tasks = check_params(@project)
+      # if params[:order_by].present?
+      #   getting_tasks(@project)
+      # else
+      #   @project.tasks.order(created_at: :desc)
+      # end
   end
 
   def show
@@ -54,11 +54,11 @@ class TasksController < ApplicationController
       redirect_to tasks_path(project_id: @task.project_id)
     else
       flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
-      render :index
+      redirect_to tasks_path(project_id: @task.project_id)
     end
   end
 
-  def getting_tasks(project)
+  def get_model_tasks(project)
     pjid = project.id
     Task.name_search(params[:task_name_input], pjid)
     .sta_search(params[:status_search], pjid)
@@ -66,11 +66,32 @@ class TasksController < ApplicationController
     .order_by(params[:order_by], pjid)
   end
 
+  def check_params(project)
+    if params[:order_by].present?
+      @order_by = params[:order_by]
+      @status = params[:status_search]
+      @priority = params[:priority_search]
+
+      if @order_by == 'asc' || @order_by == 'desc'
+        get_model_tasks(project)
+      else
+        not_found
+      end
+    else
+      @project.tasks.order(created_at: :desc)
+    end
+  end
+
+  private
+  def not_found
+    render 'errors/404'
+  end
+
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :status)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :order_by)
   end
 end
