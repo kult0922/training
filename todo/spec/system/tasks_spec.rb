@@ -173,4 +173,39 @@ RSpec.describe Task, type: :system do
       end
     end
   end
+
+  describe '#new error' do
+    before do
+      visit new_task_path(project_id: task.project.id)
+
+      fill_in 'task_description', with: 'add_description'
+      select '中', from: 'task_priority'
+    end
+
+    it 'error new task' do
+      click_on '登録する'
+      expect(page).to have_content 'タスク名を入力してください'
+      expect(page).to have_content '開始日を入力してください'
+      expect(page).to have_content '終了日を入力してください'
+    end
+  end
+
+  describe '#edit error' do
+    before do
+      visit edit_task_path(task.id, project_id: task.project.id)
+
+      fill_in 'task_task_name', with: ''
+      fill_in 'task_description', with: 'edit_description'
+      select '高', from: 'task_priority'
+      fill_in 'task_started_at', with: ''
+      fill_in 'task_finished_at', with: ''
+    end
+
+    it 'error new task' do
+      click_on '更新する'
+      expect(page).to have_content 'タスク名を入力してください'
+      expect(page).to have_content '開始日を入力してください'
+      expect(page).to have_content '終了日を入力してください'
+    end
+  end
 end
