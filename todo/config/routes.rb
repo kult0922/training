@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   resources :projects
   root to: 'projects#index'
 
-  resources :tasks
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+  
+  resources :tasks, concerns: :paginatable
 
   unless Rails.env.development?
     get '*path', to: 'application#render_404'
