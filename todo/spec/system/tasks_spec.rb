@@ -51,13 +51,13 @@ RSpec.describe Task, type: :system do
   describe '#show' do
     it 'check task detail page' do
       visit task_path(task.id, project_id: task.project.id)
-      expect(page).to have_content task.project.project_name
-      expect(page).to have_content task.description
-      expect(page).to have_content Task.human_attribute_name(:high)
-      expect(page).to have_content task.assignee_name
-      expect(page).to have_content task.reporter_name
-      expect(page).to have_content task.started_at
-      expect(page).to have_content task.finished_at
+      expect(page).to have_content 'test_task'
+      expect(page).to have_content 'test_discription'
+      expect(page).to have_content '高'
+      expect(page).to have_content 'user_4'
+      expect(page).to have_content 'user_4'
+      expect(page).to have_content '2020-08-01'
+      expect(page).to have_content '2020-08-05'
     end
   end
 
@@ -68,8 +68,8 @@ RSpec.describe Task, type: :system do
       fill_in 'task_task_name', with: 'edit_task'
       fill_in 'task_description', with: 'edit_description'
       select '高', from: 'task_priority'
-      fill_in 'task_started_at', with: Time.zone.today
-      fill_in 'task_finished_at', with: Time.zone.today
+      fill_in 'task_started_at', with: Time.zone.parse('10/12/2020')
+      fill_in 'task_finished_at', with: Time.zone.parse('15/12/2020')
       select task.assignee.account_name, from: 'task_assignee_id'
       select task.reporter.account_name, from: 'task_reporter_id'
     end
@@ -91,6 +91,41 @@ RSpec.describe Task, type: :system do
       page.driver.browser.switch_to.alert.accept
 
       expect(page).to have_content 'タスクが削除されました。'
+    end
+  end
+
+  describe '#new error' do
+    before do
+      visit new_task_path(project_id: task.project.id)
+
+      fill_in 'task_description', with: 'add_description'
+      select '中', from: 'task_priority'
+    end
+
+    it 'error new task' do
+      click_on '登録する'
+      expect(page).to have_content 'タスク名を入力してください'
+      expect(page).to have_content '開始日を入力してください'
+      expect(page).to have_content '終了日を入力してください'
+    end
+  end
+
+  describe '#edit error' do
+    before do
+      visit edit_task_path(task.id, project_id: task.project.id)
+
+      fill_in 'task_task_name', with: ''
+      fill_in 'task_description', with: 'edit_description'
+      select '高', from: 'task_priority'
+      fill_in 'task_started_at', with: ''
+      fill_in 'task_finished_at', with: ''
+    end
+
+    it 'error new task' do
+      click_on '更新する'
+      expect(page).to have_content 'タスク名を入力してください'
+      expect(page).to have_content '開始日を入力してください'
+      expect(page).to have_content '終了日を入力してください'
     end
   end
 end

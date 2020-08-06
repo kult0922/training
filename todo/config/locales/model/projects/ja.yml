@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      project: 'プロジェクト' 
+    attributes:
+      project:
+        todo: 'To Do'
+        in_progress: 'In Progress'
+        in_review: 'In Review'
+        release: 'Waiting Approval / Release'
+        done: 'Resolved / Done'
+        project_name: 'PJ名'
+        started_at: '開始日'
+        finished_at: '終了日'

@@ -20,3 +20,5 @@ ja:
     delete:
       confirm: '削除してもよろしいでしょうか?'
     back: '戻る'
+    errors:
+      input: 'を入力してください'

@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    models:
+      task: 'タスク'
+    attributes:
+      task:
+        low: '低'
+        mid: '中'
+        high: '高'
+        task_name: 'タスク名'
+        started_at: '開始日'
+        finished_at: '終了日'

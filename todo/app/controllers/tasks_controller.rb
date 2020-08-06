@@ -23,8 +23,8 @@ class TasksController < ApplicationController
       redirect_to @task
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
     else
-      render :new
-      flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
+      flash[:error] = @task.errors.full_messages.join(',')
+      redirect_to new_task_path(project_id: task_params[:project_id])
     end
   end
 
@@ -38,8 +38,8 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
       redirect_to @task
     else
-      flash[:error] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
-      render :edit
+      flash[:error] = @task.errors.full_messages.join(',')
+      redirect_to edit_task_path(project_id: task_params[:project_id])
     end
   end
 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '削除')
       redirect_to tasks_path(project_id: @task.project_id)
     else
-      flash[:error] = I18n.t('flash.succeeded', model: 'タスク', action: '削除')
+      flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
       render :index
     end
   end

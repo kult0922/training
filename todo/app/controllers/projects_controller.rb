@@ -25,8 +25,8 @@ class ProjectsController < ApplicationController
       redirect_to projects_url
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '作成')
     else
-      render :new
       flash[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '作成')
+      render :new
     end
   end
 
@@ -38,8 +38,8 @@ class ProjectsController < ApplicationController
       redirect_to projects_url
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '更新')
     else
-      render :edit
       flash[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '更新')
+      render :edit
     end
   end
 
@@ -48,8 +48,8 @@ class ProjectsController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '削除')
       redirect_to projects_url
     else
-      render :edit
       flash[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '削除')
+      render :index
     end
   end
 
