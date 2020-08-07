@@ -2,7 +2,10 @@
   <div class = "order_bar">
     <%= I18n.t('tasks.search.change_order') %>
     <%= form.hidden_field :project_id, value: @project.id %>
-    <%= form.select :order_by, [[I18n.t('tasks.search.order.asc_finished_at'), 'asc'], [I18n.t('tasks.search.order.desc_finished_at'), 'desc']],selected: @order_by %>
+    <%= form.select :order_by, [[I18n.t('tasks.search.order.asc_finished_at'), 'asc'],
+    [I18n.t('tasks.search.order.desc_finished_at'), 'desc']],
+    selected: @order_by,
+    include_blank: true %>
     <%= form.submit I18n.t('tasks.search.sort_button') %>
   </div>
 <% end %>

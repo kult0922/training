@@ -8,4 +8,7 @@ class Task < ApplicationRecord
   validates :task_name, presence: true
   validates :started_at, presence: true
   validates :finished_at, presence: true
+
+  scope :find_pj_tasks, ->(project) { project.tasks }
+  scope :order_finished_at, ->(order_by) { order(finished_at: order_by.to_sym) if order_by.present? }
 end

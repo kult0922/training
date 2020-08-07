@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+    @status_list = %w(todo in_progress in_review release done)
   end
 
   def show
