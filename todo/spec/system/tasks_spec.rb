@@ -38,7 +38,6 @@ RSpec.describe Task, type: :system do
 
         expect(page.body.index(task_2.finished_at.to_s)).to be < page.body.index(task_1.finished_at.to_s)
       end
-
       it 'tasks order by finished_at asc' do
         select I18n.t('tasks.search.order.asc_finished_at'), from: 'order_by'
         click_on I18n.t('tasks.search.sort_button')
