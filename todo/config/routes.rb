@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
   root to: 'projects#index'
-
-  resources :tasks
 
   unless Rails.env.development?
     get '*path', to: 'application#render_404'

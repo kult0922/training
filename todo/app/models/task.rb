@@ -10,23 +10,5 @@ class Task < ApplicationRecord
   validates :started_at, presence: true
   validates :finished_at, presence: true
 
-  def self.name_search(task_name, project_id)
-    return Task.where(project_id: project_id) if task_name.blank?
-    Task.where('task_name like ?', "%#{task_name}%")
-  end
-
-  def self.sta_search(status, project_id)
-    return Task.where(project_id: project_id) if status.blank?
-    Task.where(status: status)
-  end
-
-  def self.pri_search(priority, project_id)
-    return Task.where(project_id: project_id) if priority.blank?
-    Task.where(priority: priority)
-  end
-
-  def self.order_by(order_by, project_id)
-    return Task.where(project_id: project_id) if order_by.blank?
-    Task.order(finished_at: order_by)
-  end
+  scope :order_finished_at, ->(order_by) { order(finished_at: order_by.to_sym) if order_by.present? }
 end
