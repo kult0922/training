@@ -4,7 +4,7 @@
     <p><%= link_to I18n.t('tasks.index.new'), new_project_task_path %></p>
   </div>
 </div>
-<%= render partial: 'search_form', locals: {project: @project.id} %>
+<%= render partial: 'search_form' %>
 <div class = "task_table">
   <table>
     <tr>

@@ -29,7 +29,6 @@ RSpec.describe Task, type: :system do
       end
 
       it 'tasks search status' do
-        visit tasks_path(project_id: task.project.id)
         select Task.human_attribute_name(:todo), from: 'status_search'
         click_on I18n.t('tasks.search.button')
   
@@ -59,8 +58,7 @@ RSpec.describe Task, type: :system do
       end
 
       it 'tasks search name' do
-        visit tasks_path(project_id: task.project.id)
-        fill_in 'task_name_input', with: 'my'
+        fill_in 'name', with: 'my'
         click_on I18n.t('tasks.search.button')
   
         expect(page).to have_content 'mywork1'
@@ -69,7 +67,7 @@ RSpec.describe Task, type: :system do
         expect(page).to have_no_content 'your work2'
         expect(page).to have_no_content 'your work3'
   
-        fill_in 'task_name_input', with: 'your'
+        fill_in 'name', with: 'your'
         click_on I18n.t('tasks.search.button')
   
         expect(page).to have_no_content 'mywork1'
@@ -80,7 +78,6 @@ RSpec.describe Task, type: :system do
       end
   
       it 'tasks search priority' do
-        visit tasks_path(project_id: task.project.id)
         select Task.human_attribute_name(:low), from: 'priority_search'
         click_on I18n.t('tasks.search.button')
   
@@ -110,8 +107,7 @@ RSpec.describe Task, type: :system do
       end
 
       it 'tasks multi search' do
-        visit tasks_path(project_id: task.project.id)
-        fill_in 'task_name_input', with: 'your'
+        fill_in 'name', with: 'your'
         select Task.human_attribute_name(:in_progress), from: 'status_search'
         select Task.human_attribute_name(:mid), from: 'status_search'
         click_on I18n.t('tasks.search.button')
@@ -193,17 +189,10 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content 'PJ_Factory'
         expect(page).to have_content 'test_discription'
         expect(page).to have_content '高'
-<<<<<<< HEAD
         expect(page).to have_content 'user_11'
         expect(page).to have_content 'user_11'
-        expect(page).to have_content task.started_at
-        expect(page).to have_content task.finished_at
-=======
-        expect(page).to have_content 'user_7'
-        expect(page).to have_content 'user_7'
         expect(page).to have_content '2020-08-01'
         expect(page).to have_content '2020-08-05'
->>>>>>> woochul.shin_step12
       end
     end
   end
