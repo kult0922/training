@@ -7,9 +7,9 @@ class TaskController < ApplicationController
   end
 
   def create
-    # render plain: params[:task].inspect
     @task = Task.new(task_params)
     @task.save
+    flash[:notice] = "New task created!"
     redirect_to @task
   end
 
@@ -20,6 +20,7 @@ class TaskController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
+      flash[:notice] = "Task updated!"
       redirect_to @task
     else
       render 'edit'
@@ -33,7 +34,7 @@ class TaskController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-
+    flash[:notice] = "Task deleted!"
     redirect_to task_index_path
   end
 end

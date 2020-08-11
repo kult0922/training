@@ -1,5 +1,8 @@
 <h1>タスク詳細</h1>
 <p></p>
+<% flash.each do |name, msg| %>
+<%= content_tag :div, msg, class: name  %>
+<% end %>
 <p>
   <strong>Title:</strong>
   <%= @task.title %>
