@@ -9,9 +9,9 @@
 /todo/vendor/bundle
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/db/*.sqlite3-*
+/todo/db/*.sqlite3
+/todo/db/*.sqlite3-journal
+/todo/db/*.sqlite3-*
 
 # Ignore all logfiles and tempfiles.
 /todo/log/*
@@ -29,7 +29,7 @@
 !/todo/storage/.keep
 
 /todo/public/assets
-.byebug_history
+/todo/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
 todo/config/master.key

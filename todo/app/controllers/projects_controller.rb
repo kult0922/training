@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+    @status_list = Project.statuses.keys
   end
 
   def show
