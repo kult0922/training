@@ -1,2 +1,19 @@
-<h1>Task#new</h1>
-<p>Find me in app/views/task/new.html.erb</p>
+<h1>新規タスク</h1>
+<p></p>
+<%= form_with scope: :task,url: task_index_path, local: true do |form| %>
+<p>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+</p>
+<p>
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+</p>
+<p>
+  <%= form.submit %>
+  <%= %>
+  <%= %>
+</p>
+<% end %>
+
+<%= link_to 'Back', task_index_path  %>
