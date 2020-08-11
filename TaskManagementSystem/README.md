@@ -21,4 +21,5 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* command short cat
+  ・cd workspace/training/TaskManagementSystem
