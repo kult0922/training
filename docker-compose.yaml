@@ -1,0 +1,25 @@
+version: '3'
+volumes:
+    mysql-data:
+        driver: 'local'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app
+    ports:
+      - "23306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+  web:
+    build: .
+    command: >
+      bash -c "
+      rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app:delegated
+    ports:
+      - "23000:3000"
+    links:
+      - db
