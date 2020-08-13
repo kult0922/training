@@ -1,7 +1,7 @@
 # About Displays
 
 ## ログイン画面
-![image](docs/login.png)
+![image](login.png)
 
 * ユーザ名
 * パスワード
@@ -12,7 +12,7 @@
 パスワード忘れたリンクが入ってるが、無視で！
 
 ## タスク一覧画面
-![image](docs/tasks.png)
+![image](tasks.png)
 
 登録されているタスクを表示する画面。  
 ログイン済みじゃないと表示できない。  
@@ -56,7 +56,7 @@
 初期表示時、一覧は期限の昇順で並び替えをする。
 
 ## タスク作成画面
-![image](docs/create_task.png)
+![image](create_task.png)
 
 タスクを新規作成する画面。
 
@@ -102,7 +102,7 @@
 自分が作成したタスクのみ編集可能。  
 
 ## ユーザ作成画面
-![image](docs/create_user.png)
+![image](create_user.png)
 
 ユーザ作成画面。  
 管理者のみアクセス可能。
@@ -133,7 +133,7 @@
 指定されたユーザの内容を各項目にデフォルトでセットしておく。  
 
 ## ユーザ一覧画面
-![image](docs/users.png)
+![image](users.png)
 
 ユーザ一覧画面。  
 ログインしているユーザの権限が管理者の場合のみこの画面にアクセス可能。
