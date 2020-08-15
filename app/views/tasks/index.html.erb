@@ -1,0 +1,39 @@
+<h1>Tasks#index</h1>
+
+<div>
+  <%= link_to "Create", tasks_create_path %>
+</div>
+<div>
+  <%= form_with(scope: :search, url: top_path, method: :get, local: true) do |f| %>
+    Task: <%= f.text_field :task_name, value: @search_params[:task_name] %>
+    Status: <%= f.select :status_code, options_for_select({"nothing" => -1}.merge(TASK_STATUS::NAME.invert), :selected => @search_params[:status_code]) %>
+    Author: <%= f.select :register_user_id, options_for_select("nothing" => -1) %>
+    <%= f.submit "search" %>
+  <% end %>
+</div>
+
+<div>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Expire</th>
+      <th>Author</th>
+      <th></th>
+    </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= link_to task.name, tasks_show_path(id: task.id) %></td>
+      <td><%= TASK_STATUS::NAME[task.status_code] %></td>
+      <td><%= TASK_PRIORITY::NAME[task.priority_code] %></td>
+      <td><%= task.expire_date %></td>
+      <td><%= task.register_user_id %></td>
+      <td>
+        <%= link_to "Update", tasks_edit_path(id: task.id) %>
+        <%= link_to "Delete", tasks_delete_path(id: task.id) %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+</div>

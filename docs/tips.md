@@ -25,3 +25,8 @@ Task.find(1)
   Task Load (0.7ms)  SELECT `tasks`.* FROM `tasks` WHERE `tasks`.`id` = 1 LIMIT 1
 => #<Task id: 1, name: "hoge", description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", status_code: 0, priority_code: 1, deleted_flag: false, expire_date: "2020-08-13", resiter_user_id: 0, created_at: "2020-08-13 04:46:50", updated_at: "2020-08-13 04:46:50">
 ```
+
+# Controller, Viewの作成方法
+```
+docker-compose run web rails generate controller Tasks index show create update edit
+```

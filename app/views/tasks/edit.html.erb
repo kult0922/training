@@ -1,0 +1,11 @@
+<h1>Tasks#edit</h1>
+
+<%= render 'layouts/error_messages', model: @task %>
+
+<%= form_for @task, url: {action: "edit"} do |task_form| %>
+  <%= task_form.hidden_field :id, :value => @task.id %>
+  <%= render :partial => 'form', :locals => {:task_form => task_form} %>
+  <%= task_form.submit "Update" %>
+<% end %>
+
+<%= link_to "Back", top_path %>

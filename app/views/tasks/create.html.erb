@@ -1,0 +1,10 @@
+<h1>Tasks#create</h1>
+
+<%= render 'layouts/error_messages', model: @task %>
+
+<%= form_for @task, url: {action: "create"} do |task_form| %>
+  <%= render :partial => 'form', :locals => {:task_form => task_form} %>
+  <%= task_form.submit "Create" %>
+<% end %>
+
+<%= link_to "Back", top_path %>

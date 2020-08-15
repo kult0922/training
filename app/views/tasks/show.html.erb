@@ -1,0 +1,12 @@
+<h1>Tasks#show</h1>
+
+<ul>
+  <li>Name: <%= @task.name %></li>
+  <li>Description: <%= simple_format(h(@task.description)) %></li>
+  <li>Status: <%= TASK_STATUS::NAME[@task.status_code] %></li>
+  <li>Priority: <%= TASK_PRIORITY::NAME[@task.priority_code] %></li>
+  <li>Expire: <%= @task.expire_date %></li>
+  <li>Author: <%= @task.register_user_id %></li>
+</ul>
+
+<%= link_to "Back", top_path %>

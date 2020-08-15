@@ -1,0 +1,7 @@
+  <ul>
+    <li>Name: <%= task_form.text_field :name %></li>
+    <li>Description: <%= task_form.text_area :description %></li>
+    <li>Status: <%= task_form.select :status_code, options_for_select(TASK_STATUS::NAME.invert) %></li>
+    <li>Priority: <%= task_form.select :priority_code, options_for_select(TASK_PRIORITY::NAME.invert) %></li>
+    <li>Expire: <%= task_form.date_field :expire_date %></li>
+  </ul>

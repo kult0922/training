@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_042522) do
+ActiveRecord::Schema.define(version: 2020_08_14_010027) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", limit: 50, null: false
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_08_13_042522) do
     t.integer "priority_code", default: 1, null: false
     t.boolean "deleted_flag", default: false, null: false
     t.date "expire_date", null: false
-    t.bigint "resiter_user_id", null: false
+    t.bigint "register_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["id", "deleted_flag"], name: "index_tasks_on_id_and_deleted_flag"
