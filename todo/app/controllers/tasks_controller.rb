@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks = @project.tasks.order(created_at: :desc)
+    @tasks = @project.tasks.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
 
   def search
     @project = Project.find(params[:project_id])
-    @tasks = tasks_search(@project)
+    @tasks = tasks_search(@project).page(params[:page]).per(20)
     render :index
   end
 
