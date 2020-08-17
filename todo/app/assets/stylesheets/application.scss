@@ -15,4 +15,32 @@
  */
 
 @import "bootstrap";
- 
+
+body {
+  margin: 15px;
+}
+// .form-group {
+//   margin: 10px;
+// }
+
+// .col-auto {
+//   margin: 10px;
+// }
+
+.badge-secondary  {
+  background-color: #2052ad;
+}
+
+a {
+  color: #b9b9b9;
+}
+
+a:hover {
+  color: black;
+}
+
+a:active {
+  color: green;
+}
+
+

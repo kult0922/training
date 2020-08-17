@@ -1,5 +1,5 @@
-<h1><%= I18n.t('projects.index.title') %><h1>
-<p><%= link_to I18n.t('projects.index.new'), new_project_path %></p>
+<h1 ><%= I18n.t('projects.index.title') %> 
+<span class="badge badge-secondary"><%= link_to I18n.t('projects.index.new'), new_project_path %></div></h1>
 
 <% @status_list.each do |status| %>
   <div class = "pj_status">
