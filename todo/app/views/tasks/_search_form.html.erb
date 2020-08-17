@@ -31,6 +31,6 @@
       selected: params[:priority_search] %>
   </div>
   <div class = "send">
-    <%= form.submit I18n.t('tasks.search.button') %>
+    <%= form.submit I18n.t('tasks.search.button'), name: nil %>
   </div>
 <% end %>
