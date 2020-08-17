@@ -9,4 +9,4 @@
 <p><%= I18n.t('tasks.show.reporter') %> : <%= @task.reporter.account_name %></p>
 <p><%= I18n.t('tasks.show.started_at') %> : <%= @task.started_at %></p>
 <p><%= I18n.t('tasks.show.finished_at') %> : <%= @task.finished_at %></p>
-<%= link_to I18n.t('tasks.back'), tasks_path(project_id: @task.project_id) %>
+<%= link_to I18n.t('tasks.back'), project_tasks_path %>
