@@ -2,12 +2,12 @@
 .col-9
 	.row.index-title
 		h2 タスク一覧
-	.row
-		.pull-left.task-registration
+	.task-index-head.row.px-5
+		.col-3
 			= link_to 'タスク登録', tasks_new_path
-		.pull-right
+		.col-3.ml-auto
 			= link_to 'ラベル作成', '#'
-			= link_to '検索', '#'
+			= link_to '検索', '#', class:'ml-5'
 	table.table.mt-3
 		thead.thead-light
 			tr
@@ -27,6 +27,6 @@
 						td.col-xs-3 = task.description
 						td.col-xs-1 ラベル
 						td.col-xs-1 = task.deadline.strftime('%Y/%m/%d %H:%M:%S')
-						td.col-xs-1 ステータス
+						td.col-xs-1 = task.status_i18n
 						td.col-xs-2 = link_to  '編集', edit_task_path(task), class:"btn btn-warning btn-sm"
 						td.col-xs-1 = link_to  '削除', task_path(task), class:"btn btn-danger btn-sm"

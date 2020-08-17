@@ -12,3 +12,10 @@ ja:
         description: 説明
         priority: 優先度
         deadline: 終了期限
+        status: ステータス
+  enums:
+    task:
+      status:
+        waiting: 未着手
+        working: 着手
+        completed: 完了
