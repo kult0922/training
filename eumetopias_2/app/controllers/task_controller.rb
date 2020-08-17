@@ -35,7 +35,7 @@ class TaskController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = "Task deleted!"
-    redirect_to task_index_path
+    redirect_to root_path
   end
 end
 
