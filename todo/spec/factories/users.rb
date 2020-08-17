@@ -6,5 +6,6 @@ FactoryBot.define do
       "user_#{n}"
     end
     password { 'test' }
+    password_confirmation { 'test' }
   end
 end

@@ -3,43 +3,33 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  let!(:project) { build(:project) }
+  let(:project) { build(:project) }
+  subject { project }
 
-  describe 'validation valid' do
-    it 'pj valid' do
-      expect(project).to be_valid
-    end
+  context 'validation valid' do
+    it { is_expected.to be_valid }
   end
 
-  describe 'validation invalid(project_name)' do
-    before do
+  context 'validation invalid(project_name)' do
+    it 'pj name is invalid(blank)' do
       project.project_name = ''
-    end
-
-    it 'pj name invalid(blank)' do
-      expect(project).to be_invalid
+      is_expected.to be_invalid
       expect(project.errors.full_messages[0]).to eq 'PJ名を入力してください'
     end
   end
 
-  describe 'validation invalid(started_at)' do
-    before do
+  context 'validation invalid(started_at)' do
+    it 'pj started_at is invalid(blank)' do
       project.started_at = ''
-    end
-
-    it 'pj started_at invalid(blank)' do
-      expect(project).to be_invalid
+      is_expected.to be_invalid
       expect(project.errors.full_messages[0]).to eq '開始日を入力してください'
     end
   end
 
-  describe 'validation invalid(finished_at)' do
-    before do
-      project.finished_at = ''
-    end
-
+  context 'validation invalid(finished_at)' do
     it 'pj finished_at invalid(blank)' do
-      expect(project).to be_invalid
+      project.finished_at = ''
+      is_expected.to be_invalid
       expect(project.errors.full_messages[0]).to eq '終了日を入力してください'
     end
   end

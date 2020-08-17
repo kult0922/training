@@ -20,3 +20,5 @@ ja:
         low: '低'
         mid: '中'
         high: '高'
+  errors:
+    input: 'を入力してください'
