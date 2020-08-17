@@ -9,6 +9,7 @@ ja:
       update: '修正'
       delete: '削除'
       finished_at: '期限日'
+      pj_description: 'PJ説明'
     search:
       button: '検索'
       change_order: '期限日並び替え'

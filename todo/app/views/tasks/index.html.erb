@@ -4,6 +4,10 @@
     <p><%= link_to I18n.t('tasks.index.new'), new_project_task_path %></p>
   </div>
 </div>
+<div class = "pj_description">
+  <p><%= I18n.t('tasks.index.pj_description') %></p>
+  <p><%= @project.description %></p>
+</div>
 <%= render partial: 'search_form' %>
 <div class = "task_table">
   <table>
@@ -29,4 +33,7 @@
 </div>
 <div class = "pagenation">
   <%= paginate @tasks %>
+</div>
+<div class = "back">
+  <p><%= link_to I18n.t('tasks.back'), projects_path %></p>
 </div>
