@@ -6,6 +6,6 @@
     [I18n.t('tasks.search.order.desc_finished_at'), 'desc']],
     selected: @order_by,
     include_blank: true %>
-    <%= form.submit I18n.t('tasks.search.sort_button') %>
+    <%= form.submit I18n.t('tasks.search.sort_button'), name: nil %>
   </div>
 <% end %>
