@@ -1,11 +1,36 @@
-<%= form_with url: project_tasks_url, local: true, method: :get do |form| %>
+<%= form_with url: search_project_tasks_url, local: true, method: :get do |form| %>
+  <%= form.hidden_field :project_id, value: @project.id %>
+  <div class = "field">
+    <%= form.label I18n.t('tasks.search.search_bar') + ':' %>
+    <%= form.text_field :name %>
+  </div>
   <div class = "order_bar">
-    <%= I18n.t('tasks.search.change_order') %>
-    <%= form.hidden_field :project_id, value: @project.id %>
-    <%= form.select :order_by, [[I18n.t('tasks.search.order.asc_finished_at'), 'asc'],
+    <%= form.label I18n.t('tasks.search.change_order') + ':' %>
+    <%= form.select :order_by, 
+    [[I18n.t('tasks.search.order.asc_finished_at'), 'asc'],
     [I18n.t('tasks.search.order.desc_finished_at'), 'desc']],
     selected: @order_by,
-    include_blank: true %>
-    <%= form.submit I18n.t('tasks.search.sort_button'), name: nil %>
+    include_blank: I18n.t('tasks.search.none') %>
+  </div>
+  <div class = "field">
+    <%= form.label I18n.t('tasks.search.status') + ':' %>
+    <%= form.select :status_search,
+      [ [Task.human_attribute_name(:todo), :todo], 
+      [Task.human_attribute_name(:in_progress), :in_progress],
+      [Task.human_attribute_name(:done), :done], ],
+      selected: params[:status_search],
+      include_blank: I18n.t('tasks.search.none') %>
+  </div>
+  <div class = "field">
+    <%= form.label I18n.t('tasks.search.priority') + ':' %>
+    <%= form.select :priority_search,
+      [ [Task.human_attribute_name(:low), :low], 
+      [Task.human_attribute_name(:mid), :mid],
+      [Task.human_attribute_name(:high), :high], ],
+      include_blank: I18n.t('tasks.search.none'),
+      selected: params[:priority_search] %>
+  </div>
+  <div class = "send">
+    <%= form.submit I18n.t('tasks.search.button'), name: nil %>
   </div>
 <% end %>

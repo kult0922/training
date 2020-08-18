@@ -5,10 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @order_by = sort_direction
-    @tasks = @project.tasks
-             .order_finished_at(@order_by)
-             .order(created_at: :desc)
+    @tasks = @project.tasks.order(created_at: :desc)
   end
 
   def show
@@ -56,9 +53,23 @@ class TasksController < ApplicationController
     end
   end
 
-  private
+  def search
+    @project = Project.find(params[:project_id])
+    @tasks = tasks_search(@project)
+    render :index
+  end
 
-  def sort_direction
+  private def tasks_search(project)
+    @order_by = sort_direction
+    project.tasks
+      .name_search(params[:name])
+      .status_search(params[:status_search])
+      .priority_search(params[:priority_search])
+      .order_finished_at(@order_by)
+      .order(created_at: :desc)
+  end
+
+  private def sort_direction
     %w[asc desc].include?(params[:order_by]) ? params[:order_by] : nil
   end
 
@@ -67,6 +78,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :status)
   end
 end

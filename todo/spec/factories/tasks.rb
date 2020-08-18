@@ -6,6 +6,7 @@ FactoryBot.define do
     task_name { 'test_task' }
     project_id { project.id }
     priority { :high }
+    status { :todo }
     description { 'test_discription' }
     started_at { Time.zone.local(2020, 8, 1) }
     finished_at { Time.zone.local(2020, 8, 5) }

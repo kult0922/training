@@ -20,5 +20,9 @@ ja:
         low: '低'
         mid: '中'
         high: '高'
+      status:
+        todo: '未着手'
+        in_progress: '着手中'
+        done: '完了'
   errors:
     input: 'を入力してください'
