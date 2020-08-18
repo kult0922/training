@@ -1,39 +1,52 @@
-<h1><%= @project.project_name %><%= I18n.t('tasks.index.title') %></h1>
-<div class = "top_bar">
-  <div class = "create_task">
-    <p><%= link_to I18n.t('tasks.index.new'), new_project_task_path %></p>
+  <div class="row mb-2">
+    <div class="col">
+      <h1><%= @project.project_name %><%= I18n.t('tasks.index.title') %></h1>
+    </div>
+    <div class="col">
+      <p><%= link_to I18n.t('tasks.index.new'), new_project_task_path, class: 'btn btn-success' %></p>
+    </div>
   </div>
+<%# application.html.erbのcontainerを閉じる %>
 </div>
-<div class = "pj_description">
-  <p><%= I18n.t('tasks.index.pj_description') %></p>
-  <p><%= @project.description %></p>
-</div>
-<%= render partial: 'search_form' %>
-<div class = "task_table">
-  <table>
-    <tr>
-      <th><%= I18n.t('tasks.index.name') %></th>
-      <th><%= I18n.t('tasks.index.priority') %></th>
-      <th><%= I18n.t('tasks.index.status') %></th>
-      <th><%= I18n.t('tasks.index.finished_at') %></th>
-      <th colspan = 2></th>
-    </tr>
-    
-    <% @tasks.each do |task| %>
-    <tr>
-      <td><%= link_to task.task_name, project_task_path(@project, task) %></td>
-      <td><%= task.priority_i18n %></td>
-      <td><%= task.status_i18n %></td>
-      <td><%= task.finished_at %></td>
-      <td><%= link_to I18n.t('tasks.index.update'), edit_project_task_path(@project, task) %></td>
-      <td><%= link_to I18n.t('tasks.index.delete'), project_task_path(@project, task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') } %></td>
-    </tr>
-    <% end %>
-  </table>
-</div>
-<div class = "pagenation">
-  <%= paginate @tasks %>
-</div>
-<div class = "back">
-  <p><%= link_to I18n.t('tasks.back'), projects_path %></p>
+<div class="container-fluid">
+  <div class = "pj_description">
+    <button class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <%= I18n.t('tasks.index.pj_description') %></button>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <%= @project.description %>
+      </div>
+    </div>
+  </div>
+  <div class="search_field">
+    <%= render partial: 'search_form' %>
+  </div>
+  <div class = "task_table">
+    <table class="table table-striped">
+      <tr>
+        <th><%= I18n.t('tasks.index.name') %></th>
+        <th><%= I18n.t('tasks.index.priority') %></th>
+        <th><%= I18n.t('tasks.index.status') %></th>
+        <th><%= I18n.t('tasks.index.finished_at') %></th>
+        <th colspan = 2></th>
+      </tr>
+      
+      <% @tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.task_name, project_task_path(@project, task), class: 'btn btn-primary' %></td>
+        <td><%= task.priority_i18n %></td>
+        <td><%= task.status_i18n %></td>
+        <td><%= task.finished_at %></td>
+        <td><%= link_to I18n.t('tasks.index.update'), edit_project_task_path(@project, task), class: 'btn btn-secondary' %></td>
+        <td><%= link_to I18n.t('tasks.index.delete'), project_task_path(@project, task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') },class: 'btn btn-danger' %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class = "pagenation">
+    <%= paginate @tasks %>
+  </div>
+  <div class = "back">
+    <%= link_to I18n.t('tasks.back'), projects_path, class: 'btn btn-primary' %>
+  </div>
 </div>

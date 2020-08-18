@@ -9,13 +9,13 @@ ja:
       update: '修正'
       delete: '削除'
       finished_at: '期限日'
-      pj_description: 'PJ説明'
+      pj_description: 'プロジェクト説明'
     search:
       button: '検索'
-      change_order: '期限日並び替え'
-      search_bar: 'タイトル検索'
-      status: '状態で検索'
-      priority: '優先順位を検索'
+      change_order: '並び順'
+      search_bar: 'タスク名'
+      status: '状態'
+      priority: '優先順位'
       none: '-----'
       order:
         asc_finished_at: '期限日が近い順'

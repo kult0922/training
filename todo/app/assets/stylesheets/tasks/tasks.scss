@@ -1,9 +1,15 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.search_bar{
-    float: left;
+.search_field div.border {
+   padding : 15px;
 }
-.task_table{
-    clear: both;
+
+.col div.button_center {
+    margin-top : 24px;
+ }
+
+.pj_description {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
