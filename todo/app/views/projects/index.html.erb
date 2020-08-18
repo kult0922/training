@@ -1,13 +1,24 @@
-<h1 ><%= I18n.t('projects.index.title') %> 
-<span class="badge badge-secondary"><%= link_to I18n.t('projects.index.new'), new_project_path %></div></h1>
-
-<% @status_list.each do |status| %>
-  <div class = "pj_status">
-    <p><%= Project.human_attribute_name(status.to_sym) %></p>
-    <% @projects.where(status: status.to_sym).each do |project| %>
-      <p><%= render partial: "project_info", locals: {project: project} %></p>
+  <div class="row mb-2">
+    <div class="col-auto-md">
+      <h1><%= I18n.t('projects.index.title') %></h1>
+    </div>
+    <div class = "col-auto-md">
+      <%= link_to I18n.t('projects.index.new'), new_project_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+  <%# application.html.erbのcontainerを閉じる %>
+</div>
+<div class="container-fluid">
+  <div class="row mb-4">
+    <% @status_list.each do |status| %>
+      <div class="col">
+        <p class="text-center"><%= Project.human_attribute_name(status.to_sym) %></p>
+        <ul class="list-group">
+          <% @projects.where(status: status.to_sym).each do |project| %>
+            <li class="list-group-item"><%= render partial: "project_info", locals: {project: project} %></li>
+        </ul>
+        <% end %>
+      </div>
     <% end %>
   </div>
-  <br>
-<% end %>
-
+</div>
