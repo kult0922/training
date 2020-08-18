@@ -19,6 +19,107 @@ RSpec.describe Task, type: :system do
       end
     end
 
+    context 'when search do' do
+      before do
+        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork1', status: :todo, priority: :low)
+        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork2', status: :in_progress, priority: :mid)
+        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work1', status: :done, priority: :high)
+        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work2', status: :in_progress, priority: :mid)
+        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work3', status: :todo, priority: :high)
+      end
+
+      it 'tasks search status' do
+        select Task.human_attribute_name(:todo), from: 'status_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_content 'mywork1'
+        expect(page).to have_no_content 'mywork2'
+        expect(page).to have_no_content 'your work1'
+        expect(page).to have_no_content 'your work2'
+        expect(page).to have_content 'your work3'
+
+        select Task.human_attribute_name(:in_progress), from: 'status_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_no_content 'mywork1'
+        expect(page).to have_content 'mywork2'
+        expect(page).to have_no_content 'your work1'
+        expect(page).to have_content 'your work2'
+        expect(page).to have_no_content 'your work3'
+
+        select Task.human_attribute_name(:done), from: 'status_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_no_content 'mywork1'
+        expect(page).to have_no_content 'mywork2'
+        expect(page).to have_content 'your work1'
+        expect(page).to have_no_content 'your work2'
+        expect(page).to have_no_content 'your work3'
+      end
+
+      it 'tasks search name' do
+        fill_in 'name', with: 'my'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_content 'mywork1'
+        expect(page).to have_content 'mywork2'
+        expect(page).to have_no_content 'your work1'
+        expect(page).to have_no_content 'your work2'
+        expect(page).to have_no_content 'your work3'
+
+        fill_in 'name', with: 'your'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_no_content 'mywork1'
+        expect(page).to have_no_content 'mywork2'
+        expect(page).to have_content 'your work1'
+        expect(page).to have_content 'your work2'
+        expect(page).to have_content 'your work3'
+      end
+
+      it 'tasks search priority' do
+        select Task.human_attribute_name(:low), from: 'priority_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_content 'mywork1'
+        expect(page).to have_no_content 'mywork2'
+        expect(page).to have_no_content 'your work1'
+        expect(page).to have_no_content 'your work2'
+        expect(page).to have_no_content 'your work3'
+
+        select Task.human_attribute_name(:mid), from: 'priority_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_no_content 'mywork1'
+        expect(page).to have_content 'mywork2'
+        expect(page).to have_no_content 'your work1'
+        expect(page).to have_content 'your work2'
+        expect(page).to have_no_content 'your work3'
+
+        select Task.human_attribute_name(:high), from: 'priority_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_no_content 'mywork1'
+        expect(page).to have_no_content 'mywork2'
+        expect(page).to have_content 'your work1'
+        expect(page).to have_no_content 'your work2'
+        expect(page).to have_content 'your work3'
+      end
+
+      it 'tasks multi search' do
+        fill_in 'name', with: 'your'
+        select Task.human_attribute_name(:in_progress), from: 'status_search'
+        select Task.human_attribute_name(:mid), from: 'status_search'
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_no_content 'mywork1'
+        expect(page).to have_no_content 'mywork2'
+        expect(page).to have_no_content 'your work1'
+        expect(page).to have_content 'your work2'
+        expect(page).to have_no_content 'your work3'
+      end
+    end
+
     context 'when first visit index page' do
       let!(:task_1) { create(:task, task_name: 'pre_task', project_id: task.project_id, created_at: '2020-08-05', assignee_id: user.id, reporter_id: user.id) }
       let!(:task_2) { create(:task, task_name: 'cur_task', project_id: task.project_id, created_at: '2020-08-06', assignee_id: user.id, reporter_id: user.id) }
@@ -87,8 +188,8 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content 'PJ_Factory'
         expect(page).to have_content 'test_discription'
         expect(page).to have_content '高'
-        expect(page).to have_content 'user_7'
-        expect(page).to have_content 'user_7'
+        expect(page).to have_content 'user_11'
+        expect(page).to have_content 'user_11'
         expect(page).to have_content '2020-08-01'
         expect(page).to have_content '2020-08-05'
       end
@@ -139,159 +240,6 @@ RSpec.describe Task, type: :system do
         page.driver.browser.switch_to.alert.accept
 
         expect(page).to have_content 'タスクが削除されました。'
-      end
-    end
-  end
-
-  describe '#name_search' do
-    before { visit project_tasks_path(task.project, task) }
-    context 'when name input' do
-      before do
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork1', status: :todo, priority: :low)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work1', status: :done, priority: :high)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work3', status: :todo, priority: :high)
-      end
-
-      it 'tasks name are my' do
-        fill_in 'name', with: 'my'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_content 'mywork1'
-        expect(page).to have_content 'mywork2'
-        expect(page).to have_no_content 'your work1'
-        expect(page).to have_no_content 'your work2'
-        expect(page).to have_no_content 'your work3'
-      end
-
-      it 'tasks name are your' do
-        fill_in 'name', with: 'your'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_no_content 'mywork1'
-        expect(page).to have_no_content 'mywork2'
-        expect(page).to have_content 'your work1'
-        expect(page).to have_content 'your work2'
-        expect(page).to have_content 'your work3'
-      end
-    end
-  end
-
-  describe '#status_search' do
-    before { visit project_tasks_path(task.project, task) }
-    context 'when status select' do
-      before do
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork1', status: :todo, priority: :low)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work1', status: :done, priority: :high)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work3', status: :todo, priority: :high)
-      end
-
-      it 'tasks status are todo' do
-        select Task.human_attribute_name(:todo), from: 'status_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_content 'mywork1'
-        expect(page).to have_no_content 'mywork2'
-        expect(page).to have_no_content 'your work1'
-        expect(page).to have_no_content 'your work2'
-        expect(page).to have_content 'your work3'
-      end
-
-      it 'tasks status are in progress' do
-        select Task.human_attribute_name(:in_progress), from: 'status_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_no_content 'mywork1'
-        expect(page).to have_content 'mywork2'
-        expect(page).to have_no_content 'your work1'
-        expect(page).to have_content 'your work2'
-        expect(page).to have_no_content 'your work3'
-      end
-
-      it 'tasks status are done' do
-        select Task.human_attribute_name(:done), from: 'status_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_no_content 'mywork1'
-        expect(page).to have_no_content 'mywork2'
-        expect(page).to have_content 'your work1'
-        expect(page).to have_no_content 'your work2'
-        expect(page).to have_no_content 'your work3'
-      end
-    end
-  end
-
-  describe '#priority_search' do
-    before { visit project_tasks_path(task.project, task) }
-    context 'when priority select' do
-      before do
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork1', status: :todo, priority: :low)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work1', status: :done, priority: :high)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work3', status: :todo, priority: :high)
-      end
-
-      it 'tasks priority are low' do
-        select Task.human_attribute_name(:low), from: 'priority_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_content 'mywork1'
-        expect(page).to have_no_content 'mywork2'
-        expect(page).to have_no_content 'your work1'
-        expect(page).to have_no_content 'your work2'
-        expect(page).to have_no_content 'your work3'
-      end
-
-      it 'tasks priority are mid' do
-        select Task.human_attribute_name(:mid), from: 'priority_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_no_content 'mywork1'
-        expect(page).to have_content 'mywork2'
-        expect(page).to have_no_content 'your work1'
-        expect(page).to have_content 'your work2'
-        expect(page).to have_no_content 'your work3'
-      end
-
-      it 'tasks priority are high' do
-        select Task.human_attribute_name(:high), from: 'priority_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_no_content 'mywork1'
-        expect(page).to have_no_content 'mywork2'
-        expect(page).to have_content 'your work1'
-        expect(page).to have_no_content 'your work2'
-        expect(page).to have_content 'your work3'
-      end
-    end
-  end
-
-  describe '#multi_search' do
-    before { visit project_tasks_path(task.project, task) }
-    context 'when tasks multi search' do
-      before do
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork1', status: :todo, priority: :low)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'mywork2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work1', status: :done, priority: :high)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work2', status: :in_progress, priority: :mid)
-        create(:task, project_id: task.project.id, assignee_id: user.id, reporter_id: user.id, task_name: 'your work3', status: :todo, priority: :high)
-      end
-
-      it 'search result is your work2' do
-        fill_in 'name', with: 'your'
-        select Task.human_attribute_name(:in_progress), from: 'status_search'
-        select Task.human_attribute_name(:mid), from: 'status_search'
-        click_on I18n.t('tasks.search.button')
-
-        expect(page).to have_no_content 'mywork1'
-        expect(page).to have_no_content 'mywork2'
-        expect(page).to have_no_content 'your work1'
-        expect(page).to have_content 'your work2'
-        expect(page).to have_no_content 'your work3'
       end
     end
   end
