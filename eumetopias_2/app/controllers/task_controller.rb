@@ -8,13 +8,13 @@ class TaskController < ApplicationController
 
   def create
     @task = Task.create(task_params)
-    flash[:notice] = "New task created!"
+    flash[:notice] = 'New task created!'
     redirect_to @task
   end
 
   def show
-    unless  @task = Task.find_by(id: params[:id])
-      flash[:notice] = "Task not found"
+    unless @task = Task.find_by(id: params[:id])
+      flash[:notice] = 'Task not found'
       redirect_to root_path
     end
   end
@@ -22,7 +22,7 @@ class TaskController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:notice] = "Task updated!"
+      flash[:notice] = 'Task updated!'
       redirect_to @task
     else
       render 'edit'
@@ -36,7 +36,7 @@ class TaskController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    flash[:notice] = "Task deleted!"
+    flash[:notice] = 'Task deleted!'
     redirect_to root_path
   end
 end
