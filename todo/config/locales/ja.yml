@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    errors:
+      models:
+        user:
+          invalid: 'は英数字のみが使えます'
   attributes:
     id: ID
     created_at: '作成日時'

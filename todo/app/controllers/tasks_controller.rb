@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks = @project.tasks.order(created_at: :desc).page(params[:page]).per(20)
+    @tasks = @project.tasks.eager_load(:assignee, :reporter).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
 
   private def tasks_search(project)
     @order_by = sort_direction
-    project.tasks
+    project.tasks.eager_load(:assignee, :reporter)
       .name_search(params[:name])
       .status_search(params[:status_search])
       .priority_search(params[:priority_search])
