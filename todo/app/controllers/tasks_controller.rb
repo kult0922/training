@@ -23,7 +23,7 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
     else
       @users = User.all
-      flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
+      flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
       render :new, locals: { users: @users }
     end
   end
@@ -38,7 +38,7 @@ class TasksController < ApplicationController
       redirect_to [@task.project, @task]
     else
       @users = User.all
-      flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '更新')
+      flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '更新')
       render :edit, locals: { users: @users }
     end
   end
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '削除')
       redirect_to project_tasks_path
     else
-      flash[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
+      flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
       render :index
     end
   end
@@ -59,19 +59,17 @@ class TasksController < ApplicationController
     render :index
   end
 
-  def tasks_search(project)
+  private def tasks_search(project)
     @order_by = sort_direction
     project.tasks
       .name_search(params[:name])
-      .sta_search(params[:status_search])
-      .pri_search(params[:priority_search])
+      .status_search(params[:status_search])
+      .priority_search(params[:priority_search])
       .order_finished_at(@order_by)
       .order(created_at: :desc)
   end
 
-  private
-
-  def sort_direction
+  private def sort_direction
     %w[asc desc].include?(params[:order_by]) ? params[:order_by] : nil
   end
 

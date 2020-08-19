@@ -37,8 +37,6 @@ RSpec.describe Project, type: :system do
 
     context 'error when project create' do
       it 'error new project' do
-        visit new_project_path
-
         fill_in 'project_description', with: 'test'
         select 'In Progress', from: 'project_status'
 
