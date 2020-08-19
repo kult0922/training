@@ -36,7 +36,7 @@ class TasksController < ApplicationController
 
 	def destroy
 		if @task.destroy
-			redirect_to tasks_index_path, success: "タスクを削除しました"
+			redirect_to root_path, success: "タスクを削除しました"
 		end
 	end
 	
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 		if @task.present?
 			return @task
 		else
-			redirect_to tasks_index_path, danger: "存在しないタスクです"
+			redirect_to root_path, danger: "存在しないタスクです"
 		end
 	end
 
