@@ -5,6 +5,7 @@ scss:
 
 - provide(:title, "タスク登録")
 .col-9
+	= render  "layouts/flash"
 	.new-task-registration
 		.row.index-title
 			h2 タスク登録
@@ -15,8 +16,8 @@ scss:
 						= f.label :name, class: 'form-label'
 						= f.text_field :name, class: 'form-control'
 					.form-group
-						= f.label :priority, class: 'form-label', min: 1
-						= f.number_field :priority, class:'form-control'
+						= f.label :priority, class: 'form-label'
+						= f.number_field :priority, class:'form-control', min:1
 					.form-group
 						= f.label :deadline, class: 'form-label'
 						br
@@ -25,6 +26,6 @@ scss:
 						= f.label :description, class: 'form-label'
 						= f.text_area :description, class: 'form-control'
 					.form-group
-						= f.hidden_field :status, value: 0
+						= f.hidden_field :status, value: "waiting"
 					.form-group
 						= f.submit '新規登録', class:'btn btn-primary'

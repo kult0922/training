@@ -5,6 +5,7 @@ scss:
 
 - provide(:title, "タスク編集")
 .col-9
+	= render  "layouts/flash"
 	.task-edit
 		.row.index-title
 			h2 タスク編集
@@ -16,7 +17,7 @@ scss:
 						= f.text_field :name, class: 'form-control'
 					.form-group
 						= f.label :status, class: 'form-label'
-						= f.select :status, options_for_select(Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]}, Task.statuses[:"#{@task.status}"]), {}, {class: 'form-control'}
+						= f.select :status, options_for_select(Task.statuses.map{|k, v| [Task.statuses_i18n[k], k]}, @task.status), {}, {class: 'form-control'}
 					.form-group
 						= f.label :priority, class: 'form-label'
 						= f.number_field :priority, class: 'form-control', min: 1
