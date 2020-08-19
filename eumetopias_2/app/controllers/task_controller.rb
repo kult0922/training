@@ -7,14 +7,16 @@ class TaskController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    @task.save
+    @task = Task.create(task_params)
     flash[:notice] = "New task created!"
     redirect_to @task
   end
 
   def show
-    @task = Task.find(params[:id])
+    unless  @task = Task.find_by(id: params[:id])
+      flash[:notice] = "Task not found"
+      redirect_to root_path
+    end
   end
 
   def update
