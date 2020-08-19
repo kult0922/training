@@ -31,25 +31,25 @@ RSpec.describe Task, type: :system do
       it 'tasks search status' do
         select Task.human_attribute_name(:todo), from: 'status_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_content 'mywork1'
         expect(page).to have_no_content 'mywork2'
         expect(page).to have_no_content 'your work1'
         expect(page).to have_no_content 'your work2'
         expect(page).to have_content 'your work3'
-  
+
         select Task.human_attribute_name(:in_progress), from: 'status_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_no_content 'mywork1'
         expect(page).to have_content 'mywork2'
         expect(page).to have_no_content 'your work1'
         expect(page).to have_content 'your work2'
         expect(page).to have_no_content 'your work3'
-  
+
         select Task.human_attribute_name(:done), from: 'status_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_no_content 'mywork1'
         expect(page).to have_no_content 'mywork2'
         expect(page).to have_content 'your work1'
@@ -60,45 +60,45 @@ RSpec.describe Task, type: :system do
       it 'tasks search name' do
         fill_in 'name', with: 'my'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_content 'mywork1'
         expect(page).to have_content 'mywork2'
         expect(page).to have_no_content 'your work1'
         expect(page).to have_no_content 'your work2'
         expect(page).to have_no_content 'your work3'
-  
+
         fill_in 'name', with: 'your'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_no_content 'mywork1'
         expect(page).to have_no_content 'mywork2'
         expect(page).to have_content 'your work1'
         expect(page).to have_content 'your work2'
         expect(page).to have_content 'your work3'
       end
-  
+
       it 'tasks search priority' do
         select Task.human_attribute_name(:low), from: 'priority_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_content 'mywork1'
         expect(page).to have_no_content 'mywork2'
         expect(page).to have_no_content 'your work1'
         expect(page).to have_no_content 'your work2'
         expect(page).to have_no_content 'your work3'
-  
+
         select Task.human_attribute_name(:mid), from: 'priority_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_no_content 'mywork1'
         expect(page).to have_content 'mywork2'
         expect(page).to have_no_content 'your work1'
         expect(page).to have_content 'your work2'
         expect(page).to have_no_content 'your work3'
-  
+
         select Task.human_attribute_name(:high), from: 'priority_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_no_content 'mywork1'
         expect(page).to have_no_content 'mywork2'
         expect(page).to have_content 'your work1'
@@ -111,7 +111,7 @@ RSpec.describe Task, type: :system do
         select Task.human_attribute_name(:in_progress), from: 'status_search'
         select Task.human_attribute_name(:mid), from: 'status_search'
         click_on I18n.t('tasks.search.button')
-  
+
         expect(page).to have_no_content 'mywork1'
         expect(page).to have_no_content 'mywork2'
         expect(page).to have_no_content 'your work1'
@@ -140,7 +140,6 @@ RSpec.describe Task, type: :system do
 
         expect(page.body.index(task_2.finished_at.to_s)).to be < page.body.index(task_1.finished_at.to_s)
       end
-
       it 'tasks order by finished_at asc' do
         select I18n.t('tasks.search.order.asc_finished_at'), from: 'order_by'
         click_on I18n.t('tasks.search.button')
