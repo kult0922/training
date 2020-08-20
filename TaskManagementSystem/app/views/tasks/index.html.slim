@@ -1,33 +1,33 @@
 - provide(:title, "タスク一覧")
 .col-9
-	= render  "layouts/flash"
-	.row.index-title
-		h2 タスク一覧
-	.task-index-head.row.px-5
-		.col-3
-			= link_to 'タスク登録', new_task_path, class: "btn btn-primary btn-sm"
-		.col-3.ml-auto
-			= link_to 'ラベル作成', '#', class: "btn btn-primary btn-sm"
-			= link_to '検索', '#', class:'ml-5'
-	table.table.mt-3
-		thead.thead-light
-			tr
-				th.col-xs-1 優先度
-				th.col-xs-3 タスク名
-				th.col-xs-3 ラベル
-				th.col-xs-1 終了期限
-				th.col-xs-1 ステータス
-				th.col-xs-1 詳細
-				th.col-xs-1 編集
-				th.col-xs-1 削除
-			- @tasks.each do |task|
-				tbody
-					tr
-						td.col-xs-1.text-center = task.priority
-						td.col-xs-3 = task.name
-						td.col-xs-3 ラベル
-						td.col-xs-1 = task.deadline.strftime('%Y/%m/%d')
-						td.col-xs-1 = task.status_i18n
-						td.col-xs-1 = link_to  '詳細', task_path(task), class:"btn btn-info btn-sm", style: "width:45px"
-						td.col-xs-1 = link_to  '編集', edit_task_path(task), class:"btn btn-warning btn-sm", style: "width:45px"
-						td.col-xs-1 = link_to  '削除', task_path(task), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
+  = render  "layouts/flash"
+  .row.index-title
+    h2 タスク一覧
+  .task-index-head.row.px-5
+    .col-3
+      = link_to 'タスク登録', new_task_path, class: "btn btn-primary btn-sm"
+    .col-3.ml-auto
+      = link_to 'ラベル作成', '#', class: "btn btn-primary btn-sm"
+      = link_to '検索', '#', class:'ml-5'
+  table.table.mt-3
+    thead.thead-light
+      tr
+        th.col-xs-1 優先度
+        th.col-xs-3 タスク名
+        th.col-xs-3 ラベル
+        th.col-xs-1 終了期限
+        th.col-xs-1 ステータス
+        th.col-xs-1 詳細
+        th.col-xs-1 編集
+        th.col-xs-1 削除
+      - @tasks.each do |task|
+        tbody
+          tr
+            td.col-xs-1.text-center = task.priority
+            td.col-xs-3 = task.name
+            td.col-xs-3 ラベル
+            td.col-xs-1 = task.deadline.strftime('%Y/%m/%d')
+            td.col-xs-1 = task.status_i18n
+            td.col-xs-1 = link_to  '詳細', task_path(task), class:"btn btn-info btn-sm", style: "width:45px"
+            td.col-xs-1 = link_to  '編集', edit_task_path(task), class:"btn btn-warning btn-sm", style: "width:45px"
+            td.col-xs-1 = link_to  '削除', task_path(task), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
