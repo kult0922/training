@@ -4,12 +4,17 @@ class TaskController < ApplicationController
   end
 
   def new
+     @task = Task.new
   end
 
   def create
-    @task = Task.create(task_params)
-    flash[:notice] = 'New task created!'
-    redirect_to @task
+    @task = Task.new(task_params)
+    if @task.save
+      flash[:notice] = 'New task created!'
+      redirect_to root_path
+    else
+      render 'new'
+    end
   end
 
   def show
