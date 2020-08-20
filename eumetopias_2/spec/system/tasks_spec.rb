@@ -5,7 +5,7 @@ RSpec.describe "Task", type: :system do
   describe "Create new task" do
     let(:submit) {"Save Task"}
     before { visit new_task_path }
-    # DOTO:
+    # TODO:
     # 不正な値が入力されたケースはバリデーション設定後に実装する。
     # describe "with invalid information" do
     # end
