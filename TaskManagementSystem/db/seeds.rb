@@ -8,6 +8,6 @@
 
 3.times do |num|
   3.times do |n|
-    Task.create(name: "タスクの名前#{n}", description: "タスクの説明#{n}", priority: n, deadline: Time.strptime("2020年10月#{n+1}日 12:13:23", '%Y年%m月%d日 %H:%M:%S'), status: n)
+    Task.create(title: "タスクの名前#{n}", description: "タスクの説明#{n}", priority: n, deadline: Time.strptime("2020年10月#{n+1}日 12:13:23", '%Y年%m月%d日 %H:%M:%S'), status: n)
   end
 end

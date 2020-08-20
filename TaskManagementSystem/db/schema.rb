@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
-    t.string "name"
+    t.string "title"
     t.text "description"
     t.integer "priority"
     t.datetime "deadline"
