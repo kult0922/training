@@ -26,4 +26,4 @@ scss:
 			td = @task.description
 	.col-3.ml-auto
 		= link_to  '編集', edit_task_path(@task), class:"btn btn-warning btn-sm ml-5 mt-3", style: "width:45px"
-		= link_to  '削除', task_path(@task), class:"btn btn-danger btn-sm ml-3 mt-3", style: "width:45px"
+		= link_to  '削除', task_path(@task), method: :delete, class:"btn btn-danger btn-sm ml-3 mt-3", style: "width:45px"

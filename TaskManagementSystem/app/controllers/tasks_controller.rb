@@ -37,6 +37,8 @@ class TasksController < ApplicationController
 	def destroy
 		if @task.destroy
 			redirect_to root_path, success: "タスクを削除しました"
+		else
+			redirect_to root_path, danger: "タスクを削除できませんでした"
 		end
 	end
 	
