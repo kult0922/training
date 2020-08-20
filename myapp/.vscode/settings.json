@@ -1,3 +1,43 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "workbench.iconTheme": "vscode-icons",
+    "window.zoomLevel": 1,
+    "terminal.integrated.rendererType": "dom",
+    "sync.gist": "05061ed4eb345b600c2fe8dbaa0880b6",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "hediet.vscode-drawio.local-storage": {
+        ".drawio-config": {
+            "language": "",
+            "customFonts": [],
+            "libraries": "general;uml;er;bpmn;flowchart;basic;arrows2",
+            "customLibraries": [
+                "L.scratchpad"
+            ],
+            "plugins": [],
+            "recentColors": [],
+            "formatWidth": 0,
+            "createTarget": false,
+            "pageFormat": {
+                "x": 0,
+                "y": 0,
+                "width": 827,
+                "height": 1169
+            },
+            "search": true,
+            "showStartScreen": true,
+            "gridColor": "#d0d0d0",
+            "darkGridColor": "#6e6e6e",
+            "autosave": true,
+            "resizeImages": null,
+            "openCounter": 0,
+            "version": 18,
+            "unit": 1,
+            "isRulerOn": false,
+            "ui": ""
+        }
+    },
+    "[html]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "files.insertFinalNewline": true
 }
