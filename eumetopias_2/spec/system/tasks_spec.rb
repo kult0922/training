@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Task", type: :system do
 
   describe "Create new task" do
-    let(:submit) {"Save Task"}
+    let(:submit) {"保存する"}
     before { visit new_task_path }
     # DOTO:
     # 不正な値が入力されたケースはバリデーション設定後に実装する。
@@ -22,7 +22,7 @@ RSpec.describe "Task", type: :system do
   end
 
   describe "Update task" do
-    let(:submit) {"Update Task"}
+    let(:submit) {"更新する"}
     let(:revised_title) {"revised title"}
     let(:revised_description) {"revised description"}
     before do
