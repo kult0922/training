@@ -5,10 +5,6 @@ default: &default
   username: <%= ENV['DATABASE_DEV_USER'] %>
   password: <%= ENV['DATABASE_DEV_PASSWORD'] %>
 
-production:
-  <<: *default
-  database: <%= ENV['DATABASE_PRD_NAME'] %>
-
 development:
   <<: *default
   database: <%= ENV['DATABASE_DEV_NAME'] %>
