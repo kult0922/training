@@ -6,9 +6,9 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.integer :user_id
       t.string :name
       t.text :description
-			t.integer :priority
-			t.datetime :deadline
-			t.integer :status, default: 0
+      t.integer :priority
+      t.datetime :deadline
+      t.integer :status, default: 0
 
       t.timestamps
     end
