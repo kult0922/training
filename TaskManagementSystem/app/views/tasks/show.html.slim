@@ -1,12 +1,7 @@
-scss:
-  th{
-    width: 200px;
-  }
-
 - provide(:title, "タスク詳細")
-.col-9
+.col-9.show-page
   = render  "layouts/flash"
-  .row.index-title.pl-3
+  .row.show-title.pl-3
     h2 #{@task.title}の詳細
   table.table.table-striped.mt-3
     tr
