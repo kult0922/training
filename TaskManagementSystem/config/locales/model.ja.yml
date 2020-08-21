@@ -8,7 +8,7 @@ ja:
     attributes:
       task:
         id: ID
-        name: タスク名
+        title: タスク名
         description: 説明
         priority: 優先度
         deadline: 終了期限
