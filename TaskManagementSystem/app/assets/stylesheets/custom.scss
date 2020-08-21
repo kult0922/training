@@ -1,0 +1,39 @@
+/*サイドバーの設定*/
+ul{
+  list-style: none;
+}
+.container{
+  border: 2px solid black;
+  .col-3{
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .row{
+    .col-3{
+      .sidebar_fixed{
+        position: sticky;
+        top: 0px;
+        background-color: #007bff;
+        .sidebar-item{
+          height: 100vh;
+          position: relative;
+          padding-left: 10px;
+          a{
+            color: black;
+          }
+          nav{
+            margin-top: 100px;
+            ul{
+              padding-left: 20px;
+            }
+          }
+          .user-management{
+            position: absolute;
+            bottom: 10px;
+            padding-left: 20px;
+          }
+        }
+      }
+    }
+  }
+}
