@@ -10,8 +10,14 @@ class Task < ApplicationRecord
   validates :started_at, presence: true
   validates :finished_at, presence: true
 
-  scope :order_finished_at, ->(order_by) { order(finished_at: order_by.to_sym) if order_by.present? }
-  scope :name_search, ->(task_name) { where('task_name like ?', "%#{task_name}%")  if task_name.present? }
+  scope :order_by_at, (lambda do |order_by|
+    if order_by.present?
+      order(finished_at: order_by.to_sym)
+    else
+      order(created_at: :desc)
+    end
+  end)
+  scope :name_search, ->(task_name) { where('task_name like ?', "%#{task_name}%") if task_name.present? }
   scope :priority_search, ->(priority) { where(priority: priority) if priority.present? }
   scope :status_search, ->(status) { where(status: status) if status.present? }
 end
