@@ -37,3 +37,6 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
+    navbar:
+      title: 'タスク管理アプリ'
+      name: 'ユーザ名'

@@ -2,7 +2,8 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
-
+  before_action :logged_in_user
+  
   def index
     @projects = Project.all
     @status_list = Project.statuses.keys
