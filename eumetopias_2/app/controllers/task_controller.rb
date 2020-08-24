@@ -1,6 +1,13 @@
 class TaskController < ApplicationController
   def index
-    @task = Task.all
+    task_status_id = params[:task_status_id]
+    if !task_status_id.blank?
+      @task = Task.where(task_status_id: task_status_id)
+    else
+      @task = Task.all
+    end
+    @status_selection = task_status_list
+    @status_selection.store('全て', '')
   end
 
   def new
@@ -54,5 +61,5 @@ private
   end
 
   def task_status_list
-    TaskStatus.all.map{ |status| [status.name, status.id] }
+    TaskStatus.all.map{ |status| [status.name, status.id] }.to_h
   end

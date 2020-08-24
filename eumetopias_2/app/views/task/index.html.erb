@@ -4,6 +4,11 @@
 <%= content_tag :div, msg, class: name  %>
 <% end %>
 </p>
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <%= form.label 'status' %>
+  <%= form.select :task_status_id, @status_selection, selected: params[:task_status_id] || '' %>
+  <%= form.submit '検索' %>
+<% end %>
 <table>
   <tr>
     <th>Title</th>
