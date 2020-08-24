@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Tasks", type: :request do
+RSpec.describe 'Tasks', type: :request do
   describe 'POST /tasks/:id' do
     subject(:action) do
       post tasks_path, params: params
@@ -11,8 +13,8 @@ RSpec.describe "Tasks", type: :request do
       {
         task: {
           title: 'test1',
-          discription: 'test1'
-        }
+          discription: 'test1',
+        },
       }
     }
 
@@ -50,8 +52,8 @@ RSpec.describe "Tasks", type: :request do
         {
           task: {
             title: 'after_title',
-            discription: 'after_discription'
-          }
+            discription: 'after_discription',
+          },
         }
       }
 
@@ -60,7 +62,7 @@ RSpec.describe "Tasks", type: :request do
       before do
         task.update(
           title: 'before_title',
-          discription: 'before_discription'
+          discription: 'before_discription',
         )
       end
 

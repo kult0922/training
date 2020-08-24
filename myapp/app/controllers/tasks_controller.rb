@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to root_path, notice: 'Added task'
     else
-      redirect_to root_path, notice: 'Failure added task' # TODO fix path
+      redirect_to root_path, notice: 'Failure added task' # TODO: fix path
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     if @task.update(permitted_tasks_params)
       redirect_to root_path, notice: 'Edited task'
     else
-      redirect_to root_path, notice: 'Failure edited task' # TODO fix path
+      redirect_to root_path, notice: 'Failure edited task' # TODO: fix path
     end
   end
 
