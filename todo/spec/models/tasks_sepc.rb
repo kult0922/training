@@ -24,6 +24,7 @@ RSpec.describe Task, type: :model do
       task.started_at = ''
       is_expected.to be_invalid
       expect(task.errors.full_messages[0]).to eq '開始日を入力してください'
+      expect(task.errors.full_messages[1]).to eq '開始日の日付形式が正しくありません'
     end
   end
 
@@ -32,6 +33,8 @@ RSpec.describe Task, type: :model do
       task.finished_at = ''
       is_expected.to be_invalid
       expect(task.errors.full_messages[0]).to eq '終了日を入力してください'
+      expect(task.errors.full_messages[1]).to eq '終了日の日付形式が正しくありません'
+      expect(task.errors.full_messages[2]).to eq '終了日は開始日付より後の日付にしてください'
     end
   end
 

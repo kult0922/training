@@ -4,7 +4,7 @@
     <div class="form-row mb-4">
       <div class ="col">
         <%= I18n.t('tasks.search.search_bar') %>
-        <%= form.text_field :name, class: 'form-control', placeholder: I18n.t('tasks.search.search_bar') %>
+        <%= form.text_field :name, class: 'form-control', placeholder: I18n.t('tasks.search.search_bar'), value: params[:name] %>
       </div>
       <div class = "col">
         <%= I18n.t('tasks.search.change_order') %>
@@ -18,20 +18,14 @@
 
       <div class ="col">
         <%= I18n.t('tasks.search.status') %>
-        <%= form.select :status_search,
-          [ [Task.human_attribute_name(:todo), :todo], 
-          [Task.human_attribute_name(:in_progress), :in_progress],
-          [Task.human_attribute_name(:done), :done], ],
+        <%= form.select :status_search, Task.statuses.map { |k, v| [I18n.t("enums.task.status.#{k}"), k] },
           {selected: params[:status_search],
           include_blank: I18n.t('tasks.search.none')},
           {class: 'custom-select'} %>
       </div>
       <div class="col">
         <%= I18n.t('tasks.search.priority') %>
-        <%= form.select :priority_search,
-          [ [Task.human_attribute_name(:low), :low], 
-          [Task.human_attribute_name(:mid), :mid],
-          [Task.human_attribute_name(:high), :high], ],
+        <%= form.select :priority_search, Task.priorities.map { |k, v| [I18n.t("enums.task.priority.#{k}"), k] },
           {include_blank: I18n.t('tasks.search.none'),
           selected: params[:priority_search]},
           {class: 'custom-select'} %>
