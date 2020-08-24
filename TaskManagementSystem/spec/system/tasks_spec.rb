@@ -5,7 +5,7 @@ RSpec.describe 'Tasks', type: :system do
   # タスク一覧画面内のテスト
   describe 'TaskIndex' do
     before do
-      @task = Task.create(user_id: 1, title: "タスク名の編集テスト", description: "タスク説明の編集テスト", priority: 1, deadline: Time.strptime("2020年10月2日 12:13:23", '%Y年%m月%d日 %H:%M:%S'), status: 1)
+      @task = create(:sample_task)
     end
 
     it 'shows all tasks' do
@@ -46,7 +46,7 @@ RSpec.describe 'Tasks', type: :system do
   # タスク詳細画面内のテスト
   describe 'TaskShow' do
     before do
-      @task = Task.create(user_id: 1, title: "タスク名の編集テスト", description: "タスク説明の編集テスト", priority: 1, deadline: Time.strptime("2020年10月2日 12:13:23", '%Y年%m月%d日 %H:%M:%S'), status: 1)
+      @task = create(:sample_task)
     end
 
     it 'show Task detail data' do
@@ -97,14 +97,14 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content('説明')
 
       # セレクトボックス・テキストフィールドへの入力
-      fill_in 'タスク名', with: 'テストタスク'
-      fill_in '優先度', with: 1
-      select '2025', from: 'task[deadline(1i)]'
-      select '1月', from: 'task[deadline(2i)]'
-      select '23', from: 'task[deadline(3i)]'
-      select '09', from: 'task[deadline(4i)]'
-      select '26', from: 'task[deadline(5i)]'
-      fill_in '説明', with: 'テストタスクの説明'
+      fill_in('タスク名', with: 'テストタスク')
+      fill_in('優先度', with: 1)
+      select('2025', from: 'task[deadline(1i)]')
+      select('1月', from: 'task[deadline(2i)]')
+      select('23', from: 'task[deadline(3i)]')
+      select('09', from: 'task[deadline(4i)]')
+      select('26', from: 'task[deadline(5i)]')
+      fill_in('説明', with: 'テストタスクの説明')
 
       # 新規登録ボタンのクリック
       click_button 'commit'
@@ -114,7 +114,7 @@ RSpec.describe 'Tasks', type: :system do
   # タスク編集画面のテスト
   describe 'TaskEdit' do
       before do
-        @task = Task.create(user_id: 1, title: "タスク名の編集テスト", description: "タスク説明の編集テスト", priority: 1, deadline: Time.strptime("2020年10月2日 12:13:23", '%Y年%m月%d日 %H:%M:%S'), status: 1)
+        @task = create(:sample_task)
       end
 
     it 'can edit task' do

@@ -82,6 +82,11 @@ GEM
     fablicop (1.0.6)
       rubocop (~> 0.53.0)
       rubocop-rspec (>= 1.15.1)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -253,6 +258,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   enum_help
   fablicop
+  factory_bot_rails
   html2slim
   jbuilder (~> 2.7)
   listen (~> 3.2)
