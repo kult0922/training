@@ -1,0 +1,2 @@
+class TaskStatusController < ApplicationController
+end
