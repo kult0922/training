@@ -19,10 +19,10 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(permitted_tasks_params)
-    if @task.save!
+    if @task.save
       redirect_to root_path, notice: 'Added task'
     else
-      render 'new_task'
+      redirect_to root_path, notice: 'Failure added task' # TODO fix path
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     if @task.update(permitted_tasks_params)
       redirect_to root_path, notice: 'Edited task'
     else
-      render 'edit_task'
+      redirect_to root_path, notice: 'Failure edited task' # TODO fix path
     end
   end
 
