@@ -13,7 +13,7 @@
 
 <p>
   <%= form.label :task_status_id %>
-  <%= form.select :task_status_id, [['未着手', 1], ['着手中', 2], ['完了', 3]] %>
+  <%= form.select :task_status_id, @status_selection %>
 </p>
 
 <p>

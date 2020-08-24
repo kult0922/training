@@ -5,6 +5,7 @@ class TaskController < ApplicationController
 
   def new
      @task = Task.new
+     @status_selection = task_status_list
   end
 
   def create
@@ -36,6 +37,7 @@ class TaskController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    @status_selection = task_status_list
   end
 
   def destroy
@@ -49,4 +51,8 @@ end
 private
   def task_params
     params.require(:task).permit(:title, :description, :task_status_id)
+  end
+
+  def task_status_list
+    TaskStatus.all.map{ |status| [status.name, status.id] }
   end
