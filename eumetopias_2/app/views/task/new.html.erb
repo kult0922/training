@@ -5,10 +5,17 @@
   <%= form.label :title %>
   <%= form.text_field :title %>
 </p>
+
 <p>
   <%= form.label :description %>
   <%= form.text_field :description %>
 </p>
+
+<p>
+  <%= form.label :task_status_id %>
+  <%= form.select :task_status_id, [['未着手', 1], ['着手中', 2], ['完了', 3]] %>
+</p>
+
 <p>
   <%= form.submit %>
   <%= %>

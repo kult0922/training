@@ -8,6 +8,7 @@
   <tr>
     <th>Title</th>
     <th>Description</th>
+    <th>Status</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,7 +16,14 @@
   <% @task.each do |task| %>
   <tr>
     <th><%= task.title %></th>
-    <th><%=task.description %></th>
+    <th><%= task.description %></th>
+    <th>
+      <% if task_status = task.task_status %>
+        <%= task_status.name %>
+      <% else %>
+        <%= '-' %>
+      <% end %>
+    </th>
     <th><%= link_to 'show', task_path(task) %></th>
     <th><%= link_to 'edit', edit_task_path(task) %></th>
     <th><%= link_to 'destroy', task_path(task), method: :delete, data:{ confirm: 'Are you sure?'} %></th>
