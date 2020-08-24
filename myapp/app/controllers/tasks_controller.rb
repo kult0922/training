@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :find_task_by_id, only: %i(show edit)
+  before_action :find_task_by_id, only: %i[show edit]
 
   def index
     @tasks = Task.all
@@ -26,7 +28,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update_attributes(permitted_tasks_params)
+    if @task.update(permitted_tasks_params)
       redirect_to root_path, notice: 'Edited task'
     else
       render 'edit_task'
@@ -40,14 +42,14 @@ class TasksController < ApplicationController
 
   private
 
-    def permitted_tasks_params
-      params.require(:task).permit(
-        :title,
-        :discription
-      )
-    end
+  def permitted_tasks_params
+    params.require(:task).permit(
+      :title,
+      :discription,
+    )
+  end
 
-    def find_task_by_id
-      @task = Task.find(params[:id])
-    end
+  def find_task_by_id
+    @task = Task.find(params[:id])
+  end
 end
