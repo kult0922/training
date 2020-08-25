@@ -12,8 +12,8 @@ RSpec.describe "Task", type: :system do
 
     describe "with valid information" do
       before do
-        fill_in "Title", with: "example title"
-        fill_in "Description", with: "example description"
+        fill_in "task[title]", with: "example title"
+        fill_in "task[description]", with: "example description"
       end
       it "shoud create a task" do
         expect { click_button submit }.to change(Task, :count).by(1)
@@ -28,8 +28,8 @@ RSpec.describe "Task", type: :system do
     before do
       @task = Task.create(title: 'unrivised title', description: 'unrevised description')
       visit "/task/" + @task.id.to_s + "/edit"
-      fill_in "Title", with: revised_title
-      fill_in "Description", with: revised_description
+      fill_in "task[title]", with: revised_title
+      fill_in "task[description]", with: revised_description
     end
     it "should match record with revision" do
       click_button submit
