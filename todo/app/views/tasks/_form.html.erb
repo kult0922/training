@@ -16,16 +16,12 @@
   <div class="form-row align-items-center mb-2">
     <div class="col-auto">
       <%= form.label :'優先順位' %>
-      <%= form.select :priority, [ ["低", :low], ["中", :mid], ["高", :high] ],
-      {},
-      {class: 'custom-select'} %>
+      <%= form.select :priority, Task.priorities.map { |k, v| [I18n.t("enums.task.priority.#{k}"), k] }, {}, class: "custom-select" %>
     </div>
 
     <div class="col-auto">
       <%= form.label :'状態' %>
-      <%= form.select :status, [ ["未着手", :todo], ["着手中", :in_progress], ["完了", :done] ],
-      {},
-      {class: 'custom-select'} %>
+      <%= form.select :status, Task.statuses.map { |k, v| [I18n.t("enums.task.status.#{k}"), k] }, {}, class: "custom-select" %>
     </div>
   </div>
 

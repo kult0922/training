@@ -23,7 +23,12 @@
         <div class="flash_notification">
           <% flash.each do |message_type, message| %>
             <div class="message-<%= message_type %>">
-              <p class="alert alert-danger" role="alert"><%= message %></p>
+              <% alert_type = if message_type == 'error' %>
+                <% "alert-danger" %>
+              <% else %>
+                <% "alert-primary" %>
+              <% end %>
+              <p class="alert <%= alert_type %>" role="alert"><%= message %></p>
             </div>
           <% end %>
         </div>

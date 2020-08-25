@@ -12,10 +12,7 @@
   <div class="form-row align-items-center mb-3">
     <div class="col-auto">
       <%= form.label :'状態' %>
-        <%= form.select :status,
-        [ ["To Do", :todo], ["In Progress", :in_progress], ["In Review", :in_review] ,["Waiting Approval / Release", :release], ["Resolved / Done", :done] ],
-        {},
-        {class: 'custom-select'} %>
+        <%= form.select :status, Project.statuses.map { |k, v| [I18n.t("enums.project.status.#{k}"), k] }, {}, class: "custom-select" %>
     </div>
 
     <div class="col-auto">

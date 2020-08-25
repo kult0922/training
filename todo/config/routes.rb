@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   get '/login_failed', to: 'sessions#fail'
 
   resources :projects do
-    resources :tasks do
-      get :search, on: :collection
-    end
+    resources :tasks
   end
   root to: 'sessions#new'
 

@@ -190,8 +190,8 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content '高'
         expect(page).to have_content 'user_11'
         expect(page).to have_content 'user_11'
-        expect(page).to have_content '2020-08-01'
-        expect(page).to have_content '2020-08-05'
+        expect(page).to have_content '2020-06-01'
+        expect(page).to have_content '2020-10-05'
       end
     end
   end
