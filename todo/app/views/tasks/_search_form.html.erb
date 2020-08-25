@@ -1,5 +1,5 @@
 <div class ="border">
-  <%= form_with url: search_project_tasks_url, local: true, method: :get do |form| %>
+  <%= form_with url: project_tasks_url, local: true, method: :get do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
     <div class="form-row mb-4">
       <div class ="col">
