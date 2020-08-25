@@ -21,7 +21,16 @@ ja:
       update: "更新"
       destroy: "削除"
       cancel: "キャンセル"
+      edit: "編集"
+      show: "確認"
+    table:
+      title: "題名"
+      name: "名前"
+      description: "内容"
+    browse:
+      back: "戻る"
+      next: "次へ"
+      previous: "前へ"
   time:
     formats:
       default: ! "%Y-%m-%d %H:%M:%S"
-      

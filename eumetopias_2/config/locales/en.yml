@@ -53,7 +53,16 @@ en:
       update: "update"
       destroy: "delete"
       cancel: "cancel"
+      edit: "edit"
+      show: "show"
+    table:
+      title: "title"
+      name: "name"
+      description: "description"
+    browse:
+      back: "back"
+      next: "next"
+      previous: "previous"
   time:
     formats:
       default: ! "%d/%m/%Y %H:%M:%S"
-      
