@@ -1,13 +1,13 @@
-<h1>新規タスク</h1>
+<h1><%= t('dictionary.title.create') %></h1>
 <%= render 'layouts/error_messages', model: @task %>
 <%= form_with scope: :task,url: task_index_path, local: true do |form| %>
 <p>
-  <%= form.label :title %>
+  <%= form.label t('dictionary.table.title') %>
   <%= form.text_field :title %>
 </p>
 
 <p>
-  <%= form.label :description %>
+  <%= form.label t('dictionary.table.description') %>
   <%= form.text_field :description %>
 </p>
 
@@ -17,10 +17,10 @@
 </p>
 
 <p>
-  <%= form.submit %>
+  <%= form.submit t('dictionary.button.create') %>
   <%= %>
   <%= %>
 </p>
 <% end %>
 
-<%= link_to 'Back', root_path  %>
+<%= link_to t('dictionary.browse.back'), root_path  %>

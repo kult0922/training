@@ -11,8 +11,8 @@
 <% end %>
 <table>
   <tr>
-    <th>Title</th>
-    <th>Description</th>
+    <th><%= t('dictionary.table.title') %></th>
+    <th><%= t('dictionary.table.description') %></th>
     <th>Status</th>
     <th></th>
     <th></th>
@@ -21,7 +21,7 @@
   <% @task.each do |task| %>
   <tr>
     <th><%= task.title %></th>
-    <th><%= task.description %></th>
+    <th><%=task.description %></th>
     <th>
       <% if task_status = task.task_status %>
         <%= task_status.name %>
@@ -29,10 +29,10 @@
         <%= '-' %>
       <% end %>
     </th>
-    <th><%= link_to 'show', task_path(task) %></th>
-    <th><%= link_to 'edit', edit_task_path(task) %></th>
-    <th><%= link_to 'destroy', task_path(task), method: :delete, data:{ confirm: 'Are you sure?'} %></th>
+    <th><%= link_to t('dictionary.button.show'), task_path(task) %></th>
+    <th><%= link_to t('dictionary.button.edit'), edit_task_path(task) %></th>
+    <th><%= link_to t('dictionary.button.destroy'), task_path(task), method: :delete, data:{ confirm: t('dictionary.message.destroy.confirm')} %></th>
   <tr>
   <% end %>
 </table>
-<%= link_to 'new', new_task_path %>
+<%= link_to t('dictionary.button.create'), new_task_path %>
