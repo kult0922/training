@@ -1,4 +1,4 @@
-<h1>タスク編集</h1>
+<h1><%= t('dictionary.title.update') %></h1>
 <%= render 'layouts/error_messages', model: @task %>
 <%= form_with(model: @task, local: true) do |form| %>
 <p>
@@ -13,7 +13,7 @@
 
 
 <p>
-  <%= form.submit %>
+  <%= form.submit t('dictionary.button.update') %>
 </p>
 
 <% end %>

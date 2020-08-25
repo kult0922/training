@@ -18,7 +18,7 @@
     <th><%=task.description %></th>
     <th><%= link_to 'show', task_path(task) %></th>
     <th><%= link_to 'edit', edit_task_path(task) %></th>
-    <th><%= link_to 'destroy', task_path(task), method: :delete, data:{ confirm: 'Are you sure?'} %></th>
+    <th><%= link_to 'destroy', task_path(task), method: :delete, data:{ confirm: t('dictionary.message.destroy.confirm')} %></th>
   <tr>
   <% end %>
 </table>

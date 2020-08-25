@@ -1,0 +1,26 @@
+ja:
+  dictionary:
+    title:
+      create: "新規作成"
+      update: "更新"
+      destroy:
+        confirm: "削除確認"
+    message:
+      create:
+        complete: "登録しました"
+      update:
+        complete: "更新しました"
+      destroy:
+        confirm: "よろしいですか？"
+        complete: "削除しました"
+      notfound: "見つかりませんでした"
+    button:
+      create: "新規作成"
+      search: "検索"
+      clear: "クリア"
+      update: "更新"
+      destroy: "削除"
+      cancel: "キャンセル"
+  time:
+    formats:
+      default: ! "%Y-%m-%d %H:%M:%S"

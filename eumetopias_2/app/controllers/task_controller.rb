@@ -10,7 +10,7 @@ class TaskController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:notice] = 'New task created!'
+      flash[:notice] = t('dictionary.message.create.complete')
       redirect_to root_path
     else
       render 'new'
@@ -19,7 +19,7 @@ class TaskController < ApplicationController
 
   def show
     unless @task = Task.find_by(id: params[:id])
-      flash[:notice] = 'Task not found'
+      flash[:notice] = t('dictionary.message.notfound')
       redirect_to root_path
     end
   end
@@ -27,7 +27,7 @@ class TaskController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:notice] = 'Task updated!'
+      flash[:notice] = t('dictionary.message.update.complete')
       redirect_to @task
     else
       render 'edit'
@@ -41,7 +41,7 @@ class TaskController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    flash[:notice] = 'Task deleted!'
+    flash[:notice] = t('dictionary.message.destroy.complete')
     redirect_to root_path
   end
 end
