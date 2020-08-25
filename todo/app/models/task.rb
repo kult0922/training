@@ -4,8 +4,8 @@ class Task < ApplicationRecord
   enum priority: { low: 0, mid: 1, high: 2 }
   enum status: { todo: 0, in_progress: 1, done: 2 }
   belongs_to :project
-  belongs_to :assignee, class_name: 'User'
-  belongs_to :reporter, class_name: 'User'
+  belongs_to :assignee, class_name: 'User', foreign_key: :assignee_id
+  belongs_to :reporter, class_name: 'User', foreign_key: :reporter_id
   validates :task_name, presence: true
   validates :started_at, presence: true
   validates :finished_at, presence: true

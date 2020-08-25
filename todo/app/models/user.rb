@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :user_projects, dependent: :nullify
-  has_many :tasks, dependent: :nullify
+  has_many :user_projects
+  has_many :assignee, class_name: 'Task', foreign_key: :assignee_id, dependent: :nullify
+  has_many :reporter, class_name: 'Task', foreign_key: :reporter_id, dependent: :nullify
   has_secure_password
 
   validates :password, length: { minimum: 6 }
