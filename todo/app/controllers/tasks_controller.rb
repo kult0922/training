@@ -5,7 +5,8 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks = load_task.order_by_at(sort_direction)
+    @order_by = sort_direction
+    @tasks = tasks_search
   end
 
   def show
@@ -51,13 +52,6 @@ class TasksController < ApplicationController
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '削除')
       render :index
     end
-  end
-
-  def search
-    @project = Project.find(params[:project_id])
-    @order_by = sort_direction
-    @tasks = tasks_search
-    render :index
   end
 
   private

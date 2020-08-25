@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   resources :projects do
-    resources :tasks do
-      get :search, on: :collection
-    end
+    resources :tasks
   end
   root to: 'projects#index'
 
