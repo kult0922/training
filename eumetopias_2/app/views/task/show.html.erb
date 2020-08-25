@@ -5,13 +5,13 @@
 <% end %>
 </p>
 <p>
-  <strong>Title:</strong>
+  <strong><%= t('dictionary.table.title') %>:</strong>
   <%= @task.title %>
 </p>
 <p>
-  <strong>Description:</strong>
+  <strong><%= t('dictionary.table.description') %>:</strong>
   <%= @task.description %>
 
 </p>
 
-<%= link_to 'Back', root_path  %>
+<%= link_to t('dictionary.browse.back'), root_path  %>

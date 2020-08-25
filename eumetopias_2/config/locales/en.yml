@@ -31,3 +31,38 @@
 
 en:
   hello: "Hello world"
+  dictionary:
+    title:
+      create: "create"
+      update: "update"
+      destroy:
+        confirm: "confirm"
+    message:
+      create:
+        complete: "newly created"
+      update:
+        complete: "updated"
+      destroy:
+        confirm: "are you sure?"
+        complete: "deleted"
+      notfound: "not found"
+    button:
+      create: "create"
+      search: "search"
+      clear: "clear"
+      update: "update"
+      destroy: "delete"
+      cancel: "cancel"
+      edit: "edit"
+      show: "show"
+    table:
+      title: "title"
+      name: "name"
+      description: "description"
+    browse:
+      back: "back"
+      next: "next"
+      previous: "previous"
+  time:
+    formats:
+      default: ! "%d/%m/%Y %H:%M:%S"

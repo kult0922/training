@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Task", type: :system do
 
   describe "Create new task" do
-    let(:submit) {"Save Task"}
+    let(:submit) {I18n.t('dictionary.button.create') }
     before { visit new_task_path }
     # TODO:
     # 不正な値が入力されたケースはバリデーション設定後に実装する。
@@ -12,8 +12,8 @@ RSpec.describe "Task", type: :system do
 
     describe "with valid information" do
       before do
-        fill_in "Title", with: "example title"
-        fill_in "Description", with: "example description"
+        fill_in "task[title]", with: "example title"
+        fill_in "task[description]", with: "example description"
       end
       it "shoud create a task" do
         expect { click_button submit }.to change(Task, :count).by(1)
@@ -22,14 +22,14 @@ RSpec.describe "Task", type: :system do
   end
 
   describe "Update task" do
-    let(:submit) {"Update Task"}
+    let(:submit) {I18n.t('dictionary.button.update') }
     let(:revised_title) {"revised title"}
     let(:revised_description) {"revised description"}
     before do
       @task = Task.create(title: 'unrivised title', description: 'unrevised description')
       visit "/task/" + @task.id.to_s + "/edit"
-      fill_in "Title", with: revised_title
-      fill_in "Description", with: revised_description
+      fill_in "task[title]", with: revised_title
+      fill_in "task[description]", with: revised_description
     end
     it "should match record with revision" do
       click_button submit
