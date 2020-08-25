@@ -20,7 +20,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content('ステータス')
       expect(page).to have_content('詳細')
       expect(page).to have_content('編集')
-      expect(page).to have_content('削除')      
+      expect(page).to have_content('削除')
       
       # テーブルにタスクが出力されている
       expect(page).to have_content(@task.priority)
