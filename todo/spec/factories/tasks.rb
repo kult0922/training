@@ -8,8 +8,8 @@ FactoryBot.define do
     priority { :high }
     status { :todo }
     description { 'test_discription' }
-    started_at { Time.zone.local(2020, 8, 1) }
-    finished_at { Time.zone.local(2020, 8, 5) }
+    started_at { Time.zone.local(2020, 6, 1) }
+    finished_at { Time.zone.local(2020, 10, 5) }
 
     trait :order_by_created_at do
       sequence(:task_name) { |n| "task_#{n}" }
@@ -18,7 +18,7 @@ FactoryBot.define do
     
     trait :order_by_finished_at do
       sequence(:task_name) { |n| "task_#{n}" }
-      sequence(:finished_at) { |n| Time.zone.local(2020, 8, 5) - n.days }
+      sequence(:finished_at) { |n| Time.zone.local(2020, 10, 5) - n.days }
     end
   end
 end

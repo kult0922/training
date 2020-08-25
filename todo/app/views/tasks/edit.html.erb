@@ -1,6 +1,6 @@
-<%= render 'shared/error_messages', model: @task %>
-<h1><%= I18n.t('tasks.edit.title') %></h1>
+<div class="container">
+  <%= render 'shared/error_messages', model: @task %>
+  <h1><%= @task.project.project_name %><%= I18n.t('tasks.edit.title') %></h1>
 
-<%= render 'form', task: @task, users: @users, project: @task.project %>
-
-<%= link_to I18n.t('tasks.back'), project_tasks_path %>
+  <%= render 'form', task: @task, users: @users, project: @task.project %>
+</div>

@@ -1,51 +1,60 @@
 <%= form_with(model: [project, task], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :'プロジェクト名' %>
-    <%= @task.project.project_name %>
+  <div class="form-group">
     <%= form.hidden_field :project_id, value: @task.project.id %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :'タスク名' %>
-    <%= form.text_field :task_name %>
+    <%= form.text_field :task_name, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :'説明' %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :'優先順位' %>
-    <%= form.select :priority, [ ["低", :low], ["中", :mid], ["高", :high] ] %>
+  <div class="form-row align-items-center mb-2">
+    <div class="col-auto">
+      <%= form.label :'優先順位' %>
+      <%= form.select :priority, Task.priorities.map { |k, v| [I18n.t("enums.task.priority.#{k}"), k] }, {}, class: "custom-select" %>
+    </div>
+
+    <div class="col-auto">
+      <%= form.label :'状態' %>
+      <%= form.select :status, Task.statuses.map { |k, v| [I18n.t("enums.task.status.#{k}"), k] }, {}, class: "custom-select" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :'状態' %>
-    <%= form.select :status, [ ["未着手", :todo], ["着手中", :in_progress], ["完了", :done] ] %>
+  <div class="form-row align-items-center mb-2">
+    <div class ="col-auto">
+      <%= form.label :'開始日付' %>
+      <%= form.date_field :started_at, class: 'custom-select' %>
+    </div>
+
+    <div class="col-auto">
+      <%= form.label :'終了日付' %>
+      <%= form.date_field :finished_at, class: 'custom-select' %>
+    </div>
   </div>
 
-  <div class ="field">
-    <%= form.label :'開始日付' %>
-    <%= form.date_field :started_at %>
+  <div class="form-row align-items-center mb-2">
+    <div class ="col-auto">
+      <%= form.label :'担当ユーザ' %>
+      <%= form.collection_select(:assignee_id, @users, :id, :account_name, {}, class:'custom-select') %>
+    </div>
+
+    <div class="col-auto">
+      <%= form.label :'報告者ユーザ' %>
+      <%= form.collection_select(:reporter_id, @users, :id, :account_name, {}, class:'custom-select') %>
+    </div>
   </div>
 
-  <div class ="field">
-    <%= form.label :'終了日付' %>
-    <%= form.date_field :finished_at %>
-  </div>
-
-  <div class ="field">
-    <%= form.label :'担当ユーザ' %>
-    <%= form.collection_select(:assignee_id, @users, :id, :account_name) %>
-  </div>
-
-  <div class ="field">
-    <%= form.label :'報告者ユーザ' %>
-    <%= form.collection_select(:reporter_id, @users, :id, :account_name) %>
-  </div>
-
-  <div class="create">
-    <%= form.submit %>
+  <div class="row mb-2">
+    <div class ="col-auto">
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
+    <div class="col-auto">
+      <%= link_to I18n.t('tasks.back'), project_tasks_path, class: 'btn btn-secondary' %>
+    </div>
   </div>
 <% end %>
