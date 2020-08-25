@@ -9,12 +9,17 @@
   </div>
 </div>
 <div class="row mb-4">
+  
   <% @status_list.each do |status| %>
     <div class="col">
       <p class="text-center"><%= Project.human_attribute_name(status.to_sym) %></p>
       <ul class="list-group">
         <% @projects.where(status: status.to_sym).each do |project| %>
-          <li class="list-group-item"><%= render partial: "project_info", locals: {project: project} %></li>
+          <% if @user_have_pj.include?(project.id) %>
+            <li class="list-group-item"><%= render partial: "project_info", locals: {project: project} %></li>
+          <% else %>
+            <li class="list-group-item"><%= render partial: "project_info_not_allowed", locals: {project: project} %></li>
+          <% end %>
       </ul>
       <% end %>
     </div>
