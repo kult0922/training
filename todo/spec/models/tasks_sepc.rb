@@ -24,6 +24,7 @@ RSpec.describe Task, type: :model do
       task.started_at = ''
       is_expected.to be_invalid
       expect(task.errors.full_messages[0]).to eq '開始日を入力してください'
+      expect(task.errors.full_messages[1]).to eq '開始日の日付形式が正しくありません'
     end
   end
 
@@ -32,6 +33,8 @@ RSpec.describe Task, type: :model do
       task.finished_at = ''
       is_expected.to be_invalid
       expect(task.errors.full_messages[0]).to eq '終了日を入力してください'
+      expect(task.errors.full_messages[1]).to eq '終了日の日付形式が正しくありません'
+      expect(task.errors.full_messages[2]).to eq '終了日は開始日付より後の日付にしてください'
     end
   end
 
@@ -147,7 +150,7 @@ RSpec.describe Task, type: :model do
       describe '#finished_at_order' do
         context 'when task order by desc' do
           it 'first task finished_at is biggest' do
-            desc_finished_at = Task.order_finished_at(:desc)
+            desc_finished_at = Task.order_by_at(:desc)
             expect(desc_finished_at[4].finished_at < desc_finished_at[3].finished_at).to be true
             expect(desc_finished_at[3].finished_at < desc_finished_at[2].finished_at).to be true
             expect(desc_finished_at[2].finished_at < desc_finished_at[1].finished_at).to be true
@@ -157,7 +160,7 @@ RSpec.describe Task, type: :model do
 
         context 'when task order by asc' do
           it 'forth task finishied_at is biggest' do
-            asc_finished_at = Task.order_finished_at(:asc)
+            asc_finished_at = Task.order_by_at(:asc)
             expect(asc_finished_at[4].finished_at > asc_finished_at[3].finished_at).to be true
             expect(asc_finished_at[3].finished_at > asc_finished_at[2].finished_at).to be true
             expect(asc_finished_at[2].finished_at > asc_finished_at[1].finished_at).to be true

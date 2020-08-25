@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_070218) do
+ActiveRecord::Schema.define(version: 2020_08_24_051806) do
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "project_name", null: false
@@ -35,16 +35,14 @@ ActiveRecord::Schema.define(version: 2020_08_19_070218) do
     t.string "task_name", null: false
     t.bigint "project_id"
     t.integer "priority", null: false
+    t.integer "status"
     t.bigint "assignee_id"
-    t.string "assignee_name"
     t.bigint "reporter_id"
-    t.string "reporter_name"
     t.text "description"
     t.date "started_at", null: false
     t.date "finished_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "status"
     t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
     t.index ["finished_at"], name: "index_tasks_on_finished_at"
     t.index ["priority"], name: "index_tasks_on_priority"

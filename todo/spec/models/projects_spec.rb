@@ -23,6 +23,7 @@ RSpec.describe Project, type: :model do
       project.started_at = ''
       is_expected.to be_invalid
       expect(project.errors.full_messages[0]).to eq '開始日を入力してください'
+      expect(project.errors.full_messages[1]).to eq '開始日の日付形式が正しくありません'
     end
   end
 
@@ -31,6 +32,8 @@ RSpec.describe Project, type: :model do
       project.finished_at = ''
       is_expected.to be_invalid
       expect(project.errors.full_messages[0]).to eq '終了日を入力してください'
+      expect(project.errors.full_messages[1]).to eq '終了日の日付形式が正しくありません'
+      expect(project.errors.full_messages[2]).to eq '終了日は開始日付より後の日付にしてください'
     end
   end
 end

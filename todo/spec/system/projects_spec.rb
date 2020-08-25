@@ -11,7 +11,6 @@ RSpec.describe Project, type: :system do
         visit projects_path
 
         expect(page).to have_content 'PJ_Factory'
-        expect(page).to have_content 'factory_test'
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '修正'
         expect(page).to have_content '削除'
