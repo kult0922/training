@@ -13,7 +13,7 @@ RSpec.describe 'Tasks', type: :request do
       {
         task: {
           title: 'test1',
-          discription: 'test1',
+          description: 'test1',
         },
       }
     }
@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :request do
         {
           task: {
             title: 'after_title',
-            discription: 'after_discription',
+            description: 'after_description',
           },
         }
       }
@@ -62,7 +62,7 @@ RSpec.describe 'Tasks', type: :request do
       before do
         task.update(
           title: 'before_title',
-          discription: 'before_discription',
+          description: 'before_description',
         )
       end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Tasks', type: :request do
           is_expected.to have_http_status(:found)
 
           expect(task.title).to eq 'after_title'
-          expect(task.discription).to eq 'after_discription'
+          expect(task.description).to eq 'after_description'
         end
       end
 
@@ -92,7 +92,7 @@ RSpec.describe 'Tasks', type: :request do
         end
       end
 
-      context 'when discription dont update' do
+      context 'when description dont update' do
         let(:params) { super().merge(task: { title: 'after_title' }) }
 
         it 'task.title has been updated with after_title' do
@@ -102,26 +102,26 @@ RSpec.describe 'Tasks', type: :request do
           is_expected.to have_http_status(:found)
 
           expect(task.title).to eq 'after_title'
-          expect(task.discription).to eq 'before_discription'
+          expect(task.description).to eq 'before_description'
         end
       end
 
       context 'when title dont update' do
-        let(:params) { super().merge(task: { discription: 'after_discription' }) }
+        let(:params) { super().merge(task: { description: 'after_description' }) }
 
-        it 'task.description has been updated with after_discription' do
+        it 'task.description has been updated with after_description' do
           action
 
           task.reload
           is_expected.to have_http_status(:found)
 
           expect(task.title).to eq 'before_title'
-          expect(task.discription).to eq 'after_discription'
+          expect(task.description).to eq 'after_description'
         end
       end
 
-      context 'when discription is nil' do
-        let(:params) { super().merge(task: { title: 'after_title', discription: nil }) }
+      context 'when description is nil' do
+        let(:params) { super().merge(task: { title: 'after_title', description: nil }) }
 
         it 'task.description has been updated with nil' do
           action
@@ -130,7 +130,7 @@ RSpec.describe 'Tasks', type: :request do
           is_expected.to have_http_status(:found)
 
           expect(task.title).to eq 'after_title'
-          expect(task.discription).to eq nil
+          expect(task.description).to eq nil
         end
       end
     end
