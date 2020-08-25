@@ -3,10 +3,14 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :logged_in_user
+  before_action :current_user
 
   def index
     @project = Project.find(params[:project_id])
-    @tasks = @project.tasks.eager_load(:assignee, :reporter).order(created_at: :desc).page(params[:page]).per(20)
+    @tasks = @project.tasks.eager_load(:assignee, :reporter)
+    .where('assignee_id = ? OR reporter_id = ? ', @current_user, @current_user)
+    .order(created_at: :desc)
+    .page(params[:page]).per(20)
   end
 
   def show
@@ -63,6 +67,7 @@ class TasksController < ApplicationController
   private def tasks_search(project)
     @order_by = sort_direction
     project.tasks.eager_load(:assignee, :reporter)
+      .where('assignee_id = ? OR reporter_id = ? ', @current_user, @current_user)
       .name_search(params[:name])
       .status_search(params[:status_search])
       .priority_search(params[:priority_search])
