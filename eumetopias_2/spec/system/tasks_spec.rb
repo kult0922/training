@@ -10,11 +10,19 @@ RSpec.describe "Task", type: :system do
   describe "Create new task" do
     let(:submit) { "新規作成" }
     before { visit new_task_path }
-    # TODO:
-    # 不正な値が入力されたケースはバリデーション設定後に実装する。
-    # describe "with invalid information" do
-    # end
-
+    describe "with invalid information" do
+      let(:error_message1) {"Titleを入力してください"}
+      let(:error_message2) {"Descriptionを入力してください"}
+      before do
+        select "着手中", from: "task_task_status_id"
+      end
+      it "shoud respond with error and not create a task" do
+        expect { click_button submit }.to change(Task, :count).by(0)
+        expect(page).to have_content error_message1
+        expect(page).to have_content error_message2
+      end
+    end
+    
     describe "with valid information" do
       before do
         fill_in "task_title", with: "example title"

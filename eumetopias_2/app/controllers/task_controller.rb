@@ -21,6 +21,7 @@ class TaskController < ApplicationController
       flash[:notice] = t('dictionary.message.create.complete')
       redirect_to root_path
     else
+      @status_selection = task_status_list
       render 'new'
     end
   end
