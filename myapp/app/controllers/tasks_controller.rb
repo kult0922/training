@@ -20,24 +20,24 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(permitted_tasks_params)
     if @task.save
-      redirect_to root_path, notice: 'Added task'
+      redirect_to root_path, notice: I18n.t('tasks.controller.messages.created')
     else
-      redirect_to root_path, notice: 'Failure added task' # TODO: fix path
+      redirect_to root_path, notice: I18n.t('tasks.controller.messages.failed_to_create') # TODO: fix path, n -> a
     end
   end
 
   def update
     @task = Task.find(params[:id])
     if @task.update(permitted_tasks_params)
-      redirect_to root_path, notice: 'Edited task'
+      redirect_to root_path, notice: I18n.t('tasks.controller.messages.edited')
     else
-      redirect_to root_path, notice: 'Failure edited task' # TODO: fix path
+      redirect_to root_path, notice: I18n.t('tasks.controller.messages.failed_to_edited') # TODO: fix path, n -> a
     end
   end
 
   def destroy
     Task.find(params[:id]).destroy!
-    redirect_to root_path, notice: 'Deleted task'
+    redirect_to root_path, notice: I18n.t('tasks.controller.messages.deleted')
   end
 
   private

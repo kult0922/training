@@ -1,0 +1,21 @@
+ja:
+  tasks:
+    index:
+      page_title: 'タスク一覧'
+      create: '新規作成'
+      title: 'タスク名'
+      description: 'タスク説明文'
+      show: '詳細'
+      edit: '編集'
+      delete: '削除'
+    new:
+      page_title: 'タスク作成'
+    show:
+      page_title: 'タスク詳細'
+      edit: '編集'
+      back: '戻る'
+    edit:
+      page_title: 'タスク編集'
+      show: '詳細'
+      back: '戻る'
+

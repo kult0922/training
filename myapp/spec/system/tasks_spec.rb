@@ -11,18 +11,18 @@ RSpec.describe Task, type: :system do
     end
 
     it 'visit task index page' do
-      expect(page).to have_content 'Task List'
-      expect(page).to have_content 'Create New Task'
-      expect(page).to have_content 'Title'
-      expect(page).to have_content 'Description'
-      expect(page).to have_content 'show'
-      expect(page).to have_content 'edit'
+      expect(page).to have_content 'タスク一覧'
+      expect(page).to have_content '新規作成'
+      expect(page).to have_content 'タスク名'
+      expect(page).to have_content 'タスク説明文'
+      expect(page).to have_content '詳細'
+      expect(page).to have_content '編集'
 
       expect(page).to have_content task.title
       expect(page).to have_content task.description
 
-      click_on 'destroy'
-      expect(page).to have_content 'Deleted task'
+      click_on '削除'
+      expect(page).to have_content 'タスクを削除しました'
       expect(Task.count).to eq 0
     end
   end
@@ -35,11 +35,11 @@ RSpec.describe Task, type: :system do
     end
 
     it 'visit task new page' do
-      expect(page).to have_content 'New Task'
+      expect(page).to have_content 'タスク作成'
 
-      click_on 'Create Task'
+      click_on '登録する'
 
-      expect(page).to have_content 'Added task'
+      expect(page).to have_content 'タスクを作成しました'
 
       expect(page).to have_content 'create_title'
       expect(page).to have_content 'create_description'
@@ -55,7 +55,7 @@ RSpec.describe Task, type: :system do
     end
 
     it 'visit task show page' do
-      expect(page).to have_content 'Task Detail'
+      expect(page).to have_content 'タスク詳細'
 
       expect(page).to have_content task.title
       expect(page).to have_content task.description
@@ -71,9 +71,9 @@ RSpec.describe Task, type: :system do
     end
 
     it 'visit task edit page' do
-      click_on 'Update Task'
+      expect(page).to have_content 'タスク編集'
 
-      expect(page).to have_content 'Edited task'
+      click_on '更新する'
 
       expect(page).to have_content 'edit_title'
       expect(page).to have_content 'edit_description'

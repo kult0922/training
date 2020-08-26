@@ -25,7 +25,7 @@ RSpec.describe 'Tasks', type: :request do
         is_expected.to have_http_status(:found)
 
         expect(Task.count).to eq 1
-        expect(flash[:notice]).to eq 'Added task'
+        expect(flash[:notice]).to eq 'タスクを作成しました'
       end
     end
 
@@ -148,7 +148,7 @@ RSpec.describe 'Tasks', type: :request do
         action
 
         is_expected.to have_http_status(:found)
-        expect(flash[:notice]).to eq 'Deleted task'
+        expect(flash[:notice]).to eq 'タスクを削除しました'
       end
 
       it 'task can be deleted' do

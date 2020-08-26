@@ -1,14 +1,5 @@
 ---
 ja:
-  task:
-    index:
-      page_title: 'タスク一覧'
-      create: '新規作成'
-      titile: 'タスク名'
-      discription: 'タスク説明文'
-      show: '詳細'
-      edit: '編集'
-      delete: '削除'
   activerecord:
     errors:
       messages:
@@ -214,3 +205,12 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  tasks:
+    controller:
+      messages:
+        created: 'タスクを作成しました'
+        failed_to_create: 'タスクを作成に失敗しました'
+        edited: 'タスクを編集しました'
+        failed_to_edited: 'タスクを編集に失敗しました'
+        deleted: 'タスクを削除しました'
+
