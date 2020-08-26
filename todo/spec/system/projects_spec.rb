@@ -8,7 +8,7 @@ RSpec.describe Project, type: :system do
   let!(:user_project) { create(:user_project, user_id: user.id, project_id: project.id) }
 
   describe '#index' do
-    before {login(user)}
+    before { login(user) }
     context 'when index page visit' do
       it 'factory bot project is visible' do
         visit projects_path
@@ -55,6 +55,7 @@ RSpec.describe Project, type: :system do
   end
 
   describe '#show' do
+    before { login(user) }
     context 'when task is click' do
       it 'move to the project detail page' do
         visit project_path(project.id)
@@ -104,7 +105,7 @@ RSpec.describe Project, type: :system do
   end
 
   describe '#delete' do
-    before {login(user)}
+    before { login(user) }
     context 'when project delete' do
       it 'project was deleted' do
         visit projects_path
