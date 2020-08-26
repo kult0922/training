@@ -69,9 +69,37 @@ RSpec.describe "Task", type: :system do
       test_status = TaskStatus.find_by(name: "未着手").id
       Task.create(title: test_title, description: 'dummy', task_status_id: test_status)
     end
-    it "should have task title" do
+    it "should have added task title" do
       visit root_path
       expect(page).to have_content test_title
     end
+  end
+
+  describe "Task list page search" do
+    let(:submit) { "検索" }
+    before do 
+      untouch_id = TaskStatus.find_by(name: '未着手').id
+      in_progress_id = TaskStatus.find_by(name: '着手中').id
+      finished_id = TaskStatus.find_by(name: '完了').id
+      sample_data = {"untouch title"=>untouch_id, "in progress title"=>in_progress_id, "finished title"=>finished_id}
+      sample_data.each do |title, status_id|
+        Task.create(title: title, description: "dummy description", task_status_id: status_id)
+      end
+      visit root_path
+
+    end
+    it 'should show search result with correct task title' do
+      select "未着手", from: "task_status_id"
+      click_button submit
+      expect(page).to have_content 'untouch title'
+
+      select "着手中", from: "task_status_id"
+      click_button submit
+      expect(page).to have_content 'in progress title'
+
+      select "完了", from: "task_status_id"
+      click_button submit
+      expect(page).to have_content 'finished title'
+    end 
   end
 end
