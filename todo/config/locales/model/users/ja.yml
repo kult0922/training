@@ -2,4 +2,3 @@ ja:
   activerecord:
     models:
       user: 'ユーザ' 
-    attributes:
