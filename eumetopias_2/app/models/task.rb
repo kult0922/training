@@ -3,5 +3,5 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
 
-  scope :search_by_status, -> (term){where(task_status_id: term)}
+  scope :search_by_status_id, -> (term){where(task_status_id: term)}
 end

@@ -4,7 +4,7 @@ class TaskController < ApplicationController
     if task_status_id.blank?
       @task = Task.all
     else
-      @task = Task.search_by_status(task_status_id)
+      @task = Task.search_by_status_id(task_status_id)
     end
     @status_selection = task_status_list
     @status_selection.store('全て', '')
