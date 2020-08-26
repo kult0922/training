@@ -4,7 +4,7 @@ RSpec.feature "Task", type: :feature do
   # タスク降順テスト
   describe 'TaskListDecendingOrder' do
     before do
-      @tasks = create_list(:sample_task, 5)
+      @tasks = create_list(:valid_sample_task, 5)
     end
     it "is descending orders in task index screen" do
       # タスク一覧画面へ移動
