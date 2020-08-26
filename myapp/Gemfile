@@ -36,6 +36,8 @@ group :development, :test do
 
   # rubocop
   gem 'fablicop', require: false
+  gem 'pry-rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -52,6 +54,11 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'simplecov'
+  gem 'test-prof'
   gem 'webdrivers'
 end
 
