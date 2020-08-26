@@ -42,3 +42,6 @@ yarn-debug.log*
 
 # Ignore vscode.
 /.vscode/*
+
+/.rspec
+/Searching
