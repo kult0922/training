@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Task", type: :system do
-
+  before do 
+    statuses = {"未着手"=>"誰も手を付けていない", "着手中"=>"対応中", "完了"=>"対応完了"}
+    statuses.each do |key, value| 
+      TaskStatus.create(name: key, description: value)
+    end
+  end
   describe "Create new task" do
-    let(:submit) {I18n.t('dictionary.button.create') }
+    let(:submit) { "新規作成" }
     before { visit new_task_path }
     # TODO:
     # 不正な値が入力されたケースはバリデーション設定後に実装する。
@@ -12,8 +17,9 @@ RSpec.describe "Task", type: :system do
 
     describe "with valid information" do
       before do
-        fill_in "task[title]", with: "example title"
-        fill_in "task[description]", with: "example description"
+        fill_in "task_title", with: "example title"
+        fill_in "task_description", with: "example description"
+        select "着手中", from: "task_task_status_id"
       end
       it "shoud create a task" do
         expect { click_button submit }.to change(Task, :count).by(1)
@@ -22,14 +28,15 @@ RSpec.describe "Task", type: :system do
   end
 
   describe "Update task" do
-    let(:submit) {I18n.t('dictionary.button.update') }
+    let(:submit) { "更新" }
     let(:revised_title) {"revised title"}
     let(:revised_description) {"revised description"}
     before do
-      @task = Task.create(title: 'unrivised title', description: 'unrevised description')
+      test_status = TaskStatus.find_by(name: "未着手").id
+      @task = Task.create(title: 'unrivised title', description: 'unrevised description', task_status_id: test_status)
       visit "/task/" + @task.id.to_s + "/edit"
-      fill_in "task[title]", with: revised_title
-      fill_in "task[description]", with: revised_description
+      fill_in "task_title", with: revised_title
+      fill_in "task_description", with: revised_description
     end
     it "should match record with revision" do
       click_button submit
@@ -40,9 +47,10 @@ RSpec.describe "Task", type: :system do
 
   describe "Delete task" do
     before do
-      @task = Task.create(title: 'test title', description: 'test description')
+      test_status = TaskStatus.find_by(name: "未着手").id
+      @task = Task.create(title: 'test title', description: 'test description', task_status_id: test_status)
     end
-    it "shoudl delete task" do
+    it "should delete task" do
       expect {delete "/task/" + @task.id.to_s}.to change {Task.count}.by(-1)
     end
   end
@@ -50,7 +58,8 @@ RSpec.describe "Task", type: :system do
   describe "Task list page" do
     let(:test_title) {"test task 9876"}
     before do
-      Task.create(title: test_title, description: 'dummy')
+      test_status = TaskStatus.find_by(name: "未着手").id
+      Task.create(title: test_title, description: 'dummy', task_status_id: test_status)
     end
     it "should have task title" do
       visit root_path
