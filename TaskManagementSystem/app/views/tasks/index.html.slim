@@ -12,22 +12,28 @@
   table.table.mt-3
     thead.thead-light
       tr
-        th.col-xs-1 優先度
+        th.col-xs-2.text-center 優先度
         th.col-xs-3 タスク名
-        th.col-xs-3 ラベル
-        th.col-xs-1 終了期限
-        th.col-xs-1 ステータス
-        th.col-xs-1 詳細
-        th.col-xs-1 編集
-        th.col-xs-1 削除
+        th.col-xs-1 
+          .row 終了期限/
+          .row 作成日
+        th.col-xs-3
+          .row ステータス/
+          .row ラベル
+        th.col-xs-1.text-center 詳細
+        th.col-xs-1.text-center 編集
+        th.col-xs-1.text-center 削除
       - @tasks.each do |task|
         tbody
           tr
-            td.col-xs-1.text-center = task.priority
+            td.col-xs-2.text-center = task.priority
             td.col-xs-3 = task.title
-            td.col-xs-3 ラベル
-            td.col-xs-1 = task.deadline.strftime('%Y/%m/%d')
-            td.col-xs-1 = task.status_i18n
-            td.col-xs-1 = link_to  '詳細', task_path(task), class:"btn btn-info btn-sm", style: "width:45px"
-            td.col-xs-1 = link_to  '編集', edit_task_path(task), class:"btn btn-warning btn-sm", style: "width:45px"
-            td.col-xs-1 = link_to  '削除', task_path(task), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
+            td.col-xs-1 
+              .row = task.deadline.strftime('%Y/%m/%d')
+              .row = task.created_at.strftime('%Y/%m/%d')
+            td.col-xs-3
+              .row = task.status_i18n
+              .row.text-center ラベル
+            td.col-xs-1.text-center = link_to  '詳細', task_path(task), class:"btn btn-info btn-sm", style: "width:45px"
+            td.col-xs-1.text-center = link_to  '編集', edit_task_path(task), class:"btn btn-warning btn-sm", style: "width:45px"
+            td.col-xs-1.text-center = link_to  '削除', task_path(task), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
