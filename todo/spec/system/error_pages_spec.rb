@@ -11,7 +11,10 @@ describe '#Exception', type: :system do
   end
 
   context 'when exception reised' do
+    let!(:user) { create(:user) }
+    
     it 'render 500 error' do
+      login(user)
       allow(Project).to receive(:all).and_raise(RuntimeError)
       visit projects_path
       expect(page).to have_content 'サーバに問題が発生しました。'
