@@ -7,7 +7,11 @@ RSpec.describe Task, type: :system do
   let(:task) { create(:task, assignee_id: user.id, reporter_id: user.id) }
 
   describe '#index' do
-    before { visit project_tasks_path(task.project, task) }
+    before do
+      login(user)
+      visit project_tasks_path(task.project, task)
+    end
+
     context 'when visit task index page' do
       it 'index page have' do
         expect(page).to have_content 'test_task'
@@ -150,7 +154,10 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#new' do
-    before { visit new_project_task_path(task.project) }
+    before do
+      login(user)
+      visit new_project_task_path(task.project)
+    end
     context 'when create task' do
       it 'task was created' do
         fill_in 'task_task_name', with: 'add_task'
@@ -181,6 +188,7 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#show' do
+    before { login(user) }
     context 'when show page enter' do
       it 'check task detail page' do
         visit project_task_path(task.project, task)
@@ -188,8 +196,8 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content 'PJ_Factory'
         expect(page).to have_content 'test_discription'
         expect(page).to have_content '高'
-        expect(page).to have_content 'user_11'
-        expect(page).to have_content 'user_11'
+        expect(page).to have_content 'factoryUser11'
+        expect(page).to have_content 'factoryUser11'
         expect(page).to have_content '2020-06-01'
         expect(page).to have_content '2020-10-05'
       end
@@ -197,7 +205,10 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#edit' do
-    before { visit edit_project_task_path(task.project, task) }
+    before do
+      login(user)
+      visit edit_project_task_path(task.project, task)
+    end
     context 'when task edit' do
       it 'edit task' do
         fill_in 'task_task_name', with: 'edit_task'
@@ -231,6 +242,7 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#delete' do
+    before { login(user) }
     context 'when task delete' do
       it 'delete task' do
         visit project_tasks_path(task.project, task)

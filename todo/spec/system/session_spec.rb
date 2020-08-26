@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe '#session', type: :system do
@@ -5,7 +7,7 @@ describe '#session', type: :system do
 
   describe '#login' do
     before { visit login_path }
-    
+
     context 'when user id is not exist' do
       it 'should be login error' do
         fill_in 'session_account_name', with: 'monolla'
