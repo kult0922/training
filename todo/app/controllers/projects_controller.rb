@@ -3,7 +3,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :logged_in_user
-  before_action :current_user
   include UserProjectsHelper
 
   def index
@@ -60,8 +59,8 @@ class ProjectsController < ApplicationController
   end
 
   def create_user_project
-    if UserProject.find_by(user_id: @current_user, project_id: @project.id).blank?
-      user_project = UserProject.new(user_id: @current_user, project_id: @project.id)
+    if UserProject.find_by(user_id: session[:user_id], project_id: @project.id).blank?
+      user_project = UserProject.new(user_id: session[:user_id], project_id: @project.id)
       flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
     end
   end
