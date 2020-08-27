@@ -13,13 +13,4 @@ FactoryBot.define do
     status {1}
     created_at {generate :sample_created}
   end
-
-  factory :invalid_sample_task, class: Task do
-    user_id {}
-    title {'タスク名の編集テスト'*20}
-    description {'タスク説明の編集テスト'*100}
-    priority {}
-    deadline {Time.strptime("2019年10月2日 12:13:23", '%Y年%m月%d日 %H:%M:%S')}
-    status {}
-  end
 end
