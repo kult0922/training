@@ -8,6 +8,6 @@ class Task < ApplicationRecord
   enum status: { waiting: 0, working: 1, completed: 2}
 
   def deadline_not_before_today
-    errors.add(:deadline, "は現在の日時以降のものを選択して下さい") if deadline.nil? || deadline < Date.today
+    errors.add(:deadline, 'は現在の日時以降のものを選択して下さい') if deadline.nil? || deadline < Date.today
   end
 end
