@@ -1,12 +1,23 @@
 ja:
   users:
     new:
-      title: 'ログイン'
+      title: 'ユーザ登録'
       login: 'ログイン'
       create: 'ユーザ登録'
       name: 'ユーザ名'
       logout: 'ログアウト'
     fail:
-      message: 'ログインが必要です。'
+      message: 'ログインが必要です'
       back: 'ログインページ'
-    
+    index:
+      title: '管理者専用ページ'
+      account_name: 'ユーザ名'
+      created_at: '作成日'
+      updated_at: '更新日'
+      admin: '管理者権限'
+      create: 'ユーザ登録'
+    edit:
+      title: 'ユーザ編集'
+    show:
+      title: 'ユーザ保有タスク一覧'
+

@@ -52,3 +52,7 @@ ja:
     fail:
       message: 'ログインが必要です。'
       back: 'ログインページ'
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+

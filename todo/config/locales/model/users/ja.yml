@@ -1,4 +1,10 @@
 ja:
   activerecord:
     models:
-      user: 'ユーザ' 
+      user: 'ユーザ'
+    attributes:
+      user:
+        account_name: 'ユーザ名'
+        created_at: '作成日'
+        updated_at: '更新日'
+        password: 'パスワード'
