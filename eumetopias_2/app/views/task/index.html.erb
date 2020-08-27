@@ -22,13 +22,7 @@
   <tr>
     <th><%= task.title %></th>
     <th><%=task.description %></th>
-    <th>
-      <% if task_status = task.task_status %>
-        <%= task_status.name %>
-      <% else %>
-        <%= '-' %>
-      <% end %>
-    </th>
+    <th><%=task.task_status.name %></th>
     <th><%= link_to t('dictionary.button.show'), task_path(task) %></th>
     <th><%= link_to t('dictionary.button.edit'), edit_task_path(task) %></th>
     <th><%= link_to t('dictionary.button.destroy'), task_path(task), method: :delete, data:{ confirm: t('dictionary.message.destroy.confirm')} %></th>
