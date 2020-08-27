@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_051806) do
+ActiveRecord::Schema.define(version: 2020_08_27_014027) do
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "project_name", null: false
@@ -61,10 +61,12 @@ ActiveRecord::Schema.define(version: 2020_08_24_051806) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "account_name", collation: "utf8mb4_bin"
+    t.string "account_name", limit: 191
     t.string "password_digest", null: false
+    t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_name"], name: "index_users_on_account_name", unique: true
   end
 
   add_foreign_key "task_lables", "tasks"
