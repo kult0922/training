@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Task, type: :feature do
   let!(:task) { create(:task) }
-  let!(:task_new) { create(:task, title: 'test_new', created_at: Time.zone.tomorrow) }
+  let!(:task_new) { create(:task, created_at: Time.zone.tomorrow) }
 
   before do
     visit root_path

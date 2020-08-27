@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    @tasks = Task.all.order(created_at: 'DESC')
   end
 
   def new
