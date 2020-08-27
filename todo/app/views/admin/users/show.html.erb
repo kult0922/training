@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row mb-2">
+    <div class="col">
+      <h1><%= I18n.t('users.show.title') %></h1>
+    </div>
+    <div class = "col">
+      <%= link_to I18n.t('users.index.create'), new_admin_user_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>
+<div class="task_table">
+  <table class="table table-striped">
+    <tr>
+      <th><%= I18n.t('tasks.index.name') %></th>
+      <th><%= I18n.t('tasks.index.project') %></th>
+      <th><%= I18n.t('tasks.index.priority') %></th>
+      <th><%= I18n.t('tasks.index.status') %></th>
+      <th><%= I18n.t('tasks.index.finished_at') %></th>
+      <th colspan = 2></th>
+    </tr>
+    
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= link_to task.task_name, project_task_path(task.project_id, task), class: 'btn btn-primary' %></td>
+      <td><%= task.project.project_name %>
+      <td><%= task.priority_i18n %></td>
+      <td><%= task.status_i18n %></td>
+      <td><%= task.finished_at %></td>
+      <td><%= link_to I18n.t('tasks.index.update'), edit_project_task_path(task.project_id, task), class: 'btn btn-secondary' %></td>
+      <td><%= link_to I18n.t('tasks.index.delete'), project_task_path(task.project_id, task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') },class: 'btn btn-danger' %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<div class="pagenation">
+  <%= paginate @tasks %>
+</div>
+<div class="back">
+  <%= link_to I18n.t('tasks.back'), admin_user_path, class: 'btn btn-primary' %>
+</div>

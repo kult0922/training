@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row mb-2">
+    <div class="col">
+      <h1><%= I18n.t('users.index.title') %></h1>
+    </div>
+    <div class = "col">
+      <%= link_to I18n.t('users.index.create'), new_admin_user_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+</div>
+<div class="user_table">
+  <table class="table table-striped">
+    <tr>
+      <th><%= I18n.t('users.index.account_name') %></th>
+      <th><%= I18n.t('users.index.admin') %></th>
+      <th><%= I18n.t('users.index.created_at') %></th>
+      <th><%= I18n.t('users.index.updated_at') %></th>
+      <th colspan = 2></th>
+    </tr>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to user.account_name, admin_user_path(user), class: 'btn btn-primary' %></td>
+      <td><%= user.admin %></td>
+      <td><%= I18n.l(user.created_at) %></td>
+      <td><%= I18n.l(user.updated_at) %></td>
+      <td><%= link_to I18n.t('tasks.index.update'), edit_admin_user_path(user), class: 'btn btn-secondary' %></td>
+      <td><%= link_to I18n.t('tasks.index.delete'), admin_user_path(user), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') },class: 'btn btn-danger' %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<div class="pagenation">
+  <%= paginate @users %>
+</div>
