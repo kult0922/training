@@ -1,10 +1,12 @@
 class TaskController < ApplicationController
+  PER = 10
+
   def index
     task_status_id = params[:task_status_id]
     if task_status_id.blank?
-      @task = Task.all
+      @task = Task.page(params[:page]).per(PER)
     else
-      @task = Task.search_by_status_id(task_status_id)
+      @task = Task.search_by_status_id(task_status_id).page(params[:page]).per(PER)
     end
     @status_selection = task_status_list
     @status_selection.store('全て', '')
