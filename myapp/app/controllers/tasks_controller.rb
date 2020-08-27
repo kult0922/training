@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    @tasks = Task.all.order(created_at: 'DESC')
   end
 
   def new
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.created')
     else
-      redirect_to root_path, notice: I18n.t('tasks.controller.messages.failed_to_create') # TODO: fix path, n -> a
+      render 'new', notice: I18n.t('tasks.controller.messages.failed_to_create') # TODO: fix path, n -> a
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     if @task.update(permitted_tasks_params)
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.edited')
     else
-      redirect_to root_path, notice: I18n.t('tasks.controller.messages.failed_to_edited') # TODO: fix path, n -> a
+      render 'edit', notice: I18n.t('tasks.controller.messages.failed_to_edited') # TODO: fix path, n -> a
     end
   end
 
