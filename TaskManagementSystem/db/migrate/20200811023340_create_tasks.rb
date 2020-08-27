@@ -7,7 +7,7 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.string :title, null: false, limit: 50
       t.text :description, null: true, limit: 250
       t.integer :priority, default: 1
-      t.datetime :deadline, default: Date.today
+      t.datetime :deadline, default: DateTime.now
       t.integer :status, default: 0
 
       t.timestamps
