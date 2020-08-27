@@ -10,4 +10,12 @@ class Task < ApplicationRecord
   def deadline_not_before_today
     errors.add(:deadline, 'は現在の日時以降のものを選択して下さい') if deadline.nil? || deadline < Date.today
   end
+
+  # 終了期限のコールバック
+  before_save :deadline_blank?
+
+  private
+    def deadline_blank?
+      self.deadline = DateTime.now if self.deadline.blank?
+    end
 end
