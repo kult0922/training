@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :project do
-    project_name { 'PJ_Factory' }
+    sequence(:project_name, 'PJ_Factory_1')
     status { :in_progress }
     description { 'factory_test' }
     started_at { Time.zone.local(2020, 8, 1) }
