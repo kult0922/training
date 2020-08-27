@@ -62,5 +62,8 @@ private
   end
 
   def task_status_list
-    TaskStatus.all.map{ |status| [status.name, status.id] }.to_h
+    TaskStatus.all.map{
+      |status| [status.name, status.id]
+    }.to_h
+
   end
