@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
     t.string "title", limit: 50, null: false
     t.text "description", size: :tiny
     t.integer "priority", default: 1
-    t.datetime "deadline", default: "2020-08-27 10:59:03"
+    t.datetime "deadline", default: "2020-08-27 15:23:41"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

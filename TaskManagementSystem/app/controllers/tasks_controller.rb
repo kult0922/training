@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
+    @task = Task.new
     @tasks = Task.all.order(created_at: :desc)
   end
 
@@ -44,6 +45,11 @@ class TasksController < ApplicationController
     end
   end
 
+  def search
+    @selection = params[:keyword]
+    @tasks = Task.sort(@selection)
+  end
+
   private
 
   def set_task
@@ -51,11 +57,15 @@ class TasksController < ApplicationController
     if @task.present?
       return @task
     else
-      redirect_to root_path, danger: '存在しないタスクです'
+      return redirect_to root_path, danger: '存在しないタスクです'
     end
   end
 
   def task_params
     params.require(:task).permit(:user_id, :title, :description, :priority, :status, :deadline)
   end
+
+  # def search_params
+  #   params.require(:task).permit(:keyword)
+  # end
 end
