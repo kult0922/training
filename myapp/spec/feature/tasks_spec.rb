@@ -12,8 +12,8 @@ RSpec.describe Task, type: :feature do
 
   context 'When there are multiple tasks' do
     it 'check sort by created_at desc' do
-      expect(all('tbody tr')[0].text).to have_content task_new.title
-      expect(all('tbody tr')[1].text).to have_content task.title
+      expect(all('tbody tr').count > 1).to be_truthy
+      expect(all('tbody tr').first.text).to have_content task_new.title
     end
   end
 end
