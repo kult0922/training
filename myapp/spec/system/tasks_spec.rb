@@ -25,6 +25,25 @@ RSpec.describe Task, type: :system do
       expect(page).to have_content 'タスクを削除しました'
       expect(Task.count).to eq 0
     end
+
+    context 'when click due_date' do
+      let!(:task_dute_date_late) { create(:task, due_date: task.due_date.tomorrow) }
+
+      it 'once' do
+        visit root_path
+
+        click_link '終了期限'
+        expect(all('tbody tr').first.text).to have_content task.title
+      end
+
+      it 'twice' do
+        visit root_path
+
+        click_link '終了期限'
+        click_link '終了期限'
+        expect(all('tbody tr').first.text).to have_content task_dute_date_late.title
+      end
+    end
   end
 
   describe '#new' do
