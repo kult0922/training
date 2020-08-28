@@ -6,12 +6,10 @@ class TaskController < ApplicationController
     else
       @task = Task.search_by_status_id(task_status_id)
     end
-    @status_selection = task_status_list
   end
 
   def new
      @task = Task.new
-     @status_selection = task_status_list
   end
 
   def create
@@ -58,8 +56,4 @@ end
 private
   def task_params
     params.require(:task).permit(:title, :description, :task_status_id)
-  end
-
-  def task_status_list
-    TaskStatus.all.map{|status| [status.name, status.id]}.to_h
   end
