@@ -7,7 +7,6 @@ class TaskController < ApplicationController
       @task = Task.search_by_status_id(task_status_id)
     end
     @status_selection = task_status_list
-    @status_selection.store('全て', '')
   end
 
   def new
@@ -62,8 +61,5 @@ private
   end
 
   def task_status_list
-    TaskStatus.all.map{
-      |status| [status.name, status.id]
-    }.to_h
-
+    TaskStatus.all.map{|status| [status.name, status.id]}.to_h
   end
