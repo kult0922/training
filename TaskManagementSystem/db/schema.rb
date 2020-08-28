@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "title"
-    t.text "description"
-    t.integer "priority"
+    t.integer "user_id", null: false
+    t.string "title", limit: 50, null: false
+    t.text "description", size: :tiny
+    t.integer "priority", default: 1
     t.datetime "deadline"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false

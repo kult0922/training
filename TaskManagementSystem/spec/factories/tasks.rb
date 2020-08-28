@@ -4,7 +4,7 @@ FactoryBot.define do
     Time.strptime("2020年9月#{i}日 12:13:23", '%Y年%m月%d日 %H:%M:%S')
   end
 
-  factory :sample_task, class: Task do
+  factory :valid_sample_task, class: Task do
     user_id {1}
     title {'タスク名の編集テスト'}
     description {'タスク説明の編集テスト'}

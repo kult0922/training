@@ -5,7 +5,7 @@ RSpec.describe 'Tasks', type: :system do
   # タスク一覧画面内のテスト
   describe 'TaskIndex' do
     before do
-      @task = create(:sample_task)
+      @task = create(:valid_sample_task)
     end
 
     it 'shows all tasks' do
@@ -46,7 +46,7 @@ RSpec.describe 'Tasks', type: :system do
   # タスク詳細画面内のテスト
   describe 'TaskShow' do
     before do
-      @task = create(:sample_task)
+      @task = create(:valid_sample_task)
     end
 
     it 'show Task detail data' do
@@ -114,7 +114,7 @@ RSpec.describe 'Tasks', type: :system do
   # タスク編集画面のテスト
   describe 'TaskEdit' do
       before do
-        @task = create(:sample_task)
+        @task = create(:valid_sample_task)
       end
 
     it 'can edit task' do
