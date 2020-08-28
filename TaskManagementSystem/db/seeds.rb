@@ -15,7 +15,8 @@
     description: "タスクの説明#{n}",
     priority: n,
     deadline: Time.strptime("2020年10月#{n + 1}日 12:13:23", '%Y年%m月%d日 %H:%M:%S'),
-    status: n)
+    status: n
+  )
 end
 
 3.times do |n|
@@ -25,5 +26,6 @@ end
     description: "タスクの説明#{3 + n}",
     priority: n + 3,
     deadline: Time.strptime("2020年10月#{n + 4}日 12:13:23", '%Y年%m月%d日 %H:%M:%S'),
-    status: n)
+    status: n
+  )
 end

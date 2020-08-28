@@ -10,8 +10,7 @@ RSpec.describe Task, type: :model do
     end
     # エラーの表示がされている
     it 'is invalid when creating new task' do
-      invalid_task.valid?
-      expect(invalid_task.errors.messages.any?).to eq true
+      expect(invalid_task).not_to be_valid
     end
   end
 end
