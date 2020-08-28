@@ -22,6 +22,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'ユーザ', action: '作成')
       redirect_to admin_users_path
     else
+      flash[:error] = I18n.t('flash.failed', model: 'ユーザ', action: '作成')
       render :new
     end
   end
@@ -39,12 +40,12 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
     if @user.destroy
-      flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '削除')
+      flash[:notice] = I18n.t('flash.succeeded', model: 'ユーザ', action: '削除')
       redirect_to admin_users_path
     else
-      flash.now[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '削除')
+      flash.now[:error] = I18n.t('flash.failed', model: 'ユーザ', action: '削除')
       render :index
     end
   end

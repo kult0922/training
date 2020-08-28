@@ -2,11 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update]
-  before_action :logged_in_user
-
-  def show
-    @tasks = load_task
-  end
+  before_action :logged_in_user, only: :edit
 
   def new
     @user = User.new
@@ -18,6 +14,7 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t('flash.succeeded', model: 'ユーザ', action: '作成')
       redirect_to login_path
     else
+      flash.now[:error] = I18n.t('flash.failed', model: 'ユーザ', action: '作成')
       render :new
     end
   end
@@ -28,7 +25,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = I18n.t('flash.succeeded', model: 'ユーザ', action: '更新')
-      redirect_to login_path
+      redirect_to projects_path
     else
       flash.now[:error] = I18n.t('flash.failed', model: 'ユーザ', action: '更新')
       render :edit

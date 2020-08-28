@@ -10,6 +10,11 @@
       <li class="nav-item">
         <%= link_to I18n.t('users.nav.title'), edit_user_path(@current_user), class: 'nav-link' %>
       </li>
+      <% if admin?(@current_user) %>
+        <li class="nav-item">
+          <%= link_to I18n.t('users.nav.admin'), admin_users_path, class: 'nav-link' %>
+        </li>
+      <% end %>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <span class="navbar-text mr-sm-2"><%= I18n.t('views.navbar.name') %> <%= current_user.account_name %></span>
