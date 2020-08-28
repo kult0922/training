@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :logged_in_user
   before_action :current_user
+  before_action :check_task_auth, only: %i[show edit destroy]
 
   def index
     @project = Project.find(params[:project_id])
@@ -22,6 +23,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      create_user_project(@task.assignee_id)
+      create_user_project(@task.reporter_id)
       redirect_to [@task.project, @task]
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
     else
@@ -74,6 +77,16 @@ class TasksController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:order_by]) ? params[:order_by] : nil
+  end
+
+  def check_task_auth
+    redirect_to project_tasks_url unless [@task.assignee_id, @task.reporter_id].include?(session[:user_id])
+  end
+
+  def create_user_project(user)
+    return if UserProject.find_by(user_id: user, project_id: @task.project_id).present?
+    user_project = UserProject.new(user_id: user, project_id: @task.project_id)
+    flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
   end
 
   def set_task
