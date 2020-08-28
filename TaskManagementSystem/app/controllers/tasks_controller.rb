@@ -45,8 +45,7 @@ class TasksController < ApplicationController
   end
 
   def search
-    @selection = params[:keyword]
-    @tasks = Task.sort(@selection)
+    @tasks = Task.sort(params[:keyword])
   end
 
   private
