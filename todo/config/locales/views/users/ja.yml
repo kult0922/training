@@ -20,4 +20,5 @@ ja:
       title: 'ユーザ編集'
     show:
       title: 'ユーザ保有タスク一覧'
-
+    nav:
+      title: 'ユーザ編集'

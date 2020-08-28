@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
   before_action :logged_in_user
   before_action :admin_user
+  before_action :current_user
 
   def index
     @users = User.all.page(params[:page]).per(20)
@@ -53,7 +54,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_user
-    redirect_to projects_path unless current_user.admin?
+    redirect_to projects_path unless @current_user.admin?
   end
 
   private
