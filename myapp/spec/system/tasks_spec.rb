@@ -101,4 +101,24 @@ RSpec.describe Task, type: :system do
       expect(Task.find_by(description: 'edit_description'))
     end
   end
+
+  describe '#error_page' do
+    context 'when access a path that does not exist' do
+      it '404 error page is displayed' do
+        visit '/tasks/404test'
+
+        expect(page).to have_content "The page you were looking for doesn't exist."
+      end
+    end
+
+    context 'when transition to 500 error page' do
+      it '500 error page is displayed' do
+        # Generate an exception when transitioning to the index
+        allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
+        visit tasks_path
+
+        expect(page).to have_content "We're sorry, but something went wrong."
+      end
+    end
+  end
 end
