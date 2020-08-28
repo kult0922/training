@@ -23,4 +23,11 @@ class Task < ApplicationRecord
       all.order(created_at: :desc)
     end
   end
+  # 終了期限のコールバック
+  before_save :deadline_blank?
+
+  private
+    def deadline_blank?
+      self.deadline = DateTime.now if self.deadline.blank?
+    end
 end
