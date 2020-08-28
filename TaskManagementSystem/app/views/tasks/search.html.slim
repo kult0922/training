@@ -9,6 +9,6 @@
     .col-5.ml-auto
       .row
         = link_to 'ラベル作成', '#', class: "btn btn-primary btn-sm mr-3"
-        = render "layouts/select_form", task: nil
-
+        = render "layouts/select_form"
+        
   = render "layouts/result", tasks: @tasks
