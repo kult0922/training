@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  resource :users, only: [:new, :create, :edit, :update]
+  resources :users, only: [:new, :create, :edit, :update]
 
   unless Rails.env.development?
     get '*path', to: 'application#render_404'
