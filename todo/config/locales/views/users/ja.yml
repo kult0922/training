@@ -16,9 +16,14 @@ ja:
       updated_at: '更新日'
       admin: '管理者権限'
       create: 'ユーザ登録'
+      update: '修正'
+      delete: '削除'
     edit:
       title: 'ユーザ編集'
     show:
       title: 'ユーザ保有タスク一覧'
     nav:
       title: 'ユーザ編集'
+      admin: 'ユーザ管理画面'
+    delete:
+      confirm: '削除してもよろしいでしょうか?'
