@@ -47,7 +47,14 @@ class TasksController < ApplicationController
 
   def search
     @selection = params[:keyword]
-    @tasks = Task.sort(@selection)
+    @word_search = params[:keyword_text]
+    
+    # 未着手、着手、完了のワードがあれば、ステータスで検索をかけるそれ以外はタスク名での検索
+    if Task.replace_letters_with_numbers(@word_search).present?
+      @tasks = Task.sort(@selection).where("status LIKE ?", "%#{Task.replace_letters_with_numbers(@word_search)}%")
+    else
+      @tasks = Task.sort(@selection).where("title LIKE ?", "%#{@word_search}%")
+    end
   end
 
   private

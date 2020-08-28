@@ -23,6 +23,21 @@ class Task < ApplicationRecord
       all.order(created_at: :desc)
     end
   end
+
+  # ステータスを文字から数字へ置き換える
+  def self.replace_letters_with_numbers(letter)
+    case letter
+    when '未着手' then
+      0
+    when '着手' then
+      1
+    when '完了' then
+      2
+    else
+      nil
+    end
+  end
+  
   # 終了期限のコールバック
   before_save :deadline_blank?
 
