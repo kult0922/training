@@ -11,6 +11,9 @@ ja:
   flash:
     succeeded: "%{model}が%{action}されました。"
     failed: "%{model}の%{action}に失敗しました。"
+    unexpected: '権限がありません。'
+    only_one_admin: '唯一な管理者は削除不可です。'
+    delete_own: '管理者自身は削除できません。'
   enums:
     project:
       status:

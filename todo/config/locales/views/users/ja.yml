@@ -6,6 +6,7 @@ ja:
       create: 'ユーザ登録'
       name: 'ユーザ名'
       logout: 'ログアウト'
+      admin: '管理者権限'
     fail:
       message: 'ログインが必要です'
       back: 'ログインページ'
