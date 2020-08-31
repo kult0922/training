@@ -1,10 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  before do 
-    statuses = {"未着手"=>"誰も手を付けていない", "着手中"=>"対応中", "完了"=>"対応完了"}
-    statuses.each do |key, value| 
-      TaskStatus.create(name: key, description: value)
+  let!(:task_status_untouch) { create(:untouch) }
+  let!(:task_status_in_progress) { create(:in_progress) }
+  let!(:task_status_finished) { create(:finished) }
+
+  before do
+    @untouch_id = task_status_untouch.id
+    @in_progress_id = task_status_in_progress.id
+    @finished_id = task_status_finished.id
+    sample_status_ids = [@untouch_id]
+    2.times {sample_status_ids.push(@in_progress_id)}
+    3.times {sample_status_ids.push(@finished_id)}
+    sample_status_ids.each do |status_id|
+      Task.create(title: "test title", description: "test description", task_status_id: status_id)
     end
   end
 
@@ -16,17 +25,8 @@ RSpec.describe Task, type: :model do
   end
 
   it 'search_by_status_id shoud match correct records count' do
-    untouch_id = TaskStatus.find_by(name: '未着手').id
-    in_progress_id = TaskStatus.find_by(name: '着手中').id
-    finished_id = TaskStatus.find_by(name: '完了').id
-    sample_ids = [untouch_id]
-    2.times {sample_ids.push(in_progress_id)}
-    3.times {sample_ids.push(finished_id)}
-    sample_ids.each do |status_id|
-      Task.create(title: "test title", description: "test description", task_status_id: status_id)
-    end
-    expect(Task.search_by_status_id(untouch_id).count).to eq 1
-    expect(Task.search_by_status_id(in_progress_id).count).to eq 2
-    expect(Task.search_by_status_id(finished_id).count).to eq 3
+    expect(Task.search_by_status_id(@untouch_id).count).to eq 1
+    expect(Task.search_by_status_id(@in_progress_id).count).to eq 2
+    expect(Task.search_by_status_id(@finished_id).count).to eq 3
   end
 end

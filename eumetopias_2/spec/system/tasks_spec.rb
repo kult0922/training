@@ -1,12 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe "Task", type: :system do
-  before do 
-    statuses = {"未着手"=>"誰も手を付けていない", "着手中"=>"対応中", "完了"=>"対応完了"}
-    statuses.each do |key, value| 
-      TaskStatus.create(name: key, description: value)
+  let!(:task_status_untouch) { create(:untouch) }
+  let!(:task_status_in_progress) { create(:in_progress) }
+  let!(:task_status_finished) { create(:finished) }
+
+  before do
+    @untouch_id = task_status_untouch.id
+    @in_progress_id = task_status_in_progress.id
+    @finished_id = task_status_finished.id
+    search_sample_data = {"untouch title"=>@untouch_id, "in progress title"=>@in_progress_id, "finished title"=>@finished_id}
+    search_sample_data.each do |title, status_id|
+      Task.create(title: title, description: "dummy description", task_status_id: status_id)
     end
   end
+
   describe "Create new task" do
     let(:submit) { "新規作成" }
     before { visit new_task_path }
@@ -22,7 +30,7 @@ RSpec.describe "Task", type: :system do
         expect(page).to have_content error_message2
       end
     end
-    
+
     describe "with valid information" do
       before do
         fill_in "task_title", with: "example title"
@@ -50,7 +58,7 @@ RSpec.describe "Task", type: :system do
       click_button submit
       expect(Task.find_by(id: @task.id).title).to eq revised_title
       expect(Task.find_by(id: @task.id).description).to eq revised_description
-    end 
+    end
   end
 
   describe "Delete task" do
@@ -77,16 +85,8 @@ RSpec.describe "Task", type: :system do
 
   describe "Task list page search" do
     let(:submit) { "検索" }
-    before do 
-      untouch_id = TaskStatus.find_by(name: '未着手').id
-      in_progress_id = TaskStatus.find_by(name: '着手中').id
-      finished_id = TaskStatus.find_by(name: '完了').id
-      sample_data = {"untouch title"=>untouch_id, "in progress title"=>in_progress_id, "finished title"=>finished_id}
-      sample_data.each do |title, status_id|
-        Task.create(title: title, description: "dummy description", task_status_id: status_id)
-      end
+    before do
       visit root_path
-
     end
     it 'should show search result with correct task title' do
       select "未着手", from: "task_status_id"
@@ -100,6 +100,6 @@ RSpec.describe "Task", type: :system do
       select "完了", from: "task_status_id"
       click_button submit
       expect(page).to have_content 'finished title'
-    end 
+    end
   end
 end
