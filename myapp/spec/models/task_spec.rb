@@ -23,10 +23,4 @@ RSpec.describe Task, type: :model do
       end
     end
   end
-  # describe 'relation' do
-  # end
-  # describe 'scopes' do
-  # end
-  # describe 'class methods' do
-  # end
 end
