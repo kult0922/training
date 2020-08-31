@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_051806) do
+ActiveRecord::Schema.define(version: 2020_08_28_083224) do
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "project_name", null: false
+    t.string "project_name", limit: 191, null: false
     t.integer "status", null: false
     t.text "description"
     t.date "started_at", null: false
     t.date "finished_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_name"], name: "index_projects_on_project_name", unique: true
   end
 
   create_table "task_lables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -61,10 +62,12 @@ ActiveRecord::Schema.define(version: 2020_08_24_051806) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "account_name", collation: "utf8mb4_bin"
+    t.string "account_name", limit: 191, null: false
     t.string "password_digest", null: false
+    t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_name"], name: "index_users_on_account_name", unique: true
   end
 
   add_foreign_key "task_lables", "tasks"

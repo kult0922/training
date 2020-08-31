@@ -64,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def load_task
-    @project.tasks.order_by_at(sort_direction).page(params[:page]).per(20)
+    @project.tasks.eager_load(:assignee, :reporter).order_by_at(sort_direction).page(params[:page]).per(20)
   end
 
   def sort_direction

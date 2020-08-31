@@ -3,9 +3,9 @@
 FactoryBot.define do
   factory :user do
     sequence :account_name do |n|
-      "user_#{n}"
+      "factoryUser#{n}"
     end
-    password { 'test' }
-    password_confirmation { 'test' }
+    password { 'testtest' }
+    password_confirmation { 'testtest' }
   end
 end

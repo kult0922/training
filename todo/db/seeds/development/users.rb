@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-User.create!(
-  account_name: "seed",
-  password: "seed",
-  password_confirmation: 'seed'
-)
+(1..5).each do |n|
+  User.create!(
+    account_name: "user#{n}",
+    password: 'seedtest',
+    password_confirmation: 'seedtest'
+  )
+end
