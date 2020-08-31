@@ -13,7 +13,7 @@
 
 <p>
   <%= form.label :task_status_id %>
-  <%= form.select :task_status_id, @status_selection %>
+  <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name %>
 </p>
 
 <p>
