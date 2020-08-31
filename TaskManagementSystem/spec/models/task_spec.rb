@@ -16,7 +16,7 @@ RSpec.describe Task, type: :model do
 
   describe 'SarchingTask' do
     3.times do |n|
-      let!(:valid_task) {create(:valid_sample_task, status: n, title: "タスクの名前#{n}")}
+      let!(:valid_task) {create(:valid_sample_task, status: n)}
     end
     # ステータスの検索ができる
     it 'can search task by status' do 

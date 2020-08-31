@@ -39,4 +39,36 @@ RSpec.feature "Task", type: :feature do
       end
     end
   end
+
+  # タスク名とステータスで検索ができる
+  feature 'SearchTaskListByTitleAndStatus' do
+    3.times do |n|
+      let!(:valid_task) {create(:valid_sample_task, status: n)}
+    end
+    # タスク名での検索ができる
+    scenario 'can search tasks by title' do
+      # タスク一覧画面へ移動
+      visit root_path
+
+      # 検索フォームへ入力
+      fill_in 'keyword_text', with: 'タスク名のテスト1'
+      click_button '検索'
+
+      # 検索結果が表示されている
+      expect(page).to have_content 'タスク名のテスト1'
+    end
+
+    # ステータスでの検索ができる
+    scenario 'can search tasks by status' do
+      # タスク一覧画面へ移動
+      visit root_path
+
+      # 検索フォームへ入力
+      fill_in 'keyword_text', with: '完了'
+      click_button '検索'
+
+      # 検索結果が表示されている
+      expect(page).to have_content '完了'
+    end
+  end
 end
