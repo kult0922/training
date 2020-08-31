@@ -7,6 +7,5 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :password, length: { minimum: 6 }
-  validates :account_name, format: { with: /\A[a-zA-Z0-9]+\z/ }
-  validates :account_name, uniqueness: true
+  validates :account_name, format: { with: /\A[a-zA-Z0-9]+\z/ }, uniqueness: { case_sensitive: true }
 end
