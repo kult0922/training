@@ -4,8 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @task = Task.new
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
@@ -48,9 +47,9 @@ class TasksController < ApplicationController
   def search
     # 終了期限のソート・ステータスorタスク名の検索
     if Task.replace_letters_with_numbers(params[:keyword_text]).present?
-      @tasks = Task.sort(params[:keyword]).where("status LIKE ?", "%#{Task.replace_letters_with_numbers(params[:keyword_text])}%")
+      @tasks = Task.sort(params[:keyword]).where("status LIKE ?", "%#{Task.replace_letters_with_numbers(params[:keyword_text])}%").page(params[:page]).per(10)
     else
-      @tasks = Task.sort(params[:keyword]).where("title LIKE ?", "%#{params[:keyword_text]}%")
+      @tasks = Task.sort(params[:keyword]).where("title LIKE ?", "%#{params[:keyword_text]}%").page(params[:page]).per(10)
     end
   end
 
