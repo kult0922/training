@@ -10,6 +10,7 @@ ja:
       delete: '削除'
     new:
       page_title: 'タスク作成'
+      back: '戻る'
     show:
       page_title: 'タスク詳細'
       edit: '編集'
