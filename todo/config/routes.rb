@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  get '/login_failed', to: 'sessions#fail'
+
   resources :projects do
     resources :tasks
   end
-  root to: 'projects#index'
+  root to: 'sessions#new'
 
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''

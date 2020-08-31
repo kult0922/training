@@ -39,3 +39,16 @@ ja:
       previous: "&lsaquo; 前"
       next: "次 &rsaquo;"
       truncate: "..."
+    navbar:
+      title: 'タスク管理アプリ'
+      name: 'ユーザ名'
+  users:
+    new:
+      title: 'ログイン'
+      login: 'ログイン'
+      create: 'ユーザ登録'
+      name: 'ユーザ名'
+      logout: 'ログアウト'
+    fail:
+      message: 'ログインが必要です。'
+      back: 'ログインページ'

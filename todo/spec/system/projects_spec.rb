@@ -4,8 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Project, type: :system do
   let!(:project) { create(:project) }
+  let!(:user) { create(:user) }
+  let!(:user_project) { create(:user_project, user_id: user.id, project_id: project.id) }
 
   describe '#index' do
+    before { login(user) }
     context 'when index page visit' do
       it 'factory bot project is visible' do
         visit projects_path
@@ -19,7 +22,11 @@ RSpec.describe Project, type: :system do
   end
 
   describe '#new' do
-    before { visit new_project_path }
+    before do
+      login(user)
+      visit new_project_path
+    end
+
     context 'create new project' do
       it 'project was created' do
         fill_in 'project_project_name', with: 'input_test'
@@ -48,6 +55,7 @@ RSpec.describe Project, type: :system do
   end
 
   describe '#show' do
+    before { login(user) }
     context 'when task is click' do
       it 'move to the project detail page' do
         visit project_path(project.id)
@@ -61,7 +69,11 @@ RSpec.describe Project, type: :system do
   end
 
   describe '#edit' do
-    before { visit edit_project_path(project) }
+    before do
+      login(user)
+      visit edit_project_path(project)
+    end
+
     context 'when project edit' do
       it 'project was updated' do
         fill_in 'project_project_name', with: 'edit_test'
@@ -93,6 +105,7 @@ RSpec.describe Project, type: :system do
   end
 
   describe '#delete' do
+    before { login(user) }
     context 'when project delete' do
       it 'project was deleted' do
         visit projects_path
