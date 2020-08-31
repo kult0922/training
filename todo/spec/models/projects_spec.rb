@@ -36,4 +36,12 @@ RSpec.describe Project, type: :model do
       expect(project.errors.full_messages[2]).to eq '終了日は開始日付より後の日付にしてください'
     end
   end
+
+  context 'when project_name duplicate' do
+    let!(:project1) { create(:project) }
+    it 'unique validation is invalid' do
+      invalid = Project.create(project_name: project1.project_name, status: :todo, description: 'test', started_at: project.started_at, finished_at: project.finished_at)
+      expect(invalid.errors.full_messages[0]).to eq 'PJ名はすでに存在します'
+    end
+  end
 end
