@@ -50,7 +50,7 @@ class TasksController < ApplicationController
     @word_search = params[:keyword_text]
 
     # 終了期限のソート・ステータスorタスク名の検索
-    @tasks = Task.sort(@selection).where("status LIKE ?", "%#{Task.replace_letters_with_numbers(@word_search)}%").or(Task.sort(@selection).where("title LIKE ?", "%#{@word_search}%"))
+    @tasks = Task.sort(params[:keyword]).where("title LIKE ? OR status LIKE ?", "%#{params[:keyword_text]}%", "%#{Task.replace_letters_with_numbers(params[:keyword_text])}%")
   end
 
   private
