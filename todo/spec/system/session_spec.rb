@@ -28,10 +28,10 @@ describe '#session', type: :system do
 
     context 'when user id, password is valid' do
       it 'should be login success' do
-        fill_in 'session_account_name', with: 'factoryUser3'
+        fill_in 'session_account_name', with: user.account_name
         fill_in 'session_password', with: 'testtest'
         click_on 'ログイン'
-        expect(page).to have_content 'factoryUser3'
+        expect(page).to have_content user.account_name
         expect(page).to have_content 'タスク管理アプリ'
       end
     end

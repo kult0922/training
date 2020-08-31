@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   def new
+    blocked_double_login
   end
 
   def destroy
@@ -21,5 +22,11 @@ class SessionsController < ApplicationController
   end
 
   def fail
+  end
+
+  def blocked_double_login
+    if logged_in?
+      redirect_to projects_path
+    end
   end
 end

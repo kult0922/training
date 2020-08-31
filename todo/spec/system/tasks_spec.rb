@@ -196,8 +196,8 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content 'PJ_Factory'
         expect(page).to have_content 'test_discription'
         expect(page).to have_content '高'
-        expect(page).to have_content 'factoryUser11'
-        expect(page).to have_content 'factoryUser11'
+        expect(page).to have_content user.account_name
+        expect(page).to have_content user.account_name
         expect(page).to have_content '2020-06-01'
         expect(page).to have_content '2020-10-05'
       end

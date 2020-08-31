@@ -3,6 +3,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   before_action :logged_in_user
+  before_action :check_userpj_auth, only: :destroy
   include UserProjectsHelper
 
   def index
@@ -35,7 +36,6 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      create_user_project
       redirect_to projects_url
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '更新')
     else
@@ -59,10 +59,14 @@ class ProjectsController < ApplicationController
   end
 
   def create_user_project
-    if UserProject.find_by(user_id: session[:user_id], project_id: @project.id).blank?
-      user_project = UserProject.new(user_id: session[:user_id], project_id: @project.id)
-      flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
-    end
+    return if UserProject.find_by(user_id: session[:user_id], project_id: @project.id).present?
+    user_project = UserProject.new(user_id: session[:user_id], project_id: @project.id)
+    flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
+  end
+
+  def check_userpj_auth
+    user_project
+    redirect_to projects_url unless @user_have_pj.include?(@project.id)
   end
 
   def project_params
