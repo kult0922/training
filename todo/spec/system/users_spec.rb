@@ -66,10 +66,22 @@ RSpec.describe User, type: :system do
         visit admin_users_path
         expect(page).to have_content '管理者専用ページ'
         expect(page).to have_content '管理者権限'
+        expect(page).to have_content '担当者タスク数'
+        expect(page).to have_content '承認者タスク数'
         expect(page).to have_content '作成日'
         expect(page).to have_content '更新日'
         expect(page).to have_content 'factoryUser3'
         expect(page).to have_content 'true'
+      end
+
+      it 'should have tasks' do
+        create(:task, assignee_id: admin_user.id, reporter_id: admin_user.id)
+        create(:task, assignee_id: user.id, reporter_id: admin_user.id)
+
+        login(admin_user)
+        visit admin_users_path
+        expect(page).to have_content '1'
+        expect(page).to have_content '2'
       end
     end
 

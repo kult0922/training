@@ -13,6 +13,8 @@
     <tr>
       <th><%= I18n.t('users.index.account_name') %></th>
       <th><%= I18n.t('users.index.admin') %></th>
+      <th><%= I18n.t('users.index.assginee_tasks') %></th>
+      <th><%= I18n.t('users.index.reporter_tasks') %></th>
       <th><%= I18n.t('users.index.created_at') %></th>
       <th><%= I18n.t('users.index.updated_at') %></th>
       <th colspan = 2></th>
@@ -21,6 +23,8 @@
     <tr>
       <td><%= link_to user.account_name, admin_user_path(user), class: 'btn btn-primary' %></td>
       <td><%= user.admin %></td>
+      <td><%= user.assignee.size %></td>
+      <td><%= user.reporter.size %></td>
       <td><%= I18n.l(user.created_at) %></td>
       <td><%= I18n.l(user.updated_at) %></td>
       <td><%= link_to I18n.t('users.index.update'), edit_admin_user_path(user), class: 'btn btn-secondary' %></td>
