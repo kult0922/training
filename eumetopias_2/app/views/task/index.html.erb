@@ -7,7 +7,7 @@
 <%= form_with url: root_path, method: :get, local: true do |form| %>
   <%= form.label 'status' %>
   <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name, prompt: '全て' %>
-  <%= form.submit '検索' %>
+  <%= form.submit t('dictionary.button.search') %>
 <% end %>
 <table>
   <tr>
