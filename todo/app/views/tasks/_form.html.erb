@@ -40,12 +40,12 @@
   <div class="form-row align-items-center mb-2">
     <div class ="col-auto">
       <%= form.label :'担当ユーザ' %>
-      <%= form.collection_select(:assignee_id, @users, :id, :account_name, {}, class:'custom-select') %>
+      <%= form.collection_select(:assignee_id, @users, :id, :account_name, { selected: session[:user_id] }, class:'custom-select') %>
     </div>
 
     <div class="col-auto">
       <%= form.label :'報告者ユーザ' %>
-      <%= form.collection_select(:reporter_id, @users, :id, :account_name, {}, class:'custom-select') %>
+      <%= form.collection_select(:reporter_id, @users, :id, :account_name, { selected: session[:user_id]}, class:'custom-select') %>
     </div>
   </div>
 
