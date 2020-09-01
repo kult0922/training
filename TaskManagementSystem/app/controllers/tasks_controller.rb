@@ -56,11 +56,10 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find_by(id: params[:id])
-    if @task.present?
-      return @task
-    else
-      return redirect_to root_path, danger: '存在しないタスクです'
+    begin
+      @task = Task.find(params[:id])
+    rescue => e
+      redirect_to root_path, danger: '存在しないタスクです'
     end
   end
 
