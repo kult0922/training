@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.created')
     else
-      render 'new', notice: I18n.t('tasks.controller.messages.failed_to_create') # TODO: fix path, n -> a
+      render 'new', notice: I18n.t('tasks.controller.messages.failed_to_create')
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     if @task.update(permitted_tasks_params)
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.edited')
     else
-      render 'edit', notice: I18n.t('tasks.controller.messages.failed_to_edited') # TODO: fix path, n -> a
+      render 'edit', notice: I18n.t('tasks.controller.messages.failed_to_edited')
     end
   end
 
