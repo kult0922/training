@@ -15,5 +15,10 @@
     <%= form.date_select :due_date, class:'form-control' %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses_i18n.keys.map {|k| [Task.statuses_i18n[k], k]}  %>
+  </div>
+
   <%= form.submit %>
 <% end %>
