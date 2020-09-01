@@ -5,7 +5,10 @@ class TasksController < ApplicationController
 
   def index
     @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true).sort_task_by(params)
+    @tasks = @q.result(distinct: true).sort_task_by((
+      params[:sort],
+      params[:direction],
+    )
   end
 
   def new
