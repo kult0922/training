@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_083224) do
+ActiveRecord::Schema.define(version: 2020_09_01_045902) do
+
+  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "color", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "project_name", limit: 191, null: false
@@ -23,13 +29,14 @@ ActiveRecord::Schema.define(version: 2020_08_28_083224) do
     t.index ["project_name"], name: "index_projects_on_project_name", unique: true
   end
 
-  create_table "task_lables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "task_labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "task_id"
+    t.bigint "label_id"
     t.string "color"
-    t.integer "color_group", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["task_id"], name: "index_task_lables_on_task_id"
+    t.index ["label_id"], name: "index_task_labels_on_label_id"
+    t.index ["task_id"], name: "index_task_labels_on_task_id"
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -70,7 +77,8 @@ ActiveRecord::Schema.define(version: 2020_08_28_083224) do
     t.index ["account_name"], name: "index_users_on_account_name", unique: true
   end
 
-  add_foreign_key "task_lables", "tasks"
+  add_foreign_key "task_labels", "labels"
+  add_foreign_key "task_labels", "tasks"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users", column: "assignee_id"
   add_foreign_key "tasks", "users", column: "reporter_id"
