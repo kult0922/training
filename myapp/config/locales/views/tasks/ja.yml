@@ -5,6 +5,7 @@ ja:
       create: '新規作成'
       title: 'タスク名'
       description: 'タスク説明文'
+      due_date: '終了期限'
       show: '詳細'
       edit: '編集'
       delete: '削除'

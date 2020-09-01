@@ -4,7 +4,10 @@ class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
   def index
-    @tasks = Task.all.order(created_at: 'DESC')
+    @tasks = Task.all.sort_task_by(
+      params[:sort],
+      params[:direction],
+    )
   end
 
   def new
@@ -46,6 +49,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(
       :title,
       :description,
+      :due_date,
     )
   end
 
