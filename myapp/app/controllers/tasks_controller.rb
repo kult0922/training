@@ -4,7 +4,10 @@ class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
   def index
-    @tasks = Task.all.sort_task_by(params)
+    @tasks = Task.all.sort_task_by(
+      params[:sort],
+      params[:direction],
+    )
   end
 
   def new
