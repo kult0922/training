@@ -5,16 +5,6 @@ RSpec.describe "Task", type: :system do
   let!(:task_status_in_progress) { create(:in_progress) }
   let!(:task_status_finished) { create(:finished) }
 
-  before do
-    @untouch_id = task_status_untouch.id
-    @in_progress_id = task_status_in_progress.id
-    @finished_id = task_status_finished.id
-    search_sample_data = {"untouch title"=>@untouch_id, "in progress title"=>@in_progress_id, "finished title"=>@finished_id}
-    search_sample_data.each do |title, status_id|
-      Task.create(title: title, description: "dummy description", task_status_id: status_id)
-    end
-  end
-
   describe "Create new task" do
     let(:submit) { "新規作成" }
     before { visit new_task_path }
@@ -83,12 +73,23 @@ RSpec.describe "Task", type: :system do
     end
   end
 
-  describe "Task list page search" do
+  describe "Task list page" do
     let(:submit) { "検索" }
     before do
+      @untouch_id = task_status_untouch.id
+      @in_progress_id = task_status_in_progress.id
+      @finished_id = task_status_finished.id
+      search_sample_data = [
+        {title: "untouch title", status_id: @untouch_id},
+        {title: "in progress title", status_id: @in_progress_id},
+        {title: "finished title", status_id: @finished_id}
+      ]
+      search_sample_data.each do |sample|
+        Task.create(title: sample[:title], description: "dummy description", task_status_id: sample[:status_id])
+      end
       visit root_path
     end
-    it 'should show search result with correct task title' do
+    it 'search should show search result with correct task title' do
       select "未着手", from: "task_status_id"
       click_button submit
       expect(page).to have_content 'untouch title'
@@ -100,6 +101,24 @@ RSpec.describe "Task", type: :system do
       select "完了", from: "task_status_id"
       click_button submit
       expect(page).to have_content 'finished title'
+    end
+
+    describe "pagination should match 10 tasks with correct title" do
+      before do
+        create_list(:task, 20, task_status_id: @untouch_id)
+        visit root_path
+      end
+      it 'in first page' do
+        Task.page(1).per(10).each do |task|
+          expect(page).to have_content task.title
+        end
+      end
+      it 'in second page' do
+        visit root_path(page: "2")
+        Task.page(2).per(10).each do |task|
+          expect(page).to have_content task.title
+        end
+      end
     end
   end
 end
