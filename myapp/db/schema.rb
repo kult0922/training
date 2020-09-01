@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_083547) do
+ActiveRecord::Schema.define(version: 2020_08_31_084531) do
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title", null: false, comment: "タスク名"
     t.text "description"
     t.date "due_date", comment: "終了期限"
+    t.integer "status", default: 0, null: false, comment: "状態 0:未着手, 1:着手中, 2:完了"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title", "status"], name: "index_tasks_on_title_and_status"
   end
 
 end

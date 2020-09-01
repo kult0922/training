@@ -213,4 +213,11 @@ ja:
         edited: 'タスクを編集しました'
         failed_to_edited: 'タスクを編集に失敗しました'
         deleted: 'タスクを削除しました'
+  enums:
+    task:
+      status:
+        yet: '未着手'
+        wip: '着手中'
+        done: '完了'
+
 
