@@ -48,7 +48,7 @@ class TasksController < ApplicationController
       :title,
       :description,
       :due_date,
-      :status
+      :status,
     )
   end
 

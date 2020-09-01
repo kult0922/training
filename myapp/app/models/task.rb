@@ -7,7 +7,7 @@ class Task < ApplicationRecord
   enum status: {
     yet: 0, # 未着手
     wip: 1, # 着手中
-    done: 2 # 完了
+    done: 2, # 完了
   }
 
   def self.sort_task_by(params)
