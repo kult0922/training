@@ -35,7 +35,7 @@ RSpec.describe 'Tasks', type: :system do
       click_link ('編集')
       click_link ('タスク一覧')
       click_link ('ラベル作成')
-      click_link ('検索')
+      find_button ('検索')
 
       # 削除できているか確認
       click_link ('削除')

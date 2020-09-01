@@ -1,0 +1,6 @@
+scss:
+  select{height: 100%;}
+
+= form_with url: search_path, method: :get, local: true do |f|
+  = f.select :keyword, options_for_select([['終了期限が新しい順', 'new'], ['終了期限が古い順', 'old']], params[:keyword])
+  = f.submit '検索', class:'btn btn-secondary btn-sm align-self-end'

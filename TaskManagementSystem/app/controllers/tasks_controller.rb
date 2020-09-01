@@ -44,13 +44,16 @@ class TasksController < ApplicationController
     end
   end
 
+  def search
+    @tasks = Task.sort(params[:keyword])
+  end
+
   private
 
   def set_task
-    @task = Task.find_by(id: params[:id])
-    if @task.present?
-      return @task
-    else
+    begin
+      @task = Task.find(params[:id])
+    rescue => e
       redirect_to root_path, danger: '存在しないタスクです'
     end
   end
