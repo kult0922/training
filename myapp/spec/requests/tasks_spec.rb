@@ -14,7 +14,8 @@ RSpec.describe 'Tasks', type: :request do
         task: {
           title: 'test1',
           description: 'test1',
-          due_date: Date.parse('2020-04-01')
+          due_date: Date.parse('2020-04-01'),
+          status: 'wip' # Non-default value
         },
       }
     }
