@@ -9,14 +9,13 @@ RSpec.describe User, type: :system do
     before { visit new_user_path }
     context 'when user name is not input' do
       it 'should be validation error' do
-        
         fill_in 'user_account_name', with: ''
         fill_in 'user_password', with: ''
         click_on '登録する'
 
         expect(page).to have_content 'パスワードを入力してください'
         expect(page).to have_content 'パスワードは6文字以上で入力してください'
-        expect(page).to have_content 'ユーザ名は英数字のみが使えます'  
+        expect(page).to have_content 'ユーザ名は英数字のみが使えます'
       end
     end
 
@@ -26,7 +25,7 @@ RSpec.describe User, type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on '登録する'
 
-        expect(page).to have_content 'ユーザ名はすでに存在します'  
+        expect(page).to have_content 'ユーザ名はすでに存在します'
       end
     end
 
@@ -36,7 +35,7 @@ RSpec.describe User, type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on '登録する'
 
-        expect(page).to have_content 'ユーザが作成されました。' 
+        expect(page).to have_content 'ユーザが作成されました。'
       end
     end
   end
@@ -52,7 +51,7 @@ RSpec.describe User, type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on '更新する'
 
-        expect(page).to have_content 'ユーザが更新されました。'  
+        expect(page).to have_content 'ユーザが更新されました。'
       end
     end
   end
@@ -96,7 +95,7 @@ RSpec.describe User, type: :system do
 
   describe '#admin/user/show' do
     let!(:admin_user) { create(:user, admin: 'true') }
-    
+
     before do
       login(admin_user)
     end
@@ -124,14 +123,13 @@ RSpec.describe User, type: :system do
 
     context 'when user name is not input' do
       it 'should be validation error' do
-        
         fill_in 'user_account_name', with: ''
         fill_in 'user_password', with: ''
         click_on '登録する'
 
         expect(page).to have_content 'パスワードを入力してください'
         expect(page).to have_content 'パスワードは6文字以上で入力してください'
-        expect(page).to have_content 'ユーザ名は英数字のみが使えます'  
+        expect(page).to have_content 'ユーザ名は英数字のみが使えます'
       end
     end
 
@@ -141,7 +139,7 @@ RSpec.describe User, type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on '登録する'
 
-        expect(page).to have_content 'ユーザ名はすでに存在します'  
+        expect(page).to have_content 'ユーザ名はすでに存在します'
       end
     end
 
@@ -151,7 +149,21 @@ RSpec.describe User, type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on '登録する'
 
-        expect(page).to have_content 'ユーザが作成されました。' 
+        expect(page).to have_content 'ユーザが作成されました。'
+      end
+    end
+
+    context 'when admin user create' do
+      it 'should be created admin user' do
+        fill_in 'user_account_name', with: 'TestAdminUser1'
+        fill_in 'user_password', with: 'testtest'
+        find('label', text: '管理者権限', match: :first).click
+        click_on '登録する'
+
+        expect(page).to have_content 'ユーザが作成されました。'
+        expect(page).to have_content 'TestAdminUser1'
+        expect(page).to have_content 'true'
+        expect(User.find_by(account_name: 'TestAdminUser1').admin?).to eq true
       end
     end
   end
@@ -170,7 +182,7 @@ RSpec.describe User, type: :system do
         fill_in 'user_password', with: 'testtest'
         click_on '更新する'
 
-        expect(page).to have_content 'ユーザが更新されました。'  
+        expect(page).to have_content 'ユーザが更新されました。'
       end
     end
   end
@@ -190,6 +202,17 @@ RSpec.describe User, type: :system do
         page.driver.browser.switch_to.alert.accept
 
         expect(page).to have_content 'ユーザが削除されました。'
+      end
+    end
+
+    context 'when only one admin delete' do
+      it 'should be error' do
+        click_link '削除', href: admin_user_path(admin_user)
+
+        expect(page.driver.browser.switch_to.alert.text).to eq '削除してもよろしいでしょうか?'
+        page.driver.browser.switch_to.alert.accept
+
+        expect(page).to have_content '管理者自身は削除できません。'
       end
     end
   end
