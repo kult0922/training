@@ -3,7 +3,7 @@
 User.create!(
   account_name: "user1",
   password: 'seedtest',
-  password_confirmation: 'seedtest'
+  password_confirmation: 'seedtest',
   admin: :true
 )
 
@@ -11,7 +11,7 @@ User.create!(
   User.create!(
     account_name: "user#{n}",
     password: 'seedtest',
-    password_confirmation: 'seedtest'
+    password_confirmation: 'seedtest',
     admin: :false
   )
 end
