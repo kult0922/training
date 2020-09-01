@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   belongs_to :project
   belongs_to :assignee, class_name: 'User', foreign_key: :assignee_id
   belongs_to :reporter, class_name: 'User', foreign_key: :reporter_id
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
   validates :task_name, presence: true
   validates :started_at, presence: true, date: true
   validates :finished_at, presence: true, date: true
