@@ -31,6 +31,13 @@ ja:
       back: "戻る"
       next: "次へ"
       previous: "前へ"
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
   time:
     formats:
       default: ! "%Y-%m-%d %H:%M:%S"
