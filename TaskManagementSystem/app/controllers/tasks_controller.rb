@@ -45,12 +45,8 @@ class TasksController < ApplicationController
   end
 
   def search
-    # 終了期限のソート・ステータスorタスク名の検索
-    if Task.replace_letters_with_numbers(params[:keyword_text]).present?
-      @tasks = Task.sort(params[:keyword]).where("status LIKE ?", "%#{Task.replace_letters_with_numbers(params[:keyword_text])}%")
-    else
-      @tasks = Task.sort(params[:keyword]).where("title LIKE ?", "%#{params[:keyword_text]}%")
-    end
+    # 終了期限のソートorステータスorタスク名の検索
+    @tasks = Task.deadline_sort(params[:deadline_keyword]).search_status(params[:status_keyword]).search_title(params[:title_keyword])
   end
 
   private
