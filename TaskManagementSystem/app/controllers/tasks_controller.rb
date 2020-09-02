@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
 
   def search
     # 終了期限のソートorステータスorタスク名の検索
-    @tasks = Task.deadline_sort(params[:deadline_keyword]).search_status(params[:status_keyword]).search_title(params[:title_keyword])
+    @tasks = Task.deadline_sort(params[:deadline_keyword]).search_status(params[:status_keyword]).search_title(params[:title_keyword]).page(params[:page]).per(10)
   end
 
   private

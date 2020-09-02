@@ -72,3 +72,6 @@ gem 'rails-i18n', '~> 6.0.0'
 
 # Use for enum
 gem 'enum_help'
+
+# pagination
+gem 'kaminari', '~> 1.2', '>= 1.2.1'
