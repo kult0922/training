@@ -15,9 +15,9 @@ k = 0
       user_id: n + k,
       title: "タスクの名前#{n + k}",
       description: "タスクの説明#{n + k}",
-      priority: n,
+      priority: n + k,
       deadline: Time.strptime("2020年10月#{n + 1 + k}日 12:13:23", '%Y年%m月%d日 %H:%M:%S'),
-      status: n
+      status: n + 1
     )
   end
   k += 3
