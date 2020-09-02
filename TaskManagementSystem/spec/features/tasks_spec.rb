@@ -23,20 +23,52 @@ RSpec.feature "Task", type: :feature do
       visit root_path
 
       # 終了期限が新しい順になっている
-      select('終了期限が新しい順', from: 'keyword')
-      expect(page).to have_select('keyword', selected: '終了期限が新しい順')
+      select('新しい順', from: 'deadline_keyword')
+      expect(page).to have_select('deadline_keyword', selected: '新しい順')
       click_on('検索')
       4.times do |n|
         expect(page.body.index(tasks[n].deadline.strftime('%Y/%m/%d'))).to be > page.body.index(tasks[n+1].deadline.strftime('%Y/%m/%d'))
       end
 
       # 終了期限が古い順になっている
-      select('終了期限が古い順', from: 'keyword')
-      expect(page).to have_select('keyword', selected: '終了期限が古い順')
+      select('古い順', from: 'deadline_keyword')
+      expect(page).to have_select('deadline_keyword', selected: '古い順')
       click_on('検索')
       4.times do |n|
         expect(page.body.index(tasks[n].deadline.strftime('%Y/%m/%d'))).to be < page.body.index(tasks[n+1].deadline.strftime('%Y/%m/%d'))
       end
+    end
+  end
+
+  # タスク名とステータスで検索ができる
+  feature 'SearchTaskListByTitleAndStatus' do
+    3.times do |n|
+      let!(:valid_task) {create(:valid_sample_task, status: n)}
+    end
+    # タスク名での検索ができる
+    scenario 'can search tasks by title' do
+      # タスク一覧画面へ移動
+      visit root_path
+
+      # 検索フォームへ入力
+      fill_in 'title_keyword', with: 'タスク名のテスト1'
+      click_button '検索'
+
+      # 検索結果が表示されている
+      expect(page).to have_content 'タスク名のテスト1'
+    end
+
+    # ステータスでの検索ができる
+    scenario 'can search tasks by status' do
+      # タスク一覧画面へ移動
+      visit root_path
+
+      # 検索フォームへ入力
+      select('未着手', from: 'status_keyword')
+      click_button '検索'
+
+      # 検索結果が表示されている
+      expect(page).to have_content '完了'
     end
   end
 end

@@ -13,4 +13,20 @@ RSpec.describe Task, type: :model do
       expect(invalid_task).not_to be_valid
     end
   end
+
+  describe 'SarchingTask' do
+    3.times do |n|
+      let!(:valid_task) {create(:valid_sample_task, status: n)}
+    end
+    # ステータスの検索ができる
+    it 'can search task by status' do 
+      @tasks = Task.where(status: "working")
+      @tasks.all? {|task| expect(task.status).to eq 'working'}
+    end
+    # タスク名の検索ができる
+    it 'can search task by title' do 
+      @tasks = Task.where("title LIKE ?", "%タスクの名前1%")
+      @tasks.all? {|task| expect(task.title).to eq 'タスクの名前1'}
+    end
+  end
 end

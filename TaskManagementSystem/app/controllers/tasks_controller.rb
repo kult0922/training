@@ -45,7 +45,8 @@ class TasksController < ApplicationController
   end
 
   def search
-    @tasks = Task.sort(params[:keyword])
+    # 終了期限のソートorステータスorタスク名の検索
+    @tasks = Task.deadline_sort(params[:deadline_keyword]).search_status(params[:status_keyword]).search_title(params[:title_keyword])
   end
 
   private

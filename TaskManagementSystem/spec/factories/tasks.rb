@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :valid_sample_task, class: Task do
     sequence(:user_id){|i| i}
-    title {'タスク名の編集テスト'}
-    description {'タスク説明の編集テスト'}
+    sequence(:title){|i| "タスク名のテスト#{i}"}
+    description {'タスク説明のテスト'}
     priority {1}
     sequence(:deadline){ |i| Time.strptime("2020年10月#{i}日 12:13:23", '%Y年%m月%d日 %H:%M:%S') }
     status {1}

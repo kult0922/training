@@ -3,12 +3,12 @@
   = render  "layouts/flash"
   .row.index-title
     h2 タスク一覧
-  .task-index-head.row.px-5
-    .col-3
+  .task-index-head.row
+    .col-2
       = link_to 'タスク登録', new_task_path, class: "btn btn-primary btn-sm"
-    .col-5.ml-auto
-      .row
-        = link_to 'ラベル作成', '#', class: "btn btn-primary btn-sm mr-3"
+    .col-10
+      .row.float-right.mr-2
+        = link_to 'ラベル作成', '#', class: "btn btn-primary btn-sm mr-4"
         = render "layouts/select_form"
-        
+          
   = render "layouts/result", tasks: @tasks
