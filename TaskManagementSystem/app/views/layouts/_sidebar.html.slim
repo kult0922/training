@@ -1,10 +1,8 @@
-.col-3
+.col-2.bg-secondary
   .sidebar_fixed
-    .sidebar-item
-      h1 TMS
-      p User name
-      nav
-        ul
-          li = link_to 'タスク一覧', root_path
-      .user-management
-        = link_to 'ユーザー管理', '#'
+    nav
+      ul.nav.flex-column
+        li.nav-item
+          = link_to 'タスク一覧', root_path, class: "text-light"
+        li.nav-item
+          = link_to 'ユーザー管理', '#', class: "text-light"

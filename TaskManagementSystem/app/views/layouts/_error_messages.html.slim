@@ -1,4 +1,4 @@
-= if model.errors.any?
+- if model.errors.any?
   .alert.alert-danger
     ul style="list-style: square"
       - model.errors.full_messages.each do |message|
