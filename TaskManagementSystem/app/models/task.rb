@@ -25,22 +25,15 @@ class Task < ApplicationRecord
   end
 
   # ステータス検索
-  def self.search_status(letter)
-    case letter
-    when "1" then
-      where(status: 1)
-    when "2" then
-      where(status: 2)
-    when "3" then
-      where(status: 3)
-    else
-      order(created_at: :desc)
-    end
+  def self.search_status(status)
+    return where(status: status) if status.present?
+    order(created_at: :desc)
   end
 
   # タスク名検索
   def self.search_title(title)
-    where("title LIKE ?", "%#{title}%")
+    where("title LIKE ?", "%#{title}%") if title.present?
+    order(created_at: :desc)
   end  
   
   # 終了期限のコールバック
