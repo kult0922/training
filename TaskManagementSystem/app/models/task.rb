@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validate :deadline_not_before_today
 
-  enum status: { waiting: 0, working: 1, completed: 2}
+  enum status: { waiting: 1, working: 2, completed: 3}
 
   # バリデーション用のメソッドを定義
   def deadline_not_before_today
@@ -13,7 +13,7 @@ class Task < ApplicationRecord
   end
 
   # 終了期限新旧ソート機能
-  def self.sort(selection)
+  def self.deadline_sort(selection)
     case selection
     when 'new' then
       all.order(deadline: :desc)
@@ -24,19 +24,24 @@ class Task < ApplicationRecord
     end
   end
 
-  # ステータスを文字から数字へ置き換える
-  def self.replace_letters_with_numbers(letter)
+  # ステータス検索
+  def self.search_status(letter)
     case letter
-    when '未着手' then
-      0
-    when '着手' then
-      1
-    when '完了' then
-      2
+    when "1" then
+      where(status: 1)
+    when "2" then
+      where(status: 2)
+    when "3" then
+      where(status: 3)
     else
-      nil
+      order(created_at: :desc)
     end
   end
+
+  # タスク名検索
+  def self.search_title(title)
+    where("title LIKE ?", "%#{title}%")
+  end  
   
   # 終了期限のコールバック
   before_save :deadline_blank?

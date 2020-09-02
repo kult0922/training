@@ -23,16 +23,16 @@ RSpec.feature "Task", type: :feature do
       visit root_path
 
       # 終了期限が新しい順になっている
-      select('終了期限が新しい順', from: 'keyword')
-      expect(page).to have_select('keyword', selected: '終了期限が新しい順')
+      select('新しい順', from: 'deadline_keyword')
+      expect(page).to have_select('deadline_keyword', selected: '新しい順')
       click_on('検索')
       4.times do |n|
         expect(page.body.index(tasks[n].deadline.strftime('%Y/%m/%d'))).to be > page.body.index(tasks[n+1].deadline.strftime('%Y/%m/%d'))
       end
 
       # 終了期限が古い順になっている
-      select('終了期限が古い順', from: 'keyword')
-      expect(page).to have_select('keyword', selected: '終了期限が古い順')
+      select('古い順', from: 'deadline_keyword')
+      expect(page).to have_select('deadline_keyword', selected: '古い順')
       click_on('検索')
       4.times do |n|
         expect(page.body.index(tasks[n].deadline.strftime('%Y/%m/%d'))).to be < page.body.index(tasks[n+1].deadline.strftime('%Y/%m/%d'))
@@ -51,7 +51,7 @@ RSpec.feature "Task", type: :feature do
       visit root_path
 
       # 検索フォームへ入力
-      fill_in 'keyword_text', with: 'タスク名のテスト1'
+      fill_in 'title_keyword', with: 'タスク名のテスト1'
       click_button '検索'
 
       # 検索結果が表示されている
@@ -64,7 +64,7 @@ RSpec.feature "Task", type: :feature do
       visit root_path
 
       # 検索フォームへ入力
-      fill_in 'keyword_text', with: '完了'
+      select('未着手', from: 'status_keyword')
       click_button '検索'
 
       # 検索結果が表示されている
