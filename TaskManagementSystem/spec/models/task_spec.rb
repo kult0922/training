@@ -20,7 +20,7 @@ RSpec.describe Task, type: :model do
     end
     # ステータスの検索ができる
     it 'can search task by status' do 
-      @tasks = Task.where(status: 2)
+      @tasks = Task.where(status: "working")
       @tasks.all? {|task| expect(task.status).to eq 'working'}
     end
     # タスク名の検索ができる
