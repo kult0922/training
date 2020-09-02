@@ -20,14 +20,12 @@ RSpec.describe Task, type: :model do
     end
     # ステータスの検索ができる
     it 'can search task by status' do 
-      @tasks = Task.sort('old').where("status LIKE ?", "%1%")
-      @tasks.each do |task|
-        expect(task.status).to eq 1
-      end
+      @tasks = Task.where(status: 2)
+      @tasks.all? {|task| expect(task.status).to eq 'working'}
     end
     # タスク名の検索ができる
     it 'can search task by title' do 
-      @tasks = Task.sort('old').where("title LIKE ?", "%タスクの名前1%")
+      @tasks = Task.where("title LIKE ?", "%タスクの名前1%")
       @tasks.each do |task|
         expect(task.title).to eq "タスクの名前1"
       end
