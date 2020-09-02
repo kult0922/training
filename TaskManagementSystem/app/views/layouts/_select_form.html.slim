@@ -6,6 +6,6 @@ scss:
 
 = form_with url: search_path, method: :get, class:"form-inline", local: true do |f|
   = f.text_field :title_keyword, placeholder: "タスク名", value: params[:title_keyword]
-  = f.select :status_keyword, options_for_select([['ステータス', 0], ['未着手', 1], ['着手', 2], ['完了', 3]], params[:status_keyword])
+  = f.select :status_keyword, options_for_select([['ステータス', nil], ['未着手', 'waiting'], ['着手', 'working'], ['完了', 'completed']], params[:status_keyword])
   = f.select :deadline_keyword, options_for_select([['終了期限の表示順', 'unselected'],['新しい順', 'new'], ['古い順', 'old']], params[:deadline_keyword]), class: "ml-2"
   = f.submit '検索', class:'btn btn-secondary btn-sm align-self-end ml-1'

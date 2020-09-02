@@ -26,9 +26,7 @@ RSpec.describe Task, type: :model do
     # タスク名の検索ができる
     it 'can search task by title' do 
       @tasks = Task.where("title LIKE ?", "%タスクの名前1%")
-      @tasks.each do |task|
-        expect(task.title).to eq "タスクの名前1"
-      end
+      @tasks.all? {|task| expect(task.title).to eq 'タスクの名前1'}
     end
   end
 end
