@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   before_action :current_user
   before_action :check_task_auth, only: %i[show edit destroy]
+  before_action :set_labels, only: %i[show new edit]
 
   def index
     @project = Project.find(params[:project_id])
@@ -70,6 +71,7 @@ class TasksController < ApplicationController
 
   def load_task
     @project.tasks.eager_load(:assignee, :reporter)
+      .eager_load(:labels)
       .where('assignee_id = ? OR reporter_id = ? ', @current_user, @current_user)
       .order_by_at(sort_direction)
       .page(params[:page]).per(20)
@@ -93,7 +95,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def set_labels
+    @labels = Label.all
+  end
+
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :status)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :status, { label_ids: []})
   end
 end

@@ -41,3 +41,5 @@ ja:
     back: '戻る'
     errors:
       input: 'を入力してください'
+    labels:
+      title: 'ラベル'
