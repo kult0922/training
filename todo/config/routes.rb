@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  resources :labels, only: [:new, :create, :edit, :update, :index, :destroy]
+
   resources :users, only: [:new, :create, :edit, :update]
 
   unless Rails.env.development?
