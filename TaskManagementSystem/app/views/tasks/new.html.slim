@@ -20,7 +20,7 @@
               = f.datetime_select :deadline
             .form-group
               = f.label :description, class: 'form-label'
-              = f.text_area :description, class: 'form-control'
+              = f.text_area :description, class: 'form-control', style:"width:500px;height:400px;"
             .form-group
               = f.hidden_field :status, value: "waiting"
             .form-group
