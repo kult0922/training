@@ -103,20 +103,50 @@ RSpec.describe "Task", type: :system do
       expect(page).to have_content 'finished title'
     end
 
-    describe "pagination should match 10 tasks with correct title" do
+    describe "pagination with 20 tasks" do
       before do
         create_list(:task, 20, task_status_id: @untouch_id)
         visit root_path
       end
-      it 'in first page' do
+      it 'should match correct titles in 1st page' do
         Task.page(1).per(10).each do |task|
           expect(page).to have_content task.title
         end
       end
-      it 'in second page' do
+      it 'should match correct titles in 2nd page' do
         visit root_path(page: "2")
         Task.page(2).per(10).each do |task|
           expect(page).to have_content task.title
+        end
+      end
+      it 'should not contain any task titles in 3rd page' do
+        visit root_path(page: "3")
+        Task.all.each do |task|
+          expect(response).not_to have_content task.title
+        end
+      end
+    end
+
+    describe "pagination with 21 tasks" do
+      before do
+        create_list(:task, 21, task_status_id: @untouch_id)
+        visit root_path(page: "2")
+      end
+      it 'should match correct titles in 2nd page' do
+        Task.page(2).per(10).each do |task|
+          expect(page).to have_content task.title
+        end
+      end
+      it 'should match correct title in 3rd page' do
+        visit root_path(page: "3")
+        Task.page(3).per(10).each do |task|
+          expect(page).to have_content task.title
+        end
+      end
+      it 'should not contain any task titles in 4th page' do
+        visit root_path(page: "4")
+        Task.all.each do |task|
+          expect(response).not_to have_content task.title
         end
       end
     end
