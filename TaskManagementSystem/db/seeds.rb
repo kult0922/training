@@ -8,11 +8,23 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# ユーザー
+3.times do |n|
+  User.create(
+    last_name: "タスクユーザー",
+    first_name: "太郎#{n}",
+    email: "task_user_taro#{n}@example.com",
+    password: "password#{n}",
+    password_digest: "password#{n}".crypt("secretkey")
+  )
+end
+
+# タスク
 k = 0
 10.times do |num|
   3.times do |n|
     Task.create(
-      user_id: n + k,
+      user_id: n + 1,
       title: "タスクの名前#{n + k}",
       description: "タスクの説明#{n + k}",
       priority: n + k,
