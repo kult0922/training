@@ -55,17 +55,18 @@
       <div class="d-flex align-items-center">
       <%= form.collection_check_boxes :label_ids, @labels, :id, :color do |b| %>
         <%= b.label { b.check_box } %>
-        <span class="<%= label_color(b.text) %>"><%= label_text(b.text) %></span>
+        <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= Label.find_by(color: b.text).text %></span>
       <% end %>
     </div>
   </div>
-
-  <div class="row mb-2">
-    <div class ="col-auto">
-      <%= form.submit class: 'btn btn-primary' %>
-    </div>
-    <div class="col-auto">
-      <%= link_to I18n.t('tasks.back'), project_tasks_path, class: 'btn btn-secondary' %>
+  <div class="form-group">
+    <div class="row mb-2">
+      <div class ="col-auto">
+        <%= form.submit class: 'btn btn-primary' %>
+      </div>
+      <div class="col-auto">
+        <%= link_to I18n.t('tasks.back'), project_tasks_path, class: 'btn btn-secondary' %>
+      </div>
     </div>
   </div>
 <% end %>
