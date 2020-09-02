@@ -17,6 +17,12 @@ class Task < ApplicationRecord
   scope :name_search, ->(task_name) { where('task_name like ?', "%#{task_name}%") if task_name.present? }
   scope :priority_search, ->(priority) { where(priority: priority) if priority.present? }
   scope :status_search, ->(status) { where(status: status) if status.present? }
+  scope :label_search, lambda { |label_ids|
+    if label_ids.present?
+      tasks_id = Task.joins(:labels).where(labels: { id: label_ids }).select('id')
+      where(id: tasks_id)
+    end
+  }
 
   def finished_at_validate
     errors.add(:finished_at, I18n.t('errors.finished_at_not_before_stated_at')) unless started_at <= finished_at

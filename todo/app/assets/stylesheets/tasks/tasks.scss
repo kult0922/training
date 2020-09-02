@@ -21,3 +21,16 @@
 .label_checkbox label {
     margin: 5px;
 }
+
+.col div.label_checkbox {
+    overflow-x: scroll;
+    padding-bottom: 15px;
+}
+
+.task_table {
+    .table > tbody {
+        .scroll_td{
+            overflow-x: scroll;
+        }
+    }
+}

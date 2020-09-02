@@ -19,6 +19,7 @@ ja:
       status: '状態'
       priority: '優先順位'
       none: '-----'
+      label: 'ラベル検索'
       order:
         asc_finished_at: '期限日が近い順'
         desc_finished_at: '期限日が遠い順'

@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   before_action :current_user
   before_action :check_task_auth, only: %i[show edit destroy]
-  before_action :set_labels, only: %i[show new edit]
+  before_action :set_labels, only: %i[show new edit index]
 
   def index
     @project = Project.find(params[:project_id])
@@ -74,6 +74,7 @@ class TasksController < ApplicationController
       .eager_load(:labels)
       .where('assignee_id = ? OR reporter_id = ? ', @current_user, @current_user)
       .order_by_at(sort_direction)
+      .label_search(params[:label_ids])
       .page(params[:page]).per(20)
   end
 
