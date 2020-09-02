@@ -55,7 +55,7 @@
       <div class="d-flex align-items-center">
       <%= form.collection_check_boxes :label_ids, @labels, :id, :color do |b| %>
         <%= b.label { b.check_box } %>
-        <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= Label.find_by(color: b.text).text %></span>
+        <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= @hash[b.text] %></span>
       <% end %>
       </div>
     </div>

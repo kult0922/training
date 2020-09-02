@@ -19,6 +19,7 @@ class TasksController < ApplicationController
   def new
     @users = User.all
     @task = Project.find(params[:project_id]).tasks.new
+    hash_labels
   end
 
   def create
@@ -98,6 +99,14 @@ class TasksController < ApplicationController
 
   def set_labels
     @labels = Label.all
+  end
+
+  def hash_labels
+    set_labels
+    @hash = {}
+    @labels.each do |label|
+      @hash.store(label.color, label.text)
+    end
   end
 
   def task_params
