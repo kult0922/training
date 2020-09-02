@@ -1,0 +1,16 @@
+ja:
+  labels:
+    index:
+      title: 'ラベル一覧'
+      label: 'ラベル'
+      created_at: '作成日'
+      new: 'ラベル追加'
+      update: '修正'
+      delete: '削除'
+    edit:
+      title: 'ラベル修正'
+    new:
+      title: 'ラベル追加'
+    delete:
+      confirm: '削除してもよろしいでしょうか?'
+    back: '戻る'

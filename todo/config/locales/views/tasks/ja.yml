@@ -11,6 +11,7 @@ ja:
       finished_at: '期限日'
       pj_description: 'プロジェクト説明'
       project: 'PJ名'
+      new_label: 'ラベル'
     search:
       button: '検索'
       change_order: '並び順'
@@ -32,6 +33,7 @@ ja:
       reporter: '承認者'
       started_at: '開始日'
       finished_at: '終了日'
+      label: 'ラベル'
     edit:
       title: 'タスク修正'
     new:
@@ -41,5 +43,3 @@ ja:
     back: '戻る'
     errors:
       input: 'を入力してください'
-    labels:
-      title: 'ラベル'
