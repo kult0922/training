@@ -15,28 +15,41 @@
 
 `rails s`
 
+4.メンテナンスモード
+config/maintenance.ymlよりallow_ips項目に自分のipアドレスを追加する。
+> allow_ips:
+> - '::1' #ipを追加する
+> - 自分のip
+>path:
+>  log: log/maintenance.log
+>  lock: tmp/maintenance.yml
+- 実行時
+`rails maintenance:start`
+- 終了時
+`rails maintenance:finish`
+
 ## Database tables
 
 users
 | カラム名 | 名称 | タイプ | 制約 |
 |:---|:---|:---|:---|
 |id|ユーザID|INT|primarykey|
-|account_name|ユーザ名|VARCHAR||
-|password|パスワード|VARCHAR||
-|created_at|作成タイムスタンプ|DATETIME||
-|updated_at|更新タイムスタンプ|DATETIME||
+|account_name|ユーザ名|VARCHAR|unique, not null|
+|password|パスワード|VARCHAR|not null|
+|created_at|作成タイムスタンプ|DATETIME|not null|
+|updated_at|更新タイムスタンプ|DATETIME|not null|
 
 projects
 |カラム名|名称|タイプ|制約|
 |:---|:---|:---|:---|
 |id|プロジェクトID|INT|primarykey|
-|project_name|プロジェクト名称|varchar||
-|status|プロジェクトステータス|INT||
+|project_name|プロジェクト名称|varchar|unique, not null|
+|status|プロジェクトステータス|INT|not null|
 |description|説明|VARCHAR||
-|started_at|開始タイムスタンプ|DATETIME||
-|finished_at|終了タイムスタンプ|DATETIME||
-|created_at|作成タイムスタンプ|DATETIME||
-|updated_at|更新タイムスタンプ|DATETIME||
+|started_at|開始タイムスタンプ|DATETIME|not null|
+|finished_at|終了タイムスタンプ|DATETIME|not null|
+|created_at|作成タイムスタンプ|DATETIME|not null|
+|updated_at|更新タイムスタンプ|DATETIME|not null|
 
 user_projects
 |カラム名|名称|タイプ|制約|
@@ -44,8 +57,8 @@ user_projects
 |id|ユーザプロジェクトID|INT|primarykey|
 |user_id|ユーザID|INT|foreignkey|
 |project_id|プロジェクトID|INT|foreignkey|
-|created_at|作成タイムスタンプ|DATETIME||
-|updated_at|更新タイムスタンプ|DATETIME||
+|created_at|作成タイムスタンプ|DATETIME|not null|
+|updated_at|更新タイムスタンプ|DATETIME|not null|
 
 tasks
 |カラム名|名称|タイプ|制約|
@@ -53,26 +66,34 @@ tasks
 |id|タスクID|INT|primarykey|
 |task_name|タスク名|VARCHAR||
 |project_id|プロジェクトID|INT|foreignkey|
-|priority|優先順位|INT||
+|priority|優先順位|INT|not null|
+|status|状態|INT||
 |assignee_id|担当ユーザid|INT|foreignkey|
-|assignee_name|担当ユーザ名|VARCHAR||
 |reporter_id|報告者ユーザid|INT|foreignkey|
-|reporter_name|報告者ユーザ名|VARCHAR||
 |description|説明|VARCHAR||
-|started_at|開始タイムスタンプ|DATETIME||
-|finished_at|終了タイムスタンプ|DATETIME||
-|created_at|作成タイムスタンプ|DATETIME||
-|updated_at|更新タイムスタンプ|DATETIME||
+|started_at|開始タイムスタンプ|DATETIME|not null|
+|finished_at|終了タイムスタンプ|DATETIME|not null|
+|created_at|作成タイムスタンプ|DATETIME|not null|
+|updated_at|更新タイムスタンプ|DATETIME|not null|
 
 task_labels
 |カラム名|名称|タイプ|制約|
 |:---|:---|:---|:---|
 |id|ラベルID|INT|primarykey|
 |task_id|タスクID|VARCHAR|foreignkey|
-|color|ラベル色|VARCHAR||
+|label_id|ラベルID|VARCHAR|foreignkey|
 |color_group|色グループ|VARCHAR||
-|created_at|作成タイムスタンプ|DATETIME||
-|updated_at|更新タイムスタンプ|DATETIME||
+|created_at|作成タイムスタンプ|DATETIME|not null|
+|updated_at|更新タイムスタンプ|DATETIME|not null|
+
+labels
+|カラム名|名称|タイプ|制約|
+|:---|:---|:---|:---|
+|id|ラベルID|INT|primarykey|
+|text|タスク説明|VARCHAR||
+|color|ラベル色|VARCHAR|not null|
+|created_at|作成タイムスタンプ|DATETIME|not null|
+|updated_at|更新タイムスタンプ|DATETIME|not null|
 
 ## ERD
 ![image](pics/erd.png)
