@@ -13,14 +13,9 @@ RSpec.describe Task, type: :model do
       it { expect(subject).to be_valid }
       it { is_expected.to validate_presence_of(:title) }
 
-      # 何故かNoMethodError: undefined method `validate_length_of' のため
+      # 何故かNoMethodError: undefined method 'validate_length_of' のため
       context 'when over length' do
         let(:title) { 't' * 257 }
-        it { expect(subject).to be_invalid }
-      end
-
-      context 'when null' do
-        let(:title) { nil }
         it { expect(subject).to be_invalid }
       end
     end
@@ -28,11 +23,6 @@ RSpec.describe Task, type: :model do
     describe 'status' do
       it { expect(subject).to be_valid }
       it { is_expected.to validate_presence_of(:status) }
-
-      context 'when null' do
-        let(:status) { nil }
-        it { expect(subject).to be_invalid }
-      end
     end
   end
 end

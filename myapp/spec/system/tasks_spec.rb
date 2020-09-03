@@ -29,16 +29,16 @@ RSpec.describe Task, type: :system do
     context 'when click due_date' do
       let!(:task_dute_date_late) { create(:task, due_date: task.due_date.tomorrow) }
 
-      it 'once' do
+      before do
         visit root_path
+      end
 
+      it 'once' do
         click_link '終了期限'
         expect(all('tbody tr').first.text).to have_content task.title
       end
 
       it 'twice' do
-        visit root_path
-
         click_link '終了期限'
         click_link '終了期限'
         expect(all('tbody tr').first.text).to have_content task_dute_date_late.title
