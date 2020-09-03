@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :feature do
   let!(:task) { create(:task) }
-  let!(:task_) { create(:task) }
+  let!(:task_other) { create(:task) }
 
   describe '#index' do
     before do
-      task_.update(
+      task_other.update(
         created_at: task.created_at.tomorrow,
       )
       visit root_path
@@ -17,14 +17,14 @@ RSpec.describe Task, type: :feature do
     context 'when there are multiple tasks' do
       it 'sort by created_at desc' do
         expect(all('tbody tr').count > 1).to be_truthy
-        expect(all('tbody tr').first.text).to have_content task_.title
+        expect(all('tbody tr').first.text).to have_content task_other.title
       end
     end
   end
 
   describe '#search form' do
     before do
-      task_.update(
+      task_other.update(
         status: 'wip', # because, default value is 'yet'.
       )
       visit tasks_path(task)
@@ -34,7 +34,7 @@ RSpec.describe Task, type: :feature do
       expect(all('tbody tr').count > 1).to be_truthy
 
       expect(page).to have_content task.title
-      expect(page).to have_content task_.title
+      expect(page).to have_content task_other.title
     end
 
     context 'when searching by title' do
@@ -43,7 +43,7 @@ RSpec.describe Task, type: :feature do
         click_on '検索'
 
         expect(page).to have_content task.title
-        expect(page).not_to have_content task_.title
+        expect(page).not_to have_content task_other.title
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Task, type: :feature do
         click_on '検索'
 
         expect(page).to have_content task.title
-        expect(page).not_to have_content task_.title
+        expect(page).not_to have_content task_other.title
       end
     end
   end
