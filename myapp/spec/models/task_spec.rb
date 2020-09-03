@@ -6,7 +6,7 @@ RSpec.describe Task, type: :model do
   describe 'validations' do
     # For reuse, explicitly defined
     let(:title) { 'title' }
-    let(:status) { 'yet' }
+    let(:status) { 'open' }
     subject { build(:task, title: title, status: status) }
 
     describe 'title' do

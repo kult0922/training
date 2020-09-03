@@ -25,7 +25,7 @@ RSpec.describe Task, type: :feature do
   describe '#search form' do
     before do
       task_other.update(
-        status: 'wip', # because, default value is 'yet'.
+        status: 'doing', # because, default value is 'open'.
       )
       visit tasks_path(task)
     end
@@ -47,7 +47,7 @@ RSpec.describe Task, type: :feature do
       end
     end
 
-    context 'when searching while status is wip' do
+    context 'when searching while status is doing' do
       it 'only the task.title' do
         select '未着手', from: 'Status_eq'
         click_on '検索'
