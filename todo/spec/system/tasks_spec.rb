@@ -29,24 +29,24 @@ RSpec.describe Task, type: :system do
       let!(:task1) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label1', project_id: task.project_id) }
       let!(:task2) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label2', project_id: task.project_id) }
       let!(:task3) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label3', project_id: task.project_id) }
-        
-        before do
-          TaskLabel.create(task_id: task1.id, label_id: label1.id)
-          TaskLabel.create(task_id: task1.id, label_id: label2.id)
-          TaskLabel.create(task_id: task2.id, label_id: label2.id)
-          TaskLabel.create(task_id: task3.id, label_id: label1.id)
-        end
-  
-        it 'have 2 contents' do
-          visit project_tasks_path(task.project, task)
-          check 'label_ids[]', match: :first
-          click_on I18n.t('tasks.search.button')
-  
-          expect(page).to have_content 'label1'
-          expect(page).to have_no_content 'label2'
-          expect(page).to have_content 'label3'
-        end
+
+      before do
+        TaskLabel.create(task_id: task1.id, label_id: label1.id)
+        TaskLabel.create(task_id: task1.id, label_id: label2.id)
+        TaskLabel.create(task_id: task2.id, label_id: label2.id)
+        TaskLabel.create(task_id: task3.id, label_id: label1.id)
       end
+
+      it 'have 2 contents' do
+        visit project_tasks_path(task.project, task)
+        check 'label_ids[]', match: :first
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_content 'label1'
+        expect(page).to have_no_content 'label2'
+        expect(page).to have_content 'label3'
+      end
+    end
 
     context 'when search do' do
       before do
@@ -201,7 +201,6 @@ RSpec.describe Task, type: :system do
 
     context 'when create task with labels' do
       it 'should be created with labels' do
-
         visit new_project_task_path(task.project)
 
         fill_in 'task_task_name', with: 'add_task'

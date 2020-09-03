@@ -5,7 +5,7 @@ class LabelsController < ApplicationController
   before_action :logged_in_user, only: :edit
 
   def index
-    @labels =Label.all.page(params[:page]).per(20)
+    @labels = Label.all.page(params[:page]).per(20)
     @project_id = params[:project_id]
   end
 
