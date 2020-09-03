@@ -1,47 +1,50 @@
-<h1><%= t '.page_title' %></h1>
+<div class="container">
+  <h2><%= t '.page_title' %></h2>
 
-<%= link_to t('.create'), new_task_path %>
+  <%= link_to t('.create'), new_task_path, class: 'btn btn-outline-primary' %>
 
-<% if flash[:notice] %>
-  <p>
-    <font color="#ff0000"><%= flash[:notice] %></font>
-  </p>
-<% end %>
+  <% if flash[:notice] %>
+    <p>
+      <font color="#ff0000"><%= flash[:notice] %></font>
+    </p>
+  <% end %>
 
-<%= search_form_for @q do |f| %>
-  <%= f.label :title_cont, "Title_cont" %>
-  <%= f.search_field :title_cont %>
+  <%# ransack %>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :title_cont, "Title_cont" %>
+    <%= f.search_field :title_cont %>
 
-  <%= f.label :status_eq, "Status_eq" %>
-  <%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]}, {include_blank: '選択してください'}  %>
+    <%= f.label :status_eq, "Status_eq" %>
+    <%= f.select :status_eq, Task.statuses.map{|k, v| [Task.statuses_i18n[k], v]}, {include_blank: '選択してください'}  %>
 
-  <%= f.submit "検索" %>
-<% end %>
+    <%= f.submit "検索", class: 'btn btn-outline-primary' %>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= t '.title' %></th>
-      <th><%= t '.description' %></th>
-      <th><%= sort_by('due_date') %></th>
-      <th><%= t '.status' %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.due_date %></td>
-        <td><%= task.status_i18n %></td>
-        <td><%= link_to t('.show'), task %></td>
-        <td><%= link_to t('.edit'), edit_task_path(task) %></td>
-        <td><%= button_to t('.delete'), task, method: :delete %></td>
+        <th><%= t '.title' %></th>
+        <th><%= t '.description' %></th>
+        <th><%= sort_by('due_date') %></th>
+        <th><%= t '.status' %></th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<%= paginate @tasks %>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.description %></td>
+          <td><%= task.due_date %></td>
+          <td><%= task.status_i18n %></td>
+          <td><%= link_to t('.show'), task, class: 'btn btn-outline-primary' %></td>
+          <td><%= link_to t('.edit'), edit_task_path(task), class: 'btn btn-outline-primary' %></td>
+          <td><%= button_to t('.delete'), task, method: :delete, class: 'btn btn-outline-primary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @tasks %>
+</div>
+
