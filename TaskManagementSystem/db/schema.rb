@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "title", limit: 50, null: false
     t.text "description", size: :tiny
     t.integer "priority", default: 1
@@ -44,8 +44,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["status"], name: "index_tasks_on_status"
-    t.index ["title"], name: "index_tasks_on_title"
+    t.index ["user_id", "title", "status"], name: "index_tasks_on_user_id_and_title_and_status"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -56,6 +55,8 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email", "password"], name: "index_users_on_email_and_password", unique: true
   end
 
+  add_foreign_key "tasks", "users"
 end
