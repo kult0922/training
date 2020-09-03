@@ -2,6 +2,15 @@
 
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  before_action :check_allow_ips, if: :maintenance_mode?
+
+  def check_allow_ips
+    maintenance = YAML.load_file('config/maintenance.yml')
+    if maintenance['allow_ips'].present?
+      return if maintenance['allow_ips'].include?(request.remote_ip)
+    end
+    render 'errors/503', status: 503
+  end
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render_500
@@ -26,5 +35,10 @@ class ApplicationController < ActionController::Base
     unless logged_in?
       redirect_to login_failed_url
     end
+  end
+
+  def maintenance_mode?
+    maintenance = YAML.load_file('config/maintenance.yml')
+    File.exist?(maintenance['path']['lock'])
   end
 end
