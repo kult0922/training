@@ -4,9 +4,9 @@ class TaskController < ApplicationController
   def index
     task_status_id = params[:task_status_id]
     if task_status_id.blank?
-      @task = Task.page(params[:page]).per(PER)
+      @task = Task.includes(:task_status).page(params[:page]).per(PER)
     else
-      @task = Task.search_by_status_id(task_status_id).page(params[:page]).per(PER)
+      @task = Task.includes(:task_status).search_by_status_id(task_status_id).page(params[:page]).per(PER)
     end
   end
 
