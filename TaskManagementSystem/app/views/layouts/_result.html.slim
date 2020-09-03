@@ -1,17 +1,17 @@
 table.table.mt-3
   thead.thead-light
     tr
-      th.col-xs-1.text-center.align-middle style="width:70px;" 優先度
-      th.col-xs-3.align-middle タスク名
+      th.col-xs-1.text-center.align-middle style="width:70px;" = Task.human_attribute_name(:priority)
+      th.col-xs-3.align-middle = Task.human_attribute_name(:title)
       th.col-xs-2.align-middle
-        .row 終了期限/
-        .row 作成日
+        .row = Task.human_attribute_name(:deadline)
+        .row = Task.human_attribute_name(:created_at)
       th.col-xs-3.align-middle
-        .row ステータス/
-        .row ラベル
-      th.col-xs-1.text-center.align-middle style="width:45px;" 詳細
-      th.col-xs-1.text-center.align-middle style="width:45px;" 編集
-      th.col-xs-1.text-center.align-middle style="width:45px;" 削除
+        .row = Task.human_attribute_name(:status)
+        .row = Label.human_attribute_name(:name)
+      th.col-xs-1.text-center.align-middle style="width:45px;" = I18n.t('tasks.index.button.show')
+      th.col-xs-1.text-center.align-middle style="width:45px;" = I18n.t('tasks.index.button.edit')
+      th.col-xs-1.text-center.align-middle style="width:45px;" = I18n.t('tasks.index.button.delete')
     - tasks.each do |task|
       tbody
         tr
@@ -24,9 +24,9 @@ table.table.mt-3
             .row = task.status_i18n
             .row.text-center ラベル
           td.col-xs-1.text-center.align-middle style="width:45px;"
-            = link_to  '詳細', task_path(task), class:"btn btn-info btn-sm", style: "width:45px"
+            = link_to  "#{I18n.t('tasks.index.button.show')}", task_path(task), class:"btn btn-info btn-sm", style: "width:45px"
           td.col-xs-1.text-center.align-middle style="width:45px;"
-            = link_to  '編集', edit_task_path(task), class:"btn btn-warning btn-sm", style: "width:45px"
+            = link_to  "#{I18n.t('tasks.index.button.edit')}", edit_task_path(task), class:"btn btn-warning btn-sm", style: "width:45px"
           td.col-xs-1.text-center.align-middle style="width:45px;"
-            = link_to  '削除', task_path(task), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
+            = link_to  "#{I18n.t('tasks.index.button.delete')}", task_path(task), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
 = paginate tasks

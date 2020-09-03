@@ -1,11 +1,4 @@
 ja:
-  views:
-    pagination:
-      first: "&laquo; 最初"
-      last: "最後 &raquo;"
-      next: "次 &rsaquo;"
-      previous: "&lsaquo; 前"
-      truncate: "&hellip;"
   activerecord:
     models:
       task: タスク
@@ -20,6 +13,9 @@ ja:
         priority: 優先度
         deadline: 終了期限
         status: ステータス
+        created_at: 作成日
+      label:
+        name: ラベル名
   enums:
     task:
       status:

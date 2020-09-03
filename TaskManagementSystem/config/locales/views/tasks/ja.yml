@@ -1,0 +1,23 @@
+ja:
+  tasks:
+    index:
+      title: タスク一覧
+      task_create: タスク登録
+      label_create: ラベル作成
+      button:
+        show: 詳細
+        edit: 編集
+        delete: 削除
+        search: 検索
+    new:
+      title: タスク登録
+      create: 新規登録
+    show:
+      title: '%{task_title}の詳細'
+      button:
+        edit: 編集
+        delete: 削除
+    edit:
+      title: タスク編集
+      button:
+        edit: 編集

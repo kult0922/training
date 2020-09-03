@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
   end
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "label"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

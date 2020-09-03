@@ -3,6 +3,6 @@
     nav
       ul.nav.flex-column
         li.nav-item
-          = link_to 'タスク一覧', root_path, class: "text-light"
+          = link_to "#{I18n.t('tasks.index.title')}", root_path, class: "text-light"
         li.nav-item
           = link_to 'ユーザー管理', '#', class: "text-light"
