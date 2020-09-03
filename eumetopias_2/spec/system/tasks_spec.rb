@@ -4,6 +4,7 @@ RSpec.describe "Task", type: :system do
   let!(:task_status_untouch) { create(:untouch) }
   let!(:task_status_in_progress) { create(:in_progress) }
   let!(:task_status_finished) { create(:finished) }
+  let!(:test_user) { create(:test_user) }
 
   describe "Create new task" do
     let(:submit) { "新規作成" }
@@ -39,7 +40,7 @@ RSpec.describe "Task", type: :system do
     let(:revised_description) {"revised description"}
     before do
       test_status = TaskStatus.find_by(name: "未着手").id
-      @task = Task.create(title: 'unrivised title', description: 'unrevised description', task_status_id: test_status)
+      @task = Task.create(title: 'unrivised title', description: 'unrevised description', task_status_id: test_status, user_id: test_user.id)
       visit "/task/" + @task.id.to_s + "/edit"
       fill_in "task_title", with: revised_title
       fill_in "task_description", with: revised_description
@@ -54,7 +55,7 @@ RSpec.describe "Task", type: :system do
   describe "Delete task" do
     before do
       test_status = TaskStatus.find_by(name: "未着手").id
-      @task = Task.create(title: 'test title', description: 'test description', task_status_id: test_status)
+      @task = Task.create(title: 'test title', description: 'test description', task_status_id: test_status, user_id: test_user.id)
     end
     it "should delete task" do
       expect {delete "/task/" + @task.id.to_s}.to change {Task.count}.by(-1)
@@ -65,7 +66,7 @@ RSpec.describe "Task", type: :system do
     let(:test_title) {"test task 9876"}
     before do
       test_status = TaskStatus.find_by(name: "未着手").id
-      Task.create(title: test_title, description: 'dummy', task_status_id: test_status)
+      Task.create(title: test_title, description: 'dummy', task_status_id: test_status, user_id: test_user.id)
     end
     it "should have added task title" do
       visit root_path
@@ -85,7 +86,7 @@ RSpec.describe "Task", type: :system do
         {title: "finished title", status_id: @finished_id}
       ]
       search_sample_data.each do |sample|
-        Task.create(title: sample[:title], description: "dummy description", task_status_id: sample[:status_id])
+        Task.create(title: sample[:title], description: "dummy description", task_status_id: sample[:status_id], user_id: test_user.id)
       end
       visit root_path
     end
@@ -105,7 +106,7 @@ RSpec.describe "Task", type: :system do
 
     describe "pagination should match 10 tasks with correct title" do
       before do
-        create_list(:task, 20, task_status_id: @untouch_id)
+        create_list(:task, 20, task_status_id: @untouch_id, user_id: test_user.id)
         visit root_path
       end
       it 'in first page' do
