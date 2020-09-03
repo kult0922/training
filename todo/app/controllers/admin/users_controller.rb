@@ -53,6 +53,8 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  private
+
   def check_delete_own
     return if @current_user.account_name != @user.account_name
     flash[:error] = I18n.t('flash.delete_own')
@@ -65,11 +67,8 @@ class Admin::UsersController < ApplicationController
 
   def admin_user
     return if @current_user.admin?
-    flash[:error] = I18n.t('flash.unexpected')
-    redirect_to projects_path
+    render_404
   end
-
-  private
 
   def load_task
     Task.eager_load(:assignee, :reporter)
