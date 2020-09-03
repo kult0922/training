@@ -26,7 +26,7 @@ ja:
     table:
       title: "題名"
       name: "名前"
-      description: "内容"
+      description: "説明"
     browse:
       back: "戻る"
       next: "次へ"
@@ -41,3 +41,11 @@ ja:
   time:
     formats:
       default: ! "%Y-%m-%d %H:%M:%S"
+  activerecord:
+    models:
+      task: "タスク"
+      task_status: "ステータス"
+    attributes:
+      task:
+        title: "題名"
+        description: "説明"
