@@ -1,9 +1,9 @@
-- provide(:title, "タスク登録")
+- provide(:title, "#{I18n.t('tasks.new.title')}")
 .col-9.mx-auto.mt-3
   = render  "layouts/flash"
   .row
     .container.h-auto
-      h2.mb-4.border-secondary.border-bottom.pb-2 タスク登録
+      h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('tasks.new.title')
       .row
         .task-new-form.mx-auto.mt-3.mb-3.border.border-dark.p-5
           = form_with(model: @task, local: true) do |f|
@@ -24,4 +24,4 @@
             .form-group
               = f.hidden_field :status, value: "waiting"
             .form-group
-              = f.submit '新規登録', class:'btn btn-primary'
+              = f.submit "#{I18n.t('tasks.new.create')}", class:'btn btn-primary'

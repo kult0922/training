@@ -1,9 +1,9 @@
-- provide(:title, "タスク編集")
+- provide(:title, "#{I18n.t('tasks.edit.title')}")
 .col-9.mx-auto.mt-3
   = render  "layouts/flash"
   .row
     .container.h-auto
-      h2.mb-4.border-secondary.border-bottom.pb-2 タスク編集
+      h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('tasks.edit.title')
       .row
         .task-edit-form.mx-auto.mt-3.mb-3.border.border-dark.p-5
           = form_with(model: @task, local: true) do |f|
@@ -25,4 +25,4 @@
               = f.label :description, class: 'form-label'
               = f.text_area :description, class: 'form-control', style:"width:500px;height:400px;"
             .form-group
-              = f.submit '編集', class:'btn btn-warning'
+              = f.submit "#{I18n.t('tasks.edit.button.edit')}", class:'btn btn-warning'
