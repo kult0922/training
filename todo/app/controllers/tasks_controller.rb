@@ -5,7 +5,8 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   before_action :current_user
   before_action :check_task_auth, only: %i[show edit destroy]
-  before_action :set_labels, only: %i[show new edit index]
+  before_action :set_labels, only: %i[show new create update edit index]
+  before_action :hash_labels, only: %i[new edit create update index]
 
   def index
     @project = Project.find(params[:project_id])
@@ -19,7 +20,6 @@ class TasksController < ApplicationController
   def new
     @users = User.all
     @task = Project.find(params[:project_id]).tasks.new
-    hash_labels
   end
 
   def create
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
-      render :new, locals: { users: @users }
+      render :new
     end
   end
 
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '更新')
-      render :edit, locals: { users: @users }
+      render :edit
     end
   end
 
@@ -102,7 +102,6 @@ class TasksController < ApplicationController
   end
 
   def hash_labels
-    set_labels
     @hash = {}
     @labels.each do |label|
       @hash.store(label.color, label.text)

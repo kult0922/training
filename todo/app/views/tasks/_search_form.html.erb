@@ -36,9 +36,9 @@
           <%= I18n.t('tasks.search.label') %>
           <div class="label_checkbox">
             <div class="d-flex align-items-center">
-            <%= form.collection_check_boxes :label_ids, @labels, :id, :color do |b| %>
+            <%= form.collection_check_boxes :label_ids, @labels, :id, :color, include_hidden: false, checked: params[:label_ids], name: nil do |b| %>
               <%= b.label { b.check_box } %>
-              <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= Label.find_by(color: b.text).text %></span>
+              <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= @hash[b.text] %></span>
             <% end %>
             </div>
           </div>
