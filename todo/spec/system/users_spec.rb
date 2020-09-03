@@ -85,10 +85,10 @@ RSpec.describe User, type: :system do
     end
 
     context 'when user is not have admin auth' do
-      it 'move project page' do
+      it 'move 404 page' do
         login(user)
         visit admin_users_path
-        expect(page).to have_content 'PJ登録'
+        expect(page).to have_content '探しているページが存在しません。'
       end
     end
   end
