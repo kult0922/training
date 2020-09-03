@@ -6,6 +6,7 @@ ja:
       title: 'タスク名'
       description: 'タスク説明文'
       due_date: '終了期限'
+      status: '状態'
       show: '詳細'
       edit: '編集'
       delete: '削除'

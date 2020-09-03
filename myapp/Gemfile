@@ -37,8 +37,10 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # rubocop
+  gem 'enum_help'
   gem 'fablicop', require: false
   gem 'pry-rails'
+  gem 'ransack'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end

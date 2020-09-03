@@ -4,8 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'validations' do
+    # For reuse, explicitly defined
     let(:title) { 'title' }
-    subject { build(:task, title: title) }
+    let(:status) { 'open' }
+    subject { build(:task, title: title, status: status) }
 
     describe 'title' do
       it { expect(subject).to be_valid }
@@ -19,6 +21,16 @@ RSpec.describe Task, type: :model do
 
       context 'when null' do
         let(:title) { nil }
+        it { expect(subject).to be_invalid }
+      end
+    end
+
+    describe 'status' do
+      it { expect(subject).to be_valid }
+      it { is_expected.to validate_presence_of(:status) }
+
+      context 'when null' do
+        let(:status) { nil }
         it { expect(subject).to be_invalid }
       end
     end

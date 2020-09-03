@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
   def index
-    @tasks = Task.all.sort_task_by(
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true).sort_task_by(
       params[:sort],
       params[:direction],
     )
@@ -50,6 +51,7 @@ class TasksController < ApplicationController
       :title,
       :description,
       :due_date,
+      :status,
     )
   end
 
