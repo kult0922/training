@@ -69,7 +69,7 @@ RSpec.describe User, type: :system do
         expect(page).to have_content '承認者タスク数'
         expect(page).to have_content '作成日'
         expect(page).to have_content '更新日'
-        expect(page).to have_content 'factoryUser3'
+        expect(page).to have_content admin_user.account_name
         expect(page).to have_content 'true'
       end
 

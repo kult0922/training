@@ -15,7 +15,7 @@ RSpec.describe Label, type: :system do
     context 'when visit index page' do
       it 'should have label' do
         expect(page).to have_content 'ラベル'
-        expect(page).to have_content 'label_1'
+        expect(page).to have_content label.text
         expect(page).to have_content '作成日'
         expect(page).to have_content '修正'
         expect(page).to have_content '削除'
@@ -32,7 +32,7 @@ RSpec.describe Label, type: :system do
 
     context 'when create label' do
       it 'is created' do
-        find_by(id: 'label_color').execute_script('this.value = arguments[0]', '#d37864')
+        find_by_id('label_color').execute_script('this.value = arguments[0]', '#d37864')
         fill_in 'label_text', with: 'label_test'
         click_on '登録する'
 
@@ -59,7 +59,7 @@ RSpec.describe Label, type: :system do
 
     context 'when edit label' do
       it 'is changed' do
-        find_by(id: 'label_color').execute_script('this.value = arguments[0]', '#d37864')
+      find_by_id('label_color').execute_script('this.value = arguments[0]', '#d37864')
         fill_in 'label_text', with: 'edit_test'
         click_on '更新する'
 
@@ -70,7 +70,7 @@ RSpec.describe Label, type: :system do
 
     context 'when text not input' do
       it 'should be error' do
-        fill_in 'label_text', with: ''
+        fill_in 'label_text', with: '' 
         click_on '更新する'
 
         expect(page).to have_content 'ラベルの更新に失敗しました。'
