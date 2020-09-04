@@ -17,12 +17,14 @@
 
 4.メンテナンスモード
 config/maintenance.ymlよりallow_ips項目に自分のipアドレスを追加する。
-> allow_ips:
-> - '::1' #ipを追加する
-> - 自分のip
->path:
->  log: log/maintenance.log
->  lock: tmp/maintenance.yml
+```
+allow_ips:
+  - '::1' #ipを追加する
+
+path:
+ log: log/maintenance.log
+ lock: tmp/maintenance.yml
+```
 - 実行時
 `rails maintenance:start`
 - 終了時
