@@ -11,9 +11,7 @@
     <%= link_to t('dictionary.button.create'), new_task_path, class: 'btn btn-primary float-left' %>
     <%= form_with url: root_path, method: :get, class: 'form-group form-inline float-right', local: true do |form| %>
       <%= form.label 'status検索' %>
-      <% select_options =  [['全て', '']] %>
-      <% TaskStatus.all.each {|status| select_options.push([status.name, status.id])} %>
-      <%= form.select :task_status_id, select_options, {selected: params[:task_status_id] || ''}, {class: 'form-control'} %>
+      <%= form.select :task_status_id, status_select_options, {selected: params[:task_status_id] || ''}, {class: 'form-control'} %>
       <%= form.submit '検索', class: 'btn btn-primary' %>
     <% end %>
 
