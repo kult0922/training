@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   get 'search' => 'tasks#search'
 
   # ログイン画面
-  resources :sessions
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete '/logout' => 'sessions#destroy'
+
 
   # エラー画面
   get '*anything' => 'errors#routing_error'
