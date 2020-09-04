@@ -104,7 +104,7 @@ class TasksController < ApplicationController
   def hash_labels
     @hash = {}
     @labels.each do |label|
-      @hash.store(label.color, label.text)
+      @hash.store(label.id, label.text)
     end
   end
 

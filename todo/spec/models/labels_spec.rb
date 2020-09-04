@@ -10,7 +10,7 @@ RSpec.describe Label, type: :model do
     it { is_expected.to be_valid }
   end
 
-  context 'when color is not invalid' do
+  context 'when color is invalid' do
     it 'should be color invalid error' do
       label.color = ''
       is_expected.to be_invalid
@@ -19,7 +19,7 @@ RSpec.describe Label, type: :model do
     end
   end
 
-  context 'when text is not invalid' do
+  context 'when text is invalid' do
     it 'should be text invaild error' do
       label.text = ''
       is_expected.to be_invalid

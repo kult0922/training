@@ -5,7 +5,7 @@
     </div>
     <div class="col">
       <%= link_to I18n.t('tasks.index.new'), new_project_task_path, class: 'btn btn-success' %>
-      <%= link_to I18n.t('tasks.index.new_label'), labels_path, class: 'btn btn-success', locals: {project_id: @project.id} %>
+      <%= link_to I18n.t('tasks.index.labels'), labels_path, class: 'btn btn-success', locals: {project_id: @project.id} %>
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
       <th><%= I18n.t('tasks.index.name') %></th>
       <th><%= I18n.t('tasks.index.priority') %></th>
       <th><%= I18n.t('tasks.index.status') %></th>
-      <th><%= I18n.t('tasks.index.new_label') %></th>
+      <th><%= I18n.t('tasks.index.label') %></th>
       <th><%= I18n.t('tasks.index.finished_at') %></th>
       <th colspan = 2></th>
     </tr>

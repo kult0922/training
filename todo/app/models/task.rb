@@ -19,8 +19,7 @@ class Task < ApplicationRecord
   scope :status_search, ->(status) { where(status: status) if status.present? }
   scope :label_search, lambda { |label_ids|
     if label_ids.present?
-      tasks_id = Task.joins(:labels).where(labels: { id: label_ids }).select('id')
-      where(id: tasks_id)
+      where(id: Task.joins(:labels).where(labels: { id: label_ids }).select(:id))
     end
   }
 

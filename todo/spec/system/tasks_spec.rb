@@ -26,9 +26,9 @@ RSpec.describe Task, type: :system do
     end
 
     context 'when task have labels search' do
-      let!(:task1) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label1', project_id: task.project_id) }
-      let!(:task2) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label2', project_id: task.project_id) }
-      let!(:task3) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label3', project_id: task.project_id) }
+      let(:task1) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label1', project_id: task.project_id) }
+      let(:task2) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label2', project_id: task.project_id) }
+      let(:task3) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label3', project_id: task.project_id) }
 
       before do
         TaskLabel.create(task_id: task1.id, label_id: label1.id)

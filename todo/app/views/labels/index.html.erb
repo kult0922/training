@@ -17,12 +17,12 @@
     </tr>
     
     <% @labels.each do |label| %>
-    <tr>
-      <td><span class="badge" style="background:<%= label.color %>; color:#fff"><%= label.text %><span></td>
-      <td><%= I18n.l(label.created_at) %></td>
-      <td><%= link_to I18n.t('labels.index.update'), edit_label_path(label), class: 'btn btn-secondary' %></td>
-      <td><%= link_to I18n.t('labels.index.delete'), label_path(label), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') },class: 'btn btn-danger' %></td>
-    </tr>
+      <tr>
+        <td><span class="badge" style="background:<%= label.color %>; color:#fff"><%= label.text %><span></td>
+        <td><%= I18n.l(label.created_at) %></td>
+        <td><%= link_to I18n.t('labels.index.update'), edit_label_path(label), class: 'btn btn-secondary' %></td>
+        <td><%= link_to I18n.t('labels.index.delete'), label_path(label), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') },class: 'btn btn-danger' %></td>
+      </tr>
     <% end %>
   </table>
 </div>

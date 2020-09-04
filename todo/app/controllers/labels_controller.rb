@@ -2,7 +2,7 @@
 
 class LabelsController < ApplicationController
   before_action :set_label, only: %i[edit update destroy]
-  before_action :logged_in_user, only: :edit
+  before_action :logged_in_user
 
   def index
     @labels = Label.all.page(params[:page]).per(20)
