@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_secure_password
   has_many :tasks
   validates :last_name, presence: true, length: {maximum: 25}
   validates :first_name, presence: true, length: {maximum: 25}
