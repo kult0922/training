@@ -43,6 +43,7 @@ group :development, :test do
   gem 'ransack'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'kaminari'
 end
 
 group :development do

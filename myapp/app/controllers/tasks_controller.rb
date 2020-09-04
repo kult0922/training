@@ -3,12 +3,14 @@
 class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
+  PER = 5
+
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true).sort_task_by(
       params[:sort],
       params[:direction],
-    )
+    ).page(params[:page]).per(PER)
   end
 
   def new
