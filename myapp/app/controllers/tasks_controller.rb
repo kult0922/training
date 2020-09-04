@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
 
-  PER = 2
+  PER = 5
 
   def index
     @q = Task.ransack(params[:q])
