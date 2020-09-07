@@ -7,7 +7,6 @@ class User < ApplicationRecord
                     length: { maximum: 255 },
                     format: {with: VALID_EMAIL_REGEX},
                     uniqueness: { case_sensitive: false}
-  validates :password, presence: true
   validates :password_digest, presence: true
 
   # メールの保存時に、大文字を小文字化(わかりやすくする為、右辺のselfは省略しない)
