@@ -1,11 +1,11 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
   before_action :logged_in_user
-  before_action :admin_user
+  before_action :admin_only
   before_action :current_user
 
   def index
-    @users = User.all.page(params[:page]).per(20)
+    @users = User.all.page(params[:page])
   end
 
   def show
@@ -52,10 +52,6 @@ class Admin::UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def admin_user
-    redirect_to projects_path unless @current_user.admin?
   end
 
   private
