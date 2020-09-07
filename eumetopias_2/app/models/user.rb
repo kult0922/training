@@ -4,9 +4,9 @@ class User < ApplicationRecord
 
     has_secure_password
 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: { case_sensitive: true }, length: { in: 2..50 }
     VALID_EMAIL_REGEX = /\A(?!.*(\.\..*@.*|\.@.*))(?!\.)[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
+    validates :email, presence: true, uniqueness: { case_sensitive: true }, format: { with: VALID_EMAIL_REGEX }
     VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,20}\z/
     validates :password, presence: true,
         format: { with: VALID_PASSWORD_REGEX,
