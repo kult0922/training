@@ -7,109 +7,110 @@ RSpec.describe User, type: :model do
 
   describe 'name' do
     it 'not filled' do
-      user = User.new(name: '', email: valid_email, password: valid_password)
-      user.valid?
-      expect(user.errors.messages[:name]).to include('を入力してください')
+      errors = validate_name('')
+      expect(errors[:name]).to include('を入力してください')
     end
     describe 'have' do
       before { @test_user = create(:test_user) }
       it 'duplicated' do
-        user = User.new(name: @test_user.name, email: 'random@example.com', password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:name]).to include('はすでに存在します')
+        errors = validate_name(@test_user.name)
+        expect(errors[:name]).to include('はすでに存在します')
       end
     end
     describe 'invalid lentgh' do
       it 'less than 2' do
-        user = User.new(name: 'a', email: valid_email, password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:name]).to include('は2文字以上で入力してください')
+        errors = validate_name('a')
+        expect(errors[:name]).to include('は2文字以上で入力してください')
       end
       it 'over 50' do
-        user = User.new(name: 'a' * 51, email: valid_email, password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:name]).to include('は50文字以内で入力してください')
+        errors = validate_name('a' * 51)
+        expect(errors[:name]).to include('は50文字以内で入力してください')
       end
     end
   end
 
   describe 'email' do
     it 'not filled' do
-      user = User.new(name: valid_name, email: '', password: valid_password)
-      user.valid?
-      expect(user.errors.messages[:email]).to include('を入力してください')
+      errors = validate_email('')
+      expect(errors[:email]).to include('を入力してください')
     end
     describe 'have' do
       before { @test_user = create(:test_user) }
       it 'duplicated' do
-        user = User.new(name: 'random name', email: @test_user.email, password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:email]).to include('はすでに存在します')
+        errors = validate_email(@test_user.email)
+        expect(errors[:email]).to include('はすでに存在します')
       end
     end
     describe 'invalid input' do
       before { @email_error_message = 'は不正な値です' }
       it 'start with .' do
-        user = User.new(name: valid_name, email: '.example@example.com', password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:email]).to include(@email_error_message)
+        errors = validate_email('.example@example.com')
+        expect(errors[:email]).to include(@email_error_message)
       end
       it 'have repeat .' do
-        user = User.new(name: valid_name, email: 'exam..ple@example.com', password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:email]).to include(@email_error_message)
+        errors = validate_email('exam..ple@example.com')
+        expect(errors[:email]).to include(@email_error_message)
       end
       it 'have . before @' do
-        user = User.new(name: valid_name, email: 'example.@example.com', password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:email]).to include(@email_error_message)
+        errors = validate_email('example.@example.com')
+        expect(errors[:email]).to include(@email_error_message)
       end
       it 'without @' do
-        user = User.new(name: valid_name, email: 'exampleatexample.com', password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:email]).to include(@email_error_message)
+        errors = validate_email('exampleatexample.com')
+        expect(errors[:email]).to include(@email_error_message)
       end
       it 'without . after @' do
-        user = User.new(name: valid_name, email: 'example@examplecom', password: valid_password)
-        user.valid?
-        expect(user.errors.messages[:email]).to include(@email_error_message)
+        errors = validate_email('example@examplecom')
+        expect(errors[:email]).to include(@email_error_message)
       end
     end
   end
 
   describe 'password' do
     it 'not filled' do
-      user = User.new(name: valid_name, email: valid_password, password: '')
-      user.valid?
-      expect(user.errors.messages[:password]).to include('を入力してください')
+      errors = validate_password('')
+      expect(errors[:password]).to include('を入力してください')
     end
     describe 'invalid input' do
       before { @password_error_message = 'は半角6~20文字英大文字・小文字・数字それぞれ１文字以上含む必要があります' }
       it 'length less than 6' do
-        user = User.new(name: valid_name, email: valid_email, password: 'aA9')
-        user.valid?
-        expect(user.errors.messages[:password]).to include(@password_error_message)
+        errors = validate_password('aA9')
+        expect(errors[:password]).to include(@password_error_message)
       end
       it 'length over 20' do
-        user = User.new(name: valid_name, email: valid_email, password: 'aaaaaaaaaaAAAAAAAAAA0000000000')
-        user.valid?
-        expect(user.errors.messages[:password]).to include(@password_error_message)
+        errors = validate_password('aaaaaaaaaaAAAAAAAAAA0000000000')
+        expect(errors[:password]).to include(@password_error_message)
       end
       it 'without small letter' do
-        user = User.new(name: valid_name, email: valid_email, password: 'AAAA0000')
-        user.valid?
-        expect(user.errors.messages[:password]).to include(@password_error_message)
+        errors = validate_password('AAAA0000')
+        expect(errors[:password]).to include(@password_error_message)
       end
       it 'without capital letter' do
-        user = User.new(name: valid_name, email: valid_email, password: 'aaaa0000')
-        user.valid?
-        expect(user.errors.messages[:password]).to include(@password_error_message)
+        errors = validate_password('aaaa0000')
+        expect(errors[:password]).to include(@password_error_message)
       end
       it 'without numerical characters' do
-        user = User.new(name: valid_name, email: valid_email, password: 'aaaaAAAA')
-        user.valid?
-        expect(user.errors.messages[:password]).to include(@password_error_message)
+        errors = validate_password('aaaAAA')
+        expect(errors[:password]).to include(@password_error_message)
       end
     end
+  end
+
+  def validate_name(name)
+    return validate_user(name, valid_email, valid_password)
+  end
+
+  def validate_email(email)
+    return validate_user(valid_name, email, valid_password)
+  end
+
+  def validate_password(password)
+    return validate_user(valid_name, valid_email, password)
+  end
+
+  def validate_user(name, email, password)
+    user = User.new(name: name, email: email, password: password)
+    user.valid?
+    return user.errors.messages
   end
 end
