@@ -25,7 +25,7 @@
   </table>
   <div class="form-row mb-4">
     <div class="col-auto">
-      <%= link_to I18n.t('projects.back'), projects_path, class: 'btn btn-primary' %>
+      <%= link_to I18n.t('back'), projects_path, class: 'btn btn-primary' %>
     </div>
     <div class="col-auto">
       <%= link_to I18n.t('projects.index.update'), edit_project_path(@project), class: 'btn btn-secondary' %>
@@ -35,7 +35,7 @@
     </div>
     <% unless check_project.nil? %>
       <div class="col-auto">
-        <%= link_to I18n.t('projects.index.delete'), @project, method: :delete, data: { confirm: I18n.t('projects.delete.confirm') }, class: 'btn btn-danger' %>
+        <%= link_to I18n.t('projects.index.delete'), @project, method: :delete, data: { confirm: I18n.t('delete.confirm') }, class: 'btn btn-danger' %>
       </div>
     <% end %>
   </div>

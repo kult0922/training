@@ -1,4 +1,4 @@
 <p class="title"><%= link_to project.project_name, project, class: 'btn btn-primary' %></p>
 <%= link_to I18n.t('projects.index.tasklist'), project_tasks_url(project), class: 'btn btn-secondary btn-sm' %>
 <%= link_to I18n.t('projects.index.update'), edit_project_path(project), class: 'btn btn-secondary btn-sm' %>
-<%= link_to I18n.t('projects.index.delete'), project, method: :delete, data: { confirm: I18n.t('projects.delete.confirm') }, class: 'btn btn-danger btn-sm' %>
+<%= link_to I18n.t('projects.index.delete'), project, method: :delete, data: { confirm: I18n.t('delete.confirm') }, class: 'btn btn-danger btn-sm' %>

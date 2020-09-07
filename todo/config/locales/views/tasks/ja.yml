@@ -32,12 +32,18 @@ ja:
       reporter: '承認者'
       started_at: '開始日'
       finished_at: '終了日'
+    form:
+      name: 'タスク名'
+      description: '説明'
+      priority: '優先順位'
+      status: '状態'
+      assignee: '担当者'
+      reporter: '承認者'
+      started_at: '開始日'
+      finished_at: '終了日'
     edit:
       title: 'タスク修正'
     new:
       title: 'タスク作成'
-    delete:
-      confirm: '削除してもよろしいでしょうか?'
-    back: '戻る'
     errors:
       input: 'を入力してください'

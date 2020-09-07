@@ -55,4 +55,7 @@ ja:
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
+  delete:
+    confirm: '削除してもよろしいでしょうか?'
+  back: '戻る'
 

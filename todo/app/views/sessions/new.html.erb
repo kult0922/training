@@ -3,21 +3,21 @@
   <%= form_for(:session, url: login_path) do |f| %>
     <div class="form-row align-items-center mb-2">
       <div class="col-auto">
-        <%= f.label :'ユーザ名' %>
+        <%= f.label I18n.t('users.form.name') %>
         <%= f.text_field :account_name, class: 'form-control' %>
       </div>
       <div class="col-auto">
-        <%= f.label :'パスワード' %>
+        <%= f.label I18n.t('users.form.password') %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
     </div>
-      <div class="row mb-2">
-    <div class="col-auto">
-      <%= f.submit I18n.t('users.new.login'), class: 'btn btn-primary' %>
+    <div class="row mb-2">
+      <div class="col-auto">
+        <%= f.submit I18n.t('users.new.login'), class: 'btn btn-primary' %>
+      </div>
+      <div class="col-auto">
+        <%= link_to I18n.t('users.new.create'), new_user_path, class: 'btn btn-success' %>
+      </div>
     </div>
-    <div class="col-auto">
-      <%= link_to I18n.t('users.new.create'), new_user_path, class: 'btn btn-success' %>
-    </div>
-  </div>
   <% end %>
 </div>
