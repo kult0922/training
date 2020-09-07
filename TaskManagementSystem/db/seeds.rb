@@ -14,7 +14,6 @@
     last_name: "タスクユーザー",
     first_name: "太郎#{n}",
     email: "task_user_taro#{n}@example.com",
-    password: "password#{n}",
     password_digest: "password#{n}".crypt("secretkey")
   )
 end
