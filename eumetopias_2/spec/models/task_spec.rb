@@ -6,9 +6,6 @@ RSpec.describe Task, type: :model do
   let!(:task_status_finished) { create(:finished) }
   let!(:test_user) { create(:test_user) }
 
-  before do
-  end
-
   it 'is invalid without title and description' do
     new_task = Task.new(user_id: test_user.id)
     new_task.valid?
