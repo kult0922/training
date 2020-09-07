@@ -1,8 +1,16 @@
 .col-2.bg-secondary
   .sidebar_fixed
-    nav
-      ul.nav.flex-column
-        li.nav-item
-          = link_to "#{I18n.t('tasks.index.title')}", root_path, class: "text-light"
-        li.nav-item
-          = link_to 'ユーザー管理', '#', class: "text-light"
+    - if logged_in?
+      nav
+        ul.nav.flex-column
+          li.nav-item
+            = link_to "#{I18n.t('tasks.index.title')}", root_path, class: "text-light"
+          li.nav-item
+            = link_to "#{I18n.t('users.edit.account_management')}", '#', class: "text-light"
+    - else
+      nav
+        ul.nav.flex-column
+          li.nav-item
+            = link_to "#{I18n.t('sessions.new.log_in')}", login_path, class: "text-light"
+          li.nav-item
+            = link_to "#{I18n.t('users.new.sign_up')}", '#', class: "text-light"
