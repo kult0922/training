@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   validates :status, presence: true
   validate :deadline_not_before_today
 
+  belongs_to :user
+
   enum status: { waiting: 1, working: 2, completed: 3}
 
   # バリデーション用のメソッドを定義

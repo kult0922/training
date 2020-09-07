@@ -2,9 +2,10 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[index search]
 
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = @user.tasks.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
@@ -46,7 +47,7 @@ class TasksController < ApplicationController
 
   def search
     # 終了期限のソートorステータスorタスク名の検索
-    @tasks = Task.deadline_sort(params[:deadline_keyword]).search_status(params[:status_keyword]).search_title(params[:title_keyword]).page(params[:page]).per(10)
+    @tasks = @user.tasks.deadline_sort(params[:deadline_keyword]).search_status(params[:status_keyword]).search_title(params[:title_keyword]).page(params[:page]).per(10)
   end
 
   private
@@ -56,6 +57,14 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     rescue => e
       redirect_to root_path, danger: '存在しないタスクです'
+    end
+  end
+
+  def set_user
+    begin
+      @user = User.preload(:tasks).find(1)
+    rescue => e
+      redirect_to root_path, danger: '存在しないユーザーです'
     end
   end
 

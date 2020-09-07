@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_11_023555) do
+ActiveRecord::Schema.define(version: 2020_09_07_045023) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "last_name"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
   end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "title", limit: 50, null: false
     t.text "description", size: :tiny
     t.integer "priority", default: 1
@@ -44,18 +44,18 @@ ActiveRecord::Schema.define(version: 2020_08_11_023555) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["status"], name: "index_tasks_on_status"
-    t.index ["title"], name: "index_tasks_on_title"
+    t.index ["user_id", "status"], name: "index_tasks_on_user_id_and_status"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "last_name"
-    t.string "first_name"
-    t.string "email"
-    t.string "password"
-    t.string "password_digest"
+    t.string "last_name", limit: 25, null: false
+    t.string "first_name", limit: 25, null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "tasks", "users"
 end
