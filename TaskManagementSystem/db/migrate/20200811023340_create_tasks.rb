@@ -12,7 +12,5 @@ class CreateTasks < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :tasks, [:user_id, :title, :status]
-    add_foreign_key :tasks, :users
   end
 end
