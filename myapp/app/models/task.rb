@@ -10,8 +10,8 @@ class Task < ApplicationRecord
 
   # enum
   enum status: {
-    yet: 0, # 未着手
-    wip: 1, # 着手中
+    open: 0, # 未着手
+    doing: 1, # 着手中
     done: 2, # 完了
   }
 
