@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
+
   # bootstrapを使用したフラッシュメッセージ用
   add_flash_types :success, :info, :warning, :danger
 
