@@ -17,7 +17,7 @@
       <% end %>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <span class="navbar-text mr-sm-2"><%= I18n.t('views.navbar.name') %> <%= current_user.account_name %></span>
+      <span class="navbar-text mr-sm-2"><%= I18n.t('views.navbar.name') %> <%= @current_user.account_name %></span>
       <%= link_to 'logout', logout_path, method: :delete, class: 'btn btn-outline-success my-2 my-sm-0' %>
     </form>
   </div>

@@ -13,5 +13,12 @@
     <div class="col-auto">
       <%= form.submit class: 'btn btn-primary' %>
     </div>
+    <div class="col-auto">
+      <% if logged_in? %>
+        <%= link_to I18n.t('back'), projects_path, class: 'btn btn-secondary' %>
+      <% else %>
+        <%= link_to I18n.t('back'), login_path, class: 'btn btn-secondary' %>
+      <% end %>
+    </div>
   </div>
 <% end %>
