@@ -11,6 +11,10 @@
   <%= form.text_field :description %>
 </p>
 
+<p>
+  <%= form.label :task_status_id %>
+  <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name %>
+</p>
 
 <p>
   <%= form.submit t('dictionary.button.update') %>

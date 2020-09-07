@@ -4,14 +4,20 @@
 <%= content_tag :div, msg, class: name  %>
 <% end %>
 </p>
+
 <p>
   <strong><%= t('dictionary.table.title') %>:</strong>
   <%= @task.title %>
 </p>
+
 <p>
   <strong><%= t('dictionary.table.description') %>:</strong>
   <%= @task.description %>
+</p>
 
+<p>
+  <strong>Status:</strong>
+  <%= @task.task_status.name %>
 </p>
 
 <%= link_to t('dictionary.browse.back'), root_path  %>

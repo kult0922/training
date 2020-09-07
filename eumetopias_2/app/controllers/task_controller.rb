@@ -1,6 +1,13 @@
 class TaskController < ApplicationController
+  PER = 10
+
   def index
-    @task = Task.all
+    task_status_id = params[:task_status_id]
+    if task_status_id.blank?
+      @task = Task.page(params[:page]).per(PER)
+    else
+      @task = Task.search_by_status_id(task_status_id).page(params[:page]).per(PER)
+    end
   end
 
   def new
@@ -48,5 +55,5 @@ end
 
 private
   def task_params
-    params.require(:task).permit(:title, :description)
+    params.require(:task).permit(:title, :description, :task_status_id)
   end

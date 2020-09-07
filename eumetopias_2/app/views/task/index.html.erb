@@ -4,10 +4,16 @@
 <%= content_tag :div, msg, class: name  %>
 <% end %>
 </p>
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <%= form.label 'status' %>
+  <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name, prompt: '全て' %>
+  <%= form.submit t('dictionary.button.search') %>
+<% end %>
 <table>
   <tr>
     <th><%= t('dictionary.table.title') %></th>
     <th><%= t('dictionary.table.description') %></th>
+    <th>Status</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,10 +22,12 @@
   <tr>
     <th><%= task.title %></th>
     <th><%=task.description %></th>
+    <th><%=task.task_status.name %></th>
     <th><%= link_to t('dictionary.button.show'), task_path(task) %></th>
     <th><%= link_to t('dictionary.button.edit'), edit_task_path(task) %></th>
     <th><%= link_to t('dictionary.button.destroy'), task_path(task), method: :delete, data:{ confirm: t('dictionary.message.destroy.confirm')} %></th>
   <tr>
   <% end %>
 </table>
+<%= paginate @task %>
 <%= link_to t('dictionary.button.create'), new_task_path %>
