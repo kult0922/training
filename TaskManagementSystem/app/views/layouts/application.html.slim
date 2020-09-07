@@ -9,7 +9,14 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application'
   body
-    .container
+    header
+      nav.navbar.navbar-dark.bg-dark.fixed-top
+        ul.nav
+          li.navbar-brand
+            h1 = link_to 'TMS', root_path, class: "text-light"
+          li.nav-item.text-light.d-flex.align-items-center
+            = link_to 'UserNameさん', '#', class: "text-light"
+    .container-fluid
       .row  
         = render "layouts/sidebar"
         = yield

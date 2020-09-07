@@ -1,27 +1,27 @@
-- provide(:title, "タスク登録")
-.col-9
+- provide(:title, "#{I18n.t('tasks.new.title')}")
+.col-9.mx-auto.mt-3
   = render  "layouts/flash"
-  .new-task-registration
-    .row.index-title
-      h2 タスク登録
-    .row
-      .task-new-form.mx-auto.mt-3.mb-3.border.border-dark.p-5
-        = form_with(model: @task, local: true) do |f|
-          = render 'layouts/error_messages', model: f.object
-          .form-group
-            = f.label :title, class: 'form-label'
-            = f.text_field :title, class: 'form-control'
-          .form-group
-            = f.label :priority, class: 'form-label'
-            = f.number_field :priority, class:'form-control', min:1
-          .form-group
-            = f.label :deadline, class: 'form-label'
-            br
-            = f.datetime_select :deadline
-          .form-group
-            = f.label :description, class: 'form-label'
-            = f.text_area :description, class: 'form-control'
-          .form-group
-            = f.hidden_field :status, value: "waiting"
-          .form-group
-            = f.submit '新規登録', class:'btn btn-primary'
+  .row
+    .container.h-auto
+      h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('tasks.new.title')
+      .row
+        .task-new-form.mx-auto.mt-3.mb-3.border.border-dark.p-5
+          = form_with(model: @task, local: true) do |f|
+            = render 'layouts/error_messages', model: f.object
+            .form-group
+              = f.label :title, class: 'form-label'
+              = f.text_field :title, class: 'form-control'
+            .form-group
+              = f.label :priority, class: 'form-label'
+              = f.number_field :priority, class:'form-control', min:1
+            .form-group
+              = f.label :deadline, class: 'form-label'
+              br
+              = f.datetime_select :deadline
+            .form-group
+              = f.label :description, class: 'form-label'
+              = f.text_area :description, class: 'form-control', style:"width:500px;height:400px;"
+            .form-group
+              = f.hidden_field :status, value: "waiting"
+            .form-group
+              = f.submit "#{I18n.t('tasks.new.create')}", class:'btn btn-primary'
