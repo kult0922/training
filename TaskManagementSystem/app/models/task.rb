@@ -34,7 +34,7 @@ class Task < ApplicationRecord
 
   # タスク名検索
   def self.search_title(title)
-    where("title LIKE ?", "%#{title}%") if title.present?
+    return where("title LIKE ?", "%#{title}%") if title.present?
     order(created_at: :desc)
   end  
   
