@@ -1,12 +1,19 @@
 class TaskController < ApplicationController
   PER = 10
+  before_action :require_login
+  before_action :require_to_be_task_author, only: [:show, :edit, :destroy]
 
   def index
     task_status_id = params[:task_status_id]
     if task_status_id.blank?
-      @task = Task.includes(:task_status).page(params[:page]).per(PER)
+      @task = Task.includes(:task_status)
+        .where(user_id: @current_user.id)
+        .page(params[:page]).per(PER)
     else
-      @task = Task.includes(:task_status).search_by_status_id(task_status_id).page(params[:page]).per(PER)
+      @task = Task.includes(:task_status)
+        .where(user_id: @current_user.id)
+        .search_by_status_id(task_status_id)
+        .page(params[:page]).per(PER)
     end
   end
 
@@ -16,6 +23,7 @@ class TaskController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = @current_user.id
     if @task.save
       flash[:notice] = t('dictionary.message.create.complete')
       redirect_to root_path
@@ -49,6 +57,21 @@ class TaskController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = t('dictionary.message.destroy.complete')
+    redirect_to root_path
+  end
+end
+
+def require_login
+  unless logged_in?
+    flash[:error] = t('dictionary.message.require_login')
+    redirect_to login_path
+  end
+end
+
+def require_to_be_task_author
+  @task = Task.find(params[:id])
+  unless @task.user_id == @current_user.id
+    flash[:error] = t('dictionary.message.cant_manage_this_task')
     redirect_to root_path
   end
 end
