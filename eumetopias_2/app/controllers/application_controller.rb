@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SessionHelper
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from StandardError, with: :render_500
 

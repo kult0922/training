@@ -5,6 +5,7 @@ ja:
       update: "更新"
       destroy:
         confirm: "削除確認"
+      login: "ログイン"
     message:
       create:
         complete: "登録しました"
@@ -14,6 +15,7 @@ ja:
         confirm: "よろしいですか？"
         complete: "削除しました"
       notfound: "見つかりませんでした"
+      invalid_email_or_password: "メールアドレスもしくはパスワードが正しくありません。"
     button:
       create: "新規作成"
       search: "検索"
@@ -23,10 +25,13 @@ ja:
       cancel: "キャンセル"
       edit: "編集"
       show: "確認"
+      login: "ログイン"
     table:
       title: "題名"
       name: "名前"
       description: "内容"
+      email: "メールアドレス"
+      password: "パスワード"
     browse:
       back: "戻る"
       next: "次へ"

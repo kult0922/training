@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="jumbotron m-3">
+    <h2><%= t('dictionary.title.login') %></h2>
+    <hr>
+      <p>
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: name  %>
+        <% end %>
+      </p>
+    <%= form_with scope: :session, url: login_path, class: 'form-group', local: true do |form| %>
+      <p>
+        <%= form.label t('dictionary.table.email') %>
+        <%= form.email_field :email, size: '30', class: 'form-control' %>
+      </p>
+      <p>
+        <%= form.label t('dictionary.table.password') %>
+        <%= form.password_field  :password, size: '30', class: 'form-control' %>
+      </p>
+      <p class="row float-right">
+        <%= link_to t('dictionary.browse.back'), root_path, class: 'btn btn-outline-primary' %>
+        <%= form.submit t('dictionary.button.login'), class: 'btn btn-primary' %>
+      </p>
+    <% end %>
+  </div>
+</div>
