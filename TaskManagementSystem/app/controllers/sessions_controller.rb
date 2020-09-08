@@ -9,9 +9,9 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       # ユーザーログイン後にユーザー情報のページにリダイレクトする
       log_in(user)
-      redirect_to root_path, success: 'ログインしました。'
+      redirect_to root_path, success: I18n.t('flash.login')
     else
-      flash.now[:danger] = 'ログインに失敗しました。'
+      flash.now[:danger] = I18n.t('flash.login_failed')
       render :new
     end
   end

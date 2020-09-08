@@ -16,9 +16,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to task_path(@task), success: '新しいタスクを作成しました'
+      redirect_to task_path(@task), success: I18n.t('flash.create_task')
     else
-      flash.now[:danger] = 'タスクの作成に失敗しました'
+      flash.now[:danger] = I18n.t('flash.create_task_failed')
       render :new
     end
   end
@@ -31,18 +31,18 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_path(@task), success: 'タスクの更新に成功しました'
+      redirect_to task_path(@task), success: I18n.t('flash.update_task')
     else
-      flash.now[:danger] = 'タスクの更新に失敗しました'
+      flash.now[:danger] = I18n.t('flash.update_task_failed')
       render :edit
     end
   end
 
   def destroy
     if @task.destroy
-      redirect_to root_path, success: 'タスクを削除しました'
+      redirect_to root_path, success: I18n.t('flash.destroy_task')
     else
-      redirect_to root_path, danger: 'タスクを削除できませんでした'
+      redirect_to root_path, danger: I18n.t('flash.destroy_task_faild')
     end
   end
 
@@ -57,7 +57,7 @@ class TasksController < ApplicationController
     begin
       @task = current_user.tasks.find(params[:id])
     rescue => e
-      redirect_to root_path, danger: '存在しないタスクです'
+      redirect_to root_path, danger: I18n.t('flash.no_task')
     end
   end
 
@@ -65,7 +65,7 @@ class TasksController < ApplicationController
     begin
       @user = current_user
     rescue => e
-      redirect_to root_path, danger: '存在しないユーザーです'
+      redirect_to root_path, danger: I18n.t('flash.no_user')
     end
   end
 
@@ -76,7 +76,7 @@ class TasksController < ApplicationController
   # ログイン済ユーザーかどうか確認
   def logged_in_user
     unless logged_in?
-      flash[:danger] = "ログインして下さい"
+      flash[:danger] = I18n.t('flash.please_login')
       redirect_to login_path
     end
   end
