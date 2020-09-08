@@ -2,19 +2,23 @@
   <div class="jumbotron m-3">
     <h2><%= t('dictionary.title.login') %></h2>
     <hr>
-      <p>
-        <% flash.each do |name, msg| %>
-          <%= content_tag :div, msg, class: name  %>
-        <% end %>
-      </p>
+    <% if flash.any? %>
+      <div class="alert alert-danger">
+        <p>
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, class: name  %>
+          <% end %>
+        </p>
+      </div>
+    <% end %>
     <%= form_with scope: :session, url: login_path, class: 'form-group', local: true do |form| %>
       <p>
         <%= form.label t('dictionary.table.email') %>
-        <%= form.email_field :email, size: '30', class: 'form-control' %>
+        <%= form.email_field :email, size: '30', class: 'form-control', value: @email %>
       </p>
       <p>
         <%= form.label t('dictionary.table.password') %>
-        <%= form.password_field  :password, size: '30', class: 'form-control' %>
+        <%= form.password_field  :password, size: '30', class: 'form-control', value: @password %>
       </p>
       <p class="row float-right">
         <%= link_to t('dictionary.browse.back'), root_path, class: 'btn btn-outline-primary' %>
