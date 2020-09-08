@@ -18,6 +18,7 @@ ja:
       invalid_email_or_password: "メールアドレスもしくはパスワードが正しくありません。"
       require_login: "ログインが必要です。"
       cant_manage_this_task: "このタスクは操作できません。"
+      logged_out: "ログアウトしました。"
     button:
       create: "新規作成"
       search: "検索"

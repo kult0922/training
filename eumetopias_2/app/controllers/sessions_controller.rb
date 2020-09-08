@@ -16,5 +16,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out
+    flash[:notice] = t('dictionary.message.logged_out')
+    redirect_to login_path
   end
 end
