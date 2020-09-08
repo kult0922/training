@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # ユーザー
-3.times do |n|
+30.times do |n|
   User.create(
     last_name: "タスクユーザー",
     first_name: "太郎#{n}",
