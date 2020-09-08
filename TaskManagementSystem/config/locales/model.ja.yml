@@ -7,10 +7,13 @@ ja:
       label: ラベル
     attributes:
       user:
+        id: ID
         last_name: 姓
         first_name: 名
         email: メールアドレス
         password: パスワード
+        password_confirmation: パスワード(確認)
+        password_digest: パスワード(確認)
       task:
         id: ID
         title: タスク名

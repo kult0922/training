@@ -30,5 +30,5 @@
             td.col-xs-1.text-center.align-middle style="width:45px;"
               = link_to  "#{I18n.t('admins.users.button.edit')}", edit_admins_user_path(user), class:"btn btn-warning btn-sm", style: "width:45px"
             td.col-xs-1.text-center.align-middle style="width:45px;"
-              = link_to  "#{I18n.t('admins.users.button.delete')}", admins_user_path(user), method: :delete, class:"btn btn-danger btn-sm", style: "width:45px"
+              = link_to  "#{I18n.t('admins.users.button.delete')}", admins_user_path(user), method: :delete, data: {confirm: "本当に削除してもよろしいですか？" }, class:"btn btn-danger btn-sm", style: "width:45px"
   = paginate @users
