@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to root_path
     else
-      flash[:danger] = t('dictionary.message.invalid_email_or_password')
+      flash.now[:danger] = t('dictionary.message.invalid_email_or_password')
       render 'new'
     end
   end
