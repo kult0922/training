@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   # 管理者画面
   namespace :admins do
-    resources :users
+    resources :users do
+      scope module: :users do
+        resources :tasks
+      end  
+    end
   end
 
   # エラー画面

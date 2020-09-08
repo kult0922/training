@@ -3,10 +3,16 @@ ja:
     users:
       index: 
         title: ユーザー一覧
+        tasks_sum: タスク合計値
       new:
         title: ユーザー登録
       show:
         title: '%{user_name}さん'
+        tasks_index: タスク一覧
+        tasks_sum: タスク合計値
+        tasks:
+          index:
+            title: 'タスク一覧(%{user_name}さん)'
       edit:
         title: ユーザー編集
       link: ユーザー管理

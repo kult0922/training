@@ -1,0 +1,32 @@
+- provide(:title, "#{I18n.t('admins.users.show.tasks.index.title', user_name: @user.last_name + @user.first_name)}")
+.col-9.mx-auto.mt-3
+  = render  "layouts/flash"
+  .row
+    .container.h-auto
+      h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('admins.users.show.tasks.index.title', user_name: @user.last_name + @user.first_name)
+              
+  table.table.mt-3
+    thead.thead-light
+      tr
+        th.col-xs-1.text-center.align-middle style="width:70px;" = Task.human_attribute_name(:priority)
+        th.col-xs-2.align-middle = Task.human_attribute_name(:title)
+        th.col-xs-4.align-middle = Task.human_attribute_name(:description)
+        th.col-xs-2.align-middle
+          .row = Task.human_attribute_name(:deadline)
+          .row = Task.human_attribute_name(:created_at)
+        th.col-xs-3.align-middle
+          .row = Task.human_attribute_name(:status)
+          .row = Label.human_attribute_name(:name)
+      - @tasks.each do |task|
+        tbody
+          tr
+            td.col-xs-1.text-center.align-middle = task.priority
+            td.col-xs-2.align-middle = task.title
+            td.col-xs-4.align-middle = task.description
+            td.col-xs-2.align-middle 
+              .row = task.deadline.strftime('%Y/%m/%d')
+              .row = task.created_at.strftime('%Y/%m/%d')
+            td.col-xs-3.align-middle
+              .row = task.status_i18n
+              .row.text-center ラベル
+  = paginate @tasks
