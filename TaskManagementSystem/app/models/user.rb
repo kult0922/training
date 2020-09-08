@@ -12,4 +12,11 @@ class User < ApplicationRecord
 
   # メールの保存時に、大文字を小文字化(わかりやすくする為、右辺のselfは省略しない)
   before_save { self.email = self.email.downcase}
+
+  # ユーザーが持っているタスク数を出力
+  def calculate_tasks_sum
+    i = 0
+    self.tasks.each{ |task| i += 1 }
+    return i
+  end
 end
