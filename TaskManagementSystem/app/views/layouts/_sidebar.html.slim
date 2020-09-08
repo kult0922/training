@@ -14,3 +14,5 @@
             = link_to "#{I18n.t('sessions.new.log_in')}", login_path, class: "text-light"
           li.nav-item
             = link_to "#{I18n.t('users.new.sign_up')}", '#', class: "text-light"
+          li.nav-item
+            = link_to "#{I18n.t('admins.users.link')}", admins_users_path, class: "text-light"

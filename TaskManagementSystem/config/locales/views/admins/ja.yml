@@ -1,0 +1,18 @@
+ja:
+  admins:
+    users:
+      index: 
+        title: ユーザー一覧
+      new:
+        title: ユーザー登録
+      show:
+        title: '%{user_name}さん'
+      edit:
+        title: ユーザー編集
+      link: ユーザー管理
+      button:
+        user_create: ユーザー登録
+        create: 登録
+        show: 詳細
+        edit: 編集
+        delete: 削除

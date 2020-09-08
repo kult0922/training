@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
+  # 管理者画面
+  namespace :admins do
+    resources :users
+  end
 
   # エラー画面
   get '*anything' => 'errors#routing_error'
