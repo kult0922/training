@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :system do
   let(:user) { create(:user) }
+  let!(:admin_user) { create(:user, admin: 'true') }
 
   describe '#new' do
     before { visit new_user_path }
@@ -57,8 +58,6 @@ RSpec.describe User, type: :system do
   end
 
   describe '#admin/user/index' do
-    let!(:admin_user) { create(:user, admin: 'true') }
-
     context 'when admin user access page' do
       it 'move admin page' do
         login(admin_user)
@@ -69,7 +68,7 @@ RSpec.describe User, type: :system do
         expect(page).to have_content '承認者タスク数'
         expect(page).to have_content '作成日'
         expect(page).to have_content '更新日'
-        expect(page).to have_content 'factoryUser3'
+        expect(page).to have_content admin_user.account_name
         expect(page).to have_content 'true'
       end
 
@@ -89,13 +88,12 @@ RSpec.describe User, type: :system do
         login(user)
         visit admin_users_path
         expect(page).to have_content 'PJ登録'
+        expect(page).to have_current_path projects_path, ignore_query: true
       end
     end
   end
 
   describe '#admin/user/show' do
-    let!(:admin_user) { create(:user, admin: 'true') }
-
     before do
       login(admin_user)
     end
@@ -114,8 +112,6 @@ RSpec.describe User, type: :system do
   end
 
   describe '#admin/user/new' do
-    let!(:admin_user) { create(:user, admin: 'true') }
-
     before do
       login(admin_user)
       visit new_admin_user_path
@@ -155,8 +151,6 @@ RSpec.describe User, type: :system do
   end
 
   describe '#admin/user/edit' do
-    let!(:admin_user) { create(:user, admin: 'true') }
-
     before do
       login(admin_user)
       visit edit_admin_user_path(user)
@@ -174,8 +168,6 @@ RSpec.describe User, type: :system do
   end
 
   describe '#admin/user/delete' do
-    let!(:admin_user) { create(:user, admin: 'true') }
-
     before do
       login(admin_user)
       visit admin_users_path(user)

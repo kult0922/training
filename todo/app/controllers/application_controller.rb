@@ -50,6 +50,8 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_only
-    redirect_to projects_path unless @current_user.admin?
+    return if @current_user.admin?
+    flash[:error] = I18n.t('errors.auth')
+    redirect_to projects_path
   end
 end

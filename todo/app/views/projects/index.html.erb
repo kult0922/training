@@ -15,7 +15,7 @@
       <p class="text-center"><%= Project.human_attribute_name(status.to_sym) %></p>
       <ul class="list-group">
         <% @projects.where(status: status.to_sym).each do |project| %>
-          <% if @user_have_pj.include?(project.id) %>
+          <% if @current_user.projects.ids.include?(project.id) %>
             <li class="list-group-item"><%= render partial: "project_info", locals: {project: project} %></li>
           <% else %>
             <li class="list-group-item"><%= render partial: "project_info_not_allowed", locals: {project: project} %></li>

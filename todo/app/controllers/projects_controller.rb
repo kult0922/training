@@ -9,7 +9,6 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
     @status_list = Project.statuses.keys
-    user_project
   end
 
   def show
@@ -22,7 +21,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      create_user_project
+      @project.users << @current_user
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '作成')
       redirect_to projects_url
     else
@@ -45,6 +44,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    check_userpj_auth
     if @project.destroy
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '削除')
       redirect_to projects_url
@@ -58,15 +58,10 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
-  def create_user_project
-    return if UserProject.find_by(user_id: session[:user_id], project_id: @project.id).present?
-    user_project = UserProject.new(user_id: session[:user_id], project_id: @project.id)
-    flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
-  end
-
   def check_userpj_auth
-    user_project
-    redirect_to projects_url unless @user_have_pj.include?(@project.id)
+    return if @current_user.projects.ids.include?(@project.id)
+    flash.now[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '削除')
+    redirect_to projects_url
   end
 
   def project_params

@@ -23,8 +23,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      create_user_project(@task.assignee_id)
-      create_user_project(@task.reporter_id)
+      create_user_project(@task.assignee)
+      create_user_project(@task.reporter)
       redirect_to [@task.project, @task]
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
     else
@@ -40,6 +40,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      create_user_project(@task.assignee)
+      create_user_project(@task.reporter)
       flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
       redirect_to [@task.project, @task]
     else
@@ -71,8 +73,7 @@ class TasksController < ApplicationController
 
   def create_user_project(user)
     return if UserProject.find_by(user_id: user, project_id: @task.project_id).present?
-    user_project = UserProject.new(user_id: user, project_id: @task.project_id)
-    flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
+    @task.project.users << user
   end
 
   def set_task

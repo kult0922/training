@@ -31,7 +31,8 @@ ja:
   errors:
     input: 'を入力してください'
     finished_at_not_before_stated_at: 'は開始日付より後の日付にしてください'
-    check_date_at: 'の日付形式が正しくありません' 
+    check_date_at: 'の日付形式が正しくありません'
+    auth: '間違った接近'
   views:
     pagination:
       first: "&laquo; 最初"
