@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron m-3">
-    <h2>タスク詳細</h2>
+    <h2><%= t('dictionary.title.task_show') %></h2>
     <hr>
     <p>
       <% flash.each do |name, msg| %>
@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col-sm-3">
           <p>
-            <%= t('dictionary.table.title') %>
+            <%= t('activerecord.attributes.task.title') %>
           </p>
         </div>
         <div class="col-sm-9 align-bottom">
@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-sm-3">
           <p>
-            ID
+          <%= t('activerecord.attributes.task.id') %>
           </p>
         </div>
         <div class="col-sm-9 align-bottom">
@@ -36,16 +36,12 @@
       <div class="row">
         <div class="col-sm-3">
           <p>
-            ステータス
+            <%= t('activerecord.attributes.task_status.name') %>
           </p>
         </div>
         <div class="col-sm-9">
           <p>
-            <% if task_status = @task.task_status %>
-              <%= task_status.name %>
-            <% else %>
-              <%= '-' %>
-            <% end %>
+            <%= @task.task_status.name %>
           </p>
         </div>
       </div>
@@ -53,7 +49,7 @@
       <div class="row">
         <div class="col-sm-3">
           <p>
-            <%= t('dictionary.table.description') %>
+            <%= t('activerecord.attributes.task.description') %>
           </p>
         </div>
         <div class="col-sm-9">

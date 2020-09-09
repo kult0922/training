@@ -1,10 +1,10 @@
 ja:
   dictionary:
     title:
-      create: "新規作成"
-      update: "更新"
-      destroy:
-        confirm: "削除確認"
+      task_index: "タスク一覧"
+      task_edit: "タスク編集"
+      task_create: "新規タスク"
+      task_show: "タスク詳細"
     message:
       create:
         complete: "登録しました"
@@ -23,21 +23,33 @@ ja:
       cancel: "キャンセル"
       edit: "編集"
       show: "確認"
-    table:
-      title: "題名"
-      name: "名前"
-      description: "内容"
     browse:
       back: "戻る"
       next: "次へ"
       previous: "前へ"
   views:
     pagination:
-      first: "&laquo; 最初"
-      last: "最後 &raquo;"
-      previous: "&lsaquo; 前"
-      next: "次 &rsaquo;"
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
       truncate: "..."
   time:
     formats:
       default: ! "%Y-%m-%d %H:%M:%S"
+  activerecord:
+    models:
+      task: "タスク"
+      task_status: "タスクステータス"
+      user: "ユーザー"
+    attributes:
+      task:
+        id: "タスクID"
+        title: "題名"
+        description: "説明"
+      task_status:
+        name: "ステータス"
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
