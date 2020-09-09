@@ -3,9 +3,9 @@
     <%= link_to "Eumetopias", '/', id: "logo", class: "navbar-brand mb-0 h1" %>
     <% if logged_in? %>
       <span class="navbar-text"><%= @current_user.name %></span>
-      <%= link_to "Log out", '/logout', method: :delete, class: "nav-link" %>
+      <%= link_to t('dictionary.button.logout'), '/logout', method: :delete, class: "nav-link" %>
     <% else %>
-        <%= link_to "Log in", '/login', class: "nav-link" %>
+        <%= link_to t('dictionary.button.login'), '/login', class: "nav-link" %>
     <% end %>
   </nav>
 </header>

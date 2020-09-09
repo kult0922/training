@@ -41,7 +41,7 @@ RSpec.describe 'User', type: :system do
       describe 'log out' do
         before do
           visit root_path
-          click_link 'Log out'
+          click_link 'ログアウト'
         end
         it 'should succeed' do
           expect(RSpec.configuration.session[:user_id]).to be nil

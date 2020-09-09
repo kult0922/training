@@ -5,6 +5,7 @@ ja:
       task_edit: "タスク編集"
       task_create: "新規タスク"
       task_show: "タスク詳細"
+      login: "ログイン"
     message:
       create:
         complete: "登録しました"
@@ -28,6 +29,7 @@ ja:
       edit: "編集"
       show: "確認"
       login: "ログイン"
+      logout: "ログアウト"
     table:
       title: "題名"
       name: "名前"
