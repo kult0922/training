@@ -9,6 +9,8 @@ ja:
         in_review: 'In Review'
         release: 'Waiting Approval / Release'
         done: 'Resolved / Done'
+        description: '説明'
+        status: '状態'
         project_name: 'PJ名'
         started_at: '開始日'
         finished_at: '終了日'

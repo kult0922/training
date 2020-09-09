@@ -1,28 +1,28 @@
 <%= form_with(model: project, local: true) do |form| %>
   <div class="form-group">
-    <%= form.label I18n.t('projects.form.name') %>
+    <%= form.label Project.human_attribute_name(:project_name) %>
     <%= form.text_field :project_name, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= form.label I18n.t('projects.form.description')  %>
+    <%= form.label Project.human_attribute_name(:description)  %>
     <%= form.text_area :description, class: 'form-control' %>
   </div>
   
   <div class="form-row align-items-center mb-3">
     <div class="col-auto">
-      <%= form.label I18n.t('projects.form.status') %>
+      <%= form.label Project.human_attribute_name(:status) %>
         <%= form.select :status, Project.statuses.map { |k, v| [I18n.t("enums.project.status.#{k}"), k] }, {}, class: "custom-select" %>
     </div>
 
     <div class="col-auto">
-      <%= form.label I18n.t('projects.form.started_at') %>
+      <%= form.label Project.human_attribute_name(:started_at) %>
       <%= form.date_field :started_at,
       class: 'custom-select' %>
     </div>
 
     <div class="col-auto">
-      <%= form.label I18n.t('projects.form.finished_at') %>
+      <%= form.label Project.human_attribute_name(:finished_at) %>
       <%= form.date_field :finished_at,
       class: 'custom-select' %>
     </div>

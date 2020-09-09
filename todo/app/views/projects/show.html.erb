@@ -3,23 +3,23 @@
 
   <table class="table table-striped">
     <tr>
-      <th><%= I18n.t('projects.show.name') %></th>
+      <th><%= Project.human_attribute_name(:project_name) %></th>
       <td><%= @project.project_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('projects.show.description') %></th>
+      <th><%= Project.human_attribute_name(:description) %></th>
       <td><%= @project.description %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('projects.show.status') %></th>
+      <th><%= Project.human_attribute_name(:status) %></th>
       <td><%= @project.status_i18n %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('projects.show.started_at') %> </th>
+      <th><%= Project.human_attribute_name(:started_at) %> </th>
       <td><%= @project.started_at %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('projects.show.finished_at') %> </th>
+      <th><%= Project.human_attribute_name(:finished_at) %> </th>
       <td><%= @project.finished_at %></td>
     </tr>
   </table>
@@ -33,7 +33,7 @@
     <div class="col-auto">
       <%= link_to I18n.t('projects.index.tasklist'), project_tasks_url(@project), class: 'btn btn-secondary' %>
     </div>
-    <% unless check_project.nil? %>
+    <% if @project.users.include?(current_user) %>
       <div class="col-auto">
         <%= link_to I18n.t('projects.index.delete'), @project, method: :delete, data: { confirm: I18n.t('delete.confirm') }, class: 'btn btn-danger' %>
       </div>

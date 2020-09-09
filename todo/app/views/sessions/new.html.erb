@@ -3,11 +3,11 @@
   <%= form_for(:session, url: login_path) do |f| %>
     <div class="form-row align-items-center mb-2">
       <div class="col-auto">
-        <%= f.label I18n.t('users.form.name') %>
+        <%= f.label User.human_attribute_name(:account_name) %>
         <%= f.text_field :account_name, class: 'form-control' %>
       </div>
       <div class="col-auto">
-        <%= f.label I18n.t('users.form.password') %>
+        <%= f.label User.human_attribute_name(:password) %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
     </div>

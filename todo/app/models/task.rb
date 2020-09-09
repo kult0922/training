@@ -18,7 +18,7 @@ class Task < ApplicationRecord
   scope :user_had_task, ->(user_id) { eager_load(:assignee, :reporter).where('assignee_id = ? OR reporter_id = ? ', user_id, user_id) }
 
   def self.search(search_params)
-      user_had_task(search_params[:user_id])
+    user_had_task(search_params[:user_id])
       .name_search(search_params[:task_name])
       .priority_search(search_params[:priority])
       .status_search(search_params[:status])

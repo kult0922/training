@@ -8,18 +8,8 @@ ja:
       delete: '削除'
     show:
       title: 'PJ詳細'
-      name: 'PJ名'
-      description: '説明'
-      status: '状態'
-      started_at: '開始日'
-      finished_at: '終了日'
     form:
       title: 'PJ詳細'
-      name: 'PJ名'
-      description: '説明'
-      status: '状態'
-      started_at: '開始日'
-      finished_at: '終了日'
     edit:
       title: 'PJ修正'
     new:

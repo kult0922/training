@@ -8,16 +8,16 @@
         <%= link_to I18n.t('projects.index.title'), projects_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
-        <%= link_to I18n.t('users.nav.title'), edit_user_path(@current_user), class: 'nav-link' %>
+        <%= link_to I18n.t('users.nav.title'), edit_user_path(current_user), class: 'nav-link' %>
       </li>
-      <% if @current_user.admin? %>
+      <% if current_user.admin? %>
         <li class="nav-item">
           <%= link_to I18n.t('users.nav.admin'), admin_users_path, class: 'nav-link' %>
         </li>
       <% end %>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <span class="navbar-text mr-sm-2"><%= I18n.t('views.navbar.name') %> <%= @current_user.account_name %></span>
+      <span class="navbar-text mr-sm-2"><%= I18n.t('views.navbar.name') %> <%= current_user.account_name %></span>
       <%= link_to 'logout', logout_path, method: :delete, class: 'btn btn-outline-success my-2 my-sm-0' %>
     </form>
   </div>

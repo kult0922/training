@@ -3,39 +3,39 @@
 
   <table class="table table-striped">
     <tr>
-      <th><%= I18n.t('tasks.show.project_name') %></th>
+      <th><%= Task.human_attribute_name(:project_name) %></th>
       <td><%= @task.project.project_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.name') %></th>
+      <th><%= Task.human_attribute_name(:task_name) %></th>
       <td><%= @task.task_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.description') %></th>
+      <th><%= Task.human_attribute_name(:description) %></th>
       <td><%= @task.description %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.priority') %></th>
+      <th><%= Task.human_attribute_name(:priority) %></th>
       <td><%= @task.priority_i18n %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.status') %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
       <td><%= @task.status_i18n  %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.assignee') %></th>
+      <th><%= Task.human_attribute_name(:assignee) %></th>
       <td><%= @task.assignee.account_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.reporter') %></th>
+      <th><%= Task.human_attribute_name(:reporter) %></th>
       <td><%= @task.reporter.account_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.started_at') %></th>
+      <th><%= Task.human_attribute_name(:started_at) %></th>
       <td><%= @task.started_at %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.finished_at') %></th>
+      <th><%= Task.human_attribute_name(:finished_at) %></th>
       <td><%= @task.finished_at %></td>
     </tr>
   </table>

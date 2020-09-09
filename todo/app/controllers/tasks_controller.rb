@@ -23,10 +23,14 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      create_user_project(@task.assignee)
-      create_user_project(@task.reporter)
-      redirect_to [@task.project, @task]
-      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
+      if add_user_to_project(@task.assignee) && add_user_to_project(@task.reporter)
+        flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
+        redirect_to [@task.project, @task]
+      else
+        flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
+        redirect_to project_tasks_url(@task.project)
+        return
+      end
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
@@ -40,10 +44,14 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      create_user_project(@task.assignee)
-      create_user_project(@task.reporter)
-      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
-      redirect_to [@task.project, @task]
+      if add_user_to_project(@task.assignee) && add_user_to_project(@task.reporter)
+        flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
+        redirect_to [@task.project, @task]
+      else
+        flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
+        redirect_to project_tasks_url(@task.project)
+        return
+      end
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '更新')
@@ -71,9 +79,14 @@ class TasksController < ApplicationController
     redirect_to project_tasks_url unless [@task.assignee_id, @task.reporter_id].include?(session[:user_id])
   end
 
-  def create_user_project(user)
-    return if UserProject.find_by(user_id: user, project_id: @task.project_id).present?
-    @task.project.users << user
+  def add_user_to_project(user)
+    begin
+      return if user.projects.ids.include?(user)
+      @task.project.users << user
+    rescue
+      return false
+    end
+    true
   end
 
   def set_task
@@ -81,7 +94,7 @@ class TasksController < ApplicationController
   end
 
   def search_params
-    @search_params = { user_id: @current_user, task_name: params[:name], priority: params[:priority_search], status: params[:status_search], order_by: sort_direction }
+    @search_params = { user_id: current_user, task_name: params[:name], priority: params[:priority_search], status: params[:status_search], order_by: sort_direction }
   end
 
   def task_params
