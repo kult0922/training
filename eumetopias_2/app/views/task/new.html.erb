@@ -5,15 +5,15 @@
     <%= render 'layouts/error_messages', model: @task %>
     <%= form_with scope: :task,url: task_index_path, class: 'form-group', local: true do |form| %>
       <p>
-        <%= form.label t('dictionary.table.title') %>
+        <%= form.label t('activerecord.attributes.task.title') %>
         <%= form.text_field :title, size: '40', class: 'form-control' %>
       </p>
       <p>
-        <%= form.label "ステータス" %>
+        <%= form.label t('activerecord.attributes.task_status.name') %>
         <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name, {},  {class: 'form-control'}  %>
       </p>
       <p>
-        <%= form.label t('dictionary.table.description') %>
+        <%= form.label t('activerecord.attributes.task.description') %>
         <%= form.text_area :description, size: '75x6', class: 'form-control' %>
       </p>
       <p class="row float-right">

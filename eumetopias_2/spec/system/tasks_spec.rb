@@ -90,34 +90,84 @@ RSpec.describe "Task", type: :system do
       end
       visit root_path
     end
-    it 'search should show search result with correct task title' do
-      select "未着手", from: "task_status_id"
-      click_button submit
-      expect(page).to have_content 'untouch title'
 
-      select "着手中", from: "task_status_id"
-      click_button submit
-      expect(page).to have_content 'in progress title'
+    describe "search" do
+      before do
+        search_sample_data = [
+          {title: "untouch title", status_id: @untouch_id},
+          {title: "in progress title", status_id: @in_progress_id},
+          {title: "finished title", status_id: @finished_id}
+        ]
+        search_sample_data.each do |sample|
+          Task.create(title: sample[:title], description: "dummy description", task_status_id: sample[:status_id])
+        end
+        visit root_path
+      end
+      it 'should show search result with correct task title' do
+        select "未着手", from: "task_status_id"
+        click_button submit
+        expect(page).to have_content 'untouch title'
 
-      select "完了", from: "task_status_id"
-      click_button submit
-      expect(page).to have_content 'finished title'
+        select "着手中", from: "task_status_id"
+        click_button submit
+        expect(page).to have_content 'in progress title'
+
+        select "完了", from: "task_status_id"
+        click_button submit
+        expect(page).to have_content 'finished title'
+      end
     end
 
-    describe "pagination should match 10 tasks with correct title" do
+    describe "pagination with 20 tasks" do
       before do
         create_list(:task, 20, task_status_id: @untouch_id, user_id: test_user.id)
         visit root_path
       end
-      it 'in first page' do
+      it 'should not have link to 3rd page' do
+        expect(page).not_to have_link '3'
+      end
+      it 'should match correct titles in 1st page' do
         Task.page(1).per(10).each do |task|
           expect(page).to have_content task.title
         end
       end
-      it 'in second page' do
+      it 'should match correct titles in 2nd page' do
         visit root_path(page: "2")
         Task.page(2).per(10).each do |task|
           expect(page).to have_content task.title
+        end
+      end
+      it 'should not contain any task titles in 3rd page' do
+        visit root_path(page: "3")
+        Task.all.each do |task|
+          expect(response).not_to have_content task.title
+        end
+      end
+    end
+
+    describe "pagination with 21 tasks" do
+      before do
+        create_list(:task, 21, task_status_id: @untouch_id)
+        visit root_path(page: "2")
+      end
+      it 'should not have link to 4th page' do
+        expect(page).not_to have_link '4'
+      end
+      it 'should match correct titles in 2nd page' do
+        Task.page(2).per(10).each do |task|
+          expect(page).to have_content task.title
+        end
+      end
+      it 'should match correct title in 3rd page' do
+        visit root_path(page: "3")
+        Task.page(3).per(10).each do |task|
+          expect(page).to have_content task.title
+        end
+      end
+      it 'should not contain any task titles in 4th page' do
+        visit root_path(page: "4")
+        Task.all.each do |task|
+          expect(response).not_to have_content task.title
         end
       end
     end
