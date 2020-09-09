@@ -42,7 +42,7 @@ class TasksController < ApplicationController
     if @task.destroy
       redirect_to root_path, success: I18n.t('flash.destroy_task')
     else
-      redirect_to root_path, danger: I18n.t('flash.destroy_task_faild')
+      redirect_to root_path, danger: I18n.t('flash.destroy_task_failed')
     end
   end
 
