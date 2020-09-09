@@ -62,7 +62,12 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  RSpec.configure do |config|
-    config.include FactoryBot::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
+
+  # 実行後のセッションを取得するための設定
+  config.before(:each) do
+    session = {}
+    config.add_setting(:session, :default => session)
+    allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return(RSpec.configuration.session)
   end
 end
