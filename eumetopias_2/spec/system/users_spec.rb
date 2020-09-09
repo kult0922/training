@@ -38,6 +38,15 @@ RSpec.describe 'User', type: :system do
       it 'should succeed' do
         expect(RSpec.configuration.session[:user_id]).to eq test_user.id
       end
+      describe 'log out' do
+        before do
+          visit root_path
+          click_link 'Log out'
+        end
+        it 'should succeed' do
+          expect(RSpec.configuration.session[:user_id]).to be nil
+        end
+      end
     end
   end
 end
