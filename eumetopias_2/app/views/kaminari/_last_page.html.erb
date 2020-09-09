@@ -1,0 +1,7 @@
+<% if current_page.last? %>
+  <li class="page-item disabled">
+<% else %>
+  <li class="page-item">
+<% end %>
+  <%= link_to raw(t 'views.pagination.last'), url, remote: remote, class: 'page-link' %>
+</li>

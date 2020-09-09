@@ -1,33 +1,46 @@
-<h1>タスク一覧</h1>
-<p>
-<% flash.each do |name, msg| %>
-<%= content_tag :div, msg, class: name  %>
-<% end %>
-</p>
-<%= form_with url: root_path, method: :get, local: true do |form| %>
-  <%= form.label 'status' %>
-  <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name, prompt: '全て' %>
-  <%= form.submit t('dictionary.button.search') %>
-<% end %>
-<table>
-  <tr>
-    <th><%= t('dictionary.table.title') %></th>
-    <th><%= t('dictionary.table.description') %></th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  <% @task.each do |task| %>
-  <tr>
-    <th><%= task.title %></th>
-    <th><%=task.description %></th>
-    <th><%=task.task_status.name %></th>
-    <th><%= link_to t('dictionary.button.show'), task_path(task) %></th>
-    <th><%= link_to t('dictionary.button.edit'), edit_task_path(task) %></th>
-    <th><%= link_to t('dictionary.button.destroy'), task_path(task), method: :delete, data:{ confirm: t('dictionary.message.destroy.confirm')} %></th>
-  <tr>
-  <% end %>
-</table>
-<%= paginate @task %>
-<%= link_to t('dictionary.button.create'), new_task_path %>
+<div class="container">
+  <div class="jumbotron m-3">
+    <h3 class="display-4"><%= t('dictionary.title.task_index') %></h2>
+    <hr class="my-4">
+    <p>
+      <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: name  %>
+      <% end %>
+    </p>
+
+    <%= link_to t('dictionary.button.create'), new_task_path, class: 'btn btn-primary float-left' %>
+    <%= form_with url: root_path, method: :get, class: 'form-group form-inline float-right', local: true do |form| %>
+      <%= form.label t('activerecord.attributes.task_status.name') %>
+      <%= form.select :task_status_id, status_select_options, {selected: params[:task_status_id] || ''}, {class: 'form-control'} %>
+      <%= form.submit t('dictionary.button.search'), class: 'btn btn-primary' %>
+    <% end %>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col"><%= t('dictionary.table.title') %></th>
+          <th scope="col"><%= t('dictionary.table.description') %></th>
+          <th scope="col">ステータス</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @task.each do |task| %>
+          <tr>
+            <th scope="row"><%= task.id %></th>
+            <td><%= task.title %></td>
+            <td><%= task.description %></td>
+            <td><%= task.task_status.name %></td>
+            <td><%= link_to t('dictionary.button.show'), task_path(task) %></td>
+            <td><%= link_to t('dictionary.button.edit'), edit_task_path(task) %></td>
+            <td><%= link_to t('dictionary.button.destroy'), task_path(task), {method: :delete, data:{ confirm: t('dictionary.message.destroy.confirm')}} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @task %>
+  </div>
+</div>

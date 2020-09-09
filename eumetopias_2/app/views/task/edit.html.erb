@@ -1,25 +1,25 @@
-<h1><%= t('dictionary.title.update') %></h1>
-<%= render 'layouts/error_messages', model: @task %>
-<%= form_with(model: @task, local: true) do |form| %>
-<p>
-  <%= form.label t('dictionary.table.title') %><br>
-  <%= form.text_field :title %>
-</p>
-
-<p>
-  <%= form.label t('dictionary.table.description') %><br>
-  <%= form.text_field :description %>
-</p>
-
-<p>
-  <%= form.label :task_status_id %>
-  <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name %>
-</p>
-
-<p>
-  <%= form.submit t('dictionary.button.update') %>
-</p>
-
-<% end %>
-
-<%= link_to t('dictionary.browse.back'), root_path  %>
+<div class="container">
+  <div class="jumbotron m-3">
+    <h2><%= t('dictionary.title.task_edit') %></h2>
+    <hr>
+    <%= render 'layouts/error_messages', model: @task %>
+    <%= form_with(model: @task, class: 'form-group', local: true) do |form| %>
+      <p>
+        <%= form.label t('activerecord.attributes.task.title') %>
+        <%= form.text_field :title, size:'40', class: 'form-control' %>
+      </p>
+      <p>
+        <%= form.label t('activerecord.attributes.task_status.name') %>
+        <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name,{}, {class: 'form-control'}  %>
+      </p>
+      <p>
+        <%= form.label t('activerecord.attributes.task.description') %>
+        <%= form.text_area :description, size: '75x6', class: 'form-control' %>
+      </p>
+      <p class="row float-right">
+        <%= link_to t('dictionary.browse.back'), root_path, class: 'btn btn-outline-primary' %>
+        <%= form.submit t('dictionary.button.update'), class: 'btn btn-primary' %>
+      </p>
+    <% end %>
+  </div>
+</div>

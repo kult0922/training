@@ -1,23 +1,67 @@
-<h1>タスク詳細</h1>
-<p>
-<% flash.each do |name, msg| %>
-<%= content_tag :div, msg, class: name  %>
-<% end %>
-</p>
+<div class="container">
+  <div class="jumbotron m-3">
+    <h2><%= t('dictionary.title.task_show') %></h2>
+    <hr>
+    <p>
+      <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: name  %>
+      <% end %>
+    </p>
+    <div class="container-fluid">
 
-<p>
-  <strong><%= t('dictionary.table.title') %>:</strong>
-  <%= @task.title %>
-</p>
+      <div class="row">
+        <div class="col-sm-3">
+          <p>
+            <%= t('activerecord.attributes.task.title') %>
+          </p>
+        </div>
+        <div class="col-sm-9 align-bottom">
+          <p><%= @task.title %></p>
+        </div>
+      </div>
 
-<p>
-  <strong><%= t('dictionary.table.description') %>:</strong>
-  <%= @task.description %>
-</p>
+      <div class="row">
+        <div class="col-sm-3">
+          <p>
+          <%= t('activerecord.attributes.task.id') %>
+          </p>
+        </div>
+        <div class="col-sm-9 align-bottom">
+          <p>
+            <%= @task.id %>
+          </p>
+        </div>
+      </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @task.task_status.name %>
-</p>
+      <div class="row">
+        <div class="col-sm-3">
+          <p>
+            <%= t('activerecord.attributes.task_status.name') %>
+          </p>
+        </div>
+        <div class="col-sm-9">
+          <p>
+            <%= @task.task_status.name %>
+          </p>
+        </div>
+      </div>
 
-<%= link_to t('dictionary.browse.back'), root_path  %>
+      <div class="row">
+        <div class="col-sm-3">
+          <p>
+            <%= t('activerecord.attributes.task.description') %>
+          </p>
+        </div>
+        <div class="col-sm-9">
+          <%= @task.description %>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <p class="pull-right">
+      <%= link_to t('dictionary.browse.back'), root_path, class: 'btn btn-outline-primary' %>
+    </p>
+  </div>
+</div>
