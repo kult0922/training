@@ -1,5 +1,7 @@
-<h1><%= t '.page_title' %></h1>
+<div class="container">
+  <h2><%= t '.page_title' %></h2>
 
-<%= render partial: 'form' %>
+  <%= render partial: 'form' %>
 
-<%= link_to t('.back'), tasks_path(@task), class: "btn btn-outline-secondary" %>
+  <%= link_to t('.back'), root_path, class: 'btn btn-outline-primary' %>
+</div>

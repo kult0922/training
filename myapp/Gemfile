@@ -39,11 +39,11 @@ group :development, :test do
   # rubocop
   gem 'enum_help'
   gem 'fablicop', require: false
+  gem 'kaminari'
   gem 'pry-rails'
   gem 'ransack'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'kaminari'
 end
 
 group :development do
