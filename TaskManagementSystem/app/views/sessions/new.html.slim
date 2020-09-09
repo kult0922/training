@@ -13,6 +13,6 @@
                 = f.text_field :email, class: 'form-control'
               .form-group
                 = f.label :password, "#{I18n.t('sessions.new.password')}", class: 'form-label'
-                = f.text_field :password, class: 'form-control'
+                = f.password_field :password, class: 'form-control'
               .form-group
                 = f.submit "#{I18n.t('sessions.new.button.sign_in')}", class:'btn btn-primary'
