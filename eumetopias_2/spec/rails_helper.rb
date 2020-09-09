@@ -66,7 +66,7 @@ RSpec.configure do |config|
 
   # 実行後のセッションを取得するための設定
   config.before(:each) do
-    session = {}
+    session = defined?(rspec_session) ? rspec_session : {}
     config.add_setting(:session, :default => session)
     allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return(RSpec.configuration.session)
   end
