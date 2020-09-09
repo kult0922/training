@@ -21,6 +21,8 @@
       <%= form.select :status, Task.statuses_i18n.keys.map {|k| [Task.statuses_i18n[k], k]}  %>
     </div>
 
-    <%= form.submit %>
+    <div class="form-group">
+      <button type="submit" class="btn btn-outline-primary">登録</button>
+    </div>
   <% end %>
 </div>
