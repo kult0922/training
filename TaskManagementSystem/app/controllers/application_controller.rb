@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :success, :info, :warning, :danger
 
   # 例外処理
-  rescue_from Exception, with: :rescue500
+  rescue_from Exception, with: :rescue500 unless Rails.env.development?
   rescue_from ActiveRecord::RecordNotFound, with: :rescue404
   rescue_from ActionController::RoutingError, with: :rescue404
 
