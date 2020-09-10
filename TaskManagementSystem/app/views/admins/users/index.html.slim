@@ -26,7 +26,7 @@
             td.col-xs-2.align-middle = user.last_name
             td.col-xs-2.align-middle = user.first_name
             td.col-xs-3.align-middle = user.email
-            td.col-xs-1.text-center.align-middle = user.calculate_tasks_sum
+            td.col-xs-1.text-center.align-middle = user.tasks.count
             td.col-xs-1.text-center.align-middle style="width:55px;"
               = link_to  "#{I18n.t('admins.users.button.show')}", admins_user_path(user), class:"btn btn-info btn-sm", style: "width:45px"
             td.col-xs-1.text-center.align-middle style="width:55px;"
