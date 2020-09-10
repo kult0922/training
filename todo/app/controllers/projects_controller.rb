@@ -19,14 +19,10 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.user_projects.new(user_id: session[:user_id])
     if @project.save
-      if add_user_to_project(user)
-        flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '作成')
-        redirect_to projects_url
-      else
-        flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
-        redirect_to projects_url
-      end
+      flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '作成')
+      redirect_to projects_url
     else
       flash.now[:error] = I18n.t('flash.failed', model: 'プロジェクト', action: '作成')
       render :new
@@ -58,16 +54,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
-  def add_user_to_project(user)
-    begin
-      return if user.projects.ids.include?(user)
-      @project.users << current_user
-    rescue
-      return false
-    end
-    true
-  end
 
   def set_project
     @project = Project.find(params[:id])
