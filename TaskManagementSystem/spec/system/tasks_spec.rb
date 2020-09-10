@@ -4,11 +4,21 @@ RSpec.describe 'Tasks', type: :system do
 
   # タスク一覧画面内のテスト
   describe 'TaskIndex' do
-    before do
-      @task = create(:valid_sample_task)
-    end
+    let!(:user){create(:login_user)}
+    let!(:task){create(:valid_sample_task, user_id: user.id)}
 
     it 'shows all tasks' do
+      # ログイン画面へ移動
+      visit login_path
+
+      # ログインフォームへ入力
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
+      click_button 'サインイン'
+
+      # ログインができている
+      expect(page).to have_content 'ログインしました。'
+      
       # タスク一覧画面を開く
       visit root_path
 
@@ -23,11 +33,11 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content('削除')
       
       # テーブルにタスクが出力されている
-      expect(page).to have_content(@task.priority)
-      expect(page).to have_content(@task.title)
+      expect(page).to have_content(task.priority)
+      expect(page).to have_content(task.title)
       expect(page).to have_content('ラベル')
-      expect(page).to have_content(@task.deadline.strftime('%Y/%m/%d'))
-      expect(page).to have_content(@task.status_i18n)
+      expect(page).to have_content(task.deadline.strftime('%Y/%m/%d'))
+      expect(page).to have_content(task.status_i18n)
 
       # リンクの存在確認
       click_link ('詳細')
@@ -45,16 +55,26 @@ RSpec.describe 'Tasks', type: :system do
 
   # タスク詳細画面内のテスト
   describe 'TaskShow' do
-    before do
-      @task = create(:valid_sample_task)
-    end
+    let!(:user){create(:login_user)}
+    let!(:task){create(:valid_sample_task, user_id: user.id)}
 
     it 'show Task detail data' do
+      # ログイン画面へ移動
+      visit login_path
+
+      # ログインフォームへ入力
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
+      click_button 'サインイン'
+
+      # ログインができている
+      expect(page).to have_content 'ログインしました。'
+      
       # タスク詳細画面を開く
-      visit task_path(@task)
+      visit task_path(task)
 
       # ページタイトルとテーブルのタイトルが表示されている
-      expect(page).to have_content("#{@task.title}の詳細")
+      expect(page).to have_content("#{task.title}の詳細")
       expect(page).to have_content('優先度')
       expect(page).to have_content('終了期限')
       expect(page).to have_content('ステータス')
@@ -76,7 +96,21 @@ RSpec.describe 'Tasks', type: :system do
 
   # タスク登録画面のテスト
   describe 'TaskNew' do
+    let!(:user){create(:login_user)}
+    let!(:task){create(:valid_sample_task, user_id: user.id)}
     it 'can create new task' do
+      # ログイン画面へ移動
+      visit login_path
+
+      # ログインフォームへ入力
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
+      click_button 'サインイン'
+
+      # ログインができている
+      expect(page).to have_content 'ログインしました。'
+      
+
       # タスク登録画面を開く
       visit new_task_path
 
@@ -86,7 +120,7 @@ RSpec.describe 'Tasks', type: :system do
       # リンクの存在確認
       click_link('タスク一覧')
       visit new_task_path
-      click_link('ユーザー管理')
+      click_link('アカウント管理')
       visit tasks_path
       visit new_task_path
 
@@ -113,23 +147,32 @@ RSpec.describe 'Tasks', type: :system do
 
   # タスク編集画面のテスト
   describe 'TaskEdit' do
-      before do
-        @task = create(:valid_sample_task)
-      end
-
+    let!(:user){create(:login_user)}
+    let!(:task){create(:valid_sample_task, user_id: user.id)}
     it 'can edit task' do
+      # ログイン画面へ移動
+      visit login_path
+
+      # ログインフォームへ入力
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
+      click_button 'サインイン'
+
+      # ログインができている
+      expect(page).to have_content 'ログインしました。'
+      
       # タスク登録画面を開く
-      visit edit_task_path(@task)
+      visit edit_task_path(task)
 
       # title要素の文言確認
       expect(page).to have_title('タスク編集')
 
       # リンクの存在確認
       click_link('タスク一覧')
-      visit edit_task_path(@task)
-      click_link('ユーザー管理')
+      visit edit_task_path(task)
+      click_link('アカウント管理')
       visit tasks_path
-      visit edit_task_path(@task)
+      visit edit_task_path(task)
       
       # ラベル名が正しく表示されている
       expect(page).to have_content('タスク名')
@@ -139,16 +182,16 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content('説明')
 
       # 保存済タスクのデータが初期値として入力されている
-      expect(page).to have_field('タスク名', with: @task.title)
-      expect(page).to have_field('ステータス', with: @task.status)
-      expect(page).to have_field('優先度', with: @task.priority)
-      expect(page).to have_content(@task.deadline.year)
-      expect(page).to have_content(@task.deadline.month)
-      expect(page).to have_content(@task.deadline.day)
-      expect(page).to have_content(@task.deadline.hour)
-      expect(page).to have_content(@task.deadline.min)
-      expect(page).to have_content(@task.deadline.sec)
-      expect(page).to have_field('説明', with: @task.description)
+      expect(page).to have_field('タスク名', with: task.title)
+      expect(page).to have_field('ステータス', with: task.status)
+      expect(page).to have_field('優先度', with: task.priority)
+      expect(page).to have_content(task.deadline.year)
+      expect(page).to have_content(task.deadline.month)
+      expect(page).to have_content(task.deadline.day)
+      expect(page).to have_content(task.deadline.hour)
+      expect(page).to have_content(task.deadline.min)
+      expect(page).to have_content(task.deadline.sec)
+      expect(page).to have_field('説明', with: task.description)
 
       # セレクトボックス・テキストフィールドの編集ができる
       fill_in 'タスク名', with: 'テストタスク'
