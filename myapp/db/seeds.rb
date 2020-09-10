@@ -8,19 +8,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-class ApplicationRecord
-  def self.create_or_update!(attributes)
-    attrs = attributes.dup
-    id = attrs.delete(:id)
-    entity = find_or_initialize_by(id: id)
-    entity.update!(attrs)
-  end
-end
+# Please use if necessary
+# class ApplicationRecord
+#   def self.create_or_update!(attributes)
+#     attrs = attributes.dup
+#     id = attrs.delete(:id)
+#     entity = find_or_initialize_by(id: id)
+#     entity.update!(attrs)
+#   end
+# end
 
 # ユーザ
 [
   { id: 1, name: 'Jane Doe', email: 'test1@email.us' },
   { id: 2, name: 'John Doe', email: 'test2@email.us' },
 ].each do |attrs|
-  User.create_or_update!(attrs)
+  User.create(attrs)
 end
