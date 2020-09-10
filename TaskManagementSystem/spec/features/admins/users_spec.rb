@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'AdminUser', type: :feature do
@@ -71,8 +73,8 @@ RSpec.feature 'AdminUser', type: :feature do
   end
   # ユーザー詳細
   feature 'UserShow' do
-    let!(:user){ create(:login_user) }
-    let!(:task){ create(:valid_sample_task, user_id: user.id) }
+    let!(:user) { create(:login_user) }
+    let!(:task) { create(:valid_sample_task, user_id: user.id) }
     scenario 'can show detail of a user' do
       # ユーザー詳細画面へ移動
       visit admins_users_path
@@ -130,7 +132,7 @@ RSpec.feature 'AdminUser', type: :feature do
 
   # ユーザー編集
   feature 'UserEdit' do
-    let!(:user){ create(:login_user) }
+    let!(:user) { create(:login_user) }
     scenario 'can edit information of user' do
       # ユーザー編集画面へ移動
       visit admins_users_path

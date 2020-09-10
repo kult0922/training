@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admins::UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
@@ -43,15 +45,12 @@ class Admins::UsersController < ApplicationController
   private
 
   def set_user
-    begin
-      @user = User.find(params[:id])
-    rescue => e
-      redirect_to admins_users_path, danger: '存在しないユーザーです'
-    end
+    @user = User.find(params[:id])
+  rescue StandardError => e
+    redirect_to admins_users_path, danger: '存在しないユーザーです'
   end
 
   def user_params
     params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation)
   end
-  
 end
