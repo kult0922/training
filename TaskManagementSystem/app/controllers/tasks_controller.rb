@@ -54,19 +54,15 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    begin
-      @task = current_user.tasks.find(params[:id])
-    rescue => e
-      redirect_to root_path, danger: I18n.t('flash.no_task')
-    end
+    @task = current_user.tasks.find(params[:id])
+  rescue StandardError => e
+    redirect_to root_path, danger: I18n.t('flash.no_task')
   end
 
   def set_user
-    begin
-      @user = current_user
-    rescue => e
-      redirect_to root_path, danger: I18n.t('flash.no_user')
-    end
+    @user = current_user
+  rescue StandardError => e
+    redirect_to root_path, danger: I18n.t('flash.no_user')
   end
 
   def task_params

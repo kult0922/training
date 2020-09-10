@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include SessionsHelper
 
@@ -10,13 +12,14 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :rescue404
 
   private
-    def rescue404(e)
-      @exception = e
-      render template: 'errors/not_found', status: 404
-    end
 
-    def rescue500(e)
-      @exception = e
-      render template: 'errors/system_error', status: 500
-    end
+  def rescue404(e)
+    @exception = e
+    render template: 'errors/not_found', status: 404
+  end
+
+  def rescue500(e)
+    @exception = e
+    render template: 'errors/system_error', status: 500
+  end
 end

@@ -1,5 +1,6 @@
-module SessionsHelper
+# frozen_string_literal: true
 
+module SessionsHelper
   # 渡されたユーザーでログインする
   def log_in(user)
     session[:user_id] = user.id
@@ -7,9 +8,7 @@ module SessionsHelper
 
   # 現在ログイン中のユーザーを返す（いる場合）
   def current_user
-    if session[:user_id]
-      @currnt_user ||= User.find_by(id: session[:user_id])
-    end
+    @currnt_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
   # ユーザーがログインしていればtrue、その他ならfalse
@@ -22,5 +21,4 @@ module SessionsHelper
     reset_session # 全てのセッション情報を削除
     @current_user = nil
   end
-
 end

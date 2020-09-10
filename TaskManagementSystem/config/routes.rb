@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # タスク画面
   root 'tasks#index'
@@ -11,7 +13,6 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-
 
   # エラー画面
   get '*anything' => 'errors#routing_error'

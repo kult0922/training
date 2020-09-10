@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature "Session", type: :feature do
+RSpec.feature 'Session', type: :feature do
   # サインアップ画面からログインができ、ログアウトできる
   feature 'SignUp' do
-    scenario "can sign up" do
+    scenario 'can sign up' do
       # サインアップ画面へ移動
       visit signup_path
 
@@ -26,8 +28,8 @@ RSpec.feature "Session", type: :feature do
 
   # ログイン画面からログインができ、ログアウトできる
   feature 'LogIn' do
-    let!(:users){create(:valid_sample_user)}
-    scenario "can log in" do
+    let!(:users) { create(:valid_sample_user) }
+    scenario 'can log in' do
       # ログイン画面へ移動
       visit login_path
 

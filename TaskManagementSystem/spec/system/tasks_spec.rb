@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-
   # タスク一覧画面内のテスト
   describe 'TaskIndex' do
-    let!(:user){create(:login_user)}
-    let!(:task){create(:valid_sample_task, user_id: user.id)}
+    let!(:user) { create(:login_user) }
+    let!(:task) { create(:valid_sample_task, user_id: user.id) }
 
     it 'shows all tasks' do
       # ログイン画面へ移動
@@ -18,7 +19,7 @@ RSpec.describe 'Tasks', type: :system do
 
       # ログインができている
       expect(page).to have_content 'ログインしました。'
-      
+
       # タスク一覧画面を開く
       visit root_path
 
@@ -31,7 +32,7 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content('詳細')
       expect(page).to have_content('編集')
       expect(page).to have_content('削除')
-      
+
       # テーブルにタスクが出力されている
       expect(page).to have_content(task.priority)
       expect(page).to have_content(task.title)
@@ -40,23 +41,23 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content(task.status_i18n)
 
       # リンクの存在確認
-      click_link ('詳細')
-      click_link ('タスク一覧')
-      click_link ('編集')
-      click_link ('タスク一覧')
-      click_link ('ラベル作成')
-      find_button ('検索')
+      click_link '詳細'
+      click_link 'タスク一覧'
+      click_link '編集'
+      click_link 'タスク一覧'
+      click_link 'ラベル作成'
+      find_button '検索'
 
       # 削除できているか確認
-      click_link ('削除')
-      expect(Task.all.count).to eq (0)
-    end  
+      click_link '削除'
+      expect(Task.all.count).to eq 0
+    end
   end
 
   # タスク詳細画面内のテスト
   describe 'TaskShow' do
-    let!(:user){create(:login_user)}
-    let!(:task){create(:valid_sample_task, user_id: user.id)}
+    let!(:user) { create(:login_user) }
+    let!(:task) { create(:valid_sample_task, user_id: user.id) }
 
     it 'show Task detail data' do
       # ログイン画面へ移動
@@ -69,7 +70,7 @@ RSpec.describe 'Tasks', type: :system do
 
       # ログインができている
       expect(page).to have_content 'ログインしました。'
-      
+
       # タスク詳細画面を開く
       visit task_path(task)
 
@@ -81,23 +82,23 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content('ラベル')
       expect(page).to have_content('説明')
       expect(page).to have_content('編集')
-      expect(page).to have_content('削除')      
-      
+      expect(page).to have_content('削除')
+
       # リンクの存在確認
-      click_link ('編集')
-      click_link ('タスク一覧')
-      click_link ('詳細')
+      click_link '編集'
+      click_link 'タスク一覧'
+      click_link '詳細'
 
       # 削除できているか確認(一覧画面から１減っている)
-      click_link ('削除')
-      expect(Task.all.count).to eq (0)      
+      click_link '削除'
+      expect(Task.all.count).to eq 0
     end
   end
 
   # タスク登録画面のテスト
   describe 'TaskNew' do
-    let!(:user){create(:login_user)}
-    let!(:task){create(:valid_sample_task, user_id: user.id)}
+    let!(:user) { create(:login_user) }
+    let!(:task) { create(:valid_sample_task, user_id: user.id) }
     it 'can create new task' do
       # ログイン画面へ移動
       visit login_path
@@ -109,14 +110,13 @@ RSpec.describe 'Tasks', type: :system do
 
       # ログインができている
       expect(page).to have_content 'ログインしました。'
-      
 
       # タスク登録画面を開く
       visit new_task_path
 
       # title要素の文言確認
       expect(page).to have_title('タスク登録')
-      
+
       # リンクの存在確認
       click_link('タスク一覧')
       visit new_task_path
@@ -147,8 +147,8 @@ RSpec.describe 'Tasks', type: :system do
 
   # タスク編集画面のテスト
   describe 'TaskEdit' do
-    let!(:user){create(:login_user)}
-    let!(:task){create(:valid_sample_task, user_id: user.id)}
+    let!(:user) { create(:login_user) }
+    let!(:task) { create(:valid_sample_task, user_id: user.id) }
     it 'can edit task' do
       # ログイン画面へ移動
       visit login_path
@@ -160,7 +160,7 @@ RSpec.describe 'Tasks', type: :system do
 
       # ログインができている
       expect(page).to have_content 'ログインしました。'
-      
+
       # タスク登録画面を開く
       visit edit_task_path(task)
 
@@ -173,7 +173,7 @@ RSpec.describe 'Tasks', type: :system do
       click_link('アカウント管理')
       visit tasks_path
       visit edit_task_path(task)
-      
+
       # ラベル名が正しく表示されている
       expect(page).to have_content('タスク名')
       expect(page).to have_content('ステータス')
