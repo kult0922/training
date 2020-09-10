@@ -27,16 +27,10 @@ class Task < ApplicationRecord
   end
 
   # ステータス検索
-  def self.search_status(status)
-    return where(status: status) if status.present?
-    order(created_at: :desc)
-  end
+  scope :search_with_status, -> (status){where(status: status) if status.present?}
 
   # タスク名検索
-  def self.search_title(title)
-    return where("title LIKE ?", "%#{title}%") if title.present?
-    order(created_at: :desc)
-  end  
+  scope :search_with_title, -> (title){where("title LIKE ?", "%#{title}%") if title.present?}
   
   # 終了期限のコールバック
   before_save :deadline_blank?
