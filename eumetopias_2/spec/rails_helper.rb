@@ -64,7 +64,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  # 実行後のセッションを取得するための設定
+  # 事前にセッション書き込み、実行後のセッションを取得するための設定
   config.before(:each) do
     session = defined?(rspec_session) ? rspec_session : {}
     config.add_setting(:session, :default => session)

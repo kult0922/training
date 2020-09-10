@@ -1,7 +1,7 @@
 class TaskController < ApplicationController
   PER = 10
   before_action :require_login
-  before_action :require_to_be_task_author, only: [:show, :edit, :destroy]
+  before_action :own_task_only, only: [:show, :edit, :update, :destroy]
 
   def index
     task_status_id = params[:task_status_id]
@@ -68,7 +68,7 @@ def require_login
   end
 end
 
-def require_to_be_task_author
+def own_task_only
   @task = Task.find(params[:id])
   unless @task.user_id == @current_user.id
     flash[:error] = t('dictionary.message.cant_manage_this_task')

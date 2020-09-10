@@ -112,7 +112,6 @@ RSpec.describe "Task", type: :system do
       end
     end
 
-
     describe "Task list page function" do
       before do
         @untouch_id = task_status_untouch.id
@@ -209,7 +208,7 @@ RSpec.describe "Task", type: :system do
         let!(:new_task) { Task.create(title: 'new task', description: 'new task description',
           task_status_id: task_status_untouch.id, user_id: test_user2.id) }
         before { visit root_path }
-        it 'should not viewable other user task in list' do
+        it 'should not viewable other user task in list page' do
           expect(page).not_to have_content 'new task'
         end
         it 'should not viewable other user task detail' do
