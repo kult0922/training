@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # タスク画面
   root 'tasks#index'
@@ -5,7 +7,9 @@ Rails.application.routes.draw do
   # ソート機能
   get 'search' => 'tasks#search'
 
-  # ログイン画面
+  # サインアップ/ログイン/ログアウト画面
+  get '/signup' => 'users#new'
+  post '/signup' => 'users#create'
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'

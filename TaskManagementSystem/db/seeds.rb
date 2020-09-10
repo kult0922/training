@@ -11,17 +11,17 @@
 # ユーザー
 30.times do |n|
   User.create(
-    last_name: "タスクユーザー",
+    last_name: 'タスクユーザー',
     first_name: "太郎#{n}",
     email: "task_user_taro#{n}@example.com",
     password: "password#{n}",
-    password_confirmation: "password#{n}"
+    password_confirmation: "password#{n}",
   )
 end
 
 # タスク
 k = 0
-10.times do |num|
+10.times do |_num|
   3.times do |n|
     Task.create(
       user_id: n + 1,
@@ -29,7 +29,7 @@ k = 0
       description: "タスクの説明#{n + k}",
       priority: n + k,
       deadline: Time.strptime("2020年10月#{n + 1 + k}日 12:13:23", '%Y年%m月%d日 %H:%M:%S'),
-      status: n + 1
+      status: n + 1,
     )
   end
   k += 3

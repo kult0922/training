@@ -7,3 +7,5 @@ ja:
       log_in: ログイン
       button:
         sign_in: サインイン
+    destroy:
+      log_out: ログアウト

@@ -19,7 +19,7 @@ html
               = link_to "#{@user.last_name} #{@user.first_name}", '#', class: "text-light"
           ul.nav
             li.nav-item.text-light.d-flex.align-items-center
-              = link_to 'ログアウト', logout_path, method: :delete, class: "text-light"
+              = link_to "#{I18n.t('sessions.destroy.log_out')}", logout_path, method: :delete, class: "text-light"
       .container-fluid
         .row  
           = render "layouts/sidebar"
