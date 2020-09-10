@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params.merge(user_id: session[:user_id]))
     if @task.save
       redirect_to task_path(@task), success: I18n.t('flash.create_task')
     else
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
+    if @task.update(task_params.merge(user_id: session[:user_id]))
       redirect_to task_path(@task), success: I18n.t('flash.update_task')
     else
       flash.now[:danger] = I18n.t('flash.update_task_failed')
@@ -70,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:user_id, :title, :description, :priority, :status, :deadline)
+    params.require(:task).permit(:title, :description, :priority, :status, :deadline)
   end
 
   # ログイン済ユーザーかどうか確認

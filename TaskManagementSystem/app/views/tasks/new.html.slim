@@ -23,6 +23,5 @@
               = f.text_area :description, class: 'form-control', style:"width:500px;height:400px;"
             .form-group
               = f.hidden_field :status, value: "waiting"
-              = f.hidden_field :user_id, value: "#{@user.id}"
             .form-group
               = f.submit "#{I18n.t('tasks.new.create')}", class:'btn btn-primary'
