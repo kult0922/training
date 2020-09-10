@@ -29,7 +29,6 @@ class TasksController < ApplicationController
       else
         flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
         redirect_to project_tasks_url(@task.project)
-        return
       end
     else
       @users = User.all
@@ -80,13 +79,9 @@ class TasksController < ApplicationController
   end
 
   def add_user_to_project(user)
-    begin
-      return if user.projects.ids.include?(user)
-      @task.project.users << user
-    rescue
-      return false
-    end
-    true
+    return true if user.projects.ids.include?(@task.project.id)
+    user_pj = @task.project.user_projects.new(user_id: user.id)
+    user_pj.save
   end
 
   def set_task
