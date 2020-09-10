@@ -7,10 +7,13 @@ class TasksController < ApplicationController
 
   def index
     @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true).sort_task_by(
+    @tasks = @q.result(distinct: true,
+                      ).preload(
+      :user,
+                      ).sort_task_by(
       params[:sort],
       params[:direction],
-    ).page(params[:page]).per(PER)
+                      ).page(params[:page]).per(PER)
   end
 
   def new
