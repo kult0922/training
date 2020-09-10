@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       if add_user_to_project(@task.assignee) && add_user_to_project(@task.reporter)
-        flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
+        flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
         redirect_to [@task.project, @task]
       else
         flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
