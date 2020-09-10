@@ -15,7 +15,7 @@ class Task < ApplicationRecord
   scope :name_search, ->(task_name) { where('task_name like ?', "%#{task_name}%") if task_name.present? }
   scope :priority_search, ->(priority) { where(priority: priority) if priority.present? }
   scope :status_search, ->(status) { where(status: status) if status.present? }
-  scope :user_had_task, ->(user_id) { eager_load(:assignee, :reporter).where('assignee_id = ? OR reporter_id = ? ', user_id, user_id) }
+  scope :user_had_task, ->(user_id) { eager_load(:assignee, :reporter).where('assignee_id = ? OR reporter_id = ? ', user_id, user_id) } 
 
   def self.search(search_params)
     user_had_task(search_params[:user_id])

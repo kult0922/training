@@ -58,10 +58,6 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def load_task
-    
-  end
-
   def user_params
     params.require(:user).permit(:account_name, :password, :password_confirmation)
   end
