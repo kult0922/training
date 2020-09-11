@@ -7,6 +7,8 @@ ja:
   flash:
     succeeded: "%{model}が%{action}されました。"
     failed: "%{model}の%{action}に失敗しました。"
+    only_one_admin: '唯一な管理者は削除不可です。'
+    delete_own: '管理者自身は削除できません。'
   views:
     pagination:
       first: "&laquo; 最初"
@@ -19,7 +21,6 @@ ja:
       name: 'ユーザ名'
   errors:
     input: 'を入力してください'
-    auth: '権限がありません'
     check_date_at: 'の日付形式が正しくありません'
   time:
     formats:

@@ -84,11 +84,10 @@ RSpec.describe User, type: :system do
     end
 
     context 'when user is not have admin auth' do
-      it 'move project page' do
+      it 'move 404 page' do
         login(user)
         visit admin_users_path
-        expect(page).to have_content 'PJ登録'
-        expect(page).to have_current_path projects_path, ignore_query: true
+        expect(page).to have_content '探しているページが存在しません。'
       end
     end
   end
@@ -148,6 +147,20 @@ RSpec.describe User, type: :system do
         expect(page).to have_content 'ユーザが作成されました。'
       end
     end
+
+    context 'when admin user create' do
+      it 'should be created admin user' do
+        fill_in 'user_account_name', with: 'TestAdminUser1'
+        fill_in 'user_password', with: 'testtest'
+        find('label', text: '管理者権限', match: :first).click
+        click_on '登録する'
+
+        expect(page).to have_content 'ユーザが作成されました。'
+        expect(page).to have_content 'TestAdminUser1'
+        expect(page).to have_content 'true'
+        expect(User.find_by(account_name: 'TestAdminUser1').admin?).to eq true
+      end
+    end
   end
 
   describe '#admin/user/edit' do
@@ -180,6 +193,17 @@ RSpec.describe User, type: :system do
         page.driver.browser.switch_to.alert.accept
 
         expect(page).to have_content 'ユーザが削除されました。'
+      end
+    end
+
+    context 'when only one admin delete' do
+      it 'should be error' do
+        click_link '削除', href: admin_user_path(admin_user)
+
+        expect(page.driver.browser.switch_to.alert.text).to eq '削除してもよろしいでしょうか?'
+        page.driver.browser.switch_to.alert.accept
+
+        expect(page).to have_content '管理者自身は削除できません。'
       end
     end
   end

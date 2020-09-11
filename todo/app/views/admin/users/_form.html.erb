@@ -9,6 +9,10 @@
       <%= form.password_field :password, class: 'form-control' %>
     </div>
   </div>
+  <div class="custom-control custom-checkbox">
+    <%= form.check_box :admin, class: 'custom-control-input' %>
+    <label class="custom-control-label" for="user_admin"><%= I18n.t('users.new.admin') %></label>
+  </div>
   <div class="row mb-2">
     <div class="col-auto">
       <%= form.submit class: 'btn btn-primary' %>
