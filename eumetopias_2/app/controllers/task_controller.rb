@@ -4,17 +4,8 @@ class TaskController < ApplicationController
   before_action :own_task_only, only: [:show, :edit, :update, :destroy]
 
   def index
-    task_status_id = params[:task_status_id]
-    if task_status_id.blank?
-      @task = Task.includes(:task_status)
-        .where(user_id: current_user.id)
-        .page(params[:page]).per(PER)
-    else
-      @task = Task.includes(:task_status)
-        .where(user_id: current_user.id)
-        .search_by_status_id(task_status_id)
-        .page(params[:page]).per(PER)
-    end
+    @task = Task.search(current_user.id,
+      params[:task_status_id], params[:page], PER)
   end
 
   def new

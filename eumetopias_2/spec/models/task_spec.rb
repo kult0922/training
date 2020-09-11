@@ -18,6 +18,8 @@ RSpec.describe Task, type: :model do
       @untouch_id = task_status_untouch.id
       @in_progress_id = task_status_in_progress.id
       @finished_id = task_status_finished.id
+      @page = 1
+      @per = 10
       sample_status_ids = [@untouch_id]
       2.times {sample_status_ids.push(@in_progress_id)}
       3.times {sample_status_ids.push(@finished_id)}
@@ -26,9 +28,9 @@ RSpec.describe Task, type: :model do
       end
     end
     it 'shoud match correct records count' do
-      expect(Task.search_by_status_id(@untouch_id).count).to eq 1
-      expect(Task.search_by_status_id(@in_progress_id).count).to eq 2
-      expect(Task.search_by_status_id(@finished_id).count).to eq 3
+      expect(Task.search(test_user.id, @untouch_id, @page,@per).count).to eq 1
+      expect(Task.search(test_user.id, @in_progress_id, @page,@per).count).to eq 2
+      expect(Task.search(test_user.id, @finished_id, @page,@per).count).to eq 3
     end
   end
 end
