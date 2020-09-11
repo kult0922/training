@@ -8,9 +8,9 @@
         <%= link_to I18n.t('projects.index.title'), projects_path, class: 'nav-link' %>
       </li>
       <li class="nav-item">
-        <%= link_to I18n.t('users.nav.title'), edit_user_path(@current_user), class: 'nav-link' %>
+        <%= link_to I18n.t('users.nav.title'), edit_user_path(current_user), class: 'nav-link' %>
       </li>
-      <% if admin?(@current_user) %>
+      <% if current_user.admin? %>
         <li class="nav-item">
           <%= link_to I18n.t('users.nav.admin'), admin_users_path, class: 'nav-link' %>
         </li>

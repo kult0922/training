@@ -3,16 +3,18 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[edit update destroy]
   before_action :logged_in_user
-  before_action :admin_user
+  before_action :admin_only
   before_action :current_user
   before_action :check_delete_own, only: :destroy
 
   def index
-    @users = User.all.page(params[:page]).per(20)
+    @users = User.all.page(params[:page])
   end
 
   def show
-    @tasks = load_task
+    @tasks = Task.eager_load(:assignee, :reporter)
+      .user_had_task(params[:id])
+      .page(params[:page])
   end
 
   def new
@@ -70,11 +72,7 @@ class Admin::UsersController < ApplicationController
     render_404
   end
 
-  def load_task
-    Task.eager_load(:assignee, :reporter)
-      .where('assignee_id = ? OR reporter_id = ? ', params[:id], params[:id])
-      .page(params[:page]).per(20)
-  end
+  private
 
   def user_params
     params.require(:user).permit(:account_name, :password, :password_confirmation, :admin)

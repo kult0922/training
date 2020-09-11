@@ -21,6 +21,9 @@ ja:
       delete: '削除'
       assginee_tasks: '担当者タスク数'
       reporter_tasks: '承認者タスク数'
+    form:
+      name: 'ユーザ名'
+      password: 'パスワード'
     edit:
       title: 'ユーザ編集'
     show:
@@ -28,5 +31,3 @@ ja:
     nav:
       title: 'ユーザ編集'
       admin: 'ユーザ管理画面'
-    delete:
-      confirm: '削除してもよろしいでしょうか?'

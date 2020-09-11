@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include SessionsHelper
+  helper_method :current_user
+  helper_method :logged_in?
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render_500
@@ -22,9 +23,36 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def logged_in_user
-    unless logged_in?
-      redirect_to login_failed_url
+  def log_in(user)
+    session[:user_id] = user.id
+  end
+
+  def current_user?(user)
+    user == current_user
+  end
+
+  def log_out
+    session.delete(:user_id)
+    @current_user = nil
+  end
+
+  def current_user
+    if session[:user_id]
+      @current_user ||= User.find_by(id: session[:user_id])
     end
+  end
+
+  def logged_in?
+    !current_user.nil?
+  end
+  
+  def logged_in_user
+    redirect_to login_failed_url unless logged_in?
+  end
+
+  def admin_only
+    return if @current_user.admin?
+    flash[:error] = I18n.t('errors.auth')
+    redirect_to projects_path
   end
 end

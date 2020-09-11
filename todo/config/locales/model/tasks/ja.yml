@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    errors:
+      models:
+        task:
+          finished_at_not_before_stated_at: 'は開始日付より後の日付にしてください'
     models:
       task: 'タスク'
     attributes:
@@ -10,6 +14,24 @@ ja:
         task_name: 'タスク名'
         started_at: '開始日'
         finished_at: '終了日'
+        status: '状態'
+        priority: '優先順位'
+        started_at: '開始日'
+        finished_at: '終了日'
+        project_name: 'プロジェクト名'
+        description: '説明'
+        assignee: '担当者'
+        reporter: '承認者'
+        todo: '未着手'
+        in_progress: '着手中'
+        done: '完了'
+  enums:
+    task:
+      priority:
+        low: '低'
+        mid: '中'
+        high: '高'
+      status:
         todo: '未着手'
         in_progress: '着手中'
         done: '完了'
