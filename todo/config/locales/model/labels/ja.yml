@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      label: 'ラベル' 
+    attributes:
+      label:
+        color: '色'
+        text: 'ラベル内容'

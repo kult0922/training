@@ -31,7 +31,16 @@
       <td><%= @task.reporter.account_name %></td>
     </tr>
     <tr>
+      <th><%= I18n.t('tasks.show.label') %></th>
+      <td>
+        <% @task.labels.each do |label| %>
+          <span class="badge" style="background:<%= label.color %>; color:#fff"><%= label.text %></span>
+        <% end%>
+      </td>
+    </tr>
+    <tr>
       <th><%= Task.human_attribute_name(:started_at) %></th>
+
       <td><%= @task.started_at %></td>
     </tr>
     <tr>

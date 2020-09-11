@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   belongs_to :project
   belongs_to :assignee, class_name: 'User', foreign_key: :assignee_id
   belongs_to :reporter, class_name: 'User', foreign_key: :reporter_id
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels
   validates :task_name, presence: true
   validates :started_at, presence: true, date: true
   validates :finished_at, presence: true, date: true
@@ -16,6 +18,12 @@ class Task < ApplicationRecord
   scope :priority_search, ->(priority) { where(priority: priority) if priority.present? }
   scope :status_search, ->(status) { where(status: status) if status.present? }
   scope :user_had_task, ->(user_id) { eager_load(:assignee, :reporter).where('assignee_id = ? OR reporter_id = ? ', user_id, user_id) } 
+  
+  scope :label_search, lambda { |label_ids|
+    if label_ids.present?
+      where(id: Task.joins(:labels).where(labels: { id: label_ids }).select(:id))
+    end
+  }
 
   def self.search(search_params)
     user_had_task(search_params[:user_id])

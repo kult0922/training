@@ -17,10 +17,11 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  resources :users, only: [:new, :create, :edit, :update]
+  resources :labels, except: :show
+
+  resources :users, only: %i[new create edit update]
 
   unless Rails.env.development?
     get '*path', to: 'application#render_404'
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

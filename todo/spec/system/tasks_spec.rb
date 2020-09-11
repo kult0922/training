@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Task, type: :system do
   let(:user) { create(:user) }
   let(:task) { create(:task, assignee_id: user.id, reporter_id: user.id) }
+  let!(:label1) { create(:label, text: 'label_result') }
+  let!(:label2) { create(:label, text: 'label_test') }
 
   describe '#index' do
     before do
@@ -20,6 +22,29 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content '修正'
         expect(page).to have_content '完了'
         expect(page).to have_content '削除'
+      end
+    end
+
+    context 'when task have labels search' do
+      let(:task1) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label1', project_id: task.project_id) }
+      let(:task2) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label2', project_id: task.project_id) }
+      let(:task3) { create(:task, assignee_id: user.id, reporter_id: user.id, task_name: 'label3', project_id: task.project_id) }
+
+      before do
+        TaskLabel.create(task_id: task1.id, label_id: label1.id)
+        TaskLabel.create(task_id: task1.id, label_id: label2.id)
+        TaskLabel.create(task_id: task2.id, label_id: label2.id)
+        TaskLabel.create(task_id: task3.id, label_id: label1.id)
+      end
+
+      it 'have 2 contents' do
+        visit project_tasks_path(task.project, task)
+        check 'label_ids[]', match: :first
+        click_on I18n.t('tasks.search.button')
+
+        expect(page).to have_content 'label1'
+        expect(page).to have_no_content 'label2'
+        expect(page).to have_content 'label3'
       end
     end
 
@@ -171,6 +196,26 @@ RSpec.describe Task, type: :system do
         click_on '登録する'
         expect(page).to have_content 'タスクが作成されました。'
         expect(Task.find_by(task_name: 'add_task'))
+      end
+    end
+
+    context 'when create task with labels' do
+      it 'should be created with labels' do
+        visit new_project_task_path(task.project)
+
+        fill_in 'task_task_name', with: 'add_task'
+        fill_in 'task_description', with: 'add_description'
+        select '中', from: 'task_priority'
+        fill_in 'task_started_at', with: Time.zone.parse('07/12/2020')
+        fill_in 'task_finished_at', with: Time.zone.parse('07/12/2020')
+        select task.assignee.account_name, from: 'task_assignee_id'
+        select task.reporter.account_name, from: 'task_reporter_id'
+
+        check 'task[label_ids][]', match: :first
+
+        click_on '登録する'
+        expect(page).to have_content 'タスクが作成されました。'
+        expect(page).to have_content 'label_result'
       end
     end
 

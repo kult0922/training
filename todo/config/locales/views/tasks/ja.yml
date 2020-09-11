@@ -11,6 +11,8 @@ ja:
       finished_at: '期限日'
       pj_description: 'プロジェクト説明'
       project: 'PJ名'
+      labels: 'ラベル一覧'
+      label: 'ラベル'
     search:
       button: '検索'
       change_order: '並び順'
@@ -18,6 +20,7 @@ ja:
       status: '状態'
       priority: '優先順位'
       none: '-----'
+      label: 'ラベル検索'
       order:
         asc_finished_at: '期限日が近い順'
         desc_finished_at: '期限日が遠い順'

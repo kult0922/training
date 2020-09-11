@@ -1,7 +1,7 @@
 <div class ="border">
   <%= form_with url: project_tasks_url, local: true, method: :get do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
-    <div class="form-row mb-4">
+    <div class="form-row mb-6">
       <div class ="col">
         <%= I18n.t('tasks.search.search_bar') %>
         <%= form.text_field :name, class: 'form-control', placeholder: I18n.t('tasks.search.search_bar'), value: params[:name] %>
@@ -30,6 +30,21 @@
           selected: params[:priority_search]},
           {class: 'custom-select'} %>
       </div>
+      
+      <div class="col">
+        <div class="label_search">
+          <%= I18n.t('tasks.search.label') %>
+          <div class="label_checkbox">
+            <div class="d-flex align-items-center">
+            <%= form.collection_check_boxes :label_ids, @labels, :id, :color, include_hidden: false, checked: params[:label_ids], name: nil do |b| %>
+              <%= b.label { b.check_box } %>
+              <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= @hash[b.value] %></span>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="col">
         <div class="button_center">
           <%= form.submit I18n.t('tasks.search.button'), class: 'btn btn-primary', name: nil %>

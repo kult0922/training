@@ -49,12 +49,25 @@
     </div>
   </div>
 
-  <div class="row mb-2">
-    <div class ="col-auto">
-      <%= form.submit class: 'btn btn-primary' %>
+  <div class="form-group">
+    <%= form.label :'ラベル' %>
+    <div class="label_checkbox">
+      <div class="d-flex align-items-center">
+      <%= form.collection_check_boxes :label_ids, @labels, :id, :color, include_hidden: false do |b| %>
+        <%= b.label { b.check_box } %>
+        <span class="badge" style="background:<%= b.text %>; color:#fff" ><%= @hash[b.value] %></span>
+      <% end %>
+      </div>
     </div>
-    <div class="col-auto">
-      <%= link_to I18n.t('back'), project_tasks_path, class: 'btn btn-secondary' %>
+  </div>
+  <div class="form-group">
+    <div class="row mb-2">
+      <div class ="col-auto">
+        <%= form.submit class: 'btn btn-primary' %>
+      </div>
+      <div class="col-auto">
+        <%= link_to I18n.t('back'), project_tasks_path, class: 'btn btn-secondary' %>
+      </div>
     </div>
   </div>
 <% end %>

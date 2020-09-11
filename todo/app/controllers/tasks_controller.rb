@@ -5,11 +5,13 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   before_action :current_user
   before_action :check_task_auth, only: %i[show edit destroy]
+  before_action :set_labels, only: %i[show new create update edit index]
+  before_action :hash_labels, only: %i[new edit create update index]
 
   def index
     @project = Project.find(params[:project_id])
     @order_by = sort_direction
-    @tasks = @project.tasks.search(search_params).page(params[:page])
+    @tasks = @project.tasks.search(search_params).label_search(params[:label_ids]).page(params[:page])
   end
 
   def show
@@ -33,7 +35,7 @@ class TasksController < ApplicationController
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
-      render :new, locals: { users: @users }
+      render :new
     end
   end
 
@@ -54,7 +56,7 @@ class TasksController < ApplicationController
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '更新')
-      render :edit, locals: { users: @users }
+      render :edit
     end
   end
 
@@ -88,11 +90,22 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def set_labels
+    @labels = Label.all
+  end
+
+  def hash_labels
+    @hash = {}
+    @labels.each do |label|
+      @hash.store(label.id, label.text)
+    end
+  end
+
   def search_params
     @search_params = { user_id: current_user, task_name: params[:name], priority: params[:priority_search], status: params[:status_search], order_by: sort_direction }
   end
 
   def task_params
-    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :status)
+    params.require(:task).permit(:task_name, :project_id, :priority, :assignee_id, :reporter_id, :description, :started_at, :finished_at, :status, { label_ids: [] })
   end
 end

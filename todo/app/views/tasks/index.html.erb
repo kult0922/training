@@ -4,7 +4,8 @@
       <h1><%= @project.project_name %><%= I18n.t('tasks.index.title') %></h1>
     </div>
     <div class="col">
-      <p><%= link_to I18n.t('tasks.index.new'), new_project_task_path, class: 'btn btn-success' %></p>
+      <%= link_to I18n.t('tasks.index.new'), new_project_task_path, class: 'btn btn-success' %>
+      <%= link_to I18n.t('tasks.index.labels'), labels_path, class: 'btn btn-success', locals: {project_id: @project.id} %>
     </div>
   </div>
 </div>
@@ -26,6 +27,7 @@
       <th><%= Task.human_attribute_name(:task_name) %></th>
       <th><%= Task.human_attribute_name(:priority) %></th>
       <th><%= Task.human_attribute_name(:status) %></th>
+      <th><%= I18n.t('tasks.index.label') %></th>
       <th><%= Task.human_attribute_name(:finished_at) %></th>
       <th colspan = 2></th>
     </tr>
@@ -35,6 +37,11 @@
       <td><%= link_to task.task_name, project_task_path(@project, task), class: 'btn btn-primary' %></td>
       <td><%= task.priority_i18n %></td>
       <td><%= task.status_i18n %></td>
+      <td class="scroll_td">
+        <% task.labels.each do |label| %>
+          <span class="badge" style="background:<%= label.color %>; color:#fff"><%= label.text %></span>
+        <% end %>
+      </td>
       <td><%= task.finished_at %></td>
       <td><%= link_to I18n.t('tasks.index.update'), edit_project_task_path(@project, task), class: 'btn btn-secondary' %></td>
       <td><%= link_to I18n.t('tasks.index.delete'), project_task_path(@project, task), method: :delete, data: { confirm: I18n.t('delete.confirm') },class: 'btn btn-danger' %></td>
