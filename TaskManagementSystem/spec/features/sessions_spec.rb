@@ -28,14 +28,14 @@ RSpec.feature 'Session', type: :feature do
 
   # ログイン画面からログインができ、ログアウトできる
   feature 'LogIn' do
-    let!(:users) { create(:valid_sample_user) }
+    include_context 'user_setup'
     scenario 'can log in' do
       # ログイン画面へ移動
       visit login_path
 
       # ログインフォームへ入力
-      fill_in 'email', with: 'user1@sample.com'
-      fill_in 'password', with: 'password1'
+      fill_in 'email', with: user.email
+      fill_in 'password', with: user.password
       click_button 'サインイン'
 
       # ログインができている

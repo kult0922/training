@@ -3,19 +3,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Task', type: :feature do
+  # ログイン
+  include_context 'user_setup'
+  before do
+    sign_in_as(user)
+  end
   # タスク降順テスト
   feature 'TaskListDecendingOrder' do
-    let!(:user) { create(:login_user) }
     let!(:tasks) { create_list(:valid_sample_task, 5, user_id: user.id) }
     scenario 'is descending orders in task index screen' do
-      # ログイン画面へ移動
-      visit login_path
-
-      # ログインフォームへ入力
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'サインイン'
-
       # タスク一覧画面へ移動
       visit root_path
 
@@ -28,20 +24,8 @@ RSpec.feature 'Task', type: :feature do
 
   # 終了期限ソート機能テスト
   feature 'SortTaskListByDeadline' do
-    let!(:user) { create(:login_user) }
     let!(:tasks) { create_list(:valid_sample_task, 5, user_id: user.id) }
     scenario "can sort task's list by deadline" do
-      # ログイン画面へ移動
-      visit login_path
-
-      # ログインフォームへ入力
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'サインイン'
-
-      # ログインができている
-      expect(page).to have_content 'ログインしました。'
-
       # タスク一覧画面へ移動
       visit root_path
 
@@ -65,23 +49,11 @@ RSpec.feature 'Task', type: :feature do
 
   # タスク名とステータスで検索ができる
   feature 'SearchTaskListByTitleAndStatus' do
-    let!(:user) { create(:login_user) }
     3.times do |n|
       let!(:valid_task) { create(:valid_sample_task, status: n, user_id: user.id) }
     end
     # タスク名での検索ができる
     scenario 'can search tasks by title' do
-      # ログイン画面へ移動
-      visit login_path
-
-      # ログインフォームへ入力
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'サインイン'
-
-      # ログインができている
-      expect(page).to have_content 'ログインしました。'
-
       # タスク一覧画面へ移動
       visit root_path
 
@@ -95,17 +67,6 @@ RSpec.feature 'Task', type: :feature do
 
     # ステータスでの検索ができる
     scenario 'can search tasks by status' do
-      # ログイン画面へ移動
-      visit login_path
-
-      # ログインフォームへ入力
-      fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
-      click_button 'サインイン'
-
-      # ログインができている
-      expect(page).to have_content 'ログインしました。'
-
       # タスク一覧画面へ移動
       visit root_path
 
