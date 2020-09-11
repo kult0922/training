@@ -1,0 +1,6 @@
+allow_ips:
+- 
+
+path:
+  log: log/maintenance.log
+  lock: tmp/maintenance.yml
