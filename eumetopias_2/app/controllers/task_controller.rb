@@ -70,5 +70,5 @@ end
 
 private
   def task_params
-    params.require(:task).permit(:title, :description, :task_status_id, labelid, { label_ids: [] })
+    params.require(:task).permit(:title, :description, :task_status_id, { label_ids: [] })
   end
