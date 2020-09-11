@@ -23,5 +23,12 @@
   { id: 1, name: 'Jane Doe', email: 'test1@example.com', password: 'password' },
   { id: 2, name: 'John Doe', email: 'test2@example.com', password: 'password' },
 ].each do |attrs|
-  User.create(attrs)
+  User.create!(attrs)
+end
+# タスク
+[
+  { id: 1, title: 'Jane Doe', user_id: 1 },
+  { id: 2, title: 'John Doe', user_id: 2 },
+].each do |attrs|
+  Task.create!(attrs)
 end

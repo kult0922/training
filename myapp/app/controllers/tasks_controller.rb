@@ -9,8 +9,8 @@ class TasksController < ApplicationController
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true,
-    ).preload(
-      :user,
+    ).where(
+      user_id: @current_user.id,
     ).sort_task_by(
       params[:sort],
       params[:direction],
@@ -59,7 +59,7 @@ class TasksController < ApplicationController
       :due_date,
       :status,
     ).merge(
-      user_id: current_user.id,
+      user_id: @current_user.id,
     )
   end
 
