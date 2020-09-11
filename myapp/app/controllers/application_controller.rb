@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include SessionsHelper
+
   protect_from_forgery with: :exception
 
   rescue_from Exception, with: :error_500 unless Rails.env.development?
