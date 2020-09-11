@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
 
   def show
     @tasks = Task.eager_load(:assignee, :reporter)
-      .where('assignee_id = ? OR reporter_id = ? ', params[:id], params[:id])
+      .user_had_task(params[:id])
       .page(params[:page])
   end
 

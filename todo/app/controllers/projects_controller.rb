@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    @project.user_projects.new(user_id: session[:user_id])
+    @project.user_projects.new(user_id: current_user.id)
     if @project.save
       flash[:notice] = I18n.t('flash.succeeded', model: 'プロジェクト', action: '作成')
       redirect_to projects_url
