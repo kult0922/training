@@ -3,31 +3,31 @@
 
   <table class="table table-striped">
     <tr>
-      <th><%= I18n.t('tasks.show.project_name') %></th>
+      <th><%= Task.human_attribute_name(:project_name) %></th>
       <td><%= @task.project.project_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.name') %></th>
+      <th><%= Task.human_attribute_name(:task_name) %></th>
       <td><%= @task.task_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.description') %></th>
+      <th><%= Task.human_attribute_name(:description) %></th>
       <td><%= @task.description %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.priority') %></th>
+      <th><%= Task.human_attribute_name(:priority) %></th>
       <td><%= @task.priority_i18n %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.status') %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
       <td><%= @task.status_i18n  %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.assignee') %></th>
+      <th><%= Task.human_attribute_name(:assignee) %></th>
       <td><%= @task.assignee.account_name %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.reporter') %></th>
+      <th><%= Task.human_attribute_name(:reporter) %></th>
       <td><%= @task.reporter.account_name %></td>
     </tr>
     <tr>
@@ -39,23 +39,24 @@
       </td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.started_at') %></th>
+      <th><%= Task.human_attribute_name(:started_at) %></th>
+
       <td><%= @task.started_at %></td>
     </tr>
     <tr>
-      <th><%= I18n.t('tasks.show.finished_at') %></th>
+      <th><%= Task.human_attribute_name(:finished_at) %></th>
       <td><%= @task.finished_at %></td>
     </tr>
   </table>
   <div class="form-row mb-3">
     <div class="col-auto">
-      <%= link_to I18n.t('tasks.back'), project_tasks_path, class: 'btn btn-primary' %>
+      <%= link_to I18n.t('back'), project_tasks_path, class: 'btn btn-primary' %>
     </div>
     <div class="col-auto">
       <%= link_to I18n.t('tasks.index.update'), edit_project_task_path(@task.project, @task), class: 'btn btn-secondary' %>
     </div>
     <div class="col-auto">
-      <%= link_to I18n.t('tasks.index.delete'), project_task_path(@task.project, @task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') }, class: 'btn btn-danger' %>
+      <%= link_to I18n.t('tasks.index.delete'), project_task_path(@task.project, @task), method: :delete, data: { confirm: I18n.t('delete.confirm') }, class: 'btn btn-danger' %>
     </div>
   </div>
 </div>

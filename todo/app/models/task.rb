@@ -17,15 +17,25 @@ class Task < ApplicationRecord
   scope :name_search, ->(task_name) { where('task_name like ?', "%#{task_name}%") if task_name.present? }
   scope :priority_search, ->(priority) { where(priority: priority) if priority.present? }
   scope :status_search, ->(status) { where(status: status) if status.present? }
+  scope :user_had_task, ->(user_id) { eager_load(:assignee, :reporter).where('assignee_id = ? OR reporter_id = ? ', user_id, user_id) } 
+  
   scope :label_search, lambda { |label_ids|
     if label_ids.present?
       where(id: Task.joins(:labels).where(labels: { id: label_ids }).select(:id))
     end
   }
 
+  def self.search(search_params)
+    user_had_task(search_params[:user_id])
+      .name_search(search_params[:task_name])
+      .priority_search(search_params[:priority])
+      .status_search(search_params[:status])
+      .order_by_at(search_params[:order_by])
+  end
+
   def finished_at_validate
-    errors.add(:finished_at, I18n.t('errors.finished_at_not_before_stated_at')) unless started_at <= finished_at
+    errors.add(:finished_at, :finished_at_not_before_stated_at) unless started_at <= finished_at
   rescue StandardError
-    errors.add(:finished_at, I18n.t('errors.finished_at_not_before_stated_at'))
+    errors.add(:finished_at, :finished_at_not_before_stated_at)
   end
 end

@@ -1,9 +1,5 @@
 ja:
   activerecord:
-    errors:
-      models:
-        user:
-          invalid: 'は英数字のみが使えます'
   attributes:
     id: ID
     created_at: '作成日時'
@@ -11,30 +7,8 @@ ja:
   flash:
     succeeded: "%{model}が%{action}されました。"
     failed: "%{model}の%{action}に失敗しました。"
-    unexpected: '権限がありません。'
     only_one_admin: '唯一な管理者は削除不可です。'
     delete_own: '管理者自身は削除できません。'
-  enums:
-    project:
-      status:
-        todo: 'To Do'
-        in_progress: 'In Progress'
-        in_review: 'In Review'
-        release: 'Waiting Approval / Release'
-        done: 'Resolved / Done'
-    task:
-      priority:
-        low: '低'
-        mid: '中'
-        high: '高'
-      status:
-        todo: '未着手'
-        in_progress: '着手中'
-        done: '完了'
-  errors:
-    input: 'を入力してください'
-    finished_at_not_before_stated_at: 'は開始日付より後の日付にしてください'
-    check_date_at: 'の日付形式が正しくありません' 
   views:
     pagination:
       first: "&laquo; 最初"
@@ -45,17 +19,12 @@ ja:
     navbar:
       title: 'タスク管理アプリ'
       name: 'ユーザ名'
-  users:
-    new:
-      title: 'ログイン'
-      login: 'ログイン'
-      create: 'ユーザ登録'
-      name: 'ユーザ名'
-      logout: 'ログアウト'
-    fail:
-      message: 'ログインが必要です。'
-      back: 'ログインページ'
+  errors:
+    input: 'を入力してください'
+    check_date_at: 'の日付形式が正しくありません'
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
-
+  delete:
+    confirm: '削除してもよろしいでしょうか?'
+  back: '戻る'

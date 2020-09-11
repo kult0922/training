@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    errors:
+      models:
+        project:
+          finished_at_not_before_stated_at: 'は開始日付より後の日付にしてください'
     models:
       project: 'プロジェクト' 
     attributes:
@@ -9,6 +13,16 @@ ja:
         in_review: 'In Review'
         release: 'Waiting Approval / Release'
         done: 'Resolved / Done'
+        description: '説明'
+        status: '状態'
         project_name: 'PJ名'
         started_at: '開始日'
         finished_at: '終了日'
+  enums:
+    project:
+      status:
+        todo: 'To Do'
+        in_progress: 'In Progress'
+        in_review: 'In Review'
+        release: 'Waiting Approval / Release'
+        done: 'Resolved / Done'
