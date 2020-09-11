@@ -20,8 +20,8 @@
 
 # ユーザ
 [
-  { id: 1, name: 'Jane Doe', email: 'test1@example.com' },
-  { id: 2, name: 'John Doe', email: 'test2@example.com' },
+  { id: 1, name: 'Jane Doe', email: 'test1@example.com', password: 'password' },
+  { id: 2, name: 'John Doe', email: 'test2@example.com', password: 'password' },
 ].each do |attrs|
   User.create(attrs)
 end
