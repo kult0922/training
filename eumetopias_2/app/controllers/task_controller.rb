@@ -7,11 +7,11 @@ class TaskController < ApplicationController
     task_status_id = params[:task_status_id]
     if task_status_id.blank?
       @task = Task.includes(:task_status)
-        .where(user_id: @current_user.id)
+        .where(user_id: current_user.id)
         .page(params[:page]).per(PER)
     else
       @task = Task.includes(:task_status)
-        .where(user_id: @current_user.id)
+        .where(user_id: current_user.id)
         .search_by_status_id(task_status_id)
         .page(params[:page]).per(PER)
     end
@@ -23,7 +23,7 @@ class TaskController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.user_id = @current_user.id
+    @task.user_id = current_user.id
     if @task.save
       flash[:notice] = t('dictionary.message.create.complete')
       redirect_to root_path
@@ -70,7 +70,7 @@ end
 
 def own_task_only
   @task = Task.find(params[:id])
-  unless @task.user_id == @current_user.id
+  unless @task.user_id == current_user.id
     flash[:error] = t('dictionary.message.cant_manage_this_task')
     redirect_to root_path
   end
