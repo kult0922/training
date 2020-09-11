@@ -9,7 +9,6 @@
   </div>
 </div>
 <div class="row mb-4">
-  
   <% @status_list.each do |status| %>
     <div class="col">
       <p class="text-center"><%= Project.human_attribute_name(status.to_sym) %></p>

@@ -23,10 +23,10 @@
 <div class="task_table">
   <table class="table table-striped">
     <tr>
-      <th><%= I18n.t('tasks.index.name') %></th>
-      <th><%= I18n.t('tasks.index.priority') %></th>
-      <th><%= I18n.t('tasks.index.status') %></th>
-      <th><%= I18n.t('tasks.index.finished_at') %></th>
+      <th><%= Task.human_attribute_name(:task_name) %></th>
+      <th><%= Task.human_attribute_name(:priority) %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
+      <th><%= Task.human_attribute_name(:finished_at) %></th>
       <th colspan = 2></th>
     </tr>
     
@@ -37,7 +37,7 @@
       <td><%= task.status_i18n %></td>
       <td><%= task.finished_at %></td>
       <td><%= link_to I18n.t('tasks.index.update'), edit_project_task_path(@project, task), class: 'btn btn-secondary' %></td>
-      <td><%= link_to I18n.t('tasks.index.delete'), project_task_path(@project, task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') },class: 'btn btn-danger' %></td>
+      <td><%= link_to I18n.t('tasks.index.delete'), project_task_path(@project, task), method: :delete, data: { confirm: I18n.t('delete.confirm') },class: 'btn btn-danger' %></td>
     </tr>
     <% end %>
   </table>
@@ -46,5 +46,5 @@
   <%= paginate @tasks %>
 </div>
 <div class="back">
-  <%= link_to I18n.t('tasks.back'), projects_path, class: 'btn btn-primary' %>
+  <%= link_to I18n.t('back'), projects_path, class: 'btn btn-primary' %>
 </div>

@@ -1,0 +1,6 @@
+<div class="container">
+  <%= render 'shared/error_messages', model: @user %>
+  <h1><%= I18n.t('users.edit.title') %></h1>
+
+  <%= render 'form', user: @user %>
+</div>

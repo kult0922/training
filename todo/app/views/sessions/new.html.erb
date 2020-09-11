@@ -1,18 +1,23 @@
 <div class="container">
-  <h1><%= I18n.t('users.new.title') %></h1>
+  <h1><%= I18n.t('users.new.login') %></h1>
   <%= form_for(:session, url: login_path) do |f| %>
     <div class="form-row align-items-center mb-2">
       <div class="col-auto">
-        <%= f.label :'ユーザ名' %>
+        <%= f.label User.human_attribute_name(:account_name) %>
         <%= f.text_field :account_name, class: 'form-control' %>
       </div>
       <div class="col-auto">
-        <%= f.label :'パスワード' %>
+        <%= f.label User.human_attribute_name(:password) %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
     </div>
-    <div class="form-row">
-      <%= f.submit I18n.t('users.new.login'), class: 'btn btn-primary' %>
+    <div class="row mb-2">
+      <div class="col-auto">
+        <%= f.submit I18n.t('users.new.login'), class: 'btn btn-primary' %>
+      </div>
+      <div class="col-auto">
+        <%= link_to I18n.t('users.new.create'), new_user_path, class: 'btn btn-success' %>
+      </div>
     </div>
   <% end %>
 </div>

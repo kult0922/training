@@ -4,48 +4,48 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :'タスク名' %>
+    <%= form.label Task.human_attribute_name(:task_name) %>
     <%= form.text_field :task_name, class: 'form-control' %>
   </div>
 
   <div class="form-group">
-    <%= form.label :'説明' %>
+    <%= form.label Task.human_attribute_name(:description) %>
     <%= form.text_area :description, class: 'form-control' %>
   </div>
 
   <div class="form-row align-items-center mb-2">
     <div class="col-auto">
-      <%= form.label :'優先順位' %>
+      <%= form.label Task.human_attribute_name(:priority) %>
       <%= form.select :priority, Task.priorities.map { |k, v| [I18n.t("enums.task.priority.#{k}"), k] }, {}, class: "custom-select" %>
     </div>
 
     <div class="col-auto">
-      <%= form.label :'状態' %>
+      <%= form.label Task.human_attribute_name(:status) %>
       <%= form.select :status, Task.statuses.map { |k, v| [I18n.t("enums.task.status.#{k}"), k] }, {}, class: "custom-select" %>
     </div>
   </div>
 
   <div class="form-row align-items-center mb-2">
     <div class ="col-auto">
-      <%= form.label :'開始日付' %>
+      <%= form.label Task.human_attribute_name(:created_at) %>
       <%= form.date_field :started_at, class: 'custom-select' %>
     </div>
 
     <div class="col-auto">
-      <%= form.label :'終了日付' %>
+      <%= form.label Task.human_attribute_name(:finished_at) %>
       <%= form.date_field :finished_at, class: 'custom-select' %>
     </div>
   </div>
 
   <div class="form-row align-items-center mb-2">
     <div class ="col-auto">
-      <%= form.label :'担当ユーザ' %>
-      <%= form.collection_select(:assignee_id, @users, :id, :account_name, {}, class:'custom-select') %>
+      <%= form.label Task.human_attribute_name(:assignee) %>
+      <%= form.collection_select(:assignee_id, @users, :id, :account_name, { selected: current_user.id }, class:'custom-select') %>
     </div>
 
     <div class="col-auto">
-      <%= form.label :'報告者ユーザ' %>
-      <%= form.collection_select(:reporter_id, @users, :id, :account_name, {}, class:'custom-select') %>
+      <%= form.label Task.human_attribute_name(:reporter) %>
+      <%= form.collection_select(:reporter_id, @users, :id, :account_name, { selected: current_user.id }, class:'custom-select') %>
     </div>
   </div>
 
@@ -54,7 +54,7 @@
       <%= form.submit class: 'btn btn-primary' %>
     </div>
     <div class="col-auto">
-      <%= link_to I18n.t('tasks.back'), project_tasks_path, class: 'btn btn-secondary' %>
+      <%= link_to I18n.t('back'), project_tasks_path, class: 'btn btn-secondary' %>
     </div>
   </div>
 <% end %>

@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @order_by = sort_direction
-    @tasks = tasks_search
+    @tasks = @project.tasks.search(search_params).page(params[:page])
   end
 
   def show
@@ -23,10 +23,13 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      create_user_project(@task.assignee_id)
-      create_user_project(@task.reporter_id)
-      redirect_to [@task.project, @task]
-      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
+      if add_user_to_project(@task.assignee) && add_user_to_project(@task.reporter)
+        flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '作成')
+        redirect_to [@task.project, @task]
+      else
+        flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
+        redirect_to project_tasks_url(@task.project)
+      end
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '作成')
@@ -40,8 +43,14 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
-      redirect_to [@task.project, @task]
+      if add_user_to_project(@task.assignee) && add_user_to_project(@task.reporter)
+        flash[:notice] = I18n.t('flash.succeeded', model: 'タスク', action: '更新')
+        redirect_to [@task.project, @task]
+      else
+        flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成')
+        redirect_to project_tasks_url(@task.project)
+        return
+      end
     else
       @users = User.all
       flash.now[:error] = I18n.t('flash.failed', model: 'タスク', action: '更新')
@@ -61,20 +70,6 @@ class TasksController < ApplicationController
 
   private
 
-  def tasks_search
-    load_task
-      .name_search(params[:name])
-      .status_search(params[:status_search])
-      .priority_search(params[:priority_search])
-  end
-
-  def load_task
-    @project.tasks.eager_load(:assignee, :reporter)
-      .where('assignee_id = ? OR reporter_id = ? ', @current_user, @current_user)
-      .order_by_at(sort_direction)
-      .page(params[:page]).per(20)
-  end
-
   def sort_direction
     %w[asc desc].include?(params[:order_by]) ? params[:order_by] : nil
   end
@@ -83,14 +78,18 @@ class TasksController < ApplicationController
     redirect_to project_tasks_url unless [@task.assignee_id, @task.reporter_id].include?(session[:user_id])
   end
 
-  def create_user_project(user)
-    return if UserProject.find_by(user_id: user, project_id: @task.project_id).present?
-    user_project = UserProject.new(user_id: user, project_id: @task.project_id)
-    flash[:error] = I18n.t('flash.failed', model: 'ユーザプロジェクト', action: '作成') unless user_project.save
+  def add_user_to_project(user)
+    return true if user.projects.ids.include?(@task.project.id)
+    user_pj = @task.project.user_projects.new(user_id: user.id)
+    user_pj.save
   end
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def search_params
+    @search_params = { user_id: current_user, task_name: params[:name], priority: params[:priority_search], status: params[:status_search], order_by: sort_direction }
   end
 
   def task_params
