@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 250 }
@@ -7,7 +9,7 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
-  enum status: { waiting: 1, working: 2, completed: 3}
+  enum status: { waiting: 1, working: 2, completed: 3 }
 
   # バリデーション用のメソッドを定義
   def deadline_not_before_today
@@ -27,22 +29,17 @@ class Task < ApplicationRecord
   end
 
   # ステータス検索
-  def self.search_status(status)
-    return where(status: status) if status.present?
-    order(created_at: :desc)
-  end
+  scope :search_with_status, -> (status) { where(status: status) if status.present? }
 
   # タスク名検索
-  def self.search_title(title)
-    where("title LIKE ?", "%#{title}%") if title.present?
-    order(created_at: :desc)
-  end  
-  
+  scope :search_with_title, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
+
   # 終了期限のコールバック
   before_save :deadline_blank?
 
   private
-    def deadline_blank?
-      self.deadline = DateTime.now if self.deadline.blank?
-    end
+
+  def deadline_blank?
+    self.deadline = DateTime.now if self.deadline.blank?
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -15,12 +17,12 @@ module AppPath
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    
-    #slimに変更
-    config.generators.template_engine = :slim 
 
-    #jaに変更
-    config.i18n.default_locale = :ja 
+    # slimに変更
+    config.generators.template_engine = :slim
+
+    # jaに変更
+    config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
 
     # タイムゾーンの設定

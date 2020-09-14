@@ -1,0 +1,8 @@
+ja:
+  users:
+    new:
+      title: サインアップ
+      button:
+        sign_up: サインアップ
+    edit:
+      account_management: アカウント管理

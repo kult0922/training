@@ -1,5 +1,5 @@
 - if model.errors.any?
-  .alert.alert-danger
+  .alert.alert-danger.text-left
     ul style="list-style: square"
       - model.errors.full_messages.each do |message|
         li = message

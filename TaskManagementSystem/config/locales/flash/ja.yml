@@ -1,0 +1,17 @@
+ja:
+  flash:
+    create_user: ユーザーが登録されました
+    create_user_failed: ユーザーの登録に失敗しました
+    no_user: 存在しないユーザーです
+    create_task: 新しいタスクを作成しました
+    create_task_failed: タスクの作成に失敗しました
+    update_task: タスクの更新に成功しました
+    update_task_failed: タスクの更新に失敗しました
+    destroy_task: タスクを削除しました
+    destroy_task_failed: タスクを削除できませんでした
+    no_task: 存在しないタスクです
+    login: ログインしました。
+    login_failed: ログイン失敗しました。
+    please_login: ログインして下さい。
+
+

@@ -9,15 +9,29 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application'
   body
-    header
-      nav.navbar.navbar-dark.bg-dark.fixed-top
-        ul.nav
-          li.navbar-brand
-            h1 = link_to 'TMS', root_path, class: "text-light"
-          li.nav-item.text-light.d-flex.align-items-center
-            = link_to 'UserNameさん', '#', class: "text-light"
-    .container-fluid
-      .row  
-        = render "layouts/sidebar"
-        = yield
-        = javascript_pack_tag 'tasks'
+    - if logged_in?
+      header
+        nav.navbar.navbar-dark.bg-dark.fixed-top
+          ul.nav.mr-auto
+            li.navbar-brand
+              h1 = link_to 'TMS', root_path, class: "text-light"
+            li.nav-item.text-light.d-flex.align-items-center
+              = link_to "#{@user.last_name} #{@user.first_name}", '#', class: "text-light"
+          ul.nav
+            li.nav-item.text-light.d-flex.align-items-center
+              = link_to "#{I18n.t('sessions.destroy.log_out')}", logout_path, method: :delete, class: "text-light"
+      .container-fluid
+        .row  
+          = render "layouts/sidebar"
+          = yield
+          = javascript_pack_tag 'tasks'
+    - else
+      header
+        nav.navbar.navbar-dark.bg-dark.fixed-top
+          ul.nav.mr-auto
+            li.navbar-brand
+              h1.text-light TMS
+      .container-fluid
+        .row  
+          = render "layouts/sidebar"
+          = yield
