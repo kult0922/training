@@ -1,6 +1,6 @@
 class EnableMaintenanceModeBatch
   def self.execute
-    ENV["MAINTENANCE_MODE"] = 'true'
+    AppSetting.enable_maintenance_mode
   end
   EnableMaintenanceModeBatch.execute
 end
