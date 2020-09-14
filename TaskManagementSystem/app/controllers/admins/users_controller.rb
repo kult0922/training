@@ -2,6 +2,9 @@
 
 class Admins::UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_admin_role
+  before_action :set_admin_user
+  before_action :logged_in_admin_user
 
   def index
     @users = User.all.page(params[:page]).per(10)
@@ -16,9 +19,9 @@ class Admins::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to admins_user_path(@user), success: 'ユーザーが登録されました'
+      redirect_to admins_user_path(@user), success: I18n.t('flash.create_user')
     else
-      flash.now[:danger] = 'ユーザーの登録に失敗しました'
+      flash.now[:danger] = I18n.t('flash.create_user_failed')
       render :new
     end
   end
@@ -27,18 +30,18 @@ class Admins::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admins_user_path(@user), success: 'ユーザー情報を編集しました'
+      redirect_to admins_user_path(@user), success: I18n.t('flash.update_user')
     else
-      flash.now[:danger] = 'ユーザー情報の編集に失敗しました'
+      flash.now[:danger] = I18n.t('flash.update_user_failed')
       render :edit
     end
   end
 
   def destroy
     if @user.destroy
-      redirect_to admins_users_path, success: 'ユーザーを削除しました'
+      redirect_to admins_users_path, success: I18n.t('flash.destroy_user')
     else
-      redirect_to admins_users_path, danger: 'ユーザーを削除できませんでした'
+      redirect_to admins_users_path, danger: I18n.t('flash.destroy_user_failed')
     end
   end
 
@@ -47,7 +50,7 @@ class Admins::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   rescue StandardError => e
-    redirect_to admins_users_path, danger: '存在しないユーザーです'
+    redirect_to admins_users_path, danger: I18n.t('flash.no_user')
   end
 
   def user_params

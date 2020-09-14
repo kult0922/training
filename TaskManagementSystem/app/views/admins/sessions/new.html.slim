@@ -1,0 +1,5 @@
+- provide(:title, "#{I18n.t('admins.sessions.new.title')}")
+.col-9.mx-auto.mt-3
+  = render  "layouts/flash"
+  = render 'layouts/sign_in', path: admin_login_path, title: 'admins.sessions.new.title'
+

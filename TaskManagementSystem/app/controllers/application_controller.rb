@@ -29,5 +29,27 @@ class ApplicationController < ActionController::Base
       flash[:danger] = I18n.t('flash.please_login')
       redirect_to login_path
     end
+  end
+
+  # ログイン済ユーザーかどうか確認（ユーザー管理画面用）
+  def logged_in_admin_user
+    unless logged_in?
+      flash[:danger] = I18n.t('flash.please_login')
+      redirect_to admin_login_path
+    end
   end  
+  
+  # 管理者権限取得
+  def set_admin_role
+    @role = Role.first
+  rescue => e
+    redirect_to admins_users, danger: I18n.t('flash.no_admin_role')
+  end
+
+  # ユーザー管理画面にログイン中の管理ユーザを取得
+  def set_admin_user
+    @admin_user = User.find(session[:user_id])
+  rescue StandardError => e
+    redirect_to admin_login_path, danger: '存在しないユーザーです'
+  end
 end

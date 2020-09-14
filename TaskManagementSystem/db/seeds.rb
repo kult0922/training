@@ -8,7 +8,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# ユーザー
+# User
 30.times do |n|
   User.create(
     last_name: 'タスクユーザー',
@@ -19,7 +19,7 @@
   )
 end
 
-# タスク
+# Task
 k = 0
 10.times do |_num|
   3.times do |n|
@@ -34,3 +34,9 @@ k = 0
   end
   k += 3
 end
+
+# Role
+Role.create(name: "admin")
+
+# UserRole
+UserRole.create(user_id: 1, role_id: 1)

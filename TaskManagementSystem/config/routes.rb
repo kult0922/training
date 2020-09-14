@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       end
     end
   end
+  get '/admin/login' => 'admins/sessions#new'
+  post '/admin/login' => 'admins/sessions#create'
+  delete '/admin/logout' => 'admins/sessions#destroy'
 
   # エラー画面
   get '*anything' => 'errors#routing_error'
