@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron m-3">
-    <h2><%= t('dictionary.title.create') %></h2>
+    <h2><%= t('dictionary.title.task_create') %></h2>
     <hr>
     <%= render 'layouts/error_messages', model: @task %>
     <%= form_with scope: :task,url: task_index_path, class: 'form-group', local: true do |form| %>
