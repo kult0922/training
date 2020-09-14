@@ -3,7 +3,8 @@ class AppSetting < ApplicationRecord
   validates :value, presence: true
 
   def self.maintenance_mode?
-    maintenance_mode_setting.value == 'true' ? true : false
+    return false unless setting = maintenance_mode_setting
+    setting.value == 'true' ? true : false
   end
 
   def self.enable_maintenance_mode
