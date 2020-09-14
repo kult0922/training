@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy
+  has_many :user_roles
   validates :last_name, presence: true, length: { maximum: 25 }
   validates :first_name, presence: true, length: { maximum: 25 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
