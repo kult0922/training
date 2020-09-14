@@ -13,7 +13,7 @@ RSpec.describe Task, type: :model do
     expect(new_task.errors.messages[:description]).to include('を入力してください')
   end
 
-  describe 'search_by_status_id ' do
+  describe 'search' do
     before do
       @untouch_id = task_status_untouch.id
       @in_progress_id = task_status_in_progress.id
@@ -28,9 +28,9 @@ RSpec.describe Task, type: :model do
       end
     end
     it 'shoud match correct records count' do
-      expect(Task.search(test_user.id, @untouch_id, @page,@per).count).to eq 1
-      expect(Task.search(test_user.id, @in_progress_id, @page,@per).count).to eq 2
-      expect(Task.search(test_user.id, @finished_id, @page,@per).count).to eq 3
+      expect(Task.search(test_user.id, @untouch_id, '', @page,@per).count).to eq 1
+      expect(Task.search(test_user.id, @in_progress_id, '', @page,@per).count).to eq 2
+      expect(Task.search(test_user.id, @finished_id, '', @page,@per).count).to eq 3
     end
   end
 end
