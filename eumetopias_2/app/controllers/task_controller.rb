@@ -53,18 +53,16 @@ class TaskController < ApplicationController
 end
 
 def require_login
-  unless logged_in?
-    flash[:error] = t('dictionary.message.require_login')
-    redirect_to login_path
-  end
+  return if logged_in?
+  flash[:error] = t('dictionary.message.require_login')
+  redirect_to login_path
 end
 
 def own_task_only
   @task = Task.find(params[:id])
-  unless @task.user_id == current_user.id
-    flash[:error] = t('dictionary.message.cant_manage_this_task')
-    redirect_to root_path
-  end
+  return if @task.user_id == current_user.id
+  flash[:error] = t('dictionary.message.cant_manage_this_task')
+  redirect_to root_path
 end
 
 private

@@ -5,7 +5,7 @@
       <span class="navbar-text"><%= current_user.name %></span>
       <%= link_to t('dictionary.button.logout'), '/logout', method: :delete, class: "nav-link" %>
     <% else %>
-        <%= link_to t('dictionary.button.login'), '/login', class: "nav-link" %>
+      <%= link_to t('dictionary.button.login'), '/login', class: "nav-link" %>
     <% end %>
   </nav>
 </header>
