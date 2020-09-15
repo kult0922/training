@@ -35,16 +35,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
-  # rubocop
   gem 'enum_help'
   gem 'fablicop', require: false
+  gem 'guard-rspec'
   gem 'kaminari'
   gem 'pry-rails'
   gem 'ransack'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'guard-rspec'
 end
 
 group :development do
@@ -64,6 +62,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rspec-retry'
   gem 'simplecov'
   gem 'test-prof'
   gem 'webdrivers'
