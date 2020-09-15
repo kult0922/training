@@ -2,18 +2,19 @@
 
 class TasksController < ApplicationController
   before_action :find_task_by_id, only: %i[show edit]
+  before_action :logged_in_user
 
   PER = 5
 
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result(distinct: true,
-                      ).preload(
-      :user,
-                      ).sort_task_by(
+    ).where(
+      user_id: @current_user.id,
+    ).sort_task_by(
       params[:sort],
       params[:direction],
-                      ).page(params[:page]).per(PER)
+    ).page(params[:page]).per(PER)
   end
 
   def new
@@ -57,6 +58,8 @@ class TasksController < ApplicationController
       :description,
       :due_date,
       :status,
+    ).merge(
+      user_id: @current_user.id,
     )
   end
 
