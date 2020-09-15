@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>ログイン</h2>
+  <h2><%= t '.title_or_submit' %></h2>
 
   <% if flash[:notice] %>
     <p>
@@ -18,7 +18,7 @@
       <%= form.password_field :password, class: 'form-control'%>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-outline-primary">ログイン</button>
+      <button type="submit" class="btn btn-outline-primary"><%= t '.title_or_submit' %></button>
     </div>
   <% end %>
 </div>
