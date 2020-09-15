@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   def new
+    redirect_to root_path if logged_in?
   end
 
   def create
@@ -10,6 +11,7 @@ class SessionsController < ApplicationController
       log_in(user)
       redirect_to root_path
     else
+      flash.now[:notice] = 'Email、またはPasswordが間違っています。'
       render 'new'
     end
   end

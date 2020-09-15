@@ -1,5 +1,13 @@
 <div class="container">
+
   <h2>ログイン</h2>
+
+  <% if flash[:notice] %>
+    <p>
+      <font color="#ff0000"><%= flash[:notice] %></font>
+    </p>
+  <% end %>
+
   <%= form_for(:session, url: login_path) do |form| %>
     <div class="form-group">
       <%= form.label :email %>
