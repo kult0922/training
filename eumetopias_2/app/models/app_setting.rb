@@ -13,7 +13,7 @@ class AppSetting < ApplicationRecord
       setting.value = 'true'
       setting.save
     else
-      self.create(item: 'maintenance_mode', value: 'true')
+      self.create(item: 'is_maintenance_mode', value: 'true')
     end
   end
 
@@ -27,6 +27,6 @@ class AppSetting < ApplicationRecord
 
   private
   def self.maintenance_mode_setting
-    self.find_by(item: 'maintenance_mode') || false
+    self.find_by(item: 'is_maintenance_mode') || false
   end
 end
