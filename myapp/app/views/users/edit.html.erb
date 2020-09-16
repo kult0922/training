@@ -1,0 +1,8 @@
+<div class="container">
+  <h1><%= t '.page_title' %></h1>
+
+  <%= render partial: 'form' %>
+
+  <%= link_to t('.show'), @user, class: 'btn btn-outline-primary' %>
+  <%= link_to t('.back'), users_path, class: 'btn btn-outline-primary' %>
+</div>
