@@ -7,7 +7,10 @@ RSpec.describe "Task", type: :system do
   let!(:test_user) { create(:test_user) }
 
   describe 'with non-login status' do
-    let(:task) { Task.create(title: 'dummy', description: 'dummy', task_status_id: task_status_untouch.id, user_id: test_user.id) }
+    let(:task) { Task.create(title: 'dummy',
+      description: 'dummy',
+      task_status_id: task_status_untouch.id,
+      user_id: test_user.id) }
     context 'will redirect to login_path' do
       it 'when access to root_path' do
         get '/'
@@ -93,7 +96,7 @@ RSpec.describe "Task", type: :system do
         let(:test_status_id) { TaskStatus.find_by(name: "未着手").id }
         let(:task) {Task.create(title: 'unrivised title', description: 'unrevised description', task_status_id: test_status_id, user_id: test_user.id, label_ids: [label1.id]) }
         before do
-          visit "/task/" + task.id.to_s + "/edit"
+          visit edit_task_path(@task.id)
           fill_in "task_title", with: revised_title
           fill_in "task_description", with: revised_description
           select "完了", from: "task_task_status_id"
@@ -125,7 +128,10 @@ RSpec.describe "Task", type: :system do
         let(:test_title) {"test task 9876"}
         before do
           test_status = TaskStatus.find_by(name: "未着手").id
-          Task.create(title: test_title, description: 'dummy', task_status_id: test_status, user_id: test_user.id)
+          Task.create(title: test_title,
+            description: 'dummy',
+            task_status_id: test_status,
+            user_id: test_user.id)
         end
         it "should show in task list page" do
           visit root_path
@@ -216,7 +222,7 @@ RSpec.describe "Task", type: :system do
           it 'should not contain any task titles in 3rd page' do
             visit root_path(page: "3")
             Task.all.each do |task|
-              expect(response).not_to have_content task.title
+              expect(page).not_to have_content task.title
             end
           end
         end
@@ -243,7 +249,7 @@ RSpec.describe "Task", type: :system do
           it 'should not contain any task titles in 4th page' do
             visit root_path(page: "4")
             Task.all.each do |task|
-              expect(response).not_to have_content task.title
+              expect(page).not_to have_content task.title
             end
           end
         end
