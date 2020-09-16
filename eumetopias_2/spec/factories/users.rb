@@ -4,5 +4,10 @@ FactoryBot.define do
         email { "test@test.com" }
         password { "examplePASSWORD12345" }
     end
-    factory :invalid_user
+    factory :test_user2, class: User do
+        name { "test user 2" }
+        email { "test_2@test.com" }
+        password { "examplePASSWORD12345" }
+    end
+
 end

@@ -5,6 +5,7 @@ ja:
       task_edit: "タスク編集"
       task_create: "新規タスク"
       task_show: "タスク詳細"
+      login: "ログイン"
     message:
       create:
         complete: "登録しました"
@@ -14,6 +15,10 @@ ja:
         confirm: "よろしいですか？"
         complete: "削除しました"
       notfound: "見つかりませんでした"
+      invalid_email_or_password: "メールアドレスもしくはパスワードが正しくありません。"
+      require_login: "ログインが必要です。"
+      cant_manage_this_task: "このタスクは操作できません。"
+      logged_out: "ログアウトしました。"
     button:
       create: "新規作成"
       search: "検索"
@@ -23,6 +28,14 @@ ja:
       cancel: "キャンセル"
       edit: "編集"
       show: "確認"
+      login: "ログイン"
+      logout: "ログアウト"
+    table:
+      title: "題名"
+      name: "名前"
+      description: "内容"
+      email: "メールアドレス"
+      password: "パスワード"
     browse:
       back: "戻る"
       next: "次へ"
