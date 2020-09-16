@@ -3,11 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :feature do
-  let!(:task) { create(:task) }
-  let!(:task_other) { create(:task) }
+  let(:user) { create(:user) }
+  let!(:task) { create(:task, user: user) }
+  let!(:task_other) { create(:task, user: user) }
 
   describe '#index' do
+    let(:user_other) { create(:user) }
+    let!(:user_other_task) { create(:task, user: user) }
+
     before do
+      login_as(user)
       task_other.update(
         created_at: task.created_at.tomorrow,
       )
@@ -17,13 +22,15 @@ RSpec.describe Task, type: :feature do
     context 'when there are multiple tasks' do
       it 'sort by created_at desc' do
         expect(all('tbody tr').count > 1).to be_truthy
-        expect(all('tbody tr').first.text).to have_content task_other.title
+        expect(all('tbody tr').first).to have_content task_other.title
+        expect(all('tbody tr').first).not_to have_content user_other_task.title
       end
     end
   end
 
   describe '#search form' do
     before do
+      login_as(user)
       task_other.update(
         status: 'doing', # because, default value is 'open'.
       )

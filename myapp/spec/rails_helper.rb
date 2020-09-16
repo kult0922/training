@@ -9,6 +9,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'rspec/retry'
 # require 'test_prof/recipe/rspec/let_it_be'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -24,8 +25,7 @@ require 'shoulda/matchers'
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
-#
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -80,6 +80,16 @@ RSpec.configure do |config|
     if example.metadata[:type] == :system
       driven_by :selenium, using: :headless_chrome, screen_size: [1280, 800], options: { args: ['headless', 'disable-gpu', 'no-sandbox', 'disable-dev-shm-usage'] }
     end
+  end
+
+  # spec helper module
+  config.include SpecHelper
+
+  # rspec retry
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
+  config.around :each do |ex|
+    ex.run_with_retry retry: 3
   end
 end
 

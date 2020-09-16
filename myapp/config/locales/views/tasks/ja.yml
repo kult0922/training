@@ -21,4 +21,10 @@ ja:
       page_title: 'タスク編集'
       show: '詳細'
       back: '戻る'
+    logged_in:
+      user_name: 'ユーザ名'
+      logout: 'ログアウト'
+  sessions:
+    new:
+      title_or_submit: 'ログイン'
 

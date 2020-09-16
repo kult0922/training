@@ -8,6 +8,7 @@ class TasksController < ApplicationController
 
   def index
     @q = Task.ransack(params[:q])
+
     @tasks = @q.result(distinct: true,
     ).where(
       user_id: @current_user.id,
@@ -29,19 +30,21 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(permitted_tasks_params)
-    if @task.save
+    if @task.save!
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.created')
     else
-      render 'new', notice: I18n.t('tasks.controller.messages.failed_to_create')
+      flash.now[:notice] = I18n.t('tasks.controller.messages.failed_to_create')
+      render 'new'
     end
   end
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(permitted_tasks_params)
+    if @task.update!(permitted_tasks_params)
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.edited')
     else
-      render 'edit', notice: I18n.t('tasks.controller.messages.failed_to_edited')
+      flash.now[:notice] = I18n.t('tasks.controller.messages.failed_to_edited')
+      render 'edit'
     end
   end
 
