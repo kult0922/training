@@ -26,6 +26,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rails-i18n'
 
+# Management screen. Read more: https://github.com/activeadmin/activeadmin
+gem 'activeadmin'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -39,12 +42,12 @@ group :development, :test do
   # rubocop
   gem 'enum_help'
   gem 'fablicop', require: false
+  gem 'guard-rspec'
   gem 'kaminari'
   gem 'pry-rails'
   gem 'ransack'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'guard-rspec'
 end
 
 group :development do
