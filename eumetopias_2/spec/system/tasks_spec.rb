@@ -102,11 +102,12 @@ RSpec.describe "Task", type: :system do
         end
         it "should match record with revision" do
           click_button submit
-          expect(Task.find_by(id: task.id).title).to eq revised_title
-          expect(Task.find_by(id: task.id).description).to eq revised_description
-          expect(Task.find_by(id: task.id).task_status.name).to eq "完了"
-          expect(Task.find_by(id: task.id).labels.map(&:name)).not_to include label1.name
-          expect(Task.find_by(id: task.id).labels.map(&:name)).to include label2.name
+          revised_task = Task.find_by(id: task.id)
+          expect(revised_task.title).to eq revised_title
+          expect(revised_task.description).to eq revised_description
+          expect(revised_task.task_status.name).to eq "完了"
+          expect(revised_task.labels.map(&:name)).not_to include label1.name
+          expect(revised_task.labels.map(&:name)).to include label2.name
         end
       end
 
