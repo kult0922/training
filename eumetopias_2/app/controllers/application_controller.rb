@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def maintenance_mode?
-    AppSetting.maintenance_mode?
+    File.exist?(Rails.root.join("tmp/is_maintenance_mode"))
   end
 
   def render_503_except_for_whitelisted_ips
