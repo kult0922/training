@@ -14,23 +14,21 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'search' do
+    let(:untouch_condition) { {task_status_id: task_status_untouch.id} }
+    let(:in_progress_condition) { {task_status_id: task_status_in_progress.id} }
+    let(:finished_condition) { {task_status_id: task_status_finished.id} }
     before do
-      @untouch_id = task_status_untouch.id
-      @in_progress_id = task_status_in_progress.id
-      @finished_id = task_status_finished.id
-      @page = 1
-      @per = 10
-      sample_status_ids = [@untouch_id]
-      2.times {sample_status_ids.push(@in_progress_id)}
-      3.times {sample_status_ids.push(@finished_id)}
+      sample_status_ids = [task_status_untouch.id]
+      2.times {sample_status_ids.push(task_status_in_progress.id)}
+      3.times {sample_status_ids.push(task_status_finished.id)}
       sample_status_ids.each do |status_id|
         Task.create(user_id: test_user.id, title: "test title", description: "test description", task_status_id: status_id)
       end
     end
     it 'shoud match correct records count' do
-      expect(Task.search(test_user.id, @untouch_id, '', @page,@per).count).to eq 1
-      expect(Task.search(test_user.id, @in_progress_id, '', @page,@per).count).to eq 2
-      expect(Task.search(test_user.id, @finished_id, '', @page,@per).count).to eq 3
+      expect(Task.search(test_user.id, untouch_condition).count).to eq 1
+      expect(Task.search(test_user.id, in_progress_condition).count).to eq 2
+      expect(Task.search(test_user.id, finished_condition).count).to eq 3
     end
   end
 end
