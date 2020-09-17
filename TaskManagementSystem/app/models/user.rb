@@ -17,4 +17,16 @@ class User < ApplicationRecord
 
   # メールの保存時に、大文字を小文字化(わかりやすくする為、右辺のselfは省略しない)
   before_save { self.email = self.email.downcase }
+  
+  # ユーザー編集後にユーザー管理権限に紐づくユーザーが存在しなくなる場合は、ユーザー管理権限に再度紐づける
+  after_update :connect_user_with_user_management_authority
+
+  private
+
+  def connect_user_with_user_management_authority
+    unless UserRole.where(role_id: 1).exists?
+      UserRole.create(user_id: self.id, role_id: Role.first.id)
+    end
+  end
+
 end
