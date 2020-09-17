@@ -7,7 +7,7 @@
         <tr>
           <th><%= @current_user.name %></th>
         </tr>
-          <%= button_to t('.logout'), logout_path, method: :delete, class: 'btn btn-outline-primary'  %>
+          <%= button_to I18n.t('tasks.logged_in.logout'), logout_path, method: :delete, class: 'btn btn-outline-primary'  %>
       </thead>
   </table>
 </div>
