@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :render_503_except_for_whitelisted_ips, if: :maintenance_mode?
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from StandardError, with: :render_500
   helper_method :current_user, :logged_in?
@@ -20,6 +21,22 @@ class ApplicationController < ActionController::Base
   def log_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  def maintenance_mode?
+    File.exist?(Rails.root.join("tmp/is_maintenance_mode"))
+  end
+
+  def render_503_except_for_whitelisted_ips
+    ips_in_whitelist = (ENV["ALLOWED_IPS"] || "").split(",")
+    return if ips_in_whitelist.include?(request.remote_ip)
+
+    render(
+      file: Rails.public_path.join("503.html"),
+      content_type: "text/html",
+      layout: false,
+      status: :service_unavailable,
+    )
   end
 
   def render_404
