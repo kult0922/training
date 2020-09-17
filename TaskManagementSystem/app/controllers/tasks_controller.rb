@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_user
-  before_action :logged_in_user
+  before_action :redirect_to_login_if_not_logged_in
 
   def index
     @tasks = @user.tasks.order(created_at: :desc).page(params[:page]).per(10)

@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   # ログイン済ユーザーかどうか確認
-  def logged_in_user
+  def redirect_to_login_if_not_logged_in
     unless logged_in?
       flash[:danger] = I18n.t('flash.please_login')
       redirect_to login_path
