@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(permitted_tasks_params)
-    if @task.save!
+    if @task.save
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.created')
     else
       flash.now[:notice] = I18n.t('tasks.controller.messages.failed_to_create')
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update!(permitted_tasks_params)
+    if @task.update(permitted_tasks_params)
       redirect_to root_path, notice: I18n.t('tasks.controller.messages.edited')
     else
       flash.now[:notice] = I18n.t('tasks.controller.messages.failed_to_edited')
