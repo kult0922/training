@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :users do
       scope module: :users do
         resources :tasks
+        resources :user_roles
       end
     end
   end

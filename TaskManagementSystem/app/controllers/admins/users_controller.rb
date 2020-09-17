@@ -14,6 +14,7 @@ class Admins::UsersController < ApplicationController
 
   def new
     @user = User.new
+    @roles = Role.all
   end
 
   def create
@@ -26,7 +27,9 @@ class Admins::UsersController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @roles = Role.all
+  end
 
   def update
     if @user.update(user_params)
@@ -54,6 +57,7 @@ class Admins::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation,
+                                  role_ids: [])
   end
 end

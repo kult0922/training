@@ -36,7 +36,10 @@ k = 0
 end
 
 # Role
-Role.create(name: "admin")
+Role.create(name: "ユーザー管理権限")
+5.times do |n|
+  Role.create(name: "権限の名前#{n + 1}")
+end
 
 # UserRole
 UserRole.create(user_id: 1, role_id: 1)

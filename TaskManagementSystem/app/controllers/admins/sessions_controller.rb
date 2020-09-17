@@ -5,7 +5,7 @@ class Admins::SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email].downcase)
-    if user&.authenticate(params[:password]) && user.user_roles.present? && user.user_roles[0][:role_id] == Role.first.id
+    if user&.authenticate(params[:password]) && user.user_roles.find_by(role_id: 1).present?
       # ユーザーログイン後にユーザー情報のページにリダイレクトする
       log_in(user)
       redirect_to admins_users_path, success: I18n.t('flash.login')

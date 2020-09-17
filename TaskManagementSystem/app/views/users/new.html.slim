@@ -4,4 +4,4 @@
   .row
     .container.h-auto
       h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('users.new.title')
-      = render 'layouts/sign_up', user: @user, path: signup_path
+      = render 'layouts/user_form', user: @user, admin_user: nil, path: signup_path, method_name: :post, btn_name: 'users.new.button.sign_up', class_name: 'btn btn-primary'
