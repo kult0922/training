@@ -1,8 +1,8 @@
 <div class="container">
-  <h1><%= t '.page_title' %></h1>
+  <h1><%= I18n.t('tasks.edit.page_title') %></h1>
 
   <%= render partial: 'form' %>
 
-  <%= link_to t('.show'), @task, class: 'btn btn-outline-primary' %>
-  <%= link_to t('.back'), root_path, class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.edit..show'), @task, class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.edit..back'), root_path, class: 'btn btn-outline-primary' %>
 </div>
