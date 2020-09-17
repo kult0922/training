@@ -1,6 +1,6 @@
 <div class="container">
   <div class="jumbotron m-3">
-    <h2><%= t('dictionary.title.create') %></h2>
+    <h2><%= t('dictionary.title.task_create') %></h2>
     <hr>
     <%= render 'layouts/error_messages', model: @task %>
     <%= form_with scope: :task,url: task_index_path, class: 'form-group', local: true do |form| %>
@@ -11,6 +11,12 @@
       <p>
         <%= form.label t('activerecord.attributes.task_status.name') %>
         <%= form.collection_select  :task_status_id, TaskStatus.all, :id, :name, {},  {class: 'form-control'}  %>
+      </p>
+      <p>
+        <%= form.label t('activerecord.attributes.label.name') %><br>
+        <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name, {},  {class: 'form-check-label'}) do |b| %>
+          <%= b.label {b.check_box + b.text} %>　
+        <% end %>
       </p>
       <p>
         <%= form.label t('activerecord.attributes.task.description') %>

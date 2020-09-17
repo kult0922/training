@@ -1,11 +1,9 @@
 class TaskController < ApplicationController
-  PER = 10
   before_action :require_login
   before_action :own_task_only, only: [:show, :edit, :update, :destroy]
 
   def index
-    @task = Task.search(current_user.id,
-      params[:task_status_id], params[:page], PER)
+    @task = Task.search(current_user.id, params)
   end
 
   def new
@@ -67,5 +65,5 @@ end
 
 private
   def task_params
-    params.require(:task).permit(:title, :description, :task_status_id)
+    params.require(:task).permit(:title, :description, :task_status_id, { label_ids: [] })
   end

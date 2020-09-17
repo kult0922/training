@@ -12,6 +12,8 @@
     <%= form_with url: root_path, method: :get, class: 'form-group form-inline float-right', local: true do |form| %>
       <%= form.label t('activerecord.attributes.task_status.name') %>
       <%= form.select :task_status_id, status_select_options, {selected: params[:task_status_id] || ''}, {class: 'form-control'} %>
+      <%= form.label t('activerecord.attributes.label.name') %>
+      <%= form.select :label_id, label_select_options, {selected: params[:label_id] || ''}, {class: 'form-control'} %>
       <%= form.submit t('dictionary.button.search'), class: 'btn btn-primary' %>
     <% end %>
 

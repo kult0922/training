@@ -45,6 +45,8 @@ RSpec.describe "Task", type: :system do
 
   describe 'with login status' do
     let(:rspec_session) { {user_id: test_user.id} }
+    let!(:label1) { create(:label1) }
+    let!(:label2) { create(:label2) }
     describe 'CRUD task' do
       describe "Create" do
         let(:submit) { "新規作成" }
@@ -67,9 +69,22 @@ RSpec.describe "Task", type: :system do
             fill_in "task_title", with: "example title"
             fill_in "task_description", with: "example description"
             select "着手中", from: "task_task_status_id"
+            check '1'
           end
           it "shoud create a task" do
             expect { click_button submit }.to change(Task, :count).by(1)
+          end
+          describe 'task_page' do
+            before do
+              click_button submit
+              visit task_path(Task.order('id ASC').last.id)
+            end
+            it 'should have correct status' do
+              expect(page).to have_content '着手中'
+            end
+            it 'should have correct label' do
+              expect(page).to have_content 'label1'
+            end
           end
         end
       end
@@ -78,37 +93,37 @@ RSpec.describe "Task", type: :system do
         let(:submit) { "更新" }
         let(:revised_title) {"revised title"}
         let(:revised_description) {"revised description"}
+        let(:test_status_id) { TaskStatus.find_by(name: "未着手").id }
+        let(:task) {Task.create(title: 'unrivised title', description: 'unrevised description', task_status_id: test_status_id, user_id: test_user.id, label_ids: [label1.id]) }
         before do
-          test_status = TaskStatus.find_by(name: "未着手").id
-          @task = Task.create(title: 'unrivised title',
-            description: 'unrevised description',
-            task_status_id: test_status,
-            user_id: test_user.id)
           visit edit_task_path(@task.id)
           fill_in "task_title", with: revised_title
           fill_in "task_description", with: revised_description
+          select "完了", from: "task_task_status_id"
+          uncheck 1
+          check 2
         end
         it "should match record with revision" do
           click_button submit
-          @task = Task.find_by(id: @task.id)
-          expect(@task.title).to eq revised_title
-          expect(@task.description).to eq revised_description
+          revised_task = Task.find_by(id: task.id)
+          expect(revised_task.title).to eq revised_title
+          expect(revised_task.description).to eq revised_description
+          expect(revised_task.task_status.name).to eq "完了"
+          expect(revised_task.labels.map(&:name)).not_to include label1.name
+          expect(revised_task.labels.map(&:name)).to include label2.name
         end
       end
 
       describe "Delete" do
-        before do
-          test_status_id = TaskStatus.find_by(name: "未着手").id
-          @task = Task.create(title: 'test title',
-            description: 'test description',
-            task_status_id: test_status_id,
-            user_id: test_user.id)
-        end
+        let(:test_status) { TaskStatus.find_by(name: "未着手").id }
+        let!(:task) { Task.create(title: 'test title',
+          description: 'test description',
+          task_status_id: test_status,
+          user_id: test_user.id) }
         it "should delete task" do
-          expect {delete "/task/" + @task.id.to_s}.to change {Task.count}.by(-1)
+          expect {delete "/task/" + task.id.to_s}.to change {Task.count}.by(-1)
         end
       end
-
       describe "Added" do
         let(:test_title) {"test task 9876"}
         before do
@@ -126,47 +141,68 @@ RSpec.describe "Task", type: :system do
     end
 
     describe "Task list page function" do
-      before do
-        @untouch_id = task_status_untouch.id
-        @in_progress_id = task_status_in_progress.id
-        @finished_id = task_status_finished.id
-      end
-
+      let(:untouch_id) { task_status_untouch.id }
+      let(:in_progress_id) { task_status_in_progress.id }
+      let(:finished_id) { task_status_finished.id }
       describe "search" do
         let(:submit) { "検索" }
-        before do
-          search_sample_data = [
-            {title: "untouch title", status_id: @untouch_id},
-            {title: "in progress title", status_id: @in_progress_id},
-            {title: "finished title", status_id: @finished_id}
-          ]
-          search_sample_data.each do |sample|
-            Task.create(title: sample[:title],
-              description: "dummy description",
-              task_status_id: sample[:status_id],
-              user_id: test_user.id)
+        describe "by status" do
+          before do
+            search_sample_data = [
+              {title: "untouch title", status_id: untouch_id},
+              {title: "in progress title", status_id: in_progress_id},
+              {title: "finished title", status_id: finished_id}
+            ]
+            search_sample_data.each do |sample|
+              Task.create(title: sample[:title], description: "dummy description", task_status_id: sample[:status_id], user_id: test_user.id)
+            end
+            visit root_path
           end
-          visit root_path
+          it 'should show search result with correct task title' do
+            select "未着手", from: "task_status_id"
+            click_button submit
+            expect(page).to have_content 'untouch title'
+
+            select "着手中", from: "task_status_id"
+            click_button submit
+            expect(page).to have_content 'in progress title'
+
+            select "完了", from: "task_status_id"
+            click_button submit
+            expect(page).to have_content 'finished title'
+          end
         end
-        it 'should show search result with correct task title' do
-          select "未着手", from: "task_status_id"
-          click_button submit
-          expect(page).to have_content 'untouch title'
 
-          select "着手中", from: "task_status_id"
-          click_button submit
-          expect(page).to have_content 'in progress title'
+        describe "by label" do
+          before do
+            Task.create(title: 'label search test', description: 'test description', task_status_id: untouch_id, user_id: test_user.id, label_ids: [label1.id])
+            visit root_path
+          end
+          it 'should show search result with correct task title' do
+            select label1.name, from: "label_id"
+            click_button submit
+            expect(page).to have_content 'label search test'
+          end
+        end
 
-          select "完了", from: "task_status_id"
-          click_button submit
-          expect(page).to have_content 'finished title'
+        describe "by status and label" do
+          before do
+            Task.create(title: 'status and label search test', description: 'test description', task_status_id: untouch_id, user_id: test_user.id, label_ids: [label1.id])
+            visit root_path
+          end
+          it 'should show search result with correct task title' do
+            select "未着手", from: "task_status_id"
+            select label1.name, from: "label_id"
+            click_button submit
+            expect(page).to have_content 'status and label search test'
+          end
         end
       end
 
       describe 'pagination' do
         describe "with 20 tasks" do
           before do
-            create_list(:task, 20, task_status_id: @untouch_id, user_id: test_user.id)
+            create_list(:task, 20, task_status_id: untouch_id, user_id: test_user.id)
             visit root_path
           end
           it 'should not have link to 3rd page' do
@@ -193,7 +229,7 @@ RSpec.describe "Task", type: :system do
 
         describe "with 21 tasks" do
           before do
-            create_list(:task, 21, task_status_id: @untouch_id, user_id: test_user.id)
+            create_list(:task, 21, task_status_id: untouch_id, user_id: test_user.id)
             visit root_path(page: "2")
           end
           it 'should not have link to 4th page' do
