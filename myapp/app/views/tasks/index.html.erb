@@ -3,7 +3,7 @@
 
   <h2><%= I18n.t('tasks.index.page_title') %></h2>
 
-  <%= link_to I18n.t('tasks.index.create'), new_task_path, class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.index.create'), new_user_task_path(@current_user), class: 'btn btn-outline-primary' %>
 
   <% if flash[:notice] %>
     <p>
@@ -12,7 +12,7 @@
   <% end %>
 
   <%# ransack %>
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for(@q, url: user_tasks_path(@current_user, @tasks)) do |f| %>
     <%= f.label :title_cont, "Title_cont" %>
     <%= f.search_field :title_cont %>
 
@@ -40,9 +40,9 @@
           <td><%= task.description %></td>
           <td><%= task.due_date %></td>
           <td><%= task.status_i18n %></td>
-          <td><%= link_to I18n.t('tasks.index.show'), task, class: 'btn btn-outline-primary' %></td>
-          <td><%= link_to I18n.t('tasks.index.edit'), edit_task_path(task), class: 'btn btn-outline-primary' %></td>
-          <td><%= button_to I18n.t('tasks.index.delete'), task, method: :delete, class: 'btn btn-outline-primary' %></td>
+          <td><%= link_to I18n.t('tasks.index.show'), user_task_path(@current_user, task), class: 'btn btn-outline-primary' %></td>
+          <td><%= link_to I18n.t('tasks.index.edit'), edit_user_task_path(@current_user, task), class: 'btn btn-outline-primary' %></td>
+          <td><%= button_to I18n.t('tasks.index.delete'), user_task_path(@current_user, task), method: :delete, class: 'btn btn-outline-primary' %></td>
         </tr>
       <% end %>
     </tbody>

@@ -3,6 +3,6 @@
 
   <%= render partial: 'form' %>
 
-  <%= link_to I18n.t('tasks.edit..show'), @task, class: 'btn btn-outline-primary' %>
-  <%= link_to I18n.t('tasks.edit..back'), root_path, class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.edit.show'), user_task_path(@current_user), class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.edit.back'), user_tasks_path(@current_user), class: 'btn btn-outline-primary' %>
 </div>
