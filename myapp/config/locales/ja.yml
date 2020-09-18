@@ -212,6 +212,14 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  users:
+    controller:
+      messages:
+        created: 'ユーザを作成しました'
+        failed_to_create: 'ユーザを作成に失敗しました'
+        edited: 'ユーザを編集しました'
+        failed_to_edited: 'ユーザを編集に失敗しました'
+        deleted: 'ユーザを削除しました'
   tasks:
     controller:
       messages:
