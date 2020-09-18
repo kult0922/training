@@ -12,11 +12,11 @@ RSpec.describe Task, type: :feature do
     let!(:user_other_task) { create(:task, user: user) }
 
     before do
-      login_as(user)
       task_other.update(
         created_at: task.created_at.tomorrow,
       )
-      visit root_path
+      login_as(user)
+      visit user_tasks_path(task)
     end
 
     context 'when there are multiple tasks' do
@@ -30,11 +30,11 @@ RSpec.describe Task, type: :feature do
 
   describe '#search form' do
     before do
-      login_as(user)
       task_other.update(
         status: 'doing', # because, default value is 'open'.
       )
-      visit tasks_path(task)
+      login_as(user)
+      visit user_tasks_path(task)
     end
 
     it 'there are two records' do

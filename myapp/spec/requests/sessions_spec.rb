@@ -10,6 +10,7 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     let(:user) { create(:user) }
+    let(:current_user_id) { user.id }
 
     it 'log in as an existing user' do
       action
@@ -19,7 +20,7 @@ RSpec.describe 'Sessions', type: :request do
     context 'when access tasks without logging in' do
       it 'redirect_to login_path' do
         # dont call action
-        get tasks_path
+        get user_tasks_path(current_user_id)
         expect(response).to redirect_to login_path
       end
     end

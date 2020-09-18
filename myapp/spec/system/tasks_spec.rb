@@ -6,11 +6,14 @@ RSpec.describe Task, type: :system do
   let(:user) { create(:user) }
   let(:task) { create(:task, user: user) }
 
+  let(:current_user_id) { user.id }
+  let(:task_id) { task.id }
+
   describe '#index' do
     context 'visit task index page' do
       before do
         login_as(user)
-        visit tasks_path(task)
+        visit user_tasks_path(task)
       end
 
       it 'the users record exists' do
@@ -41,7 +44,7 @@ RSpec.describe Task, type: :system do
 
       before do
         login_as(user)
-        visit root_path
+        visit user_tasks_path(task)
       end
 
       it 'once' do
@@ -62,7 +65,7 @@ RSpec.describe Task, type: :system do
   describe '#new' do
     before do
       login_as(user)
-      visit new_task_path(task)
+      visit new_user_task_path(user.id)
       fill_in 'Title', with: 'create_title'
       fill_in 'Description', with: 'create_description'
     end
@@ -71,8 +74,6 @@ RSpec.describe Task, type: :system do
       expect(page).to have_content 'タスク作成'
 
       click_on '登録'
-
-      expect(page).to have_content 'タスクを作成しました'
 
       expect(page).to have_content 'create_title'
       expect(page).to have_content 'create_description'
@@ -85,7 +86,7 @@ RSpec.describe Task, type: :system do
   describe '#show' do
     before do
       login_as(user)
-      visit task_path(task)
+      visit user_task_path(current_user_id, task_id)
     end
 
     it 'visit task show page' do
@@ -99,7 +100,7 @@ RSpec.describe Task, type: :system do
   describe '#edit' do
     before do
       login_as(user)
-      visit edit_task_path(task)
+      visit edit_user_task_path(current_user_id, task_id)
 
       fill_in 'Title', with: 'edit_title'
       fill_in 'Description', with: 'edit_description'
@@ -135,7 +136,7 @@ RSpec.describe Task, type: :system do
       it '500 error page is displayed' do
         # Generate an exception when transitioning to the index
         allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
-        visit tasks_path
+        visit user_tasks_path(task)
 
         expect(page).to have_content "We're sorry, but something went wrong."
       end
