@@ -2,6 +2,8 @@
 
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  
+  before_action :render_maintenance_page
 
   # bootstrapを使用したフラッシュメッセージ用
   add_flash_types :success, :info, :warning, :danger
@@ -51,5 +53,10 @@ class ApplicationController < ActionController::Base
     @admin_user = User.find(session[:user_id])
   rescue StandardError => e
     redirect_to admin_login_path, danger: '存在しないユーザーです'
+  end
+
+  # メンテナンス
+  def render_maintenance_page
+    render file: Rails.public_path.join('maintenance.html'), layout: false if File.exist?('config/maintenance.yml')
   end
 end

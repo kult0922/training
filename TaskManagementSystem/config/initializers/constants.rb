@@ -1,0 +1,1 @@
+MAINTENANCE_FILE_PATH = 'config/maintenance.yml'
