@@ -7,6 +7,6 @@ class Batchs::MaintenanceBatch
 
   def self.end
     puts "メンテナンス終了"
-    File.delete('config/maintenance.yml')
+    File.delete(MAINTENANCE_FILE_PATH)
   end
 end

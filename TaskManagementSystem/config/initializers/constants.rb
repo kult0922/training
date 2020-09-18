@@ -1,1 +1,1 @@
-MAINTENANCE_FILE_PATH = 'config/maintenance.yml'
+MAINTENANCE_FILE_PATH = 'config/tmp/maintenance.yml'

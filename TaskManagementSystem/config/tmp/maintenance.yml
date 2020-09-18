@@ -1,0 +1,6 @@
+---
+:start_time: !ruby/object:ActiveSupport::TimeWithZone
+  utc: 2020-09-18 08:28:20.282523000 Z
+  zone: !ruby/object:ActiveSupport::TimeZone
+    name: Asia/Tokyo
+  time: 2020-09-18 17:28:20.282523000 Z

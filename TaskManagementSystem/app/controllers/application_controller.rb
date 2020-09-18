@@ -57,6 +57,6 @@ class ApplicationController < ActionController::Base
 
   # メンテナンス
   def render_maintenance_page
-    render file: Rails.public_path.join('maintenance.html'), layout: false if File.exist?('config/maintenance.yml')
+    render file: Rails.public_path.join('maintenance.html'), layout: false if File.exist?('config/tmp/maintenance.yml')
   end
 end
