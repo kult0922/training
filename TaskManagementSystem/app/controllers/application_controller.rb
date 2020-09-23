@@ -22,4 +22,12 @@ class ApplicationController < ActionController::Base
     @exception = e
     render template: 'errors/system_error', status: 500
   end
+
+  # ログイン済ユーザーかどうか確認
+  def redirect_to_login_if_not_logged_in
+    unless logged_in?
+      flash[:danger] = I18n.t('flash.please_login')
+      redirect_to login_path
+    end
+  end  
 end

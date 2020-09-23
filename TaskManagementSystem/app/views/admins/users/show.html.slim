@@ -1,0 +1,27 @@
+- provide(:title, "#{I18n.t('admins.users.show.title', user_name: @user.last_name + @user.first_name)}")
+.col-9.mx-auto.mt-3
+  = render  "layouts/flash"
+  .row
+    .container.h-auto
+      h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('admins.users.show.title', user_name: @user.last_name + @user.first_name)
+      .row.float-right.mb-3
+        = link_to "#{I18n.t('admins.users.show.tasks_index')}", admins_user_tasks_path(@user), class: "btn btn-primary btn-sm mr-3"
+      table.table.table-striped.mt-3
+        tr
+          th = User.human_attribute_name(:id)
+          td = @user.id
+        tr
+          th = User.human_attribute_name(:last_name)
+          td = @user.last_name
+        tr
+          th = User.human_attribute_name(:first_name)
+          td = @user.first_name
+        tr
+          th = User.human_attribute_name(:email)
+          td = @user.email
+        tr
+          th = I18n.t('admins.users.show.tasks_sum')
+          td = @user.tasks.count
+      .float-right
+        = link_to  "#{I18n.t('admins.users.button.edit')}", edit_admins_user_path(@user), class:"btn btn-warning btn-sm ml-5 mt-3", style: "width:45px"
+        = link_to  "#{I18n.t('admins.users.button.delete')}", admins_user_path(@user), method: :delete, class:"btn btn-danger btn-sm ml-3 mt-3", style: "width:45px"

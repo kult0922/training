@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_user
-  before_action :logged_in_user
+  before_action :redirect_to_login_if_not_logged_in
 
   def index
     @tasks = @user.tasks.order(created_at: :desc).page(params[:page]).per(10)
@@ -67,13 +67,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :priority, :status, :deadline)
-  end
-
-  # ログイン済ユーザーかどうか確認
-  def logged_in_user
-    unless logged_in?
-      flash[:danger] = I18n.t('flash.please_login')
-      redirect_to login_path
-    end
   end
 end

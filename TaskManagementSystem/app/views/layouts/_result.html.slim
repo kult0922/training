@@ -9,9 +9,9 @@ table.table.mt-3
       th.col-xs-3.align-middle
         .row = Task.human_attribute_name(:status)
         .row = Label.human_attribute_name(:name)
-      th.col-xs-1.text-center.align-middle style="width:45px;" = I18n.t('tasks.index.button.show')
-      th.col-xs-1.text-center.align-middle style="width:45px;" = I18n.t('tasks.index.button.edit')
-      th.col-xs-1.text-center.align-middle style="width:45px;" = I18n.t('tasks.index.button.delete')
+      th.col-xs-1.text-center.align-middle style="width:55px;" = I18n.t('tasks.index.button.show')
+      th.col-xs-1.text-center.align-middle style="width:55px;" = I18n.t('tasks.index.button.edit')
+      th.col-xs-1.text-center.align-middle style="width:55px;" = I18n.t('tasks.index.button.delete')
     - tasks.each do |task|
       tbody
         tr
