@@ -2,7 +2,7 @@
 
 class Admins::UsersController < ApplicationController
   before_action :user_initialize, only: %i[show edit update destroy]
-  before_action :admin_user
+  before_action :admin_user_initialize
   before_action :logged_in_admin_user
 
   def index

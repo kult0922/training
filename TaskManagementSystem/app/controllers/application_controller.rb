@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   # ユーザー管理画面にログイン中の管理ユーザを取得
-  def admin_user
+  def admin_user_initialize
     @admin_user = User.find(session[:user_id])
   rescue StandardError => e
     redirect_to admin_login_path, danger: '存在しないユーザーです'
