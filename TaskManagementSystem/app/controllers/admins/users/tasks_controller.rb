@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Admins::Users::TasksController < ApplicationController
-  before_action :set_admin_user
-  before_action :set_admin_role
+  before_action :admin_user
   before_action :set_user, only: :index
   def index
     @tasks = @user.tasks.order(created_at: :desc).page(params[:page]).per(10)
