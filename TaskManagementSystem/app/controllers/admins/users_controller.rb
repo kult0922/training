@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Admins::UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-  before_action :set_admin_role
-  before_action :set_admin_user
+  before_action :user_initialize, only: %i[show edit update destroy]
+  before_action :admin_user_initialize
   before_action :logged_in_admin_user
 
   def index
@@ -50,7 +49,7 @@ class Admins::UsersController < ApplicationController
 
   private
 
-  def set_user
+  def user_initialize
     @user = User.find(params[:id])
   rescue StandardError => e
     redirect_to admins_users_path, danger: I18n.t('flash.no_user')
