@@ -49,12 +49,6 @@ class Admins::UsersController < ApplicationController
 
   private
 
-  def user_initialize
-    @user = User.find(params[:id])
-  rescue StandardError => e
-    redirect_to admins_users_path, danger: I18n.t('flash.no_user')
-  end
-
   def user_params
     params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation,
                                   role_ids: [])

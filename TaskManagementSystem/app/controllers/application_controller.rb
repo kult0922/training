@@ -23,6 +23,14 @@ class ApplicationController < ActionController::Base
     render template: 'errors/system_error', status: 500
   end
 
+  # ユーザーを取得
+  def user_initialize
+    user_id = params.has_key?(:user_id) ? params[:user_id] : params[:id]
+    @user = User.find(user_id)
+  rescue StandardError => e
+    redirect_to admins_users_path, danger: I18n.t('flash.no_user')
+  end
+
   # ログイン済ユーザーかどうか確認
   def logged_in_user
     unless logged_in?
