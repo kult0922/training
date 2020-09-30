@@ -18,7 +18,7 @@ RSpec.feature 'Session', type: :feature do
       click_button 'サインアップ'
 
       # ログインができている
-      expect(page).to have_content 'ユーザーが登録されました'
+      expect(page).to have_content 'ユーザーを登録しました'
 
       # ログアウトができる
       click_link 'ログアウト'

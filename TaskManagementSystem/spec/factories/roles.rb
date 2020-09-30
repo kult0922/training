@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :role do
-    role { "MyString" }
+    name { "ユーザー管理権限" }
   end
 end

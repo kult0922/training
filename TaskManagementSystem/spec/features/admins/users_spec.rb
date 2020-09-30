@@ -3,9 +3,14 @@
 require 'rails_helper'
 
 RSpec.feature 'AdminUser', type: :feature do
+  # ユーザー管理画面へログイン
+  include_context 'admin_user_setup'
+  before do
+    admin_sign_in_as(admin_user)
+  end
+  
   # ユーザー一覧
   feature 'UserIndex' do
-    let!(:user) { create(:login_user) }
     scenario 'show all users' do
       # ユーザー一覧画面へ移動
       visit admins_users_path
@@ -24,11 +29,11 @@ RSpec.feature 'AdminUser', type: :feature do
       expect(page).to have_content('削除')
 
       # テーブルにユーザー情報が出力されている
-      expect(page).to have_content(user.id)
-      expect(page).to have_content(user.last_name)
-      expect(page).to have_content(user.first_name)
-      expect(page).to have_content(user.email)
-      expect(page).to have_content(user.tasks.count)
+      expect(page).to have_content(admin_user.id)
+      expect(page).to have_content(admin_user.last_name)
+      expect(page).to have_content(admin_user.first_name)
+      expect(page).to have_content(admin_user.email)
+      expect(page).to have_content(admin_user.tasks.count)
 
       # リンクの存在確認
       click_link('詳細')
@@ -67,18 +72,17 @@ RSpec.feature 'AdminUser', type: :feature do
       fill_in('パスワード(確認)', with: 'password')
 
       # ユーザーを登録できている
-      click_button('登録')
-      expect(User.all.count).to eq 1
+      click_button('サインアップ')
+      expect(User.all.count).to eq 2
     end
   end
   # ユーザー詳細
   feature 'UserShow' do
-    let!(:user) { create(:login_user) }
-    let!(:task) { create(:valid_sample_task, user_id: user.id) }
+    let!(:task) { create(:valid_sample_task, user_id: admin_user.id) }
     scenario 'can show detail of a user' do
       # ユーザー詳細画面へ移動
       visit admins_users_path
-      visit admins_user_path(user)
+      visit admins_user_path(admin_user)
 
       # ユーザーの情報に関するラベルが表示される
       expect(page).to have_content('ID')
@@ -88,16 +92,16 @@ RSpec.feature 'AdminUser', type: :feature do
       expect(page).to have_content('タスク合計値')
 
       # テーブルにユーザー情報が出力されている
-      expect(page).to have_content(user.id)
-      expect(page).to have_content(user.last_name)
-      expect(page).to have_content(user.first_name)
-      expect(page).to have_content(user.email)
-      expect(page).to have_content(user.tasks.count)
+      expect(page).to have_content(admin_user.id)
+      expect(page).to have_content(admin_user.last_name)
+      expect(page).to have_content(admin_user.first_name)
+      expect(page).to have_content(admin_user.email)
+      expect(page).to have_content(admin_user.tasks.count)
 
       # ユーザーに紐づくタスクを一覧として見れる
       click_link('タスク一覧')
       # タスク一覧のタイトルが表示される
-      expect(page).to have_content("タスク一覧(#{user.last_name}#{user.first_name}さん)")
+      expect(page).to have_content("タスク一覧(#{admin_user.last_name}#{admin_user.first_name}さん)")
       # テーブルにタスクの詳細タイトルが表示されている
       expect(page).to have_content('優先度')
       expect(page).to have_content('タスク名')
@@ -132,7 +136,6 @@ RSpec.feature 'AdminUser', type: :feature do
 
   # ユーザー編集
   feature 'UserEdit' do
-    let!(:user) { create(:login_user) }
     scenario 'can edit information of user' do
       # ユーザー編集画面へ移動
       visit admins_users_path
