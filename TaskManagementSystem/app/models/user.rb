@@ -3,6 +3,9 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy
+  has_many :user_roles, dependent: :destroy
+  has_many :roles, through: :user_roles
+
   validates :last_name, presence: true, length: { maximum: 25 }
   validates :first_name, presence: true, length: { maximum: 25 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -14,4 +17,16 @@ class User < ApplicationRecord
 
   # メールの保存時に、大文字を小文字化(わかりやすくする為、右辺のselfは省略しない)
   before_save { self.email = self.email.downcase }
+  
+  # ユーザー編集後にユーザー管理権限に紐づくユーザーが存在しなくなる場合は、ユーザー管理権限に再度紐づける
+  after_update :connect_user_with_user_management_authority
+
+  private
+
+  def connect_user_with_user_management_authority
+    unless UserRole.where(role_id: 1).exists?
+      UserRole.create(user_id: self.id, role_id: Role.first.id)
+    end
+  end
+
 end

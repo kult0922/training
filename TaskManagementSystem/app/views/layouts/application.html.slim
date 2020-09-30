@@ -15,11 +15,20 @@ html
           ul.nav.mr-auto
             li.navbar-brand
               h1 = link_to 'TMS', root_path, class: "text-light"
-            li.nav-item.text-light.d-flex.align-items-center
-              = link_to "#{@user.last_name} #{@user.first_name}", '#', class: "text-light"
-          ul.nav
-            li.nav-item.text-light.d-flex.align-items-center
-              = link_to "#{I18n.t('sessions.destroy.log_out')}", logout_path, method: :delete, class: "text-light"
+            - if @admin_user&.present?
+              li.nav-item.text-light.d-flex.align-items-center
+                = link_to "#{@admin_user.last_name} #{@admin_user.first_name}", '#', class: "text-light"
+            - else
+              li.nav-item.text-light.d-flex.align-items-center
+                = link_to "#{@user.last_name} #{@user.first_name}", '#', class: "text-light"
+          - if @admin_user&.present?
+            ul.nav
+              li.nav-item.text-light.d-flex.align-items-center
+                = link_to "#{I18n.t('admins.sessions.destroy.log_out')}", admin_logout_path, method: :delete, class: "text-light"
+          - else
+            ul.nav
+              li.nav-item.text-light.d-flex.align-items-center
+                = link_to "#{I18n.t('sessions.destroy.log_out')}", logout_path, method: :delete, class: "text-light"
       .container-fluid
         .row  
           = render "layouts/sidebar"

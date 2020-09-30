@@ -4,26 +4,4 @@
   .row
     .container.h-auto
       h2.mb-4.border-secondary.border-bottom.pb-2 = I18n.t('users.new.title')
-      .row
-        .mx-auto.mt-3.mb-3.border.border-dark.p-5.w-50
-          .text-center
-            = form_with(model: @user, url: signup_path, local: true) do |f|
-              = render 'layouts/error_messages', model: f.object
-              .form-row
-                .form-group.col-6.text-left
-                  = f.label :last_name, class: 'form-label'
-                  = f.text_field :last_name, class: 'form-control'
-                .form-group.col-6.text-left
-                  = f.label :first_name, class: 'form-label'
-                  = f.text_field :first_name, class: 'form-control'
-              .form-group.text-left
-                = f.label :email, class: 'form-label'
-                = f.text_field :email, class: 'form-control'
-              .form-group.text-left
-                = f.label :password, class: 'form-label'
-                = f.password_field :password, class: 'form-control'
-              .form-group.text-left
-                = f.label :password_confirmation, class: 'form-label'
-                = f.password_field :password_confirmation, class: 'form-control'
-              .form-group
-                = f.submit "#{I18n.t('users.new.button.sign_up')}", class:'btn btn-primary'
+      = render 'layouts/user_form', user: @user, admin_user: nil, path: signup_path, method_name: :post, btn_name: 'users.new.button.sign_up', class_name: 'btn btn-primary'

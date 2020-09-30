@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Admins::UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :user_initialize, only: %i[show edit update destroy]
+  before_action :admin_user_initialize
+  before_action :logged_in_admin_user
 
   def index
     @users = User.all.page(params[:page]).per(10)
@@ -11,46 +13,44 @@ class Admins::UsersController < ApplicationController
 
   def new
     @user = User.new
+    @roles = Role.all
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to admins_user_path(@user), success: 'ユーザーが登録されました'
+      redirect_to admins_user_path(@user), success: I18n.t('flash.create_user')
     else
-      flash.now[:danger] = 'ユーザーの登録に失敗しました'
+      flash.now[:danger] = I18n.t('flash.create_user_failed')
       render :new
     end
   end
 
-  def edit; end
+  def edit
+    @roles = Role.all
+  end
 
   def update
     if @user.update(user_params)
-      redirect_to admins_user_path(@user), success: 'ユーザー情報を編集しました'
+      redirect_to admins_user_path(@user), success: I18n.t('flash.update_user')
     else
-      flash.now[:danger] = 'ユーザー情報の編集に失敗しました'
+      flash.now[:danger] = I18n.t('flash.update_user_failed')
       render :edit
     end
   end
 
   def destroy
     if @user.destroy
-      redirect_to admins_users_path, success: 'ユーザーを削除しました'
+      redirect_to admins_users_path, success: I18n.t('flash.destroy_user')
     else
-      redirect_to admins_users_path, danger: 'ユーザーを削除できませんでした'
+      redirect_to admins_users_path, danger: I18n.t('flash.destroy_user_failed')
     end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
-  rescue StandardError => e
-    redirect_to admins_users_path, danger: '存在しないユーザーです'
-  end
-
   def user_params
-    params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation,
+                                  role_ids: [])
   end
 end

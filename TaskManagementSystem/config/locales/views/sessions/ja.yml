@@ -1,7 +1,7 @@
 ja:
   sessions:
     new:
-      title: ログイン
+      title: タスク管理 ログイン
       email: メールアドレス
       password: パスワード
       log_in: ログイン

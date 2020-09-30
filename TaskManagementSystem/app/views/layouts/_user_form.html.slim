@@ -1,0 +1,35 @@
+.row
+  .mx-auto.mt-3.mb-3.p-5.w-100
+    .text-center
+      = form_with(model: user, url: path, method: method_name, local: true) do |f|
+        = render 'layouts/error_messages', model: f.object
+        .d-flex.justify-content-center.w-100
+          .user-info-form.border.border-dark.p-2.w-50
+            .form-row
+              .form-group.col-6.text-left
+                = f.label :last_name, class: 'form-label'
+                = f.text_field :last_name, class: 'form-control'
+              .form-group.col-6.text-left
+                = f.label :first_name, class: 'form-label'
+                = f.text_field :first_name, class: 'form-control'
+            .form-group.text-left
+              = f.label :email, class: 'form-label'
+              = f.text_field :email, class: 'form-control'
+            .form-group.text-left
+              = f.label :password, class: 'form-label'
+              = f.password_field :password, class: 'form-control'
+            .form-group.text-left
+              = f.label :password_confirmation, class: 'form-label'
+              = f.password_field :password_confirmation, class: 'form-control'
+          - if admin_user&.present?
+            .authority-info-form.ml-5.w-25
+              table.table
+                thead.thead-light
+                  tr
+                    th.text-left 権限設定
+                  = f.collection_check_boxes(:role_ids, @roles, :id, :name) do |role|
+                    tr
+                      td.text-left = role.label {role.check_box + role.text}
+        .clearfix.mb-3
+        .form-group
+          = f.submit "#{I18n.t(btn_name)}", class: class_name

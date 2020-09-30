@@ -22,3 +22,8 @@ ja:
         show: 詳細
         edit: 編集
         delete: 削除
+    sessions:
+      new:
+        title: ユーザー管理 ログイン
+      destroy:
+        log_out: ログアウト

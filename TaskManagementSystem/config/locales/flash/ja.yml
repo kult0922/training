@@ -1,7 +1,11 @@
 ja:
   flash:
-    create_user: ユーザーが登録されました
+    create_user: ユーザーを登録しました
     create_user_failed: ユーザーの登録に失敗しました
+    update_user: ユーザーを更新しました
+    update_user_failed: ユーザーの更新に失敗しました
+    destroy_user: ユーザーを削除しました
+    destroy_user_failed: ユーザーを削除できませんでした
     no_user: 存在しないユーザーです
     create_task: 新しいタスクを作成しました
     create_task_failed: タスクの作成に失敗しました
@@ -13,5 +17,6 @@ ja:
     login: ログインしました。
     login_failed: ログイン失敗しました。
     please_login: ログインして下さい。
+    no_admin_role: 管理者権限が存在しません。
 
 
