@@ -2,7 +2,7 @@
 
   <%= form_for [@user, @task] do |form| %>
 
-  <%= render 'layouts/error_messages', model: form.object %> 
+    <%= render 'layouts/error_messages', model: form.object %>
 
     <div class="form-group">
       <%= form.label :title %>
