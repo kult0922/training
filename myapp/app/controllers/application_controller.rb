@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :error_503, if: :maintenance_mode?
   include SessionsHelper
 
   protect_from_forgery with: :exception
@@ -17,5 +18,15 @@ class ApplicationController < ActionController::Base
 
   def error_500
     render file: "#{Rails.root}/public/500.html", layout: false, status: 500
+  end
+
+  def error_503
+    render file: "#{Rails.root}/public/503.html", layout: false, status: 503
+  end
+
+  private
+
+  def maintenance_mode?
+    File.exist?('tmp/maintenance.yml')
   end
 end
