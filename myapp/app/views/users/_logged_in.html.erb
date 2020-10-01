@@ -9,7 +9,9 @@
         <tr>
           <th><%= @current_user.name %></th>
         </tr>
+        <tr>
           <%= button_to "ログアウト", logout_path, method: :delete, class: 'btn btn-outline-primary'  %>
+        </tr>
       </tbody>
   </table>
 </div>
