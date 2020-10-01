@@ -1,18 +1,43 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register User do
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  permit_params :name, :email, :password_digest
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :email, :password_digest]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  config.per_page = 5
+
+  # updatable attributes
+  permit_params :name, :email
+
+  # search conditions
+  filter :id
+  filter :name
+  filter :email
+
+  # index
+  index do
+    column :id
+    column :name
+    column :email
+    column :created_at
+    column :updated_at
+    actions
+  end
+
+  # show
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row :email
+      row :created_at
+      row :updated_at
+    end
+  end
+
+  # new/edit
+  form do |f|
+    f.inputs  do
+      f.input :name
+      f.input :email
+    end
+    f.actions
+  end
 end
