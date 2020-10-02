@@ -8,6 +8,6 @@
     </div>
   </div>
 
-  <%= link_to I18n.t('tasks.show..edit'), edit_task_path(@task), class: 'btn btn-outline-primary' %>
-  <%= link_to I18n.t('tasks.show..back'), root_path, class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.show.edit'), edit_user_task_path(@current_user, @task), class: 'btn btn-outline-primary' %>
+  <%= link_to I18n.t('tasks.show.back'), user_tasks_path(@current_user), class: 'btn btn-outline-primary' %>
 </div>
