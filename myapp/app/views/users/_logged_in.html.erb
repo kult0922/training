@@ -1,0 +1,17 @@
+<div class="container">
+  <table>
+      <thead>
+        <tr>
+          <th>ユーザ名</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @current_user.name %></th>
+        </tr>
+        <tr>
+          <%= button_to "ログアウト", logout_path, method: :delete, class: 'btn btn-outline-primary'  %>
+        </tr>
+      </tbody>
+  </table>
+</div>

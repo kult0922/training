@@ -1,0 +1,13 @@
+<div class="container">
+  <h2><%= t '.page_title' %></h2>
+
+  <div class="card">
+    <div class="card-body">
+      <p class="card-title"><%= @user.name %></p>
+      <p class="card-text"> <%= @user.email %></p>
+    </div>
+  </div>
+
+  <%= link_to t('.edit'), edit_user_path(@user), class: 'btn btn-outline-primary' %>
+  <%= link_to t('.back'), users_path, class: 'btn btn-outline-primary' %>
+</div>

@@ -26,6 +26,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rails-i18n'
 
+# Management screen. Read more: https://github.com/activeadmin/activeadmin
+gem 'activeadmin'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
