@@ -4,7 +4,7 @@ ActiveAdmin.register User do
   config.per_page = 5
 
   # updatable attributes
-  permit_params :name, :email
+  permit_params :name, :email, :password
 
   # search conditions
   filter :id
@@ -22,7 +22,7 @@ ActiveAdmin.register User do
   end
 
   # show
-  show do
+  show tittle: 'ユーザの詳細' do
     attributes_table do
       row :id
       row :name
@@ -34,9 +34,14 @@ ActiveAdmin.register User do
 
   # new/edit
   form do |f|
-    f.inputs  do
+    f.semantic_errors(*f.object.errors.keys)
+    f.inputs 'ユーザの詳細' do
       f.input :name
       f.input :email
+      if f.object.new_record?
+        f.input :password
+        f.input :password_confirmation
+      end
     end
     f.actions
   end
