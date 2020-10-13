@@ -1,0 +1,18 @@
+<% @task.errors.full_messages.each do |msg| %>
+  <div><%= msg %></div>
+<% end %>
+
+<h1>タスク新規作成</h1>
+<%= form_with model: @task, local: true do |form| %>
+  <%= label_tag(:name, "タスク名") %>
+  <%= form.text_field :name %>
+  <%= label_tag(:description, "説明") %>
+  <%= form.text_area :description %>
+  <%= label_tag(:end_date, "終了期限") %>
+  <%= form.date_select :end_date %>
+  <%= label_tag(:priority, "優先順位") %>
+  <%= form.select :priority, Task.priorities.keys %>
+  <%= label_tag(:status, "ステータス") %>
+  <%= form.select :status, Task.statuses.keys %>
+  <%= form.submit "作成" %>
+<% end %>
