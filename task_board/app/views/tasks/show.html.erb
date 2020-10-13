@@ -6,7 +6,11 @@
     <tbody>
       <tr>
         <th>タスク名</th>
-        <td><%= @task.name %></td>
+        <td><%= simple_format(h(@task.name)) %></td>
+      </tr>
+      <tr>
+        <th>説明</th>
+        <td><%= simple_format(h(@task.description)) %></td>
       </tr>
       <tr>
         <th>最終期限</th>
@@ -22,4 +26,8 @@
       </tr>
     </tbody>
   </table>
+  <div style="display: flex" class="justify-content-md-center">
+    <%= link_to '編集', edit_task_path(@task), class: 'btn btn-primary' %>
+    <%= button_to '削除', task_path(@task), method: :delete, data: {confirm: "タスク：「#{@task.name}」、本当に削除しますか？"}, class: 'btn btn-danger' %>
+  </div>
 </div>
