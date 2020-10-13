@@ -11,7 +11,7 @@
 
   <body>
     <% if flash.notice.present? %>
-      <div><%= flash.notice %></div>
+      <div class="alert alert-primary"><%= flash.notice %></div>
     <% end %>
     <%= yield %>
   </body>
