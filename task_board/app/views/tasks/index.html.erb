@@ -1,0 +1,30 @@
+<div class='container'>
+  <h1>タスク一覧</h1>
+  <%= link_to '新規作成', new_task_path, class: 'btn btn-info' %>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th scope='col'>タスク名</th>
+        <th scope='col'>最終期限</th>
+        <th scope='col'>ステータス</th>
+        <th scope='col'>優先順位</th>
+        <th scope='col'> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.name, task %></td>
+          <td><%= task.end_date %></td>
+          <td><%= task.status %></td>
+          <td><%= task.priority %></td>
+          <td style='display: flex'>
+            <%= link_to '編集', edit_task_path(task), class: 'btn btn-primary' %>
+            <%= button_to '削除', task_path(task), method: :delete, data: { confirm: "タスク：「#{task.name}」、本当に削除しますか？" }, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

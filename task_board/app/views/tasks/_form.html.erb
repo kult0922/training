@@ -1,0 +1,29 @@
+<% @task.errors.full_messages.each do |msg| %>
+    <div class='alert alert-danger'><%= msg %></div>
+  <% end %>
+
+<%= form_with model: @task, local: true do |form| %>
+  <div class='form-group'>
+    <%= label_tag(:name, 'タスク名') %>
+    <%= form.text_field :name, class: 'form-control'%>
+  </div>
+  <div class='form-group'>
+    <%= label_tag(:description, '説明') %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= label_tag(:end_date, '終了期限') %>
+    <%= form.date_select :end_date, class: 'form-control' %>
+  </div>
+  <div class='form-row'>
+    <div class='form-group col-md-6'>
+      <%= label_tag(:priority, '優先順位') %>
+      <%= form.select :priority, Task.priorities.keys, {}, class: 'custom-select' %>
+    </div>
+    <div class='form-group col-md-6'>
+      <%= label_tag(:status, 'ステータス') %>
+      <%= form.select :status, Task.statuses.keys, {}, class: 'custom-select' %>
+    </div>
+  <div class='form-row'>
+  <%= form.submit "#{type}", class: 'btn btn-primary' %>
+<% end %>
