@@ -10,6 +10,15 @@ RSpec.describe Task, type: :system do
       visit root_path
       expect(page).to have_content 'test_1'
     end
+    context 'displaying more than 2 tasks' do
+      let!(:old_task) { create(:task, name: 'test_old', created_at: Time.now.yesterday) }
+      let!(:new_task) { create(:task, name: 'test_new', created_at: Time.now) }
+
+      it 'check displaying tasks in descending order by created_at' do
+        visit root_path
+        expect(page.body.index(new_task.name)).to be < page.body.index(old_task.name)
+      end
+    end
   end
 
   describe '#new' do
