@@ -8,7 +8,7 @@ RSpec.describe Task, type: :system do
   describe '#index' do
     it 'visit index page' do
       visit root_path
-      expect(page).to have_content 'test1'
+      expect(page).to have_content 'test_1'
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe Task, type: :system do
   describe '#show' do
     it 'visit show page' do
       visit task_path(task)
-      expect(page).to have_content 'test1'
+      expect(page).to have_content 'test_1'
     end
   end
 
