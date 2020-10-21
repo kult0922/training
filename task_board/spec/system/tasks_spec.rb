@@ -13,26 +13,25 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#new' do
-    let(:submit) { '作成' }
     before { visit new_task_path }
-    describe 'with valid form' do
+    context 'with valid form' do
       before do
         fill_in 'task_name', with: test_name
         fill_in 'task_description', with: test_description
       end
       it 'success to create task' do
-        click_button submit
+        click_button '作成'
         expect(current_path).to eq tasks_path
         expect(page).to have_content "タスク「#{test_name}」を登録しました。"
       end
     end
 
-    describe 'with invalid form' do
+    context 'with invalid form' do
       before do
         fill_in 'task_description', with: test_description
       end
       it 'fail to create task' do
-        click_button submit
+        click_button '作成'
         expect(page).to have_content "Name can't be blank"
       end
     end
@@ -46,14 +45,13 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#edit' do
-    let(:submit) { '更新' }
     before { visit edit_task_path(task) }
-    describe 'with valid form' do
+    context 'with valid form' do
       before do
         fill_in 'task_name', with: test_name
       end
       it 'success to update the task' do
-        click_button submit
+        click_button '更新'
         expect(current_path).to eq tasks_path
         expect(page).to have_content "タスク「#{test_name}」を更新しました。"
         expect(Task.find(task.id).name).to eq test_name
@@ -62,15 +60,12 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#destroy' do
-    let(:delete) { '削除' }
     before { visit tasks_path }
     it 'destroy task' do
-      click_button delete, match: :first
-      expect {
-        expect(page.driver.browser.switch_to.alert.text).to eq "タスク：「#{task.name}」、本当に削除しますか？"
-        page.driver.browser.switch_to.alert.accept
-        expect(page).to have_content "タスク「#{task.name}」を削除しました。"
-      }.to change { Task.count }.by(-1)
+      click_button '削除', match: :first
+      expect(page.driver.browser.switch_to.alert.text).to eq "タスク：「#{task.name}」、本当に削除しますか？"
+      expect { page.driver.browser.switch_to.alert.accept }.to change { Task.count }.by(0)
+      expect(page).to have_content "タスク「#{task.name}」を削除しました。"
     end
   end
 end

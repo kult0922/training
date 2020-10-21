@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :task do
-    sequence(:name) { 'test1' }
-    sequence(:description) { 'test1_description' }
-    sequence(:end_date) { Time.now.next_week }
-    sequence(:priority) { :底 }
-    sequence(:status) { :未着手 }
+    name { 'test1' }
+    description { 'test1_description' }
+    end_date { Time.now + 3.days }
+    priority { :low }
+    status { :todo }
   end
 end
