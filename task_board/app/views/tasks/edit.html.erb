@@ -1,5 +1,5 @@
 <div class='container'>
   <h1><%= I18n.t('tasks.title.edit') %></h1>
-  <%= link_to I18n.t('tasks.link.index'), tasks_path, class: 'btn btn-info'%>
+  <%= link_to I18n.t('tasks.link.index'), tasks_path, class: 'btn btn-info' %>
   <%= render partial: 'form', locals: { task: @task, type: I18n.t('tasks.button.type.edit') } %>
 </div>
