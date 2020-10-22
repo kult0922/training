@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   end
 
   def render_404
-    render 'errors/404', status: 404
+    render 'errors/404', status: :not_found
   end
 
   def render_500
-    render 'errors/500', status: 500
+    render 'errors/500', status: :internal_server_error
   end
 end
