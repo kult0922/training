@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.valid?
       @task.save
-      redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました。"
+      redirect_to tasks_url, notice: I18n.t('tasks.flash.create', name: @task.name)
     else
       render :new
     end
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました。"
+      redirect_to tasks_url, notice: I18n.t('tasks.flash.update', name: @task.name)
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました。"
+    redirect_to tasks_url, notice: I18n.t('tasks.flash.delete', name: @task.name)
   end
 
   private

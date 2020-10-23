@@ -1,5 +1,5 @@
 <div class='container'>
-  <h1>タスク新規作成</h1>
-  <%= link_to '一覧へ', tasks_path, class: 'btn btn-info'%>
-  <%= render partial: 'form', locals: { task: @task, type: '作成' } %>
+  <h1><%= I18n.t('tasks.title.new') %></h1>
+  <%= link_to I18n.t('tasks.link.index'), tasks_path, class: 'btn btn-info' %>
+  <%= render partial: 'form', locals: { task: @task, type: I18n.t('tasks.button.type.new') } %>
 </div>
