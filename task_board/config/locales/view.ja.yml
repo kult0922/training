@@ -15,7 +15,7 @@ ja:
         new: '作成'
         edit: '更新'
     flash:
-      create: "タスク 「%{name}」 を登録しました。"
+      create: "タスク「%{name}」を登録しました。"
       update: "タスク「%{name}」を更新しました。"
       delete: "タスク「%{name}」を削除しました。"
     delete_confirm: "タスク：「%{name}」、本当に削除しますか？"

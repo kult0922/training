@@ -32,7 +32,7 @@ RSpec.describe Task, type: :system do
       end
       it 'fail to create task' do
         click_button '作成'
-        expect(page).to have_content "Name can't be blank"
+        expect(page).to have_content "タスク名を入力してください"
       end
     end
   end
