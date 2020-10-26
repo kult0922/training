@@ -1,20 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let(:valid_task) { build(:task) }
-  it 'is valid with valid attributes' do
-    expect(valid_task).to be_valid
-  end
+  describe 'validation' do
+    describe 'name' do
+      subject { build(:task, name: name) }
 
-  context 'invalid cases' do
-    let(:invalid_task_no_title) { build(:task, name: nil) }
-    let(:invaild_task_long_title) { build(:task, name: 'a' * 51) }
-    it 'is not valid without a title' do
-      expect(invalid_task_no_title).to_not be_valid
-    end
+      context 'valid' do
+        let(:name) { 'text' }
+        it { is_expected.to be_valid }
+      end
 
-    it 'is not valid with title over 50 length' do
-      expect(invaild_task_long_title).to_not be_valid
+      context 'empty' do
+        let(:name) { nil }
+        it { is_expected.to_not be_valid }
+      end
+
+      context 'length is greater than 50' do
+        let(:name) { 'a' * 51 }
+        it { is_expected.to_not be_valid }
+      end
     end
   end
 end
