@@ -12,8 +12,8 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'sorting' do
-      let!(:taskA) { create(:task, name: 'Task_end_3days', end_date: Time.now + 3.days) }
-      let!(:taskB) { create(:task, name: 'Task_end_1days', end_date: Time.now + 1.days) }
+      let!(:taskA) { create(:task, name: 'Task_end_1days', end_date: Time.now + 1.days) }
+      let!(:taskB) { create(:task, name: 'Task_end_3days', end_date: Time.now + 3.days) }
 
       before do
         visit root_path
@@ -27,16 +27,14 @@ RSpec.describe Task, type: :system do
         before { click_link '最終期限' }
         it 'sort table by end_date in ascending order' do
           sleep 1
-
-          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+          expect(page.body.index(taskA.name)).to be < page.body.index(taskB.name)
         end
 
         it 'sort table by end_date in descending order' do
           sleep 1
           click_link '最終期限'
           sleep 1
-
-          expect(page.body.index(taskA.name)).to be < page.body.index(taskB.name)
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
         end
       end
     end
