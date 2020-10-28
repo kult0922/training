@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
+  include TasksHelper
+
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    # @tasks = Task.all.order(created_at: :desc)
+    puts "controller: #{sort_column} , #{sort_direction}"
+    @tasks = Task.all.order("#{sort_column} #{sort_direction}")
   end
 
   def new

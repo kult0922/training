@@ -10,13 +10,34 @@ RSpec.describe Task, type: :system do
       visit root_path
       expect(page).to have_content 'test_1'
     end
-    context 'displaying more than 2 tasks' do
-      let!(:old_task) { create(:task, name: 'test_old', created_at: Time.now.yesterday) }
-      let!(:new_task) { create(:task, name: 'test_new', created_at: Time.now) }
 
-      it 'check displaying tasks in descending order by created_at' do
+    describe 'sorting' do
+      let!(:taskA) { create(:task, name: 'Task_end_3days', end_date: Time.now + 3.days) }
+      let!(:taskB) { create(:task, name: 'Task_end_1days', end_date: Time.now + 1.days) }
+
+      before do
         visit root_path
-        expect(page.body.index(new_task.name)).to be < page.body.index(old_task.name)
+      end
+      context 'before click sort link' do
+        it 'sort table by created_at in descending order' do
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+        end
+      end
+      context 'click sort link' do
+        before { click_link '最終期限' }
+        it 'sort table by end_date in ascending order' do
+          sleep 1
+
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+        end
+
+        it 'sort table by end_date in descending order' do
+          sleep 1
+          click_link '最終期限'
+          sleep 1
+
+          expect(page.body.index(taskA.name)).to be < page.body.index(taskB.name)
+        end
       end
     end
   end
