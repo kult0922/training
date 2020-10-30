@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   include TasksHelper
 
   def index
-    @tasks = Task.all.order("#{sort_column} #{sort_direction}")
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result.order("#{sort_column} #{sort_direction}")
   end
 
   def new
