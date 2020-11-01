@@ -39,6 +39,49 @@ RSpec.describe Task, type: :system do
         end
       end
     end
+
+    describe 'search' do
+      let!(:taskA) { create(:task, name: 'Task_apple', status: :todo) }
+      let!(:taskB) { create(:task, name: 'Task_banana', status: :in_progress) }
+      let!(:taskC) { create(:task, name: 'Task_lemon', status: :done) }
+
+      before do
+        visit root_path
+      end
+
+      context 'search by name' do
+        before { fill_in 'q_name_cont', with: 'apple' }
+        it 'display taskA' do
+          click_button '検索'
+          expect(page.all('table tbody tr').count).to eq 1
+          expect(page).to have_content taskA.name
+          expect(page).to_not have_content taskB.name
+        end
+      end
+
+      context 'search by status' do
+        before { select :done, from: 'q_status_eq' }
+        it 'display taskC' do
+          click_button '検索'
+          expect(page.all('table tbody tr').count).to eq 1
+          expect(page).to have_content taskC.name
+          expect(page).to_not have_content taskA.name
+        end
+      end
+
+      context 'search by name and status' do
+        before do
+          fill_in 'q_name_cont', with: 'Task'
+          select :in_progress, from: 'q_status_eq'
+        end
+        it 'display taskB' do
+          click_button '検索'
+          expect(page.all('table tbody tr').count).to eq 1
+          expect(page).to have_content taskB.name
+          expect(page).to_not have_content taskC.name
+        end
+      end
+    end
   end
 
   describe '#new' do
