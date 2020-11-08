@@ -17,3 +17,7 @@ ja:
         todo: 未着手
         in_progress: 進行中
         done: 完了
+      user:
+        name: 'ユーザー名'
+        email: 'メールアドレス'
+        password: 'パスワード'

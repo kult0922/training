@@ -4,12 +4,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: session_params[:email].downcase)
-    if user&.authenticate(session_params[:password])
-      log_in user
+    @user = User.find_by(email: session_params[:email].downcase)
+    if @user&.authenticate(session_params[:password])
+      log_in @user
       redirect_to root_url
     else
-      flash.now[:notice] = I18n.t('login.error_message')
+      flash.now[:notice] = I18n.t('login.message.error')
       render :new
     end
   end

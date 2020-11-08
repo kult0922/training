@@ -20,4 +20,13 @@ ja:
       delete: "タスク「%{name}」を削除しました。"
     delete_confirm: "タスク：「%{name}」、本当に削除しますか？"
   login:
-    error_message: 'メールアドレスかパスワードを確認してください。'
+    title: 'ログイン'
+    message:
+      error: 'メールアドレスかパスワードを確認してください。'
+  logout:
+    title: 'ログアウト'
+  signup:
+    title: '会員登録'
+    password_confirmation: 'パスワード確認'
+    message:
+      success: '会員登録完了しました。'
