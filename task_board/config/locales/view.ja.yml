@@ -19,3 +19,5 @@ ja:
       update: "タスク「%{name}」を更新しました。"
       delete: "タスク「%{name}」を削除しました。"
     delete_confirm: "タスク：「%{name}」、本当に削除しますか？"
+  login:
+    error_message: 'メールアドレスかパスワードを確認してください。'

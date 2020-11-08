@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :logged_in_user
+
   def index
     @q = set_user.tasks.ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
