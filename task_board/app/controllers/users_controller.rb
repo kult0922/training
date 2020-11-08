@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     if @user.valid?
       @user.save
       log_in @user
+      current_user
       redirect_to root_url, notice: I18n.t('signup.message.success')
     else
       render :new
