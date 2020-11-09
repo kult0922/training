@@ -24,7 +24,7 @@
                 <span class="navbar-text mr-sm-2">User Name: <%= current_user.name %></span>
               </li>
               <li class="nav-item">
-                <%= link_to 'Log Out', logout_path, method: :delete, class: 'btn btn-outline-secondary' %>
+                <%= link_to I18n.t('logout.title'), logout_path, method: :delete, class: 'btn btn-outline-secondary' %>
               </li>
             <% else %>
               <li class="nav-item">
