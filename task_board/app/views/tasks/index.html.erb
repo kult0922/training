@@ -21,7 +21,7 @@
         <thead>
           <tr>
             <th scope='col'><%= @tasks.human_attribute_name(:name) %></th>
-            <th scope='col'><%= task_sort 'end_date', @tasks.human_attribute_name(:end_date) %></th>
+            <th scope='col'><%= sort_link(@q, :end_date, @tasks.human_attribute_name(:end_date)) %></th>
             <th scope='col'><%= @tasks.human_attribute_name(:status) %></th>
             <th scope='col'><%= @tasks.human_attribute_name(:priority) %></th>
             <th scope='col'> </th>

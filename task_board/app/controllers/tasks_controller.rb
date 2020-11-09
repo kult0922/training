@@ -3,7 +3,8 @@ class TasksController < ApplicationController
 
   def index
     @q = Task.ransack(params[:q])
-    @tasks = @q.result.order("#{sort_column} #{sort_direction}")
+    @q.sorts = 'created_at desc' if @q.sorts.empty?
+    @tasks = @q.result
   end
 
   def new
