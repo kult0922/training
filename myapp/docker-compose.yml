@@ -21,6 +21,11 @@ services:
       - "3001:3000"
     links:
       - db
+    environment:
+    - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
+
+  selenium_chrome:
+    image: selenium/standalone-chrome-debug
 
 volumes:
   db-data:
