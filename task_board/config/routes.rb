@@ -8,5 +8,9 @@ Rails.application.routes.draw do
   resources :users, only: %I[new create]
   resources :tasks
 
+  namespace :admin do
+    resources :users
+  end
+
   get '*path', to: 'application#routing_error'
 end

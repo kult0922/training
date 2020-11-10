@@ -1,0 +1,30 @@
+<div class='container'>
+  <h1><%= t('admin.title.index') %></h1>
+    <%= link_to t('admin.link.new'), new_admin_user_path, class: 'btn btn-info' %>
+    <table class='table text-center'>
+      <thead>
+        <tr>
+          <th scope='col'>ID</th>
+          <th scope='col'><%= @users.human_attribute_name(:name) %></th>
+          <th scope='col'><%= @users.human_attribute_name(:email) %></th>
+          <th scope='col'><%= @users.human_attribute_name(:tasks_count) %></th>
+          <th scope='col'> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= link_to user.name, admin_user_path(user.id) %></td>
+            <td><%= user.email %></td>
+            <td><%= user.tasks.size %></td>
+            <td style='display: flex'>
+              <%= link_to t('admin.link.edit'), edit_admin_user_path(user), class: 'btn btn-primary' %>
+              <%= button_to t('admin.link.delete'), admin_user_path(user), method: :delete, data: { confirm: t('admin.delete_confirm', name: user.name) }, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @users %>
+</div>

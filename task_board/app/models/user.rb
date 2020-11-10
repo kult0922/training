@@ -3,5 +3,5 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 25 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 105 }
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 end
