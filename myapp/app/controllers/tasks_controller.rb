@@ -65,7 +65,6 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
-      @user = User.find(@task.user_id)
     rescue ActiveRecord::RecordNotFound
       head 404
     end

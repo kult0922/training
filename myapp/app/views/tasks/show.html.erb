@@ -9,7 +9,7 @@
   <br>
   <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
   <br>
-  <p>Created By: <%= @user.name %></p>
+  <p>Created By: <%= @task.user.name %></p>
   <p>Created At: <%= @task.created_at %></p>
   <p>Last Modified: <%= @task.updated_at %></p>
   <%= f.submit 'Submit' %>
