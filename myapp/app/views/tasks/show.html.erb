@@ -5,9 +5,9 @@
   <br>
   <%= f.text_area :description %>
   <br>
-  <%= f.select :status, [['To do', 0], ['Doing', 1], ['Done', 2]] %>
+  <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>
   <br>
-  <%= f.select :priority, [['Low', -1], ['Medium', 0], ['High', 1]] %>
+  <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
   <br>
   <p>Created By: <%= @user.name %></p>
   <p>Created At: <%= @task.created_at %></p>
