@@ -4,14 +4,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    if ENV["SELENIUM_DRIVER_URL"].present?
-      driven_by :selenium, using: :chrome, options: {
-        browser: :remote,
-        url: ENV.fetch("SELENIUM_DRIVER_URL"),
-        desired_capabilities: :chrome
-      }
-    else
-      driven_by :selenium_chrome_headless
-    end
+    driven_by :selenium, using: :headless_chrome, options: { args: ["headless", "disable-gpu", "no-sandbox", "disable-dev-shm-usage"] }
+  end
+end
+
+module CapybaraHelper
+  def visit_with_basic_auth(path, username:, password:)
+    visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
   end
 end
