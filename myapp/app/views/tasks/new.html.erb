@@ -1,19 +1,19 @@
-<h1>New Task</h1>
+<h1><%= t('.title') %></h1>
 
 <p id="notice"><%= notice %></p>
 
 <%= form_for(@task) do |f| %>
-  <%= f.label :title, 'Title' %>
+  <%= f.label :title, t('title') %>
   <%= f.text_field :title %>
   <br>
-  <%= f.label :description, 'Description' %>
+  <%= f.label :description, t('description') %>
   <%= f.text_area :description %>
   <br>
   <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>
   <br>
   <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
   <br>
-  <%= f.submit 'Submit' %>
+  <%= f.submit t('submit') %>
 <% end %>
 
-<%= link_to 'Back', tasks_path %>
+<%= link_to t('back'), tasks_path %>
