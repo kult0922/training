@@ -60,7 +60,7 @@ RSpec.describe Task, type: :system do
       end
 
       context 'search by status' do
-        before { select :done, from: 'q_status_eq' }
+        before { select '完了', from: 'q_status_eq' }
         it 'display taskC' do
           click_button '検索'
           expect(page.all('table tbody tr').count).to eq 1
@@ -72,7 +72,7 @@ RSpec.describe Task, type: :system do
       context 'search by name and status' do
         before do
           fill_in 'q_name_cont', with: 'Task'
-          select :in_progress, from: 'q_status_eq'
+          select '進行中', from: 'q_status_eq'
         end
         it 'display taskB' do
           click_button '検索'
