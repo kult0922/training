@@ -9,9 +9,9 @@
   <%= f.label :description, t('description') %>
   <%= f.text_area :description %>
   <br>
-  <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>
+  <%= f.select :status, Task.statuses.keys.map {|k| [t("models.tasks.status.#{k}"), k] } %>
   <br>
-  <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+  <%= f.select :priority, Task.priorities.keys.map {|k| [t("models.tasks.priority.#{k}"), k]} %>
   <br>
   <%= f.submit t('submit') %>
 <% end %>

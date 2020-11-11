@@ -7,13 +7,13 @@
   <%= f.label :description, t('description') %>
   <%= f.text_area :description %>
   <br>
-  <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>
+  <%= f.select :status, Task.statuses.keys.map {|k| [t("models.tasks.status.#{k}"), k] } %>
   <br>
-  <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+  <%= f.select :priority, Task.priorities.keys.map {|k| [t("models.tasks.priority.#{k}"), k]} %>
   <br>
   <p><%= t('created_by') %>: <%= @task.user.name %></p>
-  <p><%= t('created_at') %>: <%= @task.created_at %></p>
-  <p><%= t('last_modified') %>: <%= @task.updated_at %></p>
+  <p><%= t('created_at') %>: <%= l(@task.created_at) %></p>
+  <p><%= t('last_modified') %>: <%= l(@task.updated_at) %></p>
   <%= f.submit t('submit') %>
 <% end %>
 
