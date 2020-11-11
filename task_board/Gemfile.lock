@@ -82,6 +82,8 @@ GEM
     concurrent-ruby (1.1.7)
     crass (1.0.6)
     diff-lcs (1.4.4)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
@@ -123,6 +125,8 @@ GEM
     parallel (1.19.2)
     parser (2.7.2.0)
       ast (~> 2.4.1)
+    polyamorous (2.3.2)
+      activerecord (>= 5.2.1)
     popper_js (1.16.0)
     public_suffix (4.0.6)
     puma (4.3.6)
@@ -163,6 +167,11 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
+    ransack (2.3.2)
+      activerecord (>= 5.2.1)
+      activesupport (>= 5.2.1)
+      i18n
+      polyamorous (= 2.3.2)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -268,6 +277,7 @@ DEPENDENCIES
   bootstrap (~> 4.1.1)
   byebug
   capybara (>= 2.15)
+  enum_help
   factory_bot_rails
   jbuilder (~> 2.7)
   jquery-rails
@@ -276,6 +286,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   rails-i18n
+  ransack
   rspec-rails
   rubocop
   rubocop-rails
