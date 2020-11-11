@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <%= form_for(@task, url: task_path(@task), html: {method: 'put'}) do |f| %>
+  <%= f.label :title, 'Title' %>
   <%= f.text_field :title %>
   <br>
+  <%= f.label :description, 'Description' %>
   <%= f.text_area :description %>
   <br>
   <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>

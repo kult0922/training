@@ -3,15 +3,17 @@
 <p id="notice"><%= notice %></p>
 
 <%= form_for(@task) do |f| %>
+  <%= f.label :title, 'Title' %>
   <%= f.text_field :title %>
   <br>
+  <%= f.label :description, 'Description' %>
   <%= f.text_area :description %>
   <br>
   <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>
   <br>
   <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
   <br>
-  <%= f.submit '投稿' %>
+  <%= f.submit 'Submit' %>
 <% end %>
 
 <%= link_to 'Back', tasks_path %>
