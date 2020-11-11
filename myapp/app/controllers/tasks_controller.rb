@@ -66,7 +66,7 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      head 404
+      render status: 404, template: 'errors/404', :locals => { :message => t('controllers.tasks.task_not_found') }
     end
 
     # Only allow a list of trusted parameters through.
