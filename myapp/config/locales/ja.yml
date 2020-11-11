@@ -3,3 +3,8 @@ ja:
   description: '詳細'
   title: 'タイトル'
   submit: '投稿'
+  created_by: '作成者'
+  created_at: '作成日時'
+  last_modified: '最終更新日時'
+  delete: '削除'
+  delete_confirm: '削除してよろしいでしょうか'
