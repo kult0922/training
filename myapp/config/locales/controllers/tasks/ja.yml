@@ -1,0 +1,6 @@
+ja:
+  controllers:
+    tasks:
+      notice_task_deleted: 'タスクを削除しました'
+      notice_task_created: 'タスクを作成しました'
+      notice_task_updated: 'タスクを更新しました'
