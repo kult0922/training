@@ -1,24 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <%= form_for(@task, url: task_path(@task), html: {method: 'put'}) do |f| %>
-  <%= f.label :title, 'Title' %>
+  <%= f.label :title, t('title') %>
   <%= f.text_field :title %>
   <br>
-  <%= f.label :description, 'Description' %>
+  <%= f.label :description, t('description') %>
   <%= f.text_area :description %>
   <br>
-  <%= f.select :status, Task.statuses.keys.map {|k| [k, k] } %>
+  <%= f.select :status, Task.statuses.keys.map {|k| [t("models.tasks.status.#{k}"), k] } %>
   <br>
-  <%= f.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+  <%= f.select :priority, Task.priorities.keys.map {|k| [t("models.tasks.priority.#{k}"), k]} %>
   <br>
-  <p>Created By: <%= @task.user.name %></p>
-  <p>Created At: <%= @task.created_at %></p>
-  <p>Last Modified: <%= @task.updated_at %></p>
-  <%= f.submit 'Submit' %>
+  <p><%= t('created_by') %>: <%= @task.user.name %></p>
+  <p><%= t('created_at') %>: <%= l(@task.created_at) %></p>
+  <p><%= t('last_modified') %>: <%= l(@task.updated_at) %></p>
+  <%= f.submit t('submit') %>
 <% end %>
 
 <%= form_for(@task, url: task_path(@task), html: {method: 'delete'}) do |f| %>
-  <%= f.submit 'Delete', data: { confirm: 'Are you sure to delete ?' } %>
+  <%= f.submit t('delete'), data: { confirm: t('delete_confirm') } %>
 <% end %>
 
-<%= link_to 'Back', tasks_path %>
+<%= link_to t('back'), tasks_path %>

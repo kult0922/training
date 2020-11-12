@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to @task, notice: I18n.t('controllers.tasks.notice_task_created') }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @task, notice: I18n.t('controllers.tasks.notice_task_updated') }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to tasks_url, notice: I18n.t('controllers.tasks.notice_task_deleted') }
       format.json { head :no_content }
     end
   end
@@ -67,7 +67,7 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      head 404
+      render status: 404, template: 'errors/404', :locals => { :message => t('controllers.tasks.task_not_found') }
     end
 
     # Only allow a list of trusted parameters through.
