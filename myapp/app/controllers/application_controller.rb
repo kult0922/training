@@ -3,16 +3,16 @@ require 'bcrypt'
 class ApplicationController < ActionController::Base
   before_action :basic_auth
   protect_from_forgery with: :exception
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
-  rescue_from Exception, with: :render_500
+  rescue_from ActiveRecord::RecordNotFound, with: :render404
+  rescue_from ActionController::RoutingError, with: :render404
+  rescue_from Exception, with: :render500
 
-  def render_404
-    render status: 404, template: 'errors/404', :locals => { :message => 'Page Not Found' }
+  def render404
+    render status: :not_found, template: 'errors/404', locals: { message: 'Page Not Found' }
   end
 
-  def render_500
-    render status: 500, template: 'errors/500', :locals => { :message => 'Internal Server Error' }
+  def render500
+    render status: :internal_server_error, template: 'errors/500', locals: { message: 'Internal Server Error' }
   end
 
   private
@@ -23,5 +23,4 @@ class ApplicationController < ActionController::Base
       @me.present? && BCrypt::Password.new(@me.encrypted_password) == password
     end
   end
-
 end

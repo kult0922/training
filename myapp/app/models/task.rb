@@ -15,5 +15,4 @@ class Task < ApplicationRecord
     medium: 0,
     high: 1,
   }
-
 end

@@ -1,17 +1,16 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: %i[show edit update destroy]
 
   # GET /tasks
   # GET /tasks.json
   def index
     order = params[:order] || :desc
-    @tasks = Task.order({created_at: order}).all
+    @tasks = Task.order({ created_at: order }).all
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
-  def show
-  end
+  def show; end
 
   # GET /tasks/new
   def new
@@ -19,13 +18,12 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params.merge({user_id: @me.id}))
+    @task = Task.new(task_params.merge({ user_id: @me.id }))
 
     respond_to do |format|
       if @task.invalid?
@@ -66,16 +64,17 @@ class TasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, template: 'errors/404', :locals => { :message => t('controllers.tasks.task_not_found') }
-    end
 
-    # Only allow a list of trusted parameters through.
-    def task_params
-      params[:title]&.strip!
-      params.fetch(:task, {}).permit(:title, :description, :status, :priority)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render status: :not_found, template: 'errors/404', locals: { message: t('controllers.tasks.task_not_found') }
+  end
+
+  # Only allow a list of trusted parameters through.
+  def task_params
+    params[:title]&.strip!
+    params.fetch(:task, {}).permit(:title, :description, :status, :priority)
+  end
 end
