@@ -14,40 +14,40 @@ RSpec.describe 'Task', js: true, type: :system do
 
     it 'new task' do
       visit_with_basic_auth new_task_path
-      fill_in 'Title', with: 'title'
-      fill_in 'Description', with: 'description'
-      click_button 'Submit'
+      fill_in I18n.t('title'), with: 'title'
+      fill_in I18n.t('description'), with: 'description'
+      click_button I18n.t('submit')
 
-      expect(page).to have_content('Task was successfully created.')
+      expect(page).to have_content I18n.t('controllers.tasks.notice_task_created')
       visit root_path
       expect(page).to have_content('title')
     end
 
     it 'edit task' do
       visit_with_basic_auth task_path(task1)
-      expect(page).to have_field 'Title', with: task1.title
-      expect(page).to have_field 'Description', with: task1.description
+      expect(page).to have_field I18n.t('title'), with: task1.title
+      expect(page).to have_field I18n.t('description'), with: task1.description
 
-      fill_in 'Title', with: 'tittleeeeeee'
-      fill_in 'Description', with: 'descriptionnnnnn'
-      click_button 'Submit'
+      fill_in I18n.t('title'), with: 'tittleeeeeee'
+      fill_in I18n.t('description'), with: 'descriptionnnnnn'
+      click_button I18n.t('submit')
 
-      expect(page).to have_content('Task was successfully updated.')
-      expect(page).to have_field 'Title', with: 'tittleeeeeee'
-      expect(page).to have_field 'Description', with: 'descriptionnnnnn'
+      expect(page).to have_content I18n.t('controllers.tasks.notice_task_updated')
+      expect(page).to have_field I18n.t('title'), with: 'tittleeeeeee'
+      expect(page).to have_field I18n.t('description'), with: 'descriptionnnnnn'
       visit root_path
       expect(page).to have_content 'tittleeeeeee'
     end
 
     it 'delete task' do
       visit_with_basic_auth task_path(task2)
-      expect(page).to have_field 'Title', with: task2.title
+      expect(page).to have_field I18n.t('title'), with: task2.title
 
-      page.accept_confirm "Are you sure to delete ?" do
-        click_button('Delete')
+      page.accept_confirm I18n.t('delete_confirm') do
+        click_button(I18n.t('delete'))
       end
 
-      expect(page).to have_content('Task was successfully destroyed.')
+      expect(page).to have_content(I18n.t('controllers.tasks.notice_task_deleted'))
       visit root_path
       expect(page).not_to have_content(task2.title)
     end
