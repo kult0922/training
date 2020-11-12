@@ -9,8 +9,7 @@ RSpec.describe 'Task', js: true, type: :system do
 
     it 'task list' do
       visit_with_basic_auth root_path
-      expect(page).to have_content(task1.title)
-      expect(page).to have_content(task2.title)
+      expect(page.text).to match(/#{task2.title}.*\n*.*#{task1.title}/)
     end
 
     it 'new task' do
