@@ -82,6 +82,30 @@ RSpec.describe Task, type: :system do
         end
       end
     end
+
+    describe 'pagination' do
+      before do
+        10.times do |n|
+          create(:task, name: "task-#{n}", status: :todo)
+        end
+        visit root_path
+      end
+
+      context 'first page' do
+        it 'show Next link in pagination' do
+          expect(page).to have_link 'Next'
+          expect(page).to have_link 'Last'
+        end
+      end
+
+      context 'click Next page' do
+        it 'show Previous link in pagination' do
+          click_link 'Next'
+          expect(page).to have_link 'Previous'
+          expect(page).to have_link 'First'
+        end
+      end
+    end
   end
 
   describe '#new' do
@@ -104,7 +128,7 @@ RSpec.describe Task, type: :system do
       end
       it 'fail to create task' do
         click_button '作成'
-        expect(page).to have_content "タスク名を入力してください"
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
