@@ -18,6 +18,10 @@ RSpec.describe 'Task', js: true, type: :system do
       click_button I18n.t('submit')
       expect(page).to have_content Task.new.errors.full_messages.join('')
 
+      fill_in I18n.t('title'), with: 't' * 101
+      click_button I18n.t('submit')
+      expect(page).to have_content Task.new(title: 't'*101).errors.full_messages.join('')
+
       fill_in I18n.t('title'), with: 'title'
       fill_in I18n.t('description'), with: 'description'
       click_button I18n.t('submit')
