@@ -3,6 +3,7 @@
 <p id="notice"><%= notice %></p>
 
 <%= form_for(@task) do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
   <%= f.label :title, t('title') %>
   <%= f.text_field :title %>
   <br>
