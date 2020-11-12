@@ -9,3 +9,12 @@ ja:
         low: '低'
         medium: '中'
         high: '高'
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        title: タイトル
+        description: 詳細
+        status: ステータス
+        priority: 優先度

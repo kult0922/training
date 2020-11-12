@@ -15,6 +15,9 @@ RSpec.describe 'Task', js: true, type: :system do
 
     it 'new task' do
       visit_with_basic_auth new_task_path
+      click_button I18n.t('submit')
+      expect(page).to have_content Task.new.errors.full_messages.join('')
+
       fill_in I18n.t('title'), with: 'title'
       fill_in I18n.t('description'), with: 'description'
       click_button I18n.t('submit')
