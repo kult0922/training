@@ -1,24 +1,43 @@
-# README
+# タスク管理システム（Task Manager）
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## テーブルスキーマ
 
-Things you may want to cover:
+1.タスクテーブル
 
-* Ruby version
+テーブル名：task_tbl
+モデル名：Task
 
-* System dependencies
+| カラム名 |　データ型 | その他 |
+--------------------
+| id | integer | primary key,auto increment
+| user_id | integer |
+| title | varchar(100) |
+| status | smallint |
+| detail | text |
+| end_date | timestamp |
+| create_at | timestamp |
 
-* Configuration
+2.ユーザテーブル
 
-* Database creation
+テーブル名：user_tbl
+モデル名：User
 
-* Database initialization
+| カラム名 |　データ型 | その他 |
+--------------------
+| id | integer | primary key,auto increment
+| user_name | varchar(100) |
+| password | varchar(100) |
+| roll | smallint |
+| create_at | timestamp |
 
-* How to run the test suite
+3.ラベルテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+テーブル名：label_tbl
+モデル名：Label
 
-* Deployment instructions
-
-* ...
+| カラム名 |　データ型 | その他 |
+--------------------
+| id | integer | primary key,auto increment
+| task_id | integer |
+| label | varchar(100) |
+| create_at | timestamp |
