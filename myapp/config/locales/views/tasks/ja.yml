@@ -1,0 +1,7 @@
+ja:
+  tasks:
+    index:
+      title: 'タスク一覧'
+      new_task: '新規タスク作成'
+    new:
+      title: '新規タスク'
