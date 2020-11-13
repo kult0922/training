@@ -4,8 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    @q = Task.ransack(params[:q])
     order = params[:order] || :desc
-    @tasks = Task.order({ created_at: order }).all
+    @tasks = @q.result.order({ created_at: order })
   end
 
   # GET /tasks/1

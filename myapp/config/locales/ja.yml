@@ -8,3 +8,6 @@ ja:
   last_modified: '最終更新日時'
   delete: '削除'
   delete_confirm: '削除してよろしいでしょうか'
+  search: '検索'
+  status: 'ステータス'
+  unspecified: '指定なし'
