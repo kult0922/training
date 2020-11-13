@@ -15,11 +15,20 @@ RSpec.describe 'Task', js: true, type: :system do
     it 'new task' do
       visit_with_basic_auth new_task_path
       click_button I18n.t('submit')
-      expect(page).to have_content Task.new.errors.full_messages.join('')
+
+      task = Task.new(user: user)
+      task.valid?
+
+      expect(task.errors.full_messages.length).to be 2
+      expect(page).to have_content task.errors.full_messages.join("\n")
 
       fill_in I18n.t('title'), with: 't' * 101
       click_button I18n.t('submit')
-      expect(page).to have_content Task.new(title: 't'*101).errors.full_messages.join('')
+
+      task.title = 't' * 101
+      task.valid?
+      expect(task.errors.full_messages.length).to be 1
+      expect(page).to have_content task.errors.full_messages.join("\n")
 
       fill_in I18n.t('title'), with: 'title'
       fill_in I18n.t('description'), with: 'description'
