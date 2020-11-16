@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   def index
-    @q = Task.ransack(params[:q])
+    @q = set_user.tasks.ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
-    @tasks = @q.result.page(params[:page])
+    @tasks = @q.result.includes(:user).page(params[:page])
   end
 
   def new
@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = set_user.tasks.new(task_params)
     if @task.valid?
       @task.save
       redirect_to tasks_url, notice: I18n.t('tasks.flash.create', name: @task.name)
@@ -46,5 +46,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :end_date, :priority, :status)
+  end
+
+  def set_user
+    User.first
   end
 end

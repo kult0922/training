@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Task, type: :system do
   let(:test_name) { 'test2' }
   let(:test_description) { 'test2_description' }
-  let!(:task) { create(:task) }
+  let!(:user) { create(:user) }
+  let!(:task) { create(:task, user_id: user.id) }
 
   describe '#index' do
     it 'visit index page' do
@@ -12,8 +13,8 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'sorting' do
-      let!(:taskA) { create(:task, name: 'Task_end_1days', end_date: Time.current + 1.days) }
-      let!(:taskB) { create(:task, name: 'Task_end_3days', end_date: Time.current + 3.days) }
+      let!(:taskA) { create(:task, name: 'Task_end_1days', end_date: Time.current + 1.days, user_id: user.id) }
+      let!(:taskB) { create(:task, name: 'Task_end_3days', end_date: Time.current + 3.days, user_id: user.id) }
 
       before do
         visit root_path
@@ -41,9 +42,9 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'search' do
-      let!(:taskA) { create(:task, name: 'Task_apple', status: :todo) }
-      let!(:taskB) { create(:task, name: 'Task_banana', status: :in_progress) }
-      let!(:taskC) { create(:task, name: 'Task_lemon', status: :done) }
+      let!(:taskA) { create(:task, name: 'Task_apple', status: :todo, user_id: user.id) }
+      let!(:taskB) { create(:task, name: 'Task_banana', status: :in_progress, user_id: user.id) }
+      let!(:taskC) { create(:task, name: 'Task_lemon', status: :done, user_id: user.id) }
 
       before do
         visit root_path
@@ -86,7 +87,7 @@ RSpec.describe Task, type: :system do
     describe 'pagination' do
       before do
         10.times do |n|
-          create(:task, name: "task-#{n}", status: :todo)
+          create(:task, name: "task-#{n}", status: :todo, user_id: user.id)
         end
         visit root_path
       end
