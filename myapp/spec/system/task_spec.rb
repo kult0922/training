@@ -12,6 +12,19 @@ RSpec.describe 'Task', js: true, type: :system do
       expect(page.text).to match(/#{task2.title}.*\n*.*#{task1.title}/)
     end
 
+    it 'search task' do
+      visit_with_basic_auth root_path
+      fill_in 'q_title_cont', with: task1.title
+      click_button I18n.t('search')
+      expect(page).to have_content task1.title
+      expect(page).not_to have_content task2.title
+
+      choose 'q_status_eq_2'
+      click_button I18n.t('search')
+      expect(page).not_to have_content task1.title
+      expect(page).not_to have_content task2.title
+    end
+
     it 'new task' do
       visit_with_basic_auth new_task_path
       click_button I18n.t('submit')

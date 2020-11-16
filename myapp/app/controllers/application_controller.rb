@@ -7,11 +7,14 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render404
   rescue_from Exception, with: :render500
 
-  def render404
+  def render404(e)
+    logger.warn e
     render status: :not_found, template: 'errors/404', locals: { message: 'Page Not Found' }
   end
 
-  def render500
+  def render500(e)
+    logger.error e
+    logger.error e.backtrace.join('\n')
     render status: :internal_server_error, template: 'errors/500', locals: { message: 'Internal Server Error' }
   end
 
