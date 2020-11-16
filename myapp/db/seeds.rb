@@ -5,3 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'bcrypt'
+
+user = User.create!(
+  name: 'admin',
+  encrypted_password: BCrypt::Password.create('admin'),
+)
+
+if Rails.env.development?
+  tasks = []
+  30.times do |n|
+    tasks << Task.new(
+      user: user,
+      title: "title #{n + 1}",
+      description: "description #{n + 1}",
+      status: Task.statuses.keys.sample,
+      priority: Task.priorities.keys.sample,
+    )
+  end
+  Task.import tasks
+end
