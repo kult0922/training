@@ -4,8 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    @q = Task.ransack(params[:q])
     order = params[:order] || :desc
-    @tasks = Task.order({ created_at: order }).all
+    @tasks = @q.result.order({ created_at: order })
   end
 
   # GET /tasks/1
@@ -26,7 +27,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params.merge({ user_id: @me.id }))
 
     respond_to do |format|
-      if @task.save
+      if @task.invalid?
+        format.html { render :new }
+        format.json { render json: @task.errors, status: :bad_request }
+      elsif @task.save
         format.html { redirect_to @task, notice: I18n.t('controllers.tasks.notice_task_created') }
         format.json { render :show, status: :created, location: @task }
       else
@@ -71,6 +75,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
+    params[:title]&.strip!
     params.fetch(:task, {}).permit(:title, :description, :status, :priority)
   end
 end
