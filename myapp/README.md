@@ -18,7 +18,7 @@ CREATE TABLE `users` (
 CREATE TABLE `tasks` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
-  `title` varchar(100) DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
   `description` varchar(2000) DEFAULT NULL,
   `expire_date` datetime DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
