@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'bcrypt'
 
 RSpec.describe 'Task', js: true, type: :system do
   describe 'task' do
@@ -87,13 +86,14 @@ RSpec.describe 'Task', js: true, type: :system do
       let!(:task) { create(:task) }
 
       it 'paginator not rendered' do
-        visit_with_basic_auth root_path
+        visit_with_basic_auth root_path, username: task.user.name
         expect(page).not_to have_selector '.pagination'
       end
 
     end
 
     context 'more than one page' do
+      let!(:user) { create(:user) }
       let!(:tasks) { create_list(:task, 26) }
 
       it 'first page' do
