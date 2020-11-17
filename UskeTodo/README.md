@@ -1,11 +1,18 @@
 # README
 
 step4課題　テーブルスキーマの記載
-名称　　　　カラム名　データ型
-ポストid　　id　　　　string
-ポストtitle   title          string
-ポストtext   text          text
-日付            date          date
+名称  ポストid　　
+    カラム名  id
+    データ型  string
+名称  ポストtitle   
+    カラム名  title
+    データ型  string
+名称  ポストtext
+    カラム名  text
+    データ型  text
+名称  日付
+    カラム名  date
+    データ型  date
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
