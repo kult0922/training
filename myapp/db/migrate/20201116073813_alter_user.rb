@@ -12,5 +12,6 @@ class AlterUser < ActiveRecord::Migration[6.0]
     remove_index :users, column: :name
     rename_column :users, :password_digest, :encrypted_password
     remove_column :users, :email
+    change_column :users, :name, :string
   end
 end
