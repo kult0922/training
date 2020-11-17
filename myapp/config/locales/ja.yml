@@ -11,6 +11,10 @@ ja:
   search: '検索'
   status: 'ステータス'
   unspecified: '指定なし'
+  login: 'ログイン'
+  username: 'ユーザー名'
+  password: 'パスワード'
+  notice_incorrect_username_or_password: 'ユーザー名またはパスワードが不正です'
 
   views:
     pagination:
