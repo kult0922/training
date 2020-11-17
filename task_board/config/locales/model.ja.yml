@@ -2,11 +2,16 @@ ja:
   activerecord:
     attributes:
       task:
-        name: 'タスク名'
-        description: '説明'
-        end_date: '最終期限'
-        priority: '優先順位'
-        status: 'ステータス'
+        name: タスク名
+        description: 説明
+        end_date: 最終期限
+        priority: 優先順位
+        status: ステータス
+      user:
+        name: ユーザー名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
   enums:
     task:
       priority:
@@ -17,7 +22,3 @@ ja:
         todo: 未着手
         in_progress: 進行中
         done: 完了
-      user:
-        name: 'ユーザー名'
-        email: 'メールアドレス'
-        password: 'パスワード'

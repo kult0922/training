@@ -1,32 +1,32 @@
 ja:
   tasks:
     title:
-      index: 'タスク一覧' 
-      show: 'タスク詳細'
-      new: 'タスク新規作成'
-      edit: 'タスク編集'
+      index: タスク一覧
+      show: タスク詳細
+      new: タスク新規作成
+      edit: タスク編集
     link:
-      index: '一覧へ' 
-      new: '新規作成'
-      edit: '編集'
-      delete: '削除'
+      index: 一覧へ
+      new: 新規作成
+      edit: 編集
+      delete: 削除
     button:
       type:
-        new: '作成'
-        edit: '更新'
+        new: 作成
+        edit: 更新
     flash:
       create: "タスク「%{name}」を登録しました。"
       update: "タスク「%{name}」を更新しました。"
       delete: "タスク「%{name}」を削除しました。"
     delete_confirm: "タスク：「%{name}」、本当に削除しますか？"
   login:
-    title: 'ログイン'
+    title: ログイン
     message:
-      error: 'メールアドレスかパスワードを確認してください。'
+      error: メールアドレスかパスワードを確認してください。
   logout:
-    title: 'ログアウト'
+    title: ログアウト
   signup:
-    title: '会員登録'
-    password_confirmation: 'パスワード確認'
+    title: 会員登録
+    password_confirmation: パスワード確認
     message:
-      success: '会員登録完了しました。'
+      success: 会員登録完了しました。

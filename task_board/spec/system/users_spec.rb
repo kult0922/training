@@ -32,7 +32,7 @@ RSpec.describe User, type: :system do
 
       context 'password and password_confirmation are not matched' do
         let(:user_password_confirmation) { 'wrong_password' }
-        it { is_expected.to have_content 'Password confirmationとパスワードの入力が一致しません' }
+        it { is_expected.to have_content 'パスワード確認とパスワードの入力が一致しません' }
       end
     end
   end
