@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @q = Task.ransack(params[:q])
     order = params[:order] || :desc
-    @tasks = @q.result.order({ created_at: order }).page(params[:page])
+    @tasks = @q.result.order({ created_at: order }).includes(:user).page(params[:page])
   end
 
   # GET /tasks/1
