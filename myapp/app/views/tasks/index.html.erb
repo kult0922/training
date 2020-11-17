@@ -8,6 +8,12 @@
 
   <br>
 
+  <%= f.label :user, t('user') %>
+　<%= f.radio_button :user_id_eq, '', {:checked => true} %><%= t('.select_all_user') %>
+  <%= f.radio_button :user_id_eq, current_user.id %><%= t('.select_current_user') %>
+
+  <br>
+
   <%= f.label :status, t('status') %>
   <%= f.radio_button :status_eq, '', {:checked => true} %><%= t('unspecified') %>
   <% Task.statuses.each do |k, v| %>
