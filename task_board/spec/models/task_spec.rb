@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'validation' do
+    let(:user) { create(:user) }
     describe 'name' do
-      subject { build(:task, name: name) }
+      subject { build(:task, name: name, user_id: user.id) }
 
       context 'valid' do
         let(:name) { 'text' }
