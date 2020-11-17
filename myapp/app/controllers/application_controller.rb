@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :basic_auth
+  include SessionsHelper
+
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, with: :render404
   rescue_from ActionController::RoutingError, with: :render404
@@ -18,10 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def basic_auth
-    authenticate_or_request_with_http_basic do |username, password|
-      @me = User.find_by(name: username)
-      @me.present? && @me.authenticate(password)
-    end
+  def should_log_in
+    redirect_to login_path unless logged_in?
   end
 end
