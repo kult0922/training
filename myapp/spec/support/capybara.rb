@@ -9,7 +9,15 @@ RSpec.configure do |config|
 end
 
 module CapybaraHelper
-  def visit_with_basic_auth(path, username: user.name, password: 'password')
-    visit "http://#{username}:#{password}@#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{path}"
+  def visit_with_login(path, username: user.name, password: 'password')
+    visit path
+
+    if current_path.eql? login_path
+      fill_in I18n.t('username'), with: username
+      fill_in I18n.t('password'), with: password
+      click_on I18n.t('login')
+    end
+
+    visit path unless current_path.eql? path
   end
 end

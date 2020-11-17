@@ -4,6 +4,7 @@
 
 <%= form_for(@task) do |f| %>
   <%= render 'layouts/error_messages', model: f.object %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
   <%= f.label :title, t('title') %>
   <%= f.text_field :title %>
   <br>
