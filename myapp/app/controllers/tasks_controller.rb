@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :should_log_in
   before_action :set_task, only: %i[show edit update destroy]
 
   # GET /tasks
@@ -24,7 +25,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params.merge({ user_id: @me.id }))
+    @task = Task.new(task_params)
 
     respond_to do |format|
       if @task.invalid?
@@ -76,6 +77,6 @@ class TasksController < ApplicationController
   # Only allow a list of trusted parameters through.
   def task_params
     params[:title]&.strip!
-    params.fetch(:task, {}).permit(:title, :description, :status, :priority)
+    params.fetch(:task, {}).permit(:user_id, :title, :description, :status, :priority)
   end
 end

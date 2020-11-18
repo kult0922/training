@@ -3,5 +3,7 @@ ja:
     index:
       title: 'タスク一覧'
       new_task: '新規タスク作成'
+      select_all_user: 'すべて'
+      select_current_user: 自分のみ
     new:
       title: '新規タスク'
