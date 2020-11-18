@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin#index'
 
   namespace :admin do
-    resources :users, only: [:index, :show, :new, :create, :update, :delete]
+    resources :users, only: [:index, :show, :new, :create, :update, :destroy]
   end
 
   resources :tasks

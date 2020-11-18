@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   def index
     @users = User.all.order(created_at: :desc, id: :desc)
@@ -18,7 +18,10 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def delete; end
+  def destroy
+    @user.destroy
+    redirect_to admin_users_url, notice: 'delete successfully'
+  end
 
   private
 
