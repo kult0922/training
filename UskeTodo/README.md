@@ -7,7 +7,7 @@ step4課題　テーブルスキーマの記載
  | :--- | :--- | :--- |
  | ポストid | id | int | 
  | ポストtitle | title | varchar |  
- | ポストtext | text | text |
+ | ポストtext | detail | text |
  | 登録日付 | created_at | datetime |
  | 更新日付 |updated_at | date | timestamp |
   
