@@ -5,6 +5,7 @@ class TasksController < ApplicationController
     end
 
     def newtask
+        @task = Task.new
         render "newtask"
     end
 
