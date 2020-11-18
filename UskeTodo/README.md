@@ -11,7 +11,7 @@ step4課題　テーブルスキーマの記載
  | 日付 | date | date |
  | 更新日 | date | date |
   
-  - [ Usrer ]
+  - [ Users ]
    | 名称 | カラム名 | データ型 |
    | :--- | :--- | :--- |
    | ユーザーid | id | string | 
