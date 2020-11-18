@@ -7,6 +7,7 @@
     <tr>
       <th><%= t('email') %></th>
       <th><%= t('name') %>
+      <th><%= 'number of tasks' %>
       <th><%= t('created_at') %></th>
       <th><%= t('updated_at') %></th>
     </tr>
@@ -15,7 +16,8 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= mail_to user.email %></td>
-        <td><%= link_to user.name, admin_user_path(user.id) %></td>
+        <td><%= link_to user.name, admin_user_path(user) %></td>
+        <td><%= link_to "#{task_count(user)} tasks", tasks_path('q[user_id_eq': user.id) %></td>
         <td><%= l user.created_at %></td>
         <td><%= l user.updated_at %></td>
       </tr>
