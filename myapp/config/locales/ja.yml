@@ -20,6 +20,8 @@ ja:
   notice_incorrect_username_or_password: 'ユーザー名またはパスワードが不正です'
   notice_updated: '更新しました'
   notice_deleted: '削除しました'
+  admin_page: 管理画面
+  logout: ログアウト
 
   views:
     pagination:

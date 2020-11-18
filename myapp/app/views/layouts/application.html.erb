@@ -13,8 +13,8 @@
     <% if logged_in? %>
       <div style='text-align: right'>
         <%= current_user.name %>
-        <%= link_to 'admin', admin_path %>
-        <%= link_to 'logout', logout_path, method: :delete %>
+        <%= link_to t('admin_page'), admin_path %>
+        <%= link_to t('logout'), logout_path, method: :delete %>
       </div>
     <% end %>
     <%= yield %>
