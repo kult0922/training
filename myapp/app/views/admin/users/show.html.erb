@@ -5,7 +5,7 @@
 <%= form_for(@user, url: admin_user_path(@user), html: {method: 'put'}) do |f| %>
   <%= render 'layouts/error_messages', model: f.object %>
   <%= f.label :email, t('email') %>
-  <%= f.text_area :email %>
+  <%= f.email_field :email %>
   <br>
   <%= f.label :name, t('username') %>
   <%= f.text_field :name %>
