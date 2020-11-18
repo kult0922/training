@@ -1,0 +1,15 @@
+<h1>User</h1>
+
+<%= form_for(@user, url: admin_user_path(@user), html: {method: 'put'}) do |f| %>
+  <%= f.label :email, t('email') %>
+  <%= f.text_area :email %>
+  <br>
+  <%= f.label :name, t('username') %>
+  <%= f.text_field :name %>
+  <br>
+  <p><%= t('created_at') %>: <%= l @user.created_at %></p>
+  <p><%= t('last_modified') %>: <%= l @user.updated_at %></p>
+  <%= f.submit t('submit') %>
+<% end %>
+
+<%= link_to t('back'), admin_users_path %>
