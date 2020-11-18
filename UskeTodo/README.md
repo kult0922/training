@@ -6,17 +6,19 @@ step4課題　テーブルスキーマの記載
  | 名称 | カラム名 | データ型 |
  | :--- | :--- | :--- |
  | ポストid | id | int | 
- | ポストtitle | title | varchar |  
+ | ポストtitle | title | varchar(20) |  
  | ポストtext | detail | text |
  | 登録日付 | created_at | datetime |
- | 更新日付 |updated_at | timestamp |
+ | 更新日付 | updated_at | datetime |
   
   [ Users ]
    | 名称 | カラム名 | データ型 |
    | :--- | :--- | :--- |
    | ユーザーid | id | int | 
-   | パスワード | password  | varchar |
-   | メールアドレス | email | varchar |
+   | パスワード | password  | varchar(10) |
+   | メールアドレス | email | varchar(20) |
+   | 登録日付 | created_at | datetime |
+   | 更新日付 | update_at | datetime |
    
    ===
     画面設計の写真(一覧画面、作成画面、詳細画面、編集画面)
