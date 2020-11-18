@@ -9,7 +9,7 @@ step4課題　テーブルスキーマの記載
  | ポストtitle | title | varchar |  
  | ポストtext | detail | text |
  | 登録日付 | created_at | datetime |
- | 更新日付 |updated_at | date | timestamp |
+ | 更新日付 |updated_at | timestamp |
   
   [ Users ]
    | 名称 | カラム名 | データ型 |
