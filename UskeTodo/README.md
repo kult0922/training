@@ -1,12 +1,13 @@
 # README
 
 step4課題　テーブルスキーマの記載
--  名称            - カラム名   - データ型 
--  ポストid      - id              - string
--  ポストtitle   - title           - string
--  ポストtext   - text           - text
--  日付             - date          - date
--  更新日         - date          - date
+|  名称  |  カラム名   |  データ型  |
+----|----
+|  ポストid  |  id  |  string  |
+|  ポストtitle  |  title  |  string  |
+|  ポストtext  |  text  |  text  |
+|  日付  |  date  |  date  |
+|  更新日  |  date  |  date  |ß
     
     画面設計の写真(一覧画面、作成画面、詳細画面、編集画面)
     ![Screen design](https://user-images.githubusercontent.com/74219116/99372689-e2b3b180-2903-11eb-97d2-66638baeae88.jpeg)
