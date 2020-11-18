@@ -2,11 +2,11 @@
 
 step4課題　テーブルスキーマの記載
 
-[ Post ]
+[ Posts ]
  | 名称 | カラム名 | データ型 |
  | :--- | :--- | :--- |
- | ポストid | id | string | 
- | ポストtitle | title | string |  
+ | ポストid | id | int | 
+ | ポストtitle | title | char |  
  | ポストtext | text | text |
  | 日付 | date | date |
  | 更新日 | date | date |
@@ -14,8 +14,8 @@ step4課題　テーブルスキーマの記載
   [ Users ]
    | 名称 | カラム名 | データ型 |
    | :--- | :--- | :--- |
-   | ユーザーid | id | string | 
-   | パスワード | password  | string |
+   | ユーザーid | id | int | 
+   | パスワード | password  | text |
    | メールアドレス | mail | text |
    
    ===
