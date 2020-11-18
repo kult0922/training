@@ -1,6 +1,9 @@
 <h1>User</h1>
 
+<p id="notice"><%= notice %></p>
+
 <%= form_for(@user, url: admin_user_path(@user), html: {method: 'put'}) do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
   <%= f.label :email, t('email') %>
   <%= f.text_area :email %>
   <br>
