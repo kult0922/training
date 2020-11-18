@@ -1,0 +1,7 @@
+ja:
+  admin:
+    users:
+      not_found: 'ユーザーが見つかりませんでした'
+      index:
+        users: ユーザー一覧
+        number_of_tasks: タスク件数

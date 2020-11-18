@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to admin_user_url(@user), notice: 'update successfully'
+      redirect_to admin_user_url(@user), notice: I18n.t('notice_updated')
     else
       render :show
     end
@@ -20,7 +20,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_url, notice: 'delete successfully'
+    redirect_to admin_users_url, notice: I18n.t('notice_deleted')
   end
 
   private
@@ -28,7 +28,7 @@ class Admin::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render status: :not_found, template: 'errors/404', locals: { message: 'User not found' }
+    render status: :not_found, template: 'errors/404', locals: { message: I18n.t('admin.users.not_found') }
   end
 
   def user_params
