@@ -5,3 +5,4 @@ ja:
       index:
         users: ユーザー一覧
         number_of_tasks: タスク件数
+        number_of_tasks_of_user: "%{count}件タスク"
