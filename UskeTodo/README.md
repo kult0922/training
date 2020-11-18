@@ -2,6 +2,7 @@
 
 step4課題　テーブルスキーマの記載
 
+- [ Post ]
  | 名称 | カラム名 | データ型 |
  | :--- | :--- | :--- |
  | ポストid | id | string | 
@@ -9,7 +10,14 @@ step4課題　テーブルスキーマの記載
  | ポストtext | text | text |
  | 日付 | date | date |
  | 更新日 | date | date |
-    
+  
+  - [ Usrer ]
+   | 名称 | カラム名 | データ型 |
+   | :--- | :--- | :--- |
+   | ユーザーid | id | string | 
+   | パスワード | password  | string |
+   | メールアドレス | mail | text |
+　==画像を認識させるためにこの行を追加==  
     画面設計の写真(一覧画面、作成画面、詳細画面、編集画面)
     ![Screen design](https://user-images.githubusercontent.com/74219116/99372689-e2b3b180-2903-11eb-97d2-66638baeae88.jpeg)
     データ構造の写真
