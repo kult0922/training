@@ -71,6 +71,11 @@ RSpec.describe 'Visit admin user page', js: true, type: :system do
     context 'delete user' do
       let!(:user_to_delete) { create(:user) }
 
+      it 'cannot delete self' do
+        visit_with_login admin_user_path(admin), username: admin.name
+        expect(page).to have_no_selector(:link_or_button, I18n.t('delete'))
+      end
+
       it 'successfully' do
         visit_with_login admin_user_path(user_to_delete), username: admin.name
         page.accept_confirm I18n.t('delete_confirm') do

@@ -32,8 +32,12 @@ class Admin::UsersController < AdminController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_url, notice: I18n.t('notice_deleted')
+    if User.where(role: :admin).count <= 1
+      render :show, notice: I18n.t('admin.users.notice_cannot_delete_the_last_admin')
+    else
+      @user.destroy
+      redirect_to admin_users_url, notice: I18n.t('notice_deleted')
+    end
   end
 
   private
