@@ -16,8 +16,8 @@
                     <% @tasks.each do |tasks| %>
                     <tr>
                         <td><%= TASK_STATUS_LIST[tasks.status] %></td>
-                        <td><%= tasks.title %></td>
-                        <td><%= tasks.end_date == nil ? "" : tasks.end_date.strftime("%Y/%m/%d") %></td>
+                        <td><a href="tasks/taskdetail/<%= tasks.id %>"><%= tasks.title %></a></td>
+                        <td><%= tasks.end_date == nil ? "-" : tasks.end_date.strftime("%Y/%m/%d") %></td>
                     </tr>
                     <% end %>
                 </tbody>

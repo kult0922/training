@@ -1,3 +1,4 @@
+# タスクステータス情報
 TASK_MITYAKUSYU = 10
 TASK_MITYAKUSYU.freeze
 

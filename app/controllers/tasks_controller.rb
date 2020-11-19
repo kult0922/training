@@ -19,12 +19,20 @@ class TasksController < ApplicationController
     def createtask
         inputParams = Task.new(params.require(:task).permit(:status, :title, :detail))
 
+        # 成功
         if inputParams.save
             redirect_to :action => 'index'
+        # 失敗
         else
             render "newtask"
         end
+    end
 
-        
+    # タスク詳細
+    def taskdetail
+        param_id =  params[:id]
+
+        @taskInfos = Task.find(param_id)
+        # p @taskInfos
     end
 end
