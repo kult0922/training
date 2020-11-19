@@ -10,6 +10,10 @@ module SessionsHelper
     end
   end
 
+  def current_user?(user)
+    logged_in? ? current_user.id == user.id : false
+  end
+
   def logged_in?
     current_user.present?
   end

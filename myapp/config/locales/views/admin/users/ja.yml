@@ -1,0 +1,12 @@
+ja:
+  admin:
+    users:
+      not_found: 'ユーザーが見つかりませんでした'
+      notice_user_created: ユーザーを作成しました
+      index:
+        users: ユーザー一覧
+        new_user: ユーザー追加
+        number_of_tasks: タスク件数
+        number_of_tasks_of_user: "%{count}件タスク"
+      new:
+        new_user: ユーザー追加

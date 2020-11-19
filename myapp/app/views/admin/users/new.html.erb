@@ -1,0 +1,22 @@
+<h1><%= t '.new_user' %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<%= form_for @user, url: admin_users_path(@user) do |f| %>
+  <%= render 'layouts/error_messages', model: f.object %>
+  <%= f.label :email, t('email') %>
+  <%= f.email_field :email %>
+  <br>
+  <%= f.label :name, t('username') %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :password, t('password') %>
+  <%= f.password_field :password %>
+  <br>
+  <%= f.label :password_confirmation, t('password_confirmation') %>
+  <%= f.password_field :password_confirmation %>
+  <br>
+  <%= f.submit t('submit') %>
+<% end %>
+
+<%= link_to t('back'), admin_users_path %>

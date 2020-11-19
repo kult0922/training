@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
 
+  before_action :should_log_in
+
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, with: :render404
   rescue_from ActionController::RoutingError, with: :render404
