@@ -19,7 +19,7 @@
             <td><%= link_to user.name, admin_user_path(user.id) %></td>
             <td><%= user.email %></td>
             <td><%= user.tasks.size %></td>
-            <td><%= user.role %></td>
+            <td><%= user.role_i18n %></td>
             <td style='display: flex'>
               <%= link_to t('admin.link.edit'), edit_admin_user_path(user), class: 'btn btn-primary' %>
               <%= button_to t('admin.link.delete'), admin_user_path(user),

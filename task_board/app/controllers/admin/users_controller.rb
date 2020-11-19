@@ -39,8 +39,7 @@ module Admin
     def destroy
       if current_user == @user
         redirect_to admin_users_url, alert: t('admin.flash.delete.error')
-      elsif last_admin?
-        redirect_to admin_users_url, notice: '他に管理者ユーザーが無いため削除できません。'
+        return
       end
       @user.destroy
       redirect_to admin_users_url, notice: t('admin.flash.delete.success', name: @user.name)
@@ -58,10 +57,6 @@ module Admin
 
     def check_admin_role
       redirect_to login_url unless current_user&.admin?
-    end
-
-    def last_admin?
-      @user.admin? && User.where(role: :admin).size == 1
     end
   end
 end
