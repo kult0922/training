@@ -10,6 +10,9 @@
   <%= f.label :name, t('username') %>
   <%= f.text_field :name %>
   <br>
+  <%= f.label :role, t('activerecord.attributes.user.role') %>
+  <%= f.select :role, User.roles.keys.map {|k| [t("activerecord.attributes.user.roles.#{k}"), k] } %>
+  <br>
   <p><%= t('created_at') %>: <%= l @user.created_at %></p>
   <p><%= t('last_modified') %>: <%= l @user.updated_at %></p>
   <%= f.submit t('submit') %>

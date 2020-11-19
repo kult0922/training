@@ -6,5 +6,9 @@ ja:
       user:
         name: ユーザー名
         email: Eメール
+        role: ロール
         password: パスワード
         password_confirmation: パスワード確認
+        roles:
+          admin: 管理者
+          member: メンバー
