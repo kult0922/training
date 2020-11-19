@@ -6,6 +6,13 @@ RSpec.describe Task, type: :system do
   let!(:user) { create(:user) }
   let!(:task) { create(:task, user_id: user.id) }
 
+  before do
+    visit login_path
+    fill_in 'session_email', with: user.email
+    fill_in 'session_password', with: user.password
+    click_button 'ログイン'
+  end
+
   describe '#index' do
     it 'visit index page' do
       visit root_path
@@ -15,7 +22,6 @@ RSpec.describe Task, type: :system do
     describe 'sorting' do
       let!(:taskA) { create(:task, name: 'Task_end_1days', end_date: Time.current + 1.days, user_id: user.id) }
       let!(:taskB) { create(:task, name: 'Task_end_3days', end_date: Time.current + 3.days, user_id: user.id) }
-
       before do
         visit root_path
       end

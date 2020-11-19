@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let!(:user) { create(:user) }
   describe 'validation' do
     let(:user) { create(:user) }
     describe 'name' do
