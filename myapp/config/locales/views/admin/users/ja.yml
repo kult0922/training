@@ -8,3 +8,5 @@ ja:
         new_user: ユーザー追加
         number_of_tasks: タスク件数
         number_of_tasks_of_user: "%{count}件タスク"
+      new:
+        new_user: ユーザー追加
