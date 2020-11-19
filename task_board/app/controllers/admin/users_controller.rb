@@ -1,49 +1,51 @@
-class Admin::UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+module Admin
+  class UsersController < ApplicationController
+    before_action :set_user, only: %i[show edit update destroy]
 
-  def index
-    @users = User.all.page(params[:page])
-  end
-
-  def new
-    @user = User.new
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to admin_users_url, notice: t('admin.flash.create', name: @user.name)
-    else
-      render :new
+    def index
+      @users = User.all.page(params[:page])
     end
-  end
 
-  def show
-    @tasks = @user.tasks.order(created_at: :desc)
-  end
-
-  def edit; end
-
-  def update
-    if @user.update(user_params)
-      redirect_to admin_users_url, notice: t('admin.flash.update', name: @user.name)
-    else
-      render :edit
+    def new
+      @user = User.new
     end
-  end
 
-  def destroy
-    @user.destroy
-    redirect_to admin_users_url, notice: t('admin.flash.delete', name: @user.name)
-  end
+    def create
+      @user = User.new(user_params)
+      if @user.save
+        redirect_to admin_users_url, notice: t('admin.flash.create', name: @user.name)
+      else
+        render :new
+      end
+    end
 
-  private
+    def show
+      @tasks = @user.tasks.order(created_at: :desc)
+    end
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end
+    def edit; end
 
-  def set_user
-    @user = User.find(params[:id])
+    def update
+      if @user.update(user_params)
+        redirect_to admin_users_url, notice: t('admin.flash.update', name: @user.name)
+      else
+        render :edit
+      end
+    end
+
+    def destroy
+      @user.destroy
+      redirect_to admin_users_url, notice: t('admin.flash.delete', name: @user.name)
+    end
+
+    private
+
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def set_user
+      @user = User.find(params[:id])
+    end
   end
 end
