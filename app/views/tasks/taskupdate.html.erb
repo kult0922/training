@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="mt-3">
+        <h1 class="text-center">タスク更新画面</h1>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-8 mx-auto">
+            <%= form_for(@task, url: {controller: 'tasks', action: 'taskupdateprocess'}) do |f| %>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <%= f.label :status,"ステータス" %>
+                        </th>
+                        <td>
+                            <%= f.select :status, [[TASK_STATUS_LIST[TASK_MITYAKUSYU], TASK_MITYAKUSYU], 
+                                [TASK_STATUS_LIST[TASK_TYAKUSYU], TASK_TYAKUSYU], 
+                                [TASK_STATUS_LIST[TASK_KANRYO], TASK_KANRYO]] %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">
+                            <%= f.label :title,"タイトル" %>
+                        </th>
+                        <td>
+                            <%= f.text_field :title, class: "col-sm-12" %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">
+                            <%= f.label :detail,"詳細" %>
+                        </th>
+                        <td>
+                            <%= f.text_area :detail,rows: "10", class: "col-sm-12" %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row mt-5">
+                <div class="col-sm-4 text-left">
+                    <%= link_to( "キャンセル" , tasks_taskdetail_path(@task.id), class: "btn btn-secondary" ) %>
+                </div>
+                <div class="col-sm-4 text-right">
+                    <%= f.hidden_field :hid, :value => @task.id %>
+                    <%= f.submit "更新" %>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
