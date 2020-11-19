@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include SessionsHelper
+  include ApplicationHelper, SessionsHelper
 
   before_action :should_log_in
 
@@ -24,4 +24,11 @@ class ApplicationController < ActionController::Base
   def should_log_in
     redirect_to login_path unless logged_in?
   end
+
+  def require_admin_privilege
+    unless admin?
+      render404 "unauthorized access: #{request.path} #{logged_in? ? current_user.id : '-'}"
+    end
+  end
+
 end
