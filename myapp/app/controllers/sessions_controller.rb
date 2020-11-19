@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :should_log_in
 
   def new
     redirect_back fallback_location: root_path if logged_in?

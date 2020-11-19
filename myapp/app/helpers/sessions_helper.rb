@@ -11,7 +11,7 @@ module SessionsHelper
   end
 
   def current_user?(user)
-    current_user.id == user.id
+    logged_in? ? current_user.id == user.id : false
   end
 
   def logged_in?
