@@ -34,8 +34,12 @@ module Admin
     end
 
     def destroy
+      if current_user == @user
+        redirect_to admin_users_url, alert: t('admin.flash.delete.error')
+        return
+      end
       @user.destroy
-      redirect_to admin_users_url, notice: t('admin.flash.delete', name: @user.name)
+      redirect_to admin_users_url, notice: t('admin.flash.delete.success', name: @user.name)
     end
 
     private

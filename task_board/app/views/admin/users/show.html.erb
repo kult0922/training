@@ -19,7 +19,8 @@
   </table>
   <div style='display: flex' class='justify-content-md-center'>
     <%= link_to t('admin.link.edit'), edit_admin_user_path(@user), class: 'btn btn-primary' %>
-    <%= button_to t('admin.link.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('admin.delete_confirm', name: @user.name) }, class: 'btn btn-danger' %>
+    <%= button_to t('admin.link.delete'), admin_user_path(@user),
+      method: :delete, data: { confirm: t('admin.delete_confirm', name: @user.name) }, class: 'btn btn-danger' %>
   </div>
   <h3><%= t('admin.title.task_list') %></h3>
   <table class='table'>

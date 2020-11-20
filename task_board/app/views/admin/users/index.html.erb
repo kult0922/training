@@ -8,7 +8,7 @@
           <th scope='col'><%= @users.human_attribute_name(:name) %></th>
           <th scope='col'><%= @users.human_attribute_name(:email) %></th>
           <th scope='col'><%= @users.human_attribute_name(:tasks_count) %></th>
-          <th scope='col'> </th>
+          <th scope='col'></th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +20,8 @@
             <td><%= user.tasks.size %></td>
             <td style='display: flex'>
               <%= link_to t('admin.link.edit'), edit_admin_user_path(user), class: 'btn btn-primary' %>
-              <%= button_to t('admin.link.delete'), admin_user_path(user), method: :delete, data: { confirm: t('admin.delete_confirm', name: user.name) }, class: 'btn btn-danger' %>
+              <%= button_to t('admin.link.delete'), admin_user_path(user),
+                method: :delete, data: { confirm: t('admin.delete_confirm', name: user.name) }, class: 'btn btn-danger' %>
             </td>
           </tr>
         <% end %>

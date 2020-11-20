@@ -47,5 +47,7 @@ ja:
     flash:
       create: "ユーザ「%{name}」を登録しました。"
       update: "ユーザ「%{name}」を更新しました。"
-      delete: "ユーザ「%{name}」を削除しました。"
+      delete:
+        success: "ユーザ「%{name}」を削除しました。"
+        error: '自分のアカウントは削除できません。'
     delete_confirm: "ユーザ：「%{name}」、本当に削除しますか？"
