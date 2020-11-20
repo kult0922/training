@@ -91,7 +91,5 @@ class TasksController < ApplicationController
       flash.now[:warning] = "削除に失敗しました・・・"
       render "taskdetail"
     end
-    
   end
-  
 end
