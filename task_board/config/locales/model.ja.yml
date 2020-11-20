@@ -12,6 +12,8 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード確認
+        tasks_count: タスク数
+        created_at: 登録日時
   enums:
     task:
       priority:

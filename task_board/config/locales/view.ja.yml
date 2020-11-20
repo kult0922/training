@@ -30,3 +30,26 @@ ja:
     password_confirmation: パスワード確認
     message:
       success: 会員登録完了しました。
+  admin:
+    title:
+      index: ユーザ一覧
+      show: ユーザ詳細
+      new: ユーザ新規登録
+      edit: ユーザ編集
+      edit_password: パスワード変更
+      task_list: ユーザタスク
+    link:
+      index: ユーザ一覧へ
+      new: ユーザ新規登録
+      edit: 編集
+      delete: 削除
+      edit_password: パスワード変更はこちらへ
+    button:
+      save: 保存
+    flash:
+      create: "ユーザ「%{name}」を登録しました。"
+      update: "ユーザ「%{name}」を更新しました。"
+      delete:
+        success: "ユーザ「%{name}」を削除しました。"
+        error: '自分のアカウントは削除できません。'
+    delete_confirm: "ユーザ：「%{name}」、本当に削除しますか？"
