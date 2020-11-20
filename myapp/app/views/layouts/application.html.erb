@@ -13,7 +13,9 @@
     <% if logged_in? %>
       <div style='text-align: right'>
         <%= current_user.name %>
-        <%= link_to t('admin_page'), admin_path %>
+        <% if admin? %>
+          <%= link_to t('admin_page'), admin_path %>
+        <% end %>
         <%= link_to t('logout'), logout_path, method: :delete %>
       </div>
     <% end %>

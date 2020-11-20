@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < AdminController
   before_action :set_user, only: [:show, :update, :destroy]
 
   def index
@@ -32,8 +32,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_url, notice: I18n.t('notice_deleted')
+    if User.where(role: :admin).count <= 1
+      render :show, locals: { notice: I18n.t('admin.users.notice_cannot_delete_the_last_admin') }
+    else
+      @user.destroy
+      redirect_to admin_users_url, notice: I18n.t('notice_deleted')
+    end
   end
 
   private
@@ -45,7 +49,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.fetch(:user, {}).permit(:name, :email, :password, :password_confirmation)
+    params.fetch(:user, {}).permit(:name, :email, :role, :password, :password_confirmation)
   end
 
 end

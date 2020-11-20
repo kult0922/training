@@ -39,3 +39,7 @@ ja:
           other: "<strong>1-%{count}</strong>/%{count}件中"
       more_pages:
         display_entries: "<strong>%{first}-%{last}</strong>/%{total}件中"
+
+  time:
+    formats:
+      default: "%Y年%m月%d日(%a) %H時%M分%S秒"

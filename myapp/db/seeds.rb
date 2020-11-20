@@ -10,6 +10,7 @@ user = User.create!(
   name: 'admin',
   email: 'admin@example.com',
   password: 'admin',
+  role: User.roles.admin,
 )
 
 if Rails.env.development?

@@ -3,6 +3,7 @@ ja:
     users:
       not_found: 'ユーザーが見つかりませんでした'
       notice_user_created: ユーザーを作成しました
+      notice_cannot_delete_the_last_admin: 最後の管理者は削除できません
       index:
         users: ユーザー一覧
         new_user: ユーザー追加
