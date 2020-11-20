@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   # タスク更新処理
   patch 'tasks/taskupdateprocess' => "tasks#taskupdateprocess"
 
+  delete 'tasks/taskdelete/:id', :to => "tasks#taskdelete",:as => :tasks_taskdelete
+
 end

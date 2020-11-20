@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     # 登録成功
     if insertTask.save
       redirect_to action: "index"
-      # 失敗
+    # 失敗
     else
       render "newtask"
     end
@@ -64,9 +64,27 @@ class TasksController < ApplicationController
     # 更新成功
     if updateTask.save
       redirect_to action: "index"
-      # 失敗
+    # 失敗
     else
       render "taskupdate"
     end
   end
+
+  def taskdelete
+    # Getパラメータの取得
+    param_id = params[:id]
+
+    # 削除実行
+    delTask = Task.destroy(param_id)
+
+    # 削除成功
+    if delTask
+      redirect_to action: "index"
+    # 失敗
+    else
+      render "taskdetail"
+    end
+    
+  end
+  
 end
