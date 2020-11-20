@@ -54,3 +54,17 @@ ja:
         success: "ユーザ「%{name}」を削除しました。"
         error: 自分のアカウントは削除できません。
     delete_confirm: "ユーザ：「%{name}」、本当に削除しますか？"
+  labels:
+    title:
+      new: ラベル登録
+      index: ラベル一覧
+    link:
+      index: ラベル一覧へ
+      new: 新規登録
+      delete: 削除
+    button:
+      save: 保存
+    flash:
+      create: "ラベル「%{name}」を登録しました。"
+      delete: "ラベル「%{name}」を削除しました。"
+    delete_confirm: "ラベル：「%{name}」、本当に削除しますか？"

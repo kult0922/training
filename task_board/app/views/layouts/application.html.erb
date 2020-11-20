@@ -25,6 +25,9 @@
             <li class='nav-item'>
               <%= link_to 'Tasks', tasks_path, class: 'nav-link' %>
             </li>
+            <li class='nav-item'>
+              <%= link_to 'Labels', labels_path, class: 'nav-link' %>
+            </li>
             <% if logged_in? && current_user.admin? %>
               <li class='nav-item'>
                 <%= link_to 'Admin', admin_users_path, class: 'nav-link' %>

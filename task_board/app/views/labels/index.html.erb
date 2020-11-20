@@ -1,0 +1,24 @@
+<div class='container'>
+  <h1><%= I18n.t('labels.title.index') %></h1>
+  <%= link_to t('labels.link.new'), new_label_path, class: 'btn btn-info' %>
+  <table class='table text-center'>
+    <thead>
+      <tr>
+        <th scope='col'><%= @labels.human_attribute_name(:name) %></th>
+        <th scope='col'> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @labels.each do |label| %>
+        <tr>
+          <td><%= label.name %></td>
+          <td style='display: flex'>
+            <%= button_to t('labels.link.delete'), label_path(label),
+              method: :delete, data: { confirm: t('labels.delete_confirm', name: label.name) }, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @labels %>
+</div>
