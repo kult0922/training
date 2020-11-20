@@ -1,5 +1,6 @@
 <div class='container'>
   <h1><%= t('admin.title.edit') %></h1>
   <%= link_to t('admin.link.index'), admin_users_path, class: 'btn btn-info' %>
+  <%= link_to t('admin.link.edit_password'), edit_password_admin_user_path(@user), class: 'float-right' %>
   <%= render partial: 'form' %>
 </div>

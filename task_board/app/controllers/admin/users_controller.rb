@@ -1,6 +1,7 @@
 module Admin
   class UsersController < ApplicationController
-    before_action :set_user, only: %i[show edit update destroy]
+    before_action :logged_in_user
+    before_action :set_user, only: %i[show edit update destroy edit_password]
 
     def index
       @users = User.all.page(params[:page])
@@ -24,6 +25,8 @@ module Admin
     end
 
     def edit; end
+
+    def edit_password; end
 
     def update
       if @user.update(user_params)

@@ -36,12 +36,14 @@ ja:
       show: ユーザ詳細
       new: ユーザ新規登録
       edit: ユーザ編集
+      edit_password: パスワード変更
       task_list: ユーザタスク
     link:
       index: ユーザ一覧へ
       new: ユーザ新規登録
       edit: 編集
       delete: 削除
+      edit_password: パスワード変更はこちらへ
     button:
       save: 保存
     flash:

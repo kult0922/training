@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :tasks
 
   namespace :admin do
-    resources :users
+    resources :users do
+      get 'edit_password', on: :member
+    end
   end
 
   get '*path', to: 'application#routing_error'
