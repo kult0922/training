@@ -18,3 +18,4 @@ ja:
         description: 詳細
         status: ステータス
         priority: 優先度
+        labels: ラベル

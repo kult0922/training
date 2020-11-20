@@ -7,6 +7,9 @@
   <%= f.label :description, t('description') %>
   <%= f.text_area :description %>
   <br>
+  <%= f.label :labels %>
+  <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, { multiple: true } %>
+  <br>
   <%= f.select :status, Task.statuses.keys.map {|k| [t("models.tasks.status.#{k}"), k] } %>
   <br>
   <%= f.select :priority, Task.priorities.keys.map {|k| [t("models.tasks.priority.#{k}"), k]} %>

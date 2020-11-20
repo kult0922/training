@@ -4,6 +4,9 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { minimum: 1, maximum: 100 }
   validates :description, length: { maximum: 2000 }
 
+  has_many :task_labels, dependent: :delete_all
+  has_many :labels, through: :task_labels
+
   enum status: {
     todo: 0,
     doing: 1,

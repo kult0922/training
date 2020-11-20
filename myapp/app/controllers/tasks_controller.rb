@@ -76,6 +76,6 @@ class TasksController < ApplicationController
   # Only allow a list of trusted parameters through.
   def task_params
     params[:title]&.strip!
-    params.fetch(:task, {}).permit(:user_id, :title, :description, :status, :priority)
+    params.fetch(:task, {}).permit(:user_id, :title, :description,  :status, :priority, { :label_ids => [] })
   end
 end

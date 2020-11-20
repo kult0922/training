@@ -22,6 +22,14 @@
 
   <br>
 
+  <%= f.label :labels, t('activerecord.attributes.task.labels') %>
+  <%= f.radio_button :labels_id_eq, '', {:checked => true} %><%= t('unspecified') %>
+  <% Label.all.each do |label| %>
+    <%= f.radio_button :labels_id_eq, label.id %><%= label.name %>
+  <% end %>
+
+  <br>
+
   <%= f.submit t('search') %>
 <% end %>
 
