@@ -10,8 +10,10 @@ user = User.create!(
   name: 'admin',
   email: 'admin@example.com',
   password: 'admin',
-  role: User.roles.admin,
+  role: User.roles[:admin],
 )
+
+Label.create!([{ name: 'feature' }, { name: 'bug' }, { name: 'duplicate' }])
 
 if Rails.env.development?
   tasks = []
