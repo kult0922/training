@@ -17,6 +17,8 @@ RSpec.describe 'Task', js: true, type: :system do
       end
 
       context 'search tasks' do
+        let!(:labels) { create_pair(:label, tasks: [ tasks[0] ]) }
+
         it 'by title' do
           visit_with_login root_path, username: tasks[0].user.name
           fill_in 'q_title_cont', with: tasks[0].title
@@ -41,12 +43,21 @@ RSpec.describe 'Task', js: true, type: :system do
           expect(page).not_to have_content tasks[1].title
         end
 
+        it 'by label' do
+          visit_with_login root_path, username: tasks[0].user.name
+          choose "q_labels_id_eq_#{labels[0].id}"
+          click_button I18n.t('search')
+          expect(page).to have_content tasks[0].title
+          expect(page).not_to have_content tasks[1].title
+        end
+
       end # context 'search tasks'
 
     end # context 'on index'
 
     context 'on new task' do
       let!(:user) { create(:user) }
+      let!(:label) { create(:label) }
 
       it 'should login' do
         visit new_task_path
@@ -80,6 +91,7 @@ RSpec.describe 'Task', js: true, type: :system do
         visit_with_login new_task_path
         fill_in I18n.t('title'), with: 'title'
         fill_in I18n.t('description'), with: 'description'
+        check label.name
         click_button I18n.t('submit')
 
         expect(page).to have_content I18n.t('controllers.tasks.notice_task_created')
@@ -92,19 +104,23 @@ RSpec.describe 'Task', js: true, type: :system do
 
     context 'on edit task' do
       let!(:task) { create(:task) }
+      let!(:label) { create(:label) }
 
       it 'submit successfully' do
         visit_with_login task_path(task), username: task.user.name
         expect(page).to have_field I18n.t('title'), with: task.title
         expect(page).to have_field I18n.t('description'), with: task.description
+        expect(page).to have_unchecked_field label.name
 
         fill_in I18n.t('title'), with: 'tittleeeeeee'
         fill_in I18n.t('description'), with: 'descriptionnnnnn'
+        check label.name
         click_button I18n.t('submit')
 
         expect(page).to have_content I18n.t('controllers.tasks.notice_task_updated')
         expect(page).to have_field I18n.t('title'), with: 'tittleeeeeee'
         expect(page).to have_field I18n.t('description'), with: 'descriptionnnnnn'
+        expect(page).to have_checked_field label.name
         visit root_path
         expect(page).to have_content 'tittleeeeeee'
       end
