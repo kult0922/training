@@ -22,9 +22,11 @@ class TasksController < ApplicationController
 
     # 登録成功
     if insertTask.save
+      flash[:success] = "登録に成功しました！"
       redirect_to action: "index"
     # 失敗
     else
+      flash.now[:warning] = "登録に失敗しました・・・"
       render "newtask"
     end
   end
@@ -63,9 +65,12 @@ class TasksController < ApplicationController
 
     # 更新成功
     if updateTask.save
+
+      flash[:success] = "更新に成功しました！"
       redirect_to action: "index"
     # 失敗
     else
+      flash.now[:warning] = "更新に失敗しました・・・"
       render "taskupdate"
     end
   end
@@ -79,9 +84,11 @@ class TasksController < ApplicationController
 
     # 削除成功
     if delTask
+      flash[:success] = "削除に成功しました！"
       redirect_to action: "index"
     # 失敗
     else
+      flash.now[:warning] = "削除に失敗しました・・・"
       render "taskdetail"
     end
     
