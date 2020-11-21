@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'select' %>
 <% @task.errors.full_messages.each do |msg| %>
   <div class='alert alert-danger'><%= msg %></div>
 <% end %>
@@ -18,12 +19,16 @@
   <div class='form-row'>
     <div class='form-group col-md-6'>
       <%= form.label(:priority) %>
-      <%= form.select :priority, Task.priorities.keys, {}, class: 'custom-select' %>
+      <%= form.select :priority, Task.priorities_i18n.invert, {}, class: 'custom-select' %>
     </div>
     <div class='form-group col-md-6'>
       <%= form.label(:status) %>
-      <%= form.select :status, Task.statuses.keys, {}, class: 'custom-select' %>
+      <%= form.select :status, Task.statuses_i18n.invert, {}, class: 'custom-select' %>
     </div>
+  </div>
+  <div class='form-group'>
+    <%= form.label(:label) %>
+    <%= form.select(:label_ids, current_user.labels.collect { |l| [ l.name, l.id] }, {}, class: 'form-control', :multiple => true) %>
   </div>
   <%= form.submit "#{type}", class: 'btn btn-primary' %>
 <% end %>

@@ -7,6 +7,7 @@ ja:
         end_date: 最終期限
         priority: 優先順位
         status: ステータス
+        label: ラベル
       user:
         name: ユーザー名
         email: メールアドレス

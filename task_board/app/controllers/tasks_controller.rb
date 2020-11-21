@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   def index
     @q = current_user.tasks.ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
-    @tasks = @q.result.includes(:user).page(params[:page])
+    @tasks = @q.result.includes(:user, :labels).page(params[:page])
   end
 
   def new
@@ -47,6 +47,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :end_date, :priority, :status)
+    params.require(:task).permit(:name, :description, :end_date, :priority, :status, label_ids: [])
   end
 end
