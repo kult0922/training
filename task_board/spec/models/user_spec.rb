@@ -6,9 +6,17 @@ RSpec.describe Task, type: :model do
     let(:email) { 'test@test.com' }
     let(:password) { 'password' }
     let(:password_confirmation) { 'password' }
+    let(:role) { :basic }
 
     subject do
-      build(:user, name: name, email: email, password: password, password_confirmation: password_confirmation)
+      build(
+        :user,
+        name: name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+        role: role
+      )
     end
 
     describe 'valid' do

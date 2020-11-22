@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_015601) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest", null: false
-    t.integer "role", limit: 1, null: false
+    t.integer "role", limit: 1, default: 2, null: false
   end
 
   add_foreign_key "task_labels", "labels"
