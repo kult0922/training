@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.role = :basic
     if @user.valid?
       @user.save
       log_in @user
