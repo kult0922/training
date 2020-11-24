@@ -1,5 +1,5 @@
 <div class='container'>
-  <h1><%= I18n.t('labels.title.new') %></h1>
+  <h1><%= I18n.t('labels.title.edit') %></h1>
   <%= link_to I18n.t('labels.link.index'), labels_path, class: 'btn btn-info' %>
   <%= render partial: 'form', locals: { label: @label } %>
 </div>

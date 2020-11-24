@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :labels, only: %I[index new create destroy]
+  resources :labels
 
   get '*path', to: 'application#routing_error'
 end

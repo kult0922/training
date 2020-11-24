@@ -1,0 +1,10 @@
+<% label.errors.full_messages.each do |msg| %>
+  <div class='alert alert-danger'><%= msg %></div>
+<% end %>
+<%= form_with model: label, local: true do |form| %>
+  <div class='form-group'>
+    <%= form.label(:name) %>
+    <%= form.text_field :name, required: true, class: 'form-control' %>
+  </div>
+  <%= form.submit t('labels.button.save'), class: 'btn btn-primary' %>
+<% end %>

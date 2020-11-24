@@ -19,6 +19,19 @@ class LabelsController < ApplicationController
     end
   end
 
+  def edit
+    @label = current_user.labels.find(params[:id])
+  end
+
+  def update
+    @label = Label.find(params[:id])
+    if @label.update(label_params)
+      redirect_to labels_url, notice: I18n.t('labels.flash.update', name: @label.name)
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @label = Label.find(params[:id])
     @label.destroy

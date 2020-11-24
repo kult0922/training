@@ -13,6 +13,7 @@
         <tr>
           <td><%= label.name %></td>
           <td style='display: flex'>
+            <%= link_to I18n.t('labels.link.edit'), edit_label_path(label), class: 'btn btn-primary' %>
             <%= button_to t('labels.link.delete'), label_path(label),
               method: :delete, data: { confirm: t('labels.delete_confirm', name: label.name) }, class: 'btn btn-danger' %>
           </td>
