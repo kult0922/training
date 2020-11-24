@@ -12,9 +12,7 @@
               <%= f.label :status,"ステータス" %>
             </th>
             <td>
-              <%= f.select :status, [[TASK_STATUS_LIST[TASK_MITYAKUSYU], TASK_MITYAKUSYU], 
-                                [TASK_STATUS_LIST[TASK_TYAKUSYU], TASK_TYAKUSYU], 
-                                [TASK_STATUS_LIST[TASK_KANRYO], TASK_KANRYO]] %>
+              <%= f.select :status,@tasksList, :selected=>@task.status_before_type_cast , class: "" %>
             </td>
           </tr>
           <tr>

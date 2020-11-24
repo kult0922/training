@@ -18,7 +18,11 @@ class TasksController < ApplicationController
 
   # タスク登録処理
   def createtask
-    insertTask = Task.new(params.require(:task).permit(:status, :title, :detail))
+    statusParam =  params[:task][:status].to_i
+    titleParam =  params[:task][:title]
+    detailParam =  params[:task][:detail]
+
+    insertTask = Task.new(status: statusParam, title: titleParam, detail: detailParam)
 
     # 登録成功
     if insertTask.save
@@ -45,15 +49,18 @@ class TasksController < ApplicationController
     # Getパラメータの取得
     param_id = params[:id]
 
+    @tasksList = Task.statuses
+
     # パラメータのIDを元にタスクテーブルを検索
     @task = Task.find(param_id)
+
   end
 
   # タスク更新処理
   def taskupdateprocess
     # Getパラメータの取得
     param_id = params[:task][:hid]
-    param_status = params[:task][:status]
+    param_status = params[:task][:status].to_i
     param_title = params[:task][:title]
     param_detail = params[:task][:detail]
 
@@ -90,6 +97,14 @@ class TasksController < ApplicationController
     else
       flash.now[:warning] = "削除に失敗しました・・・"
       render "taskdetail"
+    end
+  end
+
+  def params_int(model_params)
+    model_params.each do |key,value|
+      if integer_string?(value)
+        model_params[key]=value.to_i
+      end
     end
   end
 end

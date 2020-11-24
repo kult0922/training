@@ -7,9 +7,7 @@
       <%= form_for(@task, url: {controller: 'tasks', action: 'createtask'}) do |f| %>
       <div class="form-group">
         <%= f.label :status,"ステータス", class: "col-sm-4" %>
-        <%= f.select :status, [[TASK_STATUS_LIST[TASK_MITYAKUSYU], TASK_MITYAKUSYU], 
-                    [TASK_STATUS_LIST[TASK_TYAKUSYU], TASK_TYAKUSYU], 
-                    [TASK_STATUS_LIST[TASK_KANRYO], TASK_KANRYO]], class: "col-sm-7" %>
+        <%= f.select :status, Task.statuses, {}, class: "col-sm-7" %>
       </div>
       <div class="form-group">
         <%= f.label :title,"タイトル", class: "col-sm-4" %>
