@@ -7,14 +7,13 @@ Rails.application.routes.draw do
 
   resources :users, only: %I[new create]
   resources :tasks
+  resources :labels
 
   namespace :admin do
     resources :users do
       get 'edit_password', on: :member
     end
   end
-
-  resources :labels
 
   get '*path', to: 'application#routing_error'
 end
