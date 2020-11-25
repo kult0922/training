@@ -1,6 +1,6 @@
 module Admin
   class UsersController < ApplicationController
-    before_action :logged_in_user
+    before_action :check_admin_role
     before_action :set_user, only: %i[show edit update destroy edit_password]
 
     def index
@@ -48,11 +48,15 @@ module Admin
     private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
     end
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def check_admin_role
+      redirect_to login_url unless current_user&.admin?
     end
   end
 end

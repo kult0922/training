@@ -38,6 +38,7 @@ ja:
       edit: ユーザ編集
       edit_password: パスワード変更
       task_list: ユーザタスク
+      edit_password: パスワード変更
     link:
       index: ユーザ一覧へ
       new: ユーザ新規登録
@@ -51,5 +52,5 @@ ja:
       update: "ユーザ「%{name}」を更新しました。"
       delete:
         success: "ユーザ「%{name}」を削除しました。"
-        error: '自分のアカウントは削除できません。'
+        error: 自分のアカウントは削除できません。
     delete_confirm: "ユーザ：「%{name}」、本当に削除しますか？"

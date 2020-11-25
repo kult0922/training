@@ -12,6 +12,10 @@
         <td><%= @user.email %></td>
       </tr>
       <tr>
+        <th><%= User.human_attribute_name(:role) %></th>
+        <td><%= @user.role_i18n %></td>
+      </tr>
+      <tr>
         <th><%= User.human_attribute_name(:created_at) %></th>
         <td><%= l @user.created_at %></td>
       </tr>
@@ -26,6 +30,7 @@
   <table class='table'>
     <thead>
       <tr>
+        <th scope='col'>ID</th>
         <th scope='col'><%= @tasks.human_attribute_name(:name) %></th>
         <th scope='col'><%= @tasks.human_attribute_name(:end_date) %></th>
         <th scope='col'><%= @tasks.human_attribute_name(:status) %></th>
@@ -35,7 +40,8 @@
     <tbody>
       <% @tasks.each do |task| %>
         <tr>
-          <td><%= link_to task.name, task %></td>
+          <td><%= task.id %></td>
+          <td><%= task.name %></td>
           <td><%= task.end_date %></td>
           <td><%= task.status %></td>
           <td><%= task.priority %></td>

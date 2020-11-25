@@ -1,5 +1,5 @@
 <div class='container'>
   <h1><%= t('admin.title.new') %></h1>
   <%= link_to t('admin.link.index'), admin_users_path, class: 'btn btn-info' %>
-  <%= render partial: 'form' %>
+  <%= render partial: 'form', locals: { type: 'new' } %>
 </div>

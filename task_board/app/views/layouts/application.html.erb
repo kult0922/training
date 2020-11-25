@@ -23,8 +23,13 @@
         <div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
           <ul class='navbar-nav mr-auto'>
             <li class='nav-item'>
-              <%= link_to 'Admin', admin_users_path, class: 'nav-link' %>
+              <%= link_to 'Tasks', tasks_path, class: 'nav-link' %>
             </li>
+            <% if logged_in? && current_user.admin? %>
+              <li class='nav-item'>
+                <%= link_to 'Admin', admin_users_path, class: 'nav-link' %>
+              </li>
+            <% end %>
           </ul>
           <ul class="navbar-nav ml-auto">
             <% if logged_in? %>
