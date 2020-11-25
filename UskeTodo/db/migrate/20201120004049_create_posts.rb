@@ -6,7 +6,6 @@ class CreatePosts < ActiveRecord::Migration[6.0]
       t.text :detail
       t.datetime :created_at
       t.datetime :updated_at
-
     end
   end
 end
