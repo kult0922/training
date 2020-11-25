@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 
+  password: 
+  email: 
+  created_at: 2020-11-20 09:45:27
+  updated_at: 2020-11-20 09:45:27
+
+two:
+  id: 
+  password: 
+  email: 
+  created_at: 2020-11-20 09:45:27
+  updated_at: 2020-11-20 09:45:27
