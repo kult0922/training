@@ -1,0 +1,9 @@
+ja:
+  tasks:
+    taskupdate:
+      page_title: "タスク更新画面"
+      cancel_button: "キャンセル"
+      edit_button: "編集"
+  helpers: # ここから下を追加する
+    submit:
+      update: "更新"

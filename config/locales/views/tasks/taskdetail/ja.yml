@@ -1,0 +1,11 @@
+ja:
+  tasks:
+    taskdetail:
+      page_title: "タスク詳細"
+      status: "ステータス"
+      title: "タイトル"
+      detail: "詳細"
+      end_date: "終了期限"
+      back_button: "戻る"
+      edit_button: "編集"
+      delete_button: "削除"
