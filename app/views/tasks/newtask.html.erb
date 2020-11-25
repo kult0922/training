@@ -1,28 +1,28 @@
 <div class="container">
   <div class="mt-3">
-    <h1 class="text-center">タスク登録画面</h1>
+    <h1 class="text-center"><%= t('tasks.newtask.page_title')%></h1>
   </div>
   <div class="row mt-5">
     <div class="col-sm-8 mx-auto">
       <%= form_for(@task, url: {controller: 'tasks', action: 'createtask'}) do |f| %>
       <div class="form-group">
-        <%= f.label :status,"ステータス", class: "col-sm-4" %>
+        <%= f.label :status, class: "col-sm-4" %>
         <%= f.select :status, Task.statuses, {}, class: "col-sm-7" %>
       </div>
       <div class="form-group">
-        <%= f.label :title,"タイトル", class: "col-sm-4" %>
+        <%= f.label :title, class: "col-sm-4" %>
         <%= f.text_field :title, class: "col-sm-7" %>
       </div>
       <div class="form-group">
-        <%= f.label :detail,"内容", class: "col-sm-4" %>
+        <%= f.label :detail, class: "col-sm-4" %>
         <%= f.text_area :detail, rows: "10", class: "col-sm-7" %>
       </div>
       <div class="row mt-5">
         <div class="col-sm-4 text-left">
-          <%= link_to( "戻る" , "/", class: "btn btn-secondary" ) %>
+          <%= link_to( "#{t('tasks.newtask.back_button')}" , "/", class: "btn btn-secondary" ) %>
         </div>
         <div class="col-sm-4 text-right">
-          <%= f.submit "送信" %>
+          <%= f.submit %>
         </div>
       </div>
       <% end %>

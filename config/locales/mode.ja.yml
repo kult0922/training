@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models: #ここから下のコードを追加
+      task: "タスク"
+    attributes:
+      task:
+        status: "ステータス"
+        title: "タイトル"
+        detail: "内容"

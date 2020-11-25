@@ -61,3 +61,5 @@ group :development do
 end
 
 gem 'webdrivers'
+
+gem 'rails-i18n'

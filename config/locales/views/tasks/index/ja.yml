@@ -1,0 +1,8 @@
+ja:
+  tasks:
+    index:
+      page_title: "タスク一覧画面"
+      status: "ステータス"
+      task: "タスク"
+      end_date: "終了期限"
+      submit_button: "タスク登録"
