@@ -1,4 +1,5 @@
 require 'rake_helper'
+require 'rails_helper'
 
 RSpec.describe 'maintenance', js: true, type: :system do
 
