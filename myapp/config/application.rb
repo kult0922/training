@@ -25,5 +25,12 @@ module Myapp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    if Rails.root.join('tmp/maintenance.yml').exist?
+      config.x.maintenance.enable = true
+      m = YAML.load_file(Rails.root.join('tmp/maintenance.yml'))
+      ips = m[Rails.env]['allow_ips']&.map { |ip| IPAddr.new(ip) } || []
+      config.x.maintenance.allow_ips = ips
+    end
   end
 end

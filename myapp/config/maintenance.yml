@@ -1,0 +1,11 @@
+development:
+  allow_ips:
+    - '127.0.0.1'
+    - '192.168.0.0/24'
+
+test:
+  allow_ips:
+    - '127.0.0.1'
+
+production:
+  allow_ips: []

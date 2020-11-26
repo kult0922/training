@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper, SessionsHelper
 
   before_action :should_log_in
+  before_action -> { render503('under maintenance') }, if: :maintenance?
 
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, with: :render404
@@ -19,6 +20,11 @@ class ApplicationController < ActionController::Base
     render status: :internal_server_error, template: 'errors/500', locals: { message: 'Internal Server Error' }
   end
 
+  def render503(e)
+    logger.info e
+    render status: :service_unavailable, template: 'errors/503', locals: { message: 'Service Unavailable' }
+  end
+
   private
 
   def should_log_in
@@ -29,6 +35,11 @@ class ApplicationController < ActionController::Base
     unless admin?
       render404 "unauthorized access: #{request.path} #{logged_in? ? current_user.id : '-'}"
     end
+  end
+
+  def maintenance?
+    Rails.application.config.x.maintenance.enable &&
+      !Rails.application.config.x.maintenance.allow_ips.any? { |ip| ip.include? request.remote_ip }
   end
 
 end
