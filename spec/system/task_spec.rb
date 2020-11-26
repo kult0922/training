@@ -1,14 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe "Tasks", type: :system do
-  before(:each) do
-    @task = create(:task)
-  end
+  let!(:task) { create(:task) }
 
   context '画面表示が正常' do
     it 'タスク一覧画面が表示されること' do
       visit '/'
       expect(page).to have_content 'タスク一覧画面'
+    end
+
+    it 'タスク一覧画面 - タスク登録ボタンが表示されること' do
+      visit '/'
+      expect(page).to have_link 'タスク登録'
+    end
+
+    it 'タスク一覧画面（表示項目の確認）- 登録したステータスが表示されること' do
+      visit '/'
+      td1 = all('tbody tr')[0].all('td')[0]
+      expect(td1).to have_content "#{task.status}"
+    end
+
+    it 'タスク一覧画面（表示項目の確認）- 登録したタスクが表示されること' do
+      visit '/'
+      td2 = all('tbody tr')[0].all('td')[1]
+      expect(td2).to have_content "#{task.title}"
+    end
+
+    it 'タスク一覧画面（表示項目の確認）- 登録した終了期限が表示されること' do
+      visit '/'
+      td3 = all('tbody tr')[0].all('td')[2]
+      expect(td3).to have_content "#{task.end_date.strftime('%Y/%m/%d')}"
     end
 
     it 'タスク登録画面が表示されること' do
@@ -17,12 +38,12 @@ RSpec.describe "Tasks", type: :system do
     end
 
     it 'タスク詳細画面が表示されること' do
-      visit "tasks/taskdetail/#{@task.id}"
+      visit "tasks/taskdetail/#{task.id}"
       expect(page).to have_content 'タスク詳細画面'
     end
 
     it 'タスク更新画面が表示されること' do
-      visit "tasks/taskupdate/#{@task.id}"
+      visit "tasks/taskupdate/#{task.id}"
       expect(page).to have_content 'タスク更新画面'
     end
   end
@@ -53,7 +74,7 @@ RSpec.describe "Tasks", type: :system do
 
     it 'タスク更新処理' do
       # 更新画面へ遷移
-      visit "tasks/taskupdate/#{@task.id}"
+      visit "tasks/taskupdate/#{task.id}"
 
       # タイトルに「テストタイトル更新 from rspec」と入力
       fill_in 'タイトル', with: 'テストタイトル更新 from rspec'
@@ -73,7 +94,7 @@ RSpec.describe "Tasks", type: :system do
 
     it 'タスク削除処理' do
       # 詳細画面へ遷移
-      visit "tasks/taskdetail/#{@task.id}"
+      visit "tasks/taskdetail/#{task.id}"
 
       # 削除ボタンをクリック
       click_link '削除'
