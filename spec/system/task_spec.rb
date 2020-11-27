@@ -4,32 +4,33 @@ RSpec.describe "Tasks", type: :system do
   let!(:task) { create(:task) }
 
   context '画面表示が正常' do
-    it 'タスク一覧画面が表示されること' do
-      visit '/'
-      expect(page).to have_content 'タスク一覧画面'
-    end
+    context 'タスク一覧画面' do
+      before do
+        visit root_path
+      end
 
-    it 'タスク一覧画面 - タスク登録ボタンが表示されること' do
-      visit '/'
-      expect(page).to have_link 'タスク登録'
-    end
+      it '表示されること' do
+        expect(page).to have_content 'タスク一覧画面'
+      end
 
-    it 'タスク一覧画面（表示項目の確認）- 登録したステータスが表示されること' do
-      visit '/'
-      td1 = all('tbody tr')[0].all('td')[0]
-      expect(td1).to have_content "#{task.status}"
-    end
+      it 'タスク登録ボタンが表示されること' do
+        expect(page).to have_link 'タスク登録'
+      end
 
-    it 'タスク一覧画面（表示項目の確認）- 登録したタスクが表示されること' do
-      visit '/'
-      td2 = all('tbody tr')[0].all('td')[1]
-      expect(td2).to have_content "#{task.title}"
-    end
+      it '表示項目の確認 - 登録したステータスが表示されること' do
+        td1 = all('tbody tr')[0].all('td')[0]
+        expect(td1).to have_content "#{task.status}"
+      end
 
-    it 'タスク一覧画面（表示項目の確認）- 登録した終了期限が表示されること' do
-      visit '/'
-      td3 = all('tbody tr')[0].all('td')[2]
-      expect(td3).to have_content "#{task.end_date.strftime('%Y/%m/%d')}"
+      it '表示項目の確認 - 登録したタスクが表示されること' do
+        td2 = all('tbody tr')[0].all('td')[1]
+        expect(td2).to have_content "#{task.title}"
+      end
+
+      it '表示項目の確認 - 登録した終了期限が表示されること' do
+        td3 = all('tbody tr')[0].all('td')[2]
+        expect(td3).to have_content "#{task.end_date.strftime('%Y/%m/%d')}"
+      end
     end
 
     it 'タスク登録画面が表示されること' do
