@@ -7,6 +7,7 @@ ja:
         end_date: 最終期限
         priority: 優先順位
         status: ステータス
+        label: ラベル
       user:
         name: ユーザー名
         email: メールアドレス
@@ -15,6 +16,8 @@ ja:
         role: ロール
         tasks_count: タスク数
         created_at: 登録日時
+      label:
+        name: ラベル名
   enums:
     task:
       priority:

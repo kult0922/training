@@ -5,6 +5,7 @@ RSpec.describe Task, type: :system do
   let(:test_description) { 'test2_description' }
   let!(:user) { create(:user) }
   let!(:task) { create(:task, user_id: user.id) }
+  let!(:label) { create(:label, user_id: user.id) }
 
   before do
     visit login_path
@@ -51,6 +52,7 @@ RSpec.describe Task, type: :system do
       let!(:taskA) { create(:task, name: 'Task_apple', status: :todo, user_id: user.id) }
       let!(:taskB) { create(:task, name: 'Task_banana', status: :in_progress, user_id: user.id) }
       let!(:taskC) { create(:task, name: 'Task_lemon', status: :done, user_id: user.id) }
+      let(:click) { click_button '検索' }
 
       before do
         visit root_path
@@ -59,7 +61,7 @@ RSpec.describe Task, type: :system do
       context 'search by name' do
         before { fill_in 'q_name_cont', with: 'apple' }
         it 'display taskA' do
-          click_button '検索'
+          click
           expect(page.all('table tbody tr').count).to eq 1
           expect(page).to have_content taskA.name
           expect(page).to_not have_content taskB.name
@@ -69,7 +71,7 @@ RSpec.describe Task, type: :system do
       context 'search by status' do
         before { select '完了', from: 'q_status_eq' }
         it 'display taskC' do
-          click_button '検索'
+          click
           expect(page.all('table tbody tr').count).to eq 1
           expect(page).to have_content taskC.name
           expect(page).to_not have_content taskA.name
@@ -82,10 +84,23 @@ RSpec.describe Task, type: :system do
           select '進行中', from: 'q_status_eq'
         end
         it 'display taskB' do
-          click_button '検索'
+          click
           expect(page.all('table tbody tr').count).to eq 1
           expect(page).to have_content taskB.name
           expect(page).to_not have_content taskC.name
+        end
+      end
+
+      context 'search by label' do
+        before do
+          taskC.reload.label_ids = [label.id]
+          select label.name, from: 'q_labels_name_eq'
+        end
+
+        it 'display task with label' do
+          click
+          expect(page.all('table tbody tr').count).to eq 1
+          expect(page).to have_content taskC.name
         end
       end
     end

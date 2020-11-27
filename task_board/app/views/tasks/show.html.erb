@@ -24,6 +24,14 @@
         <th><%= Task.human_attribute_name(:status) %></th>
         <td><%= @task.status %></td>
       </tr>
+      <tr>
+        <th><%= Task.human_attribute_name(:label) %></th>
+        <td>
+          <% @task.task_labels.each do |l| %>
+            <span class='badge badge-light'><%= l.label.name %></span>
+          <% end %>
+        </td>
+      </tr>
     </tbody>
   </table>
   <div style='display: flex' class='justify-content-md-center'>

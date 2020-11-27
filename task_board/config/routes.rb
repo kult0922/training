@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %I[new create]
   resources :tasks
+  resources :labels
 
   namespace :admin do
     resources :users do
