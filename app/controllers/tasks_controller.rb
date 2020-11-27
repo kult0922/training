@@ -22,10 +22,10 @@ class TasksController < ApplicationController
     titleParam =  params[:task][:title]
     detailParam =  params[:task][:detail]
 
-    insertTask = Task.new(status: statusParam, title: titleParam, detail: detailParam)
+    @task = Task.new(status: statusParam, title: titleParam, detail: detailParam)
 
     # 登録成功
-    if insertTask.save
+    if @task.save
       flash[:success] = "登録に成功しました！"
       redirect_to action: "index"
     # 失敗

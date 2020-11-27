@@ -107,4 +107,47 @@ RSpec.describe "Tasks", type: :system do
       expect(page).to have_content '削除に成功しました！'
     end
   end
+
+  context 'フォームの入力値が異常' do
+    context 'タスク登録処理' do
+      before do
+        visit 'tasks/newtask'
+      end
+
+      it 'タイトル・内容が未入力' do
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Title can\'t be blank'
+        expect(page).to have_content 'Title is too short (minimum is 3 characters)'
+        expect(page).to have_content 'Detail can\'t be blank'
+        expect(page).to have_content 'Detail is too short (minimum is 3 characters)'
+      end
+
+      it 'タイトルが未入力' do
+        # 内容に「テスト詳細更新 from rspec」と入力
+        fill_in '内容', with: 'テスト内容 from rspec'
+
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Title can\'t be blank'
+        expect(page).to have_content 'Title is too short (minimum is 3 characters)'
+      end
+
+      it '内容が未入力' do
+        # タイトルに「テストタイトル from rspec」と入力
+        fill_in 'タイトル', with: 'テストタイトル from rspec'
+
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Detail can\'t be blank'
+        expect(page).to have_content 'Detail is too short (minimum is 3 characters)'
+      end
+    end
+  end
 end
