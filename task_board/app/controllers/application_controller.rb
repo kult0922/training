@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :render_503, if: :maintenance_mode?
+
   rescue_from Exception, with: :render_500
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
@@ -15,6 +17,14 @@ class ApplicationController < ActionController::Base
 
   def render_500
     render 'errors/500', status: :internal_server_error
+  end
+
+  def render_503
+    yaml = YAML.load_file('tmp/maintenance.yml')
+    allowed_ips = yaml['allowed_ips']
+    return if allowed_ips.include?(request.remote_ip)
+
+    render 'errors/503', status: :service_unavailable
   end
 
   private
@@ -38,5 +48,9 @@ class ApplicationController < ActionController::Base
 
   def logged_in_user
     redirect_to login_url unless logged_in?
+  end
+
+  def maintenance_mode?
+    File.exist?('tmp/maintenance.yml')
   end
 end

@@ -24,6 +24,12 @@ mysql.server start
 bundle install --path 'vendor/bundle'
 ```
 
+- yarn install
+```
+brew install yarn
+yarn install
+```
+
 - DB migrate
 ```
 rails db:migrate
