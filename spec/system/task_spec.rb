@@ -126,7 +126,7 @@ RSpec.describe "Tasks", type: :system do
       end
 
       it 'タイトルが未入力' do
-        # 内容に「テスト詳細更新 from rspec」と入力
+        # 内容に入力
         fill_in '内容', with: 'テスト内容 from rspec'
 
         # 送信ボタンをクリック
@@ -138,7 +138,7 @@ RSpec.describe "Tasks", type: :system do
       end
 
       it '内容が未入力' do
-        # タイトルに「テストタイトル from rspec」と入力
+        # タイトルにと入力
         fill_in 'タイトル', with: 'テストタイトル from rspec'
 
         # 送信ボタンをクリック
@@ -148,6 +148,53 @@ RSpec.describe "Tasks", type: :system do
         expect(page).to have_content 'Detail can\'t be blank'
         expect(page).to have_content 'Detail is too short (minimum is 3 characters)'
       end
+
+      it '入力文字数が３文字未満' do
+        # タイトルにと入力
+        fill_in 'タイトル', with: 'ab'
+
+        # 内容に入力
+        fill_in '内容', with: 'ab'
+
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Title is too short (minimum is 3 characters)'
+        expect(page).to have_content 'Detail is too short (minimum is 3 characters)'
+      end
+
+      it 'タイトルの入力文字数が２０文字以上' do
+        # タイトルに「ab」と入力
+        fill_in 'タイトル', with: '123456789012345678901'
+
+        # 内容にと入力
+        fill_in '内容', with: 'test'
+
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Title is too long (maximum is 20 characters)'
+      end
+
+      it '内容の入力文字数が２００文字以上' do
+        # タイトルに入力
+        fill_in 'タイトル', with: 'test'
+
+        # 内容に入力
+        fill_in '内容', with: 'abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnop
+                              qrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz012345
+                              6789abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklm
+                              nopqrstuvwxyz0123456789abcdefghijklmnopqrstu'
+
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Detail is too long (maximum is 200 characters)'
+      end
+
     end
   end
 end
