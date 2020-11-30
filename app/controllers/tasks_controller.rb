@@ -3,8 +3,18 @@
 class TasksController < ApplicationController
   # タスク一覧画面
   def index
+    # ソート順のパラメータを取得
+    @sortno = params['sortno']
+    # デフォルトのソート順は作成日順
+    sortOrder = "created_at DESC";
+
+    # 終了期限順だった場合
+    if @sortno == "2"
+      sortOrder = "end_date DESC";
+    end
+
     # タスクテーブルからデータを取り出す
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(sortOrder)
   end
 
   # タスク登録画面
@@ -21,8 +31,9 @@ class TasksController < ApplicationController
     statusParam =  params[:task][:status].to_i
     titleParam =  params[:task][:title]
     detailParam =  params[:task][:detail]
+    endDateParam =  params[:task][:end_date]
 
-    @task = Task.new(status: statusParam, title: titleParam, detail: detailParam)
+    @task = Task.new(status: statusParam, title: titleParam, detail: detailParam, end_date: endDateParam)
 
     # 登録成功
     if @task.save
@@ -62,12 +73,14 @@ class TasksController < ApplicationController
     param_status = params[:task][:status].to_i
     param_title = params[:task][:title]
     param_detail = params[:task][:detail]
+    param_endDate = params[:task][:end_date]
 
     # タスクテーブルを検索
     updateTask = Task.find(param_id)
     updateTask.status = param_status
     updateTask.title = param_title
     updateTask.detail = param_detail
+    updateTask.end_date = param_endDate
 
     # 更新成功
     if updateTask.save

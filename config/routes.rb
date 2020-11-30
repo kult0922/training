@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # トップ
   root 'tasks#index'
 
+  get '/:sortno', :to => 'tasks#index'
+
   # タスク登録画面
   get 'tasks/newtask' => "tasks#newtask"
 

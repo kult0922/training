@@ -17,6 +17,10 @@ RSpec.describe "Tasks", type: :system do
         expect(page).to have_link 'タスク登録'
       end
 
+      example '並び順のセレクトボックスが表示されること' do
+        expect(page).to have_select('並び順:', selected: '作成日', options: ['作成日', '終了期限'])
+      end
+
       example '表示項目の確認 - 登録したステータスが表示されること' do
         td1 = all('tbody tr')[0].all('td')[0]
         expect(td1).to have_content "#{task.status}"
@@ -30,6 +34,28 @@ RSpec.describe "Tasks", type: :system do
       example '表示項目の確認 - 登録した終了期限が表示されること' do
         td3 = all('tbody tr')[0].all('td')[2]
         expect(td3).to have_content "#{task.end_date.strftime('%Y/%m/%d')}"
+      end
+    end
+
+    context 'フォームの入力値が正常' do
+      it '並び順を選択' do
+        # セレクトボックスを選択
+        select '終了期限', from: 'select-sort'
+
+        # セレクトボックスの変更をチェック
+        expect(page).to have_select('並び順:', selected: '終了期限')
+
+        # URLの遷移をチェック
+        expect(current_path).to eq '/2'
+
+        # セレクトボックスを選択
+        select '作成日', from: 'select-sort'
+
+        # セレクトボックスの変更をチェック
+        expect(page).to have_select('並び順:', selected: '作成日')
+
+        # URLの遷移をチェック
+        expect(current_path).to eq '/'
       end
     end
   end
