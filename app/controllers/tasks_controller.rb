@@ -14,9 +14,17 @@ class TasksController < ApplicationController
       sortOrder = 'created_at DESC'
     end
 
-    # タスクテーブルからデータを取り出す
-    @tasks = Task.all.order(sortOrder)
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
   end
+
+  def search
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result(distinct: true)
+
+    render "index"
+  end
+
 
   # タスク登録画面
   def newtask

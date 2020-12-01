@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/:sortno' => 'tasks#index'
 
+  get '/search', :to => 'tasks#index'
+
   # タスク登録画面
   get 'tasks/newtask' => "tasks#newtask"
 
