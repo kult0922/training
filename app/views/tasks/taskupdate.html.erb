@@ -54,7 +54,11 @@
           <%= link_to("#{I18n.t('tasks.taskupdate.cancel_button')}", tasks_taskdetail_path(@task.id), class: "btn btn-outline-secondary") %>
         </div>
         <div class="col-sm-6 text-right">
+<<<<<<< HEAD
           <%= f.hidden_field :id, :value => @task.id %>
+=======
+          <%= f.hidden_field :hid, :value => @task.id %>
+>>>>>>> ・セッションヘルパーの追加
           <%= f.submit class: "btn btn-warning" %>
         </div>
       </div>
