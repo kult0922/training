@@ -23,6 +23,17 @@ class TasksController < ApplicationController
     end
   end
 
+  # タスク絞り込み後の一覧画面
+  def search
+    # 入力に応じて検索機能を設定
+    @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont, :tags_name_eq))
+
+    # 検索機能を利用した検索結果を取得
+    @tasks = @search.result.page(params[:page]).per(10)
+
+    render action: :index
+  end
+
   # タスク登録画面
   def newtask
     # タスクインスタンスの生成

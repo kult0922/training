@@ -25,15 +25,15 @@
         <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, {}, class: "col-sm-7 custom-select" %>
       </div>
       <div class="form-group row">
-        <%= f.label :title, class: "col-sm-4 col-form-label d-flex align-items-center" %>
+        <%= f.label :title,"タイトル", class: "col-sm-4 col-form-label d-flex align-items-center" %>
         <%= f.text_field :title, class: "col-sm-7 form-control" %>
       </div>
       <div class="form-group row">
-        <%= f.label :detail, class: "col-sm-4 col-form-label d-flex align-items-center" %>
+        <%= f.label :detail,"内容", class: "col-sm-4 col-form-label d-flex align-items-center" %>
         <%= f.text_area :detail, rows: "10", class: "col-sm-7 form-control" %>
       </div>
       <div class="form-group row">
-        <%= f.label :end_date, class: "col-sm-4 col-form-label d-flex align-items-center" %>
+        <%= f.label :end_date,"終了期限", class: "col-sm-4 col-form-label d-flex align-items-center" %>
         <%= f.date_field :end_date, class: "col-sm-7 form-control" %>
       </div>
       <div class="form-group row">
@@ -54,4 +54,3 @@
     </div>
   </div>
 </div>
-<%= javascript_pack_tag 'task/tagsinput' %>
