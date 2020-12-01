@@ -3,6 +3,8 @@
 class TasksController < ApplicationController
   # タスク一覧画面
   def index
+    user_id = @current_user.id
+
     if params[:q].nil?
       # デフォルトの並び順をセット
       params[:q] = { sorts: 'created_at desc' }
@@ -11,13 +13,13 @@ class TasksController < ApplicationController
       @search = Task.ransack()
 
       # 全件取得
-      @tasks = Task.page(params[:page]).per(Task::PER_PAGE_NO)
+      @tasks = Task.where(user_id: user_id).page(params[:page]).per(Task::PER_PAGE_NO)
     else
       # 入力に応じて検索機能を設定
       @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont))
 
       # 検索機能を利用した検索結果を取得
-      @tasks = @search.result.page(params[:page]).per(Task::PER_PAGE_NO)
+      @tasks = @search.result.where(user_id: user_id).page(params[:page]).per(Task::PER_PAGE_NO)
     end
   end
 
@@ -27,7 +29,7 @@ class TasksController < ApplicationController
     @task = Task.new
 
     # Viewの呼び出し
-    render 'newtask'
+    render tasks_newtask_path
   end
 
   # タスク登録処理
@@ -41,7 +43,7 @@ class TasksController < ApplicationController
     # 失敗
     else
       flash.now[:warning] = I18n.t('msg.failed_registration')
-      render 'newtask'
+      render tasks_newtask_path
     end
   end
 
@@ -58,8 +60,6 @@ class TasksController < ApplicationController
   def taskupdate
     # Getパラメータの取得
     param_id = params[:id]
-
-    # @tasks_list = Task.statuses
 
     # パラメータのIDを元にタスクテーブルを検索
     @task = Task.find(param_id)
@@ -85,11 +85,11 @@ class TasksController < ApplicationController
     if update_task.save
 
       flash[:success] = I18n.t('msg.success_update')
-      redirect_to action: 'index'
+      redirect_to action: root_path
     # 失敗
     else
       flash.now[:warning] = I18n.t('msg.failed_update')
-      render 'taskupdate'
+      render tasks_taskupdate_path
     end
   end
 
@@ -103,11 +103,11 @@ class TasksController < ApplicationController
     # 削除成功
     if del_task
       flash[:success] = I18n.t('msg.success_delete')
-      redirect_to action: 'index'
+      redirect_to action: root_path
     # 失敗
     else
       flash.now[:warning] = I18n.t('msg.failed_delete')
-      render 'taskdetail'
+      render tasks_taskdetail_path
     end
   end
 
@@ -125,6 +125,8 @@ class TasksController < ApplicationController
     data = params.require(:task).permit(:status, :title, :detail, :end_date)
     # statusはenumのテキスト型なので、整数型に変換する
     data[:status] = params[:task][:status].to_i
+    user_id = @current_user.id
+    data[:user_id] = user_id
     data
   end
 end

@@ -43,7 +43,7 @@
       </table>
       <div class="row mt-5">
         <div class="col-sm-6 text-left">
-          <%= link_to("#{I18n.t('tasks.taskupdate.cancel_button')}" ,tasks_taskdetail_path(@task.id), class: "btn btn-outline-secondary") %>
+          <%= link_to("#{I18n.t('tasks.taskupdate.cancel_button')}", tasks_taskdetail_path(@task.id), class: "btn btn-outline-secondary") %>
         </div>
         <div class="col-sm-6 text-right">
           <%= f.hidden_field :hid, :value => @task.id %>

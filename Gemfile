@@ -70,3 +70,5 @@ gem 'ransack'
 gem 'enum_help'
 
 gem 'kaminari'
+
+gem 'bcrypt'
