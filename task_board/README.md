@@ -51,6 +51,16 @@ email: test@test.com
 PW: password
 ```
 
+# Maintenance
+- Start the  maintenance mode
+```
+bundle exec rake maintenance:start
+```
+- Finish the maintenance mode
+```
+bundle exec rake maintenance:end
+```
+
 
 
 # プロトタイピング
