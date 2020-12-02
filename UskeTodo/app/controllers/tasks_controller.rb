@@ -11,7 +11,6 @@ class TasksController < ApplicationController
       @tasks = Post.new(tasks_params)
       @tasks.save
         redirect_to tasks_path
-
   end
 
   def edit
