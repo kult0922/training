@@ -1,47 +1,47 @@
 class TasksController < ApplicationController
-    def index
+  def index
       @tasks = Post.all
-    end
+  end
 
-    def new
+  def new
       @tasks = Post.new
-    end
+  end
     
-    def create
+  def create
       @tasks = Post.new(tasks_params)
       @tasks.save
         redirect_to tasks_path
 
-    end
+  end
 
-    def edit
+  def edit
       @tasks = Post.find(params[:id])
-    end
+  end
 
-    def update
+  def update
       @tasks = Post.find(params[:id])
       if @task.update(task_params)
         redirect_to tasks_path
       else
         render 'edit'
       end
-    end
+  end
 
-    def show
+  def show
       @tasks = Post.find(params[:id])
-    end
+  end
     
-    def destroy
+  def destroy
       @tasks = Post.find(params[:id])
       @tasks.destroy
         redirect_to tasks_path
-    end  
+  end  
     
     private
-    def tasks_params
+  def tasks_params
       params.permit(:id)
-    end
+  end
 
     
-  end
+end
 
