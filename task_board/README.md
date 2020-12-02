@@ -24,6 +24,12 @@ mysql.server start
 bundle install --path 'vendor/bundle'
 ```
 
+- yarn install
+```
+brew install yarn
+yarn install
+```
+
 - DB migrate
 ```
 rails db:migrate
@@ -43,6 +49,16 @@ rails db:seed
 ```
 email: test@test.com
 PW: password
+```
+
+# Maintenance
+- Start the  maintenance mode
+```
+bundle exec rake maintenance:start
+```
+- Finish the maintenance mode
+```
+bundle exec rake maintenance:end
 ```
 
 
