@@ -6,7 +6,7 @@
     <%# ここからエラーメッセージ %>
     <% if @task.errors.any? %>
     <div class="mt-5">
-      <h4>エラーが発生しました！</h4>
+      <h4><%= I18n.t('tasks.newtask.error_title') %></h4>
       <ul>
         <% @task.errors.full_messages.each do |message| %>
         <li><%= message %></li>
