@@ -3,28 +3,26 @@
 class TasksController < ApplicationController
   # タスク一覧画面
   def index
-    # ソート順のパラメータを取得
-    @sortno = params['sortno']
+    # デフォルトの並び順をセット
+    params[:q] = { sorts: 'id desc' }
 
-    # 終了期限順
-    if @sortno == '2'
-      sortOrder = 'end_date DESC'
-    # デフォルトのソート順は作成日順
-    else
-      sortOrder = 'created_at DESC'
-    end
+    # デフォルトの検索
+    @search = Task.ransack()
 
-    @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true)
+    # 全件取得
+    @tasks = Task.all
   end
 
+  # タスク絞り込み後の一覧画面
   def search
-    @q = Task.ransack(params[:q])
-    @tasks = @q.result(distinct: true)
+    # 入力に応じて検索機能を設定
+    @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont))
+
+    # 検索機能を利用した検索結果を取得
+    @tasks = @search.result
 
     render "index"
   end
-
 
   # タスク登録画面
   def newtask

@@ -2,9 +2,7 @@ Rails.application.routes.draw do
   # トップ
   root 'tasks#index'
 
-  get '/:sortno' => 'tasks#index'
-
-  get '/search', :to => 'tasks#index'
+  match '/search' => 'tasks#search', via: [:get, :post]
 
   # タスク登録画面
   get 'tasks/newtask' => "tasks#newtask"
