@@ -40,22 +40,38 @@ RSpec.describe 'Tasks', type: :system do
     context 'フォームの入力値が正常' do
       example '並び順が切り替わること' do
         # セレクトボックスを選択
-        select '終了期限', from: 'select-sort'
+        select '終了期限', from: 'q[sorts]'
 
         # セレクトボックスの変更をチェック
         expect(page).to have_select('並び順', selected: '終了期限')
 
-        # URLの遷移をチェック
-        expect(current_path).to eq '/2'
-
         # セレクトボックスを選択
-        select '作成日', from: 'select-sort'
+        select '作成日', from: 'q[sorts]'
 
         # セレクトボックスの変更をチェック
         expect(page).to have_select('並び順', selected: '作成日')
+      end
 
-        # URLの遷移をチェック
-        expect(current_path).to eq '/'
+      example 'ステータスを「完了」で絞り込み表示' do
+        # セレクトボックスを選択
+        select '完了', from: 'q[status_eq]'
+
+        click_button '検索'
+
+        td1 = all('tbody tr')[0].all('td')[0]
+
+        expect(td1).to have_content '完了'
+      end
+
+      example 'タスク名を「TEST_TITLE」で絞り込み表示' do
+        # タスクタイトル名を入力
+        fill_in '検索', with: 'TEST_TITLE'
+
+        click_button '検索'
+
+        td1 = all('tbody tr')[0].all('td')[1]
+
+        expect(td1).to have_content 'TEST_TITLE'
       end
 
       example '並び順を終了期限に変更することで、タスクの並び順が変わること' do
