@@ -149,9 +149,24 @@ RSpec.describe "Tasks", type: :system do
         expect(page).to have_content 'Detail is too short (minimum is 3 characters)'
       end
 
-      it '入力文字数が３文字未満' do
+      it '入力文字数が３文字未満（タイトル）' do
         # タイトルにと入力
         fill_in 'タイトル', with: 'ab'
+
+        # 内容に入力
+        fill_in '内容', with: 'abc'
+
+        # 送信ボタンをクリック
+        click_button '送信'
+
+        expect(page).to have_content 'エラーが発生しました！'
+        expect(page).to have_content 'Title is too short (minimum is 3 characters)'
+        expect(page).to have_no_content 'Title can\'t be blank'
+      end
+
+      it '入力文字数が３文字未満（内容）' do
+        # タイトルにと入力
+        fill_in 'タイトル', with: 'abc'
 
         # 内容に入力
         fill_in '内容', with: 'ab'
@@ -160,8 +175,8 @@ RSpec.describe "Tasks", type: :system do
         click_button '送信'
 
         expect(page).to have_content 'エラーが発生しました！'
-        expect(page).to have_content 'Title is too short (minimum is 3 characters)'
         expect(page).to have_content 'Detail is too short (minimum is 3 characters)'
+        expect(page).to have_no_content 'Detail can\'t be blank'
       end
 
       it 'タイトルの入力文字数が２０文字以上' do
