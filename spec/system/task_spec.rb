@@ -38,7 +38,7 @@ RSpec.describe "Tasks", type: :system do
     end
 
     context 'フォームの入力値が正常' do
-      it '並び順を選択' do
+      example '並び順を選択' do
         # セレクトボックスを選択
         select '終了期限', from: 'select-sort'
 
