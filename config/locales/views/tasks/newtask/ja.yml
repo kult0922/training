@@ -3,6 +3,7 @@ ja:
     newtask:
       page_title: "タスク登録画面"
       back_button: "戻る"
+      error_title: "エラーが発生しました！"
   helpers: # ここから下を追加する
     submit:
       create: "登録"

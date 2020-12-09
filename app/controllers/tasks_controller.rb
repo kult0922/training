@@ -22,15 +22,15 @@ class TasksController < ApplicationController
     titleParam =  params[:task][:title]
     detailParam =  params[:task][:detail]
 
-    insertTask = Task.new(status: statusParam, title: titleParam, detail: detailParam)
+    @task = Task.new(status: statusParam, title: titleParam, detail: detailParam)
 
     # 登録成功
-    if insertTask.save
-      flash[:success] = "登録に成功しました！"
+    if @task.save
+      flash[:success] = I18n.t("msg.success_registration")
       redirect_to action: "index"
     # 失敗
     else
-      flash.now[:warning] = "登録に失敗しました・・・"
+      flash.now[:warning] = I18n.t("msg.failed_registration")
       render "newtask"
     end
   end
@@ -53,7 +53,6 @@ class TasksController < ApplicationController
 
     # パラメータのIDを元にタスクテーブルを検索
     @task = Task.find(param_id)
-
   end
 
   # タスク更新処理
@@ -73,11 +72,11 @@ class TasksController < ApplicationController
     # 更新成功
     if updateTask.save
 
-      flash[:success] = "更新に成功しました！"
+      flash[:success] = I18n.t("msg.success_update")
       redirect_to action: "index"
     # 失敗
     else
-      flash.now[:warning] = "更新に失敗しました・・・"
+      flash.now[:warning] = I18n.t("msg.failed_update")
       render "taskupdate"
     end
   end
@@ -91,11 +90,11 @@ class TasksController < ApplicationController
 
     # 削除成功
     if delTask
-      flash[:success] = "削除に成功しました！"
+      flash[:success] = I18n.t("msg.success_delete")
       redirect_to action: "index"
     # 失敗
     else
-      flash.now[:warning] = "削除に失敗しました・・・"
+      flash.now[:warning] = I18n.t("msg.failed_delete")
       render "taskdetail"
     end
   end
