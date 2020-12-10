@@ -5,12 +5,13 @@ class TasksController < ApplicationController
   def index
     # ソート順のパラメータを取得
     @sortno = params['sortno']
-    # デフォルトのソート順は作成日順
-    sortOrder = "created_at DESC";
 
-    # 終了期限順だった場合
-    if @sortno == "2"
-      sortOrder = "end_date DESC";
+    # 終了期限順
+    if @sortno == '2'
+      sortOrder = 'end_date DESC'
+    # デフォルトのソート順は作成日順
+    else
+      sortOrder = 'created_at DESC'
     end
 
     # タスクテーブルからデータを取り出す
@@ -23,26 +24,21 @@ class TasksController < ApplicationController
     @task = Task.new
 
     # Viewの呼び出し
-    render "newtask"
+    render 'newtask'
   end
 
   # タスク登録処理
   def createtask
-    statusParam =  params[:task][:status].to_i
-    titleParam =  params[:task][:title]
-    detailParam =  params[:task][:detail]
-    endDateParam =  params[:task][:end_date]
-
-    @task = Task.new(status: statusParam, title: titleParam, detail: detailParam, end_date: endDateParam)
+    @task = Task.new(user_params)
 
     # 登録成功
     if @task.save
-      flash[:success] = I18n.t("msg.success_registration")
-      redirect_to action: "index"
+      flash[:success] = I18n.t('msg.success_registration')
+      redirect_to action: 'index'
     # 失敗
     else
-      flash.now[:warning] = I18n.t("msg.failed_registration")
-      render "newtask"
+      flash.now[:warning] = I18n.t('msg.failed_registration')
+      render 'newtask'
     end
   end
 
@@ -85,12 +81,12 @@ class TasksController < ApplicationController
     # 更新成功
     if updateTask.save
 
-      flash[:success] = I18n.t("msg.success_update")
-      redirect_to action: "index"
+      flash[:success] = I18n.t('msg.success_update')
+      redirect_to action: 'index'
     # 失敗
     else
-      flash.now[:warning] = I18n.t("msg.failed_update")
-      render "taskupdate"
+      flash.now[:warning] = I18n.t('msg.failed_update')
+      render 'taskupdate'
     end
   end
 
@@ -103,12 +99,12 @@ class TasksController < ApplicationController
 
     # 削除成功
     if delTask
-      flash[:success] = I18n.t("msg.success_delete")
-      redirect_to action: "index"
+      flash[:success] = I18n.t('msg.success_delete')
+      redirect_to action: 'index'
     # 失敗
     else
-      flash.now[:warning] = I18n.t("msg.failed_delete")
-      render "taskdetail"
+      flash.now[:warning] = I18n.t('msg.failed_delete')
+      render 'taskdetail'
     end
   end
 
@@ -119,4 +115,12 @@ class TasksController < ApplicationController
       end
     end
   end
+
+  private
+    def user_params
+      data = params.require(:task).permit(:status, :title, :detail, :end_date)
+      # statusはenumのテキスト型なので、整数型に変換する
+      data[:status] = params[:task][:status].to_i
+      return data
+    end
 end

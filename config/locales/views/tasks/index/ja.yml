@@ -6,3 +6,6 @@ ja:
       task: "タスク"
       end_date: "終了期限"
       submit_button: "タスク登録"
+      sort_order: "並び順"
+      sort_create_at: "作成日"
+      sort_end_date: "終了期限"

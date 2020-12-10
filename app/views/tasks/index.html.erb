@@ -4,10 +4,10 @@
   </div>
   <div class="mt-5">
     <div class="form-inline">
-      <label for="select-sort">並び順:</label>
+      <label for="select-sort"><%= I18n.t('tasks.index.sort_order') %></label>
       <select name="select-sort" id="select-sort" class="form-control">
-        <option value="1" <%= @sortno != "2" ? "selected" : "" %>>作成日</option>
-        <option value="2" <%= @sortno == "2" ? "selected" : "" %>>終了期限</option>
+        <option value="1" <%= @sortno != "2" ? "selected" : "" %>><%= I18n.t('tasks.index.sort_create_at') %></option>
+        <option value="2" <%= @sortno == "2" ? "selected" : "" %>><%= I18n.t('tasks.index.sort_end_date') %></option>
       </select>
     </div>
     <div class="mt-4">
