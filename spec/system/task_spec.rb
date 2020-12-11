@@ -60,15 +60,15 @@ RSpec.describe 'Tasks', type: :system do
 
       example '並び順を終了期限に変更することで、タスクの並び順が変わること' do
         # テーブル１行目
-        date1_bf = get_date_value(0).text(:visible)
+        date1_bf = all('tbody tr')[0].all('td')[2].text(:visible)
         # テーブル２行目
-        date2_bf = get_date_value(1).text(:visible)
+        date2_bf = all('tbody tr')[1].all('td')[2].text(:visible)
         # テーブル３行目
-        date3_bf = get_date_value(2).text(:visible)
+        date3_bf = all('tbody tr')[2].all('td')[2].text(:visible)
         # テーブル４行目
-        date4_bf = get_date_value(3).text(:visible)
+        date4_bf = all('tbody tr')[3].all('td')[2].text(:visible)
         # テーブル５行目
-        date5_bf = get_date_value(4).text(:visible)
+        date5_bf = all('tbody tr')[4].all('td')[2].text(:visible)
 
         # 終了期限が昇順で並んでいること
         expect(date5_bf).to be > date4_bf
@@ -83,15 +83,15 @@ RSpec.describe 'Tasks', type: :system do
         expect(current_path).to eq '/2'
 
         # テーブル１行目
-        date1_af = get_date_value(0).text(:visible)
+        date1_af = all('tbody tr')[0].all('td')[2].text(:visible)
         # テーブル２行目
-        date2_af = get_date_value(1).text(:visible)
+        date2_af = all('tbody tr')[1].all('td')[2].text(:visible)
         # テーブル３行目
-        date3_af = get_date_value(2).text(:visible)
+        date3_af = all('tbody tr')[2].all('td')[2].text(:visible)
         # テーブル４行目
-        date4_af = get_date_value(3).text(:visible)
+        date4_af = all('tbody tr')[3].all('td')[2].text(:visible)
         # テーブル５行目
-        date5_af = get_date_value(4).text(:visible)
+        date5_af = all('tbody tr')[4].all('td')[2].text(:visible)
 
         # 終了期限が降順で並んでいること
         expect(date1_af).to be > date2_af
@@ -312,9 +312,5 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content I18n.t('msg.success_delete')
       end
     end
-  end
-
-  def get_date_value(tr_no)
-    all('tbody tr')[tr_no].all('td')[2]
   end
 end
