@@ -5,6 +5,6 @@ FactoryBot.define do
     status { 10 }
     sequence(:title) { |n| "TEST_TITLE#{n}" }
     sequence(:detail) { |n| "TEST_DETAIL#{n}" }
-    end_date { Date.new(2020, 12, 2) }
+    sequence(:end_date) { |n| Time.zone.now + 1000.days - n.days }
   end
 end

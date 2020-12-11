@@ -19,3 +19,4 @@ ja:
     failed_update: "更新に失敗しました・・・"
     success_delete: "削除に成功しました！"
     failed_delete: "削除に失敗しました・・・"
+    validate_end_date: "は今日以降のものを選択してください"

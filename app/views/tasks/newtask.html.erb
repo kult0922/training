@@ -31,6 +31,10 @@
         <%= f.label :detail, class: "col-sm-4" %>
         <%= f.text_area :detail, rows: "10", class: "col-sm-7" %>
       </div>
+      <div class="form-group">
+        <%= f.label :end_date, class: "col-sm-4" %>
+        <%= f.date_field :end_date, class: "col-sm-7" %>
+      </div>
       <div class="row mt-5">
         <div class="col-sm-4 text-left">
           <%= link_to("#{I18n.t('tasks.newtask.back_button')}" , "/", class: "btn btn-secondary") %>

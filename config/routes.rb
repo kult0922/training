@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-
   # トップ
   root 'tasks#index'
+
+  get '/:sortno' => 'tasks#index'
 
   # タスク登録画面
   get 'tasks/newtask' => "tasks#newtask"
@@ -10,14 +11,13 @@ Rails.application.routes.draw do
   post 'tasks/createtask' => "tasks#createtask"
 
   # タスク詳細画面
-  get 'tasks/taskdetail/:id', :to => 'tasks#taskdetail',:as => :tasks_taskdetail
+  get 'tasks/taskdetail/:id' => 'tasks#taskdetail', :as => :tasks_taskdetail
 
   # タスク編集画面
-  get 'tasks/taskupdate/:id', :to => 'tasks#taskupdate',:as => :tasks_taskupdate
+  get 'tasks/taskupdate/:id' => 'tasks#taskupdate', :as => :tasks_taskupdate
 
   # タスク更新処理
   patch 'tasks/taskupdateprocess' => "tasks#taskupdateprocess"
 
-  delete 'tasks/taskdelete/:id', :to => "tasks#taskdelete",:as => :tasks_taskdelete
-
+  delete 'tasks/taskdelete/:id' => "tasks#taskdelete", :as => :tasks_taskdelete
 end
