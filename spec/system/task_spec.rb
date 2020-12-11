@@ -14,11 +14,11 @@ RSpec.describe 'Tasks', type: :system do
       end
 
       example 'タスク登録ボタンが表示されること' do
-        expect(page).to have_link 'タスク登録'
+        expect(page).to have_link I18n.t('tasks.index.submit_button')
       end
 
       example '並び順のセレクトボックスが表示されること' do
-        expect(page).to have_select('並び順', selected: '作成日', options: ['作成日', '終了期限'])
+        expect(page).to have_select(I18n.t('tasks.index.sort_order'), selected: I18n.t('tasks.index.sort_create_at'), options: [I18n.t('tasks.index.sort_create_at'), I18n.t('tasks.index.sort_end_date')])
       end
 
       example '表示項目の確認 - 登録したステータスが表示されること' do
@@ -40,27 +40,27 @@ RSpec.describe 'Tasks', type: :system do
     context 'フォームの入力値が正常' do
       example '並び順が切り替わること' do
         # セレクトボックスを選択
-        select '終了期限', from: 'q[sorts]'
+        select I18n.t('tasks.index.sort_end_date'), from: 'q[sorts]'
 
         # セレクトボックスの変更をチェック
-        expect(page).to have_select('並び順', selected: '終了期限')
+        expect(page).to have_select(I18n.t('tasks.index.sort_order'), selected: I18n.t('tasks.index.sort_end_date'))
 
         # セレクトボックスを選択
-        select '作成日', from: 'q[sorts]'
+        select I18n.t('tasks.index.sort_create_at'), from: 'q[sorts]'
 
         # セレクトボックスの変更をチェック
-        expect(page).to have_select('並び順', selected: '作成日')
+        expect(page).to have_select(I18n.t('tasks.index.sort_order'), selected: I18n.t('tasks.index.sort_create_at'))
       end
 
       example 'ステータス「完了」を検索することで、完了のタスクが表示されること' do
         # セレクトボックスを選択
-        select '完了', from: 'q[status_eq]'
+        select I18n.t('tasks.index.done'), from: 'q[status_eq]'
 
-        click_button '検索'
+        click_button I18n.t('tasks.index.search')
 
         td1 = all('tbody tr')[0].all('td')[0]
 
-        expect(td1).to have_content '完了'
+        expect(td1).to have_content I18n.t('tasks.index.done')
       end
 
       example 'タスク名を検索することで、指定したタスク名のデータが取得できること' do
@@ -68,9 +68,9 @@ RSpec.describe 'Tasks', type: :system do
         title_name = task[0].title
 
         # タスクタイトル名を入力
-        fill_in '検索', with: title_name
+        fill_in I18n.t('tasks.index.search_task_name'), with: title_name
 
-        click_button '検索'
+        click_button I18n.t('tasks.index.search')
 
         td1 = all('tbody tr')[0].all('td')[1]
 
@@ -96,7 +96,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(date2_bf).to be > date1_bf
 
         # セレクトボックスを選択
-        select '終了期限', from: 'select-sort'
+        select I18n.t('tasks.index.sort_end_date'), from: 'select-sort'
 
         # URLの遷移をチェック
         expect(current_path).to eq '/2'
@@ -139,23 +139,23 @@ RSpec.describe 'Tasks', type: :system do
         select '着手', from: 'task[status]'
 
         # タイトルに「テストタイトル登録 from rspec」と入力
-        fill_in 'タイトル', with: 'テストタイトル登録 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'テストタイトル登録 from rspec'
 
         # 内容に「テスト内容登録 from rspec」と入力
-        fill_in '内容', with: 'テスト内容登録 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'テスト内容登録 from rspec'
 
         # 終了期限を入力
         tommorow = Time.now + 1.day
         fill_in 'task[end_date]', with: tommorow.strftime('00%Y-%m-%d')
 
         # 送信ボタンをクリック
-        click_button I18n.t("helpers.submit.create")
+        click_button I18n.t('helpers.submit.create')
 
         # タスク一覧画面へ遷移することを期待する
         expect(current_path).to eq root_path
 
         # タスク一覧画面で登録成功のFlashメッセージが表示されることを確認する
-        expect(page).to have_content I18n.t("msg.success_registration")
+        expect(page).to have_content I18n.t('msg.success_registration')
       end
     end
 
@@ -173,7 +173,7 @@ RSpec.describe 'Tasks', type: :system do
 
       example 'タイトルが未入力の時、エラーが表示されること' do
         # 内容に入力
-        fill_in '内容', with: 'テスト内容 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'テスト内容 from rspec'
 
         # 送信ボタンをクリック
         click_button I18n.t('helpers.submit.create')
@@ -185,7 +185,7 @@ RSpec.describe 'Tasks', type: :system do
 
       example '内容が未入力の時、エラーが表示されること' do
         # タイトルにと入力
-        fill_in 'タイトル', with: 'テストタイトル from rspec'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'テストタイトル from rspec'
 
         # 送信ボタンをクリック
         click_button I18n.t('helpers.submit.create')
@@ -197,10 +197,10 @@ RSpec.describe 'Tasks', type: :system do
 
       example '入力文字数が３文字未満（タイトル）の時、エラーが表示されること' do
         # タイトルにと入力
-        fill_in 'タイトル', with: 'ab'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'ab'
 
         # 内容に入力
-        fill_in '内容', with: 'abc'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'abc'
 
         # 送信ボタンをクリック
         click_button I18n.t('helpers.submit.create')
@@ -212,10 +212,10 @@ RSpec.describe 'Tasks', type: :system do
 
       example '入力文字数が３文字未満（内容）の時、エラーが表示されること' do
         # タイトルにと入力
-        fill_in 'タイトル', with: 'abc'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'abc'
 
         # 内容に入力
-        fill_in '内容', with: 'ab'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'ab'
 
         # 送信ボタンをクリック
         click_button I18n.t('helpers.submit.create')
@@ -227,10 +227,10 @@ RSpec.describe 'Tasks', type: :system do
 
       example 'タイトルの入力文字数が２０文字以上の時、エラーが表示されること' do
         # タイトルに「ab」と入力
-        fill_in 'タイトル', with: 'a' * 21
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'a' * 21
 
         # 内容にと入力
-        fill_in '内容', with: 'test'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'test'
 
         # 送信ボタンをクリック
         click_button I18n.t('helpers.submit.create')
@@ -241,10 +241,10 @@ RSpec.describe 'Tasks', type: :system do
 
       example '内容の入力文字数が２００文字以上の時、エラーが表示されること' do
         # タイトルに入力
-        fill_in 'タイトル', with: 'test'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'test'
 
         # 内容に入力
-        fill_in '内容', with: 'a' * 201
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'a' * 201
 
         # 送信ボタンをクリック
         click_button I18n.t('helpers.submit.create')
@@ -256,10 +256,10 @@ RSpec.describe 'Tasks', type: :system do
       example '終了期限が過去の日付だった場合、エラーが表示されること' do
 
         # タイトルに「テストタイトル登録 from rspec」と入力
-        fill_in 'タイトル', with: 'テストタイトル登録 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'テストタイトル登録 from rspec'
 
         # 内容に「テスト内容登録 from rspec」と入力
-        fill_in '内容', with: 'テスト内容登録 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'テスト内容登録 from rspec'
 
         # 過去の終了期限を入力
         yesterday = Time.now - 1.day
@@ -298,10 +298,10 @@ RSpec.describe 'Tasks', type: :system do
     context 'フォームの入力値が正常' do
       example 'タスク更新に成功すること' do
         # タイトルに「テストタイトル更新 from rspec」と入力
-        fill_in 'タイトル', with: 'テストタイトル更新 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.title'), with: 'テストタイトル更新 from rspec'
 
         # 内容に「テスト詳細更新 from rspec」と入力
-        fill_in '内容', with: 'テスト詳細更新 from rspec'
+        fill_in I18n.t('activerecord.attributes.task.detail'), with: 'テスト詳細更新 from rspec'
 
         # 更新ボタンをクリック
         click_button I18n.t('helpers.submit.update')
