@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_select('並び順', selected: '作成日')
       end
 
-      example 'ステータスを「完了」で絞り込み表示' do
+      example 'ステータス「完了」を検索することで、完了のタスクが表示されること' do
         # セレクトボックスを選択
         select '完了', from: 'q[status_eq]'
 
@@ -63,15 +63,18 @@ RSpec.describe 'Tasks', type: :system do
         expect(td1).to have_content '完了'
       end
 
-      example 'タスク名を「TEST_TITLE」で絞り込み表示' do
+      example 'タスク名を検索することで、指定したタスク名のデータが取得できること' do
+        # １行目の登録データのタスクタイトルを取得
+        title_name = task[0].title
+
         # タスクタイトル名を入力
-        fill_in '検索', with: 'TEST_TITLE'
+        fill_in '検索', with: title_name
 
         click_button '検索'
 
         td1 = all('tbody tr')[0].all('td')[1]
 
-        expect(td1).to have_content 'TEST_TITLE'
+        expect(td1).to have_content title_name
       end
 
       example '並び順を終了期限に変更することで、タスクの並び順が変わること' do
