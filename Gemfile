@@ -64,3 +64,5 @@ end
 gem 'rails-i18n'
 
 gem 'ransack'
+
+gem 'enum_help'

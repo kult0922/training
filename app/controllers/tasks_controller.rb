@@ -3,25 +3,25 @@
 class TasksController < ApplicationController
   # タスク一覧画面
   def index
-    # デフォルトの並び順をセット
-    params[:q] = { sorts: 'id desc' }
+    if params[:q].nil?
+      # デフォルトの並び順をセット
+      params[:q] = { sorts: 'created_at desc' }
 
-    # デフォルトの検索
-    @search = Task.ransack()
+      # デフォルトの検索
+      @search = Task.ransack()
 
-    # 全件取得
-    @tasks = Task.all
-  end
+      # 全件取得
+      @tasks = Task.all
+    else
+      # 入力に応じて検索機能を設定
+      @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont))
 
-  # タスク絞り込み後の一覧画面
-  def search
-    # 入力に応じて検索機能を設定
-    @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont))
+      # 検索機能を利用した検索結果を取得
+      @tasks = @search.result
+    end
 
-    # 検索機能を利用した検索結果を取得
-    @tasks = @search.result
-
-    render "index"
+    @sort_order_list = [{ name: I18n.t('tasks.index.sort_create_at'), sort: 'created_at ASC' },
+                        { name: I18n.t('tasks.index.sort_end_date'), sort: 'end_date DESC' }]
   end
 
   # タスク登録画面
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
     param_id = params[:id]
 
     # パラメータのIDを元にタスクテーブルを検索
-    @taskInfos = Task.find(param_id)
+    @task_infos = Task.find(param_id)
   end
 
   # タスク更新
@@ -62,7 +62,7 @@ class TasksController < ApplicationController
     # Getパラメータの取得
     param_id = params[:id]
 
-    @tasksList = Task.statuses
+    @tasks_list = Task.statuses
 
     # パラメータのIDを元にタスクテーブルを検索
     @task = Task.find(param_id)
@@ -75,17 +75,17 @@ class TasksController < ApplicationController
     param_status = params[:task][:status].to_i
     param_title = params[:task][:title]
     param_detail = params[:task][:detail]
-    param_endDate = params[:task][:end_date]
+    param_end_date = params[:task][:end_date]
 
     # タスクテーブルを検索
-    updateTask = Task.find(param_id)
-    updateTask.status = param_status
-    updateTask.title = param_title
-    updateTask.detail = param_detail
-    updateTask.end_date = param_endDate
+    update_task = Task.find(param_id)
+    update_task.status = param_status
+    update_task.title = param_title
+    update_task.detail = param_detail
+    update_task.end_date = param_end_date
 
     # 更新成功
-    if updateTask.save
+    if update_task.save
 
       flash[:success] = I18n.t('msg.success_update')
       redirect_to action: 'index'
@@ -101,10 +101,10 @@ class TasksController < ApplicationController
     param_id = params[:id]
 
     # 削除実行
-    delTask = Task.destroy(param_id)
+    del_task = Task.destroy(param_id)
 
     # 削除成功
-    if delTask
+    if del_task
       flash[:success] = I18n.t('msg.success_delete')
       redirect_to action: 'index'
     # 失敗

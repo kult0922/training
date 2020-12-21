@@ -1,6 +1,5 @@
 class Task < ApplicationRecord
-  enum status: { 未着手: 10, 着手: 20, 完了: 30 }
-  enum sort_order: { 作成日: 'created_at ASC', 終了期限: 'end_date DESC' }
+  enum status: { not_start: 10, start: 20, done: 30 }
 
   # 入力必須
   validates :status, :title, :detail, presence: true
