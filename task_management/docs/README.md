@@ -56,15 +56,11 @@ Things you may want to cover:
 
   1.権限マスタ
 
-  ・権限マスタID PK BIGINT
-
-  ・権限区分 UK CHAR
+  ・権限区分 UK INT
 
   ・権限名 VARCHAR
 
   2.ユーザテーブル
-
-  ・ユーザテーブルID PK BIGINT
 
   ・マスタID UK VARCHAR
 
@@ -76,8 +72,6 @@ Things you may want to cover:
 
   3.ラベルマスタ
 
-  ・ラベルマスタID PK BIGINT
-
   ・ユーザID UK FK BIGINT
 
   ・ラベルNo UK INT
@@ -85,8 +79,6 @@ Things you may want to cover:
   ・ラベル名 VARCHAR
 
   4.タスクテーブル
-
-  ・タスクテーブルID PK BIGINT
 
   ・ユーザID UK FK BIGINT
 
@@ -98,18 +90,14 @@ Things you may want to cover:
 
   ・終了期限 DATETIME
 
-  ・ステータス CHAR (0:未着手 1:着手 2:完了)
+  ・ステータス INT (0:未着手 1:着手 2:完了)
 
-  ・優先順位 CHAR (0:低 1:中 2:高)
+  ・優先順位 INT (0:低 1:中 2:高)
 
   ・作成日時 DATETIME
 
   5.タスクテーブル-ラベルマスタ紐付テーブル
 
-  ・タスクテーブル-ラベルマスタ紐付テーブルID PK BIGINT
+  ・タスクテーブルID UK FK BIGINT
 
-  ・ユーザID UK FK BIGINT
-
-  ・タスクID UK FK BIGINT
-
-  ・ラベルID UK FK BIGINT
+  ・ラベルマスタID UK FK BIGINT

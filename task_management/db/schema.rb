@@ -12,53 +12,60 @@
 
 ActiveRecord::Schema.define(version: 2020_12_21_043604) do
 
-  create_table "authority_mst", primary_key: "authority_mst_id", id: { comment: "権限マスタID" }, charset: "utf8mb4", force: :cascade do |t|
-    t.string "authority_div", limit: 1, null: false, comment: "権限区分"
-    t.string "authority_name", null: false, comment: "権限名"
-    t.index ["authority_div"], name: "index_authority_mst_on_authority_div", unique: true
+  create_table "authority_mst", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "div", limit: 1, null: false, comment: "権限区分"
+    t.string "name", null: false, comment: "権限名"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["div"], name: "index_authority_mst_on_div", unique: true
   end
 
-  create_table "label_mst", primary_key: "label_mst_id", id: { comment: "ラベルマスタID" }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "label_mst", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザID"
-    t.integer "label_no", null: false, comment: "ラベルNo"
-    t.string "label_name", null: false, comment: "ラベル名"
-    t.index ["user_id", "label_no"], name: "index_label_mst_on_user_id_and_label_no", unique: true
+    t.integer "no", null: false, comment: "ラベルNo"
+    t.string "name", null: false, comment: "ラベル名"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "no"], name: "index_label_mst_on_user_id_and_no", unique: true
   end
 
-  create_table "task_tbl", primary_key: "task_tbl_id", id: { comment: "タスクテーブルID" }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "task_tbl", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザID"
-    t.integer "task_no", null: false, comment: "タスクNo"
-    t.string "task_name", null: false, comment: "タスク名"
-    t.string "task_details", comment: "タスク詳細"
+    t.integer "no", null: false, comment: "タスクNo"
+    t.string "name", null: false, comment: "タスク名"
+    t.string "details", comment: "タスク詳細"
     t.datetime "deadline", null: false, comment: "終了期限"
-    t.string "status", limit: 1, null: false, comment: "ステータス(0:未着手 1:着手 2:完了)"
-    t.string "priority", limit: 1, null: false, comment: "優先順位(0:低 1:中 2:高)"
+    t.integer "status", limit: 1, null: false, comment: "ステータス(0:未着手 1:着手 2:完了)"
+    t.integer "priority", limit: 1, null: false, comment: "優先順位(0:低 1:中 2:高)"
     t.datetime "creation_date", null: false, comment: "作成日時"
-    t.index ["user_id", "task_no"], name: "index_task_tbl_on_user_id_and_task_no", unique: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "no"], name: "index_task_tbl_on_user_id_and_no", unique: true
   end
 
-  create_table "task_with_label_tbl", primary_key: "task_with_label_tbl_id", id: { comment: "タスクテーブル-ラベルマスタ紐付テーブルID" }, charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false, comment: "ユーザID"
+  create_table "task_with_label_tbl", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "task_id", null: false, comment: "タスクID"
     t.bigint "label_id", null: false, comment: "ラベルID"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["label_id"], name: "fk_rails_0d9bed0288"
-    t.index ["task_id"], name: "fk_rails_3a2d899537"
-    t.index ["user_id", "task_id", "label_id"], name: "index_task_with_label_tbl_on_user_id_and_task_id_and_label_id", unique: true
+    t.index ["task_id", "label_id"], name: "index_task_with_label_tbl_on_task_id_and_label_id", unique: true
   end
 
-  create_table "users_tbl", primary_key: "users_tbl_id", id: { comment: "ユーザテーブルID" }, charset: "utf8mb4", force: :cascade do |t|
+  create_table "users_tbl", charset: "utf8mb4", force: :cascade do |t|
     t.string "user_id", limit: 12, null: false, comment: "ユーザID"
-    t.string "user_name", null: false, comment: "ユーザ名"
+    t.string "name", null: false, comment: "ユーザ名"
     t.string "password", limit: 12, null: false, comment: "パスワード(暗号化して登録)"
     t.bigint "authority_id", null: false, comment: "権限ID"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["authority_id"], name: "fk_rails_40f117296f"
     t.index ["user_id"], name: "index_users_tbl_on_user_id", unique: true
   end
 
-  add_foreign_key "label_mst", "users_tbl", column: "user_id", primary_key: "users_tbl_id"
-  add_foreign_key "task_tbl", "users_tbl", column: "user_id", primary_key: "users_tbl_id"
-  add_foreign_key "task_with_label_tbl", "label_mst", column: "label_id", primary_key: "label_mst_id"
-  add_foreign_key "task_with_label_tbl", "task_tbl", column: "task_id", primary_key: "task_tbl_id"
-  add_foreign_key "task_with_label_tbl", "users_tbl", column: "user_id", primary_key: "users_tbl_id"
-  add_foreign_key "users_tbl", "authority_mst", column: "authority_id", primary_key: "authority_mst_id"
+  add_foreign_key "label_mst", "users_tbl", column: "user_id"
+  add_foreign_key "task_tbl", "users_tbl", column: "user_id"
+  add_foreign_key "task_with_label_tbl", "label_mst", column: "label_id"
+  add_foreign_key "task_with_label_tbl", "task_tbl", column: "task_id"
+  add_foreign_key "users_tbl", "authority_mst", column: "authority_id"
 end
