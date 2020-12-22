@@ -7,7 +7,7 @@
       <%= search_form_for(@search, url: root_path)  do |f| %>
       <div class="form-group">
         <%= f.label :sorts, I18n.t('tasks.index.sort_order') %>
-        <%= f.select :sorts, options_for_select(@sort_order_list.map{|c|[c[:name], c[:sort]]}, selected:params[:q][:sorts]), {}, {onchange: 'this.form.submit()'} %>
+        <%= f.select :sorts, options_for_select(Task::SORT_ORDER_LIST.map{|c|[c[:name], c[:sort]]}, selected:params[:q][:sorts]), {}, {onchange: 'this.form.submit()'} %>
       </div>
       <div class="row mt-5">
         <div class="form-group">

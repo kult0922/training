@@ -19,9 +19,6 @@ class TasksController < ApplicationController
       # 検索機能を利用した検索結果を取得
       @tasks = @search.result
     end
-
-    @sort_order_list = [{ name: I18n.t('tasks.index.sort_create_at'), sort: 'created_at ASC' },
-                        { name: I18n.t('tasks.index.sort_end_date'), sort: 'end_date DESC' }]
   end
 
   # タスク登録画面

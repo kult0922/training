@@ -1,6 +1,10 @@
 class Task < ApplicationRecord
   enum status: { not_start: 10, start: 20, done: 30 }
 
+  SORT_ORDER_LIST = [{ name: I18n.t('tasks.index.sort_create_at'), sort: 'created_at ASC' },
+                     { name: I18n.t('tasks.index.sort_end_date'), sort: 'end_date DESC' }]
+  SORT_ORDER_LIST.freeze
+
   # 入力必須
   validates :status, :title, :detail, presence: true
 
