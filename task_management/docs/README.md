@@ -54,46 +54,62 @@ Things you may want to cover:
 
 * Table schema
 
-  1.タスクテーブル
+  1.権限マスタ
 
-    ・タスクID PK INT
-  
-    ・ユーザID INT
+  ・権限マスタID PK BIGINT
 
-    ・タスク名 VARCHAR
+  ・権限区分 UK CHAR
 
-    ・タスク詳細 VARCHAR
+  ・権限名 VARCHAR
 
-    ・終了期限 DATETIME
+  2.ユーザテーブル
 
-    ・ステータス CHAR (0:未着手・1:着手・2:完了)
-  
-    ・優先順位 CHAR（0:低・1:中・2:高）
-  
-    ・作成日時 DATETIME
-  
-  2.タスクテーブル-ラベルマスタ紐付テーブル
+  ・ユーザテーブルID PK BIGINT
 
-    ・タスクID UK INT
+  ・マスタID UK VARCHAR
 
-    ・ラベルマスタID UK INT
+  ・ユーザ名 VARCHAR
+
+  ・パスワード(暗号化して登録) VARCHAR
+
+  ・権限ID FK BIGINT
 
   3.ラベルマスタ
 
-    ・ラベルマスタID PK INT
+  ・ラベルマスタID PK BIGINT
 
-    ・ラベル名 UK VARCHAR
-  
-  4.ユーザテーブル
+  ・ユーザID UK FK BIGINT
 
-    ・ユーザID PK INT
+  ・ラベルNo UK INT
 
-    ・パスワード(暗号化して登録) VARCHAR
+  ・ラベル名 VARCHAR
 
-    ・権限ID INT
-  
-  5.ユーザ権限マスタ
+  4.タスクテーブル
 
-    ・ユーザ権限マスタID PK INT
+  ・タスクテーブルID PK BIGINT
 
-    ・権限名 VARCHAR
+  ・ユーザID UK FK BIGINT
+
+  ・タスクNo UK INT
+
+  ・タスク名 VARCHAR
+
+  ・タスク詳細 VARCHAR
+
+  ・終了期限 DATETIME
+
+  ・ステータス CHAR (0:未着手 1:着手 2:完了)
+
+  ・優先順位 CHAR (0:低 1:中 2:高)
+
+  ・作成日時 DATETIME
+
+  5.タスクテーブル-ラベルマスタ紐付テーブル
+
+  ・タスクテーブル-ラベルマスタ紐付テーブルID PK BIGINT
+
+  ・ユーザID UK FK BIGINT
+
+  ・タスクID UK FK BIGINT
+
+  ・ラベルID UK FK BIGINT
