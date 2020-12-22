@@ -74,15 +74,11 @@ Things you may want to cover:
 
   ・ユーザID UK FK BIGINT
 
-  ・ラベルNo UK INT
-
   ・ラベル名 VARCHAR
 
   4.タスクテーブル
 
   ・ユーザID UK FK BIGINT
-
-  ・タスクNo UK INT
 
   ・タスク名 VARCHAR
 

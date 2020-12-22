@@ -1,2 +1,0 @@
-class LabelMst < ApplicationRecord
-end

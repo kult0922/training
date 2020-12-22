@@ -7,14 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # 1.権限マスタ
-AuthorityMst.create!(
+Authority.create!(
   id:   1,
   div:  '0',
   name: "システム管理者"
 )
 
 # 2.ユーザテーブル
-UsersTbl.create!(
+User.create!(
   id:           1,
   user_id:      "yokuno",
   name:         "奥野",
@@ -23,17 +23,15 @@ UsersTbl.create!(
 )
 
 # 3.ラベルマスタ
-LabelMst.create!(
+Label.create!(
   id:      1,
   user_id: 1,
-  no:      1,
   name:    "テストラベル1"
 )
 # 4.タスクテーブル
-TaskTbl.create!(
+Task.create!(
   id:           1,
   user_id:      1,
-  no:           1,
   name:         "テストタスク1",
   details:      "タスク説明1",
   deadline:     "2020-12-22 20:08:33",
@@ -43,9 +41,8 @@ TaskTbl.create!(
 )
 
 # 5.タスクテーブル-ラベルマスタ紐付テーブル
-TaskWithLabelTbl .create!(
+TaskWithLabel.create!(
   id:       1,
-  user_id:  1,
   task_id:  1,
   label_id: 1
 )

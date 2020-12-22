@@ -1,8 +1,7 @@
-class CreateTaskTbls < ActiveRecord::Migration[6.1]
+class CreateTasks < ActiveRecord::Migration[6.1]
   def change
-    create_table :task_tbl do |t|
+    create_table :tasks do |t|
       t.bigint   :user_id      , comment: "ユーザID"                          , null: false
-      t.integer  :no           , comment: "タスクNo"                          , null: false
       t.string   :name         , comment: "タスク名"                          , null: false
       t.string   :details      , comment: "タスク詳細"
       t.datetime :deadline     , comment: "終了期限"                          , null: false
@@ -11,7 +10,6 @@ class CreateTaskTbls < ActiveRecord::Migration[6.1]
       t.datetime :creation_date, comment: "作成日時"                          , null: false
       t.timestamps null: false
     end
-    add_index       :task_tbl, [:user_id, :no], unique: true
-    add_foreign_key :task_tbl, :users_tbl, column: :user_id
+    add_foreign_key :tasks, :users, column: :user_id
   end
 end

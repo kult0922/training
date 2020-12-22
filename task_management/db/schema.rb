@@ -12,26 +12,33 @@
 
 ActiveRecord::Schema.define(version: 2020_12_21_043604) do
 
-  create_table "authority_mst", charset: "utf8mb4", force: :cascade do |t|
+  create_table "authorities", charset: "utf8mb4", force: :cascade do |t|
     t.integer "div", limit: 1, null: false, comment: "権限区分"
     t.string "name", null: false, comment: "権限名"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["div"], name: "index_authority_mst_on_div", unique: true
+    t.index ["div"], name: "index_authorities_on_div", unique: true
   end
 
-  create_table "label_mst", charset: "utf8mb4", force: :cascade do |t|
+  create_table "labels", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザID"
-    t.integer "no", null: false, comment: "ラベルNo"
     t.string "name", null: false, comment: "ラベル名"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "no"], name: "index_label_mst_on_user_id_and_no", unique: true
+    t.index ["user_id"], name: "fk_rails_9ea980b469"
   end
 
-  create_table "task_tbl", charset: "utf8mb4", force: :cascade do |t|
+  create_table "task_with_labels", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "task_id", null: false, comment: "タスクID"
+    t.bigint "label_id", null: false, comment: "ラベルID"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "fk_rails_97692462e3"
+    t.index ["task_id", "label_id"], name: "index_task_with_labels_on_task_id_and_label_id", unique: true
+  end
+
+  create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザID"
-    t.integer "no", null: false, comment: "タスクNo"
     t.string "name", null: false, comment: "タスク名"
     t.string "details", comment: "タスク詳細"
     t.datetime "deadline", null: false, comment: "終了期限"
@@ -40,32 +47,23 @@ ActiveRecord::Schema.define(version: 2020_12_21_043604) do
     t.datetime "creation_date", null: false, comment: "作成日時"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "no"], name: "index_task_tbl_on_user_id_and_no", unique: true
+    t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
   end
 
-  create_table "task_with_label_tbl", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "task_id", null: false, comment: "タスクID"
-    t.bigint "label_id", null: false, comment: "ラベルID"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["label_id"], name: "fk_rails_0d9bed0288"
-    t.index ["task_id", "label_id"], name: "index_task_with_label_tbl_on_task_id_and_label_id", unique: true
-  end
-
-  create_table "users_tbl", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "user_id", limit: 12, null: false, comment: "ユーザID"
     t.string "name", null: false, comment: "ユーザ名"
     t.string "password", limit: 12, null: false, comment: "パスワード(暗号化して登録)"
     t.bigint "authority_id", null: false, comment: "権限ID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["authority_id"], name: "fk_rails_40f117296f"
-    t.index ["user_id"], name: "index_users_tbl_on_user_id", unique: true
+    t.index ["authority_id"], name: "fk_rails_eeedfb3811"
+    t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
-  add_foreign_key "label_mst", "users_tbl", column: "user_id"
-  add_foreign_key "task_tbl", "users_tbl", column: "user_id"
-  add_foreign_key "task_with_label_tbl", "label_mst", column: "label_id"
-  add_foreign_key "task_with_label_tbl", "task_tbl", column: "task_id"
-  add_foreign_key "users_tbl", "authority_mst", column: "authority_id"
+  add_foreign_key "labels", "users"
+  add_foreign_key "task_with_labels", "labels"
+  add_foreign_key "task_with_labels", "tasks"
+  add_foreign_key "tasks", "users"
+  add_foreign_key "users", "authorities"
 end

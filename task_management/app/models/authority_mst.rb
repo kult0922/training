@@ -1,2 +1,0 @@
-class AuthorityMst < ApplicationRecord
-end
