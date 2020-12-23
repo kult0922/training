@@ -10,13 +10,13 @@
 Authority.create!(
   id:   1,
   role: 0,
-  name: "システム管理者"
+  name: "Administrator"
 )
 
 # 2.ユーザテーブル
 User.create!(
   id:           1,
-  user_id:      "yokuno",
+  login_id:     "yokuno",
   name:         "奥野",
   password:     "pass",
   authority_id: 1

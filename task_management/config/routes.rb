@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get 'task' => 'task#index'
+  resources :tasks
 end
