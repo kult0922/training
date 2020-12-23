@@ -53,6 +53,9 @@ th.delete, td.delete {
   width: 70px;
   text-align: center;
 }
+th.creation_date, td.creation_date {
+  width: 150px;
+}
 tbody tr:hover td {
   background: #ccffff;
 }

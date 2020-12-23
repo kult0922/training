@@ -1,0 +1,40 @@
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="app/assets/stylesheets/tasks.scss" type="text/css">
+  <title>タスク管理システム：詳細画面</title>
+</head>
+<body>
+  <h1>タスク管理システム：詳細画面</h1>
+
+  <hr>
+  <div id="task_list">
+    <table>
+      <!-- テーブルヘッダ -->
+      <thead>
+        <tr>
+          <th class="name">タスク</th>
+          <th class="details">詳細</th>
+          <th class="deadline">期限</th>
+          <th class="priority">優先度</th>
+          <th class="status">ステータス</th>
+          <th class="creation_date">作成日時</th>
+        </tr>
+      </thead>
+
+      <!-- テーブルボディ -->
+      <tbody>
+        <tr>
+          <td class="name"><%= @task.name %></td>
+          <td class="details"><%= @task.details %></td>
+          <td class="deadline"><%= l @task.deadline %></td>
+          <td class="priority"><%= @task.priority %></td>
+          <td class="status"><%= @task.status %></td>
+          <td class="creation_date"><%= l @task.creation_date %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+
+  <a href="/tasks">一覧画面へ</a>
+</body>

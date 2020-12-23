@@ -4,7 +4,7 @@
   <title>タスク管理システム：一覧画面</title>
 </head>
 <body>
-  <h1>(仮)タスク管理システム：一覧画面</h1>
+  <h1>タスク管理システム：一覧画面</h1>
 
   <hr>
   <div id="task_list">
@@ -13,7 +13,6 @@
       <thead>
         <tr>
           <th class="name">タスク</th>
-          <!-- <th class="details">詳細</th> -->
           <th class="deadline">期限</th>
           <th class="priority">優先度</th>
           <th class="status">ステータス</th>
@@ -25,9 +24,7 @@
       <tbody>
         <% @tasks.each do |task| %>
           <tr>
-            <!-- TODO:詳細画面へのリンクを作成する -->
-            <td class="name"><%= task.name %></td>
-            <!-- <td class="details"><%= task.details %></td> -->
+            <td class="name"><a href="/tasks/<%= task.id %>"><%= task.name %></a></td>
             <td class="deadline"><%= l task.deadline %></td>
             <td class="priority"><%= task.priority %></td>
             <td class="status"><%= task.status %></td>
@@ -40,5 +37,6 @@
       </tbody>
     </table>
   </div>
+  <hr>
 
 </body>
