@@ -1,0 +1,2 @@
+class TaskLabelRelation < ApplicationRecord
+end
