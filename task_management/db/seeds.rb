@@ -9,7 +9,7 @@
 # 1.権限マスタ
 Authority.create!(
   id:   1,
-  role: '0',
+  role: 0,
   name: "システム管理者"
 )
 
@@ -36,10 +36,9 @@ Label.create!(
     user_id:      1,
     name:         "テストタスク#{n + 1}",
     details:      "タスク説明#{n + 1}",
-    \
     deadline:     "2020-12-22 20:08:33",
-    status:       '0',
-    priority:     '0',
+    status:       0,
+    priority:     0,
     creation_date:"2020-10-02 02:04:05"
   )
 end

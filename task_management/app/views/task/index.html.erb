@@ -1,0 +1,44 @@
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="task.scss" type="text/css">
+  <title>タスク管理システム：一覧画面</title>
+</head>
+<body>
+  <h1>(仮)タスク管理システム：一覧画面</h1>
+
+  <hr>
+  <div id="task_list">
+    <table>
+      <!-- テーブルヘッダ -->
+      <thead>
+        <tr>
+          <th class="name">タスク</th>
+          <!-- <th class="details">詳細</th> -->
+          <th class="deadline">期限</th>
+          <th class="priority">優先度</th>
+          <th class="status">ステータス</th>
+          <th class="delete">削除</th>
+        </tr>
+      </thead>
+
+      <!-- テーブルボディ -->
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <!-- TODO:詳細画面へのリンクを作成する -->
+            <td class="name"><%= task.name %></td>
+            <!-- <td class="details"><%= task.details %></td> -->
+            <td class="deadline"><%= l task.deadline %></td>
+            <td class="priority"><%= task.priority %></td>
+            <td class="status"><%= task.status %></td>
+            <td class="delete">
+              <!-- 削除ボタン -->
+              <button value=<%= task.id %>>削除</button>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</body>

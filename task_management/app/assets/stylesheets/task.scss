@@ -1,0 +1,58 @@
+.alert-color {
+  border-color: #ff0000;
+}
+table {
+  border-collapse: collapse;
+}
+thead, tbody {
+  display: block;
+}
+tbody {
+  height: 180px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+tbody::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+tbody::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+th,td {
+  background-color: #ffffff;
+  border: 1px solid #ffcc66;
+  padding: 0 8px;
+  line-height: 40px;
+}
+thead th {
+  background-color: #fff5e5;
+  border: 1px solid #ffcc66;
+  color: #ff9900;
+}
+th.name, td.name {
+  width: 150px;
+}
+th.details, td.details {
+  width: 200px;
+}
+th.deadline, td.deadline {
+  width: 150px;
+}
+th.priority, td.priority {
+  width: 70px;
+  text-align: center;
+}
+th.status, td.status {
+  width: 100px;
+  text-align: center;
+}
+th.delete, td.delete {
+  width: 70px;
+  text-align: center;
+}
+tbody tr:hover td {
+  background: #ccffff;
+}
