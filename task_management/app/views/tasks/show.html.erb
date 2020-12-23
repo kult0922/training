@@ -7,7 +7,7 @@
   <h1>タスク管理システム：詳細画面</h1>
 
   <hr>
-  <div id="task_list">
+  <div id="task_detail">
     <table>
       <!-- テーブルヘッダ -->
       <thead>
@@ -27,14 +27,14 @@
           <td class="name"><%= @task.name %></td>
           <td class="details"><%= @task.details %></td>
           <td class="deadline"><%= l @task.deadline %></td>
-          <td class="priority"><%= @task.priority %></td>
-          <td class="status"><%= @task.status %></td>
+          <td class="priority"><%= @task.priority_i18n %></td>
+          <td class="status"><%= @task.status_i18n %></td>
           <td class="creation_date"><%= l @task.creation_date %></td>
         </tr>
       </tbody>
     </table>
   </div>
+  <a href="/tasks/<%= @task.id %>/edit">編集する</a><br>
   <hr>
-
-  <a href="/tasks">一覧画面へ</a>
+  <a href="/tasks">一覧画面へ</a><br>
 </body>

@@ -1,4 +1,15 @@
 ja:
   time:
     formats:
-      default: "%Y/%m/%d %H:%M:%S"
+      default: "%Y/%m/%d"
+
+  enums:
+    task:
+      priority:
+        low: 低
+        normal: 中
+        high: 高
+      status:
+        todo: 未着手
+        in_progress: 着手
+        done: 完了

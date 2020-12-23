@@ -1,3 +1,4 @@
 class TaskLabelRelation < ApplicationRecord
-  belongs_to :task_label, polymorphic: true
+  belongs_to :task
+  belongs_to :label
 end

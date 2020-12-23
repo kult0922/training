@@ -1,8 +1,13 @@
 class Task < ApplicationRecord
   belongs_to :user
-  has_many :task_label_relations, as: :task_label, dependent: :destroy
+  has_many :task_label_relations, dependent: :destroy
+  has_many :labels, through: :task_label_relations
 
-  # TODO:以下の日本語化
+  # TODO: 日付の厳密なバリデーション
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :details, presence: true
+  validates :deadline, presence: true
+
   enum priority: { low: 0, normal: 1, high: 2 }
   enum status: { todo: 0, in_progress: 1, done: 2 }
 end

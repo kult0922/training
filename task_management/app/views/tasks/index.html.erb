@@ -16,6 +16,7 @@
           <th class="deadline">期限</th>
           <th class="priority">優先度</th>
           <th class="status">ステータス</th>
+          <th class="edit">編集</th>
           <th class="delete">削除</th>
         </tr>
       </thead>
@@ -26,17 +27,16 @@
           <tr>
             <td class="name"><a href="/tasks/<%= task.id %>"><%= task.name %></a></td>
             <td class="deadline"><%= l task.deadline %></td>
-            <td class="priority"><%= task.priority %></td>
-            <td class="status"><%= task.status %></td>
-            <td class="delete">
-              <!-- 削除ボタン -->
-              <button value=<%= task.id %>>削除</button>
-            </td>
+            <td class="priority"><%= task.priority_i18n %></td>
+            <td class="status"><%= task.status_i18n %></td>
+            <td class="edit"><button onclick="location.href='/tasks/<%= task.id %>/edit'">編集</button></td>
+            <td class="delete"><button onclick="location.href='/tasks/<%= task.id %>'">削除</button></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
   <hr>
+  <a href="/tasks/new">作成画面へ</a><br>
 
 </body>
