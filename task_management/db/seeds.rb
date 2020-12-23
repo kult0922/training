@@ -9,7 +9,7 @@
 # 1.権限マスタ
 Authority.create!(
   id:   1,
-  div:  '0',
+  role: '0',
   name: "システム管理者"
 )
 
@@ -28,21 +28,27 @@ Label.create!(
   user_id: 1,
   name:    "テストラベル1"
 )
+
 # 4.タスクテーブル
-Task.create!(
-  id:           1,
-  user_id:      1,
-  name:         "テストタスク1",
-  details:      "タスク説明1",
-  deadline:     "2020-12-22 20:08:33",
-  status:       '0',
-  priority:     '0',
-  creation_date:"2020-10-02 02:04:05"
-)
+5.times do |n|
+  Task.create!(
+    id:           "#{n + 1}",
+    user_id:      1,
+    name:         "テストタスク#{n + 1}",
+    details:      "タスク説明#{n + 1}",
+    \
+    deadline:     "2020-12-22 20:08:33",
+    status:       '0',
+    priority:     '0',
+    creation_date:"2020-10-02 02:04:05"
+  )
+end
 
 # 5.タスクテーブル-ラベルマスタ紐付テーブル
-TaskWithLabel.create!(
-  id:       1,
-  task_id:  1,
-  label_id: 1
-)
+5.times do |n|
+  TaskLabelRelation.create!(
+    id:       "#{n + 1}",
+    task_id:  "#{n + 1}",
+    label_id: 1
+  )
+end

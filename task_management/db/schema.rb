@@ -13,11 +13,11 @@
 ActiveRecord::Schema.define(version: 2020_12_21_043604) do
 
   create_table "authorities", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "div", limit: 1, null: false, comment: "権限区分"
+    t.integer "role", limit: 1, null: false, comment: "権限区分"
     t.string "name", null: false, comment: "権限名"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["div"], name: "index_authorities_on_div", unique: true
+    t.index ["role"], name: "index_authorities_on_role", unique: true
   end
 
   create_table "labels", charset: "utf8mb4", force: :cascade do |t|
@@ -28,13 +28,13 @@ ActiveRecord::Schema.define(version: 2020_12_21_043604) do
     t.index ["user_id"], name: "fk_rails_9ea980b469"
   end
 
-  create_table "task_with_labels", charset: "utf8mb4", force: :cascade do |t|
+  create_table "task_label_relations", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "task_id", null: false, comment: "タスクID"
     t.bigint "label_id", null: false, comment: "ラベルID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["label_id"], name: "fk_rails_97692462e3"
-    t.index ["task_id", "label_id"], name: "index_task_with_labels_on_task_id_and_label_id", unique: true
+    t.index ["label_id"], name: "fk_rails_1c09076d1e"
+    t.index ["task_id", "label_id"], name: "index_task_label_relations_on_task_id_and_label_id", unique: true
   end
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 2020_12_21_043604) do
   end
 
   add_foreign_key "labels", "users"
-  add_foreign_key "task_with_labels", "labels"
-  add_foreign_key "task_with_labels", "tasks"
+  add_foreign_key "task_label_relations", "labels"
+  add_foreign_key "task_label_relations", "tasks"
   add_foreign_key "tasks", "users"
   add_foreign_key "users", "authorities"
 end
