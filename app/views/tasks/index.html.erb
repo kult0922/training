@@ -3,12 +3,26 @@
     <h1 class="text-center"><%= I18n.t('tasks.index.page_title') %></h1>
   </div>
   <div class="mt-5">
-    <div class="form-inline">
-      <label for="select-sort"><%= I18n.t('tasks.index.sort_order') %></label>
-      <select name="select-sort" id="select-sort" class="form-control">
-        <option value="1" <%= @sortno != "2" ? "selected" : "" %>><%= I18n.t('tasks.index.sort_create_at') %></option>
-        <option value="2" <%= @sortno == "2" ? "selected" : "" %>><%= I18n.t('tasks.index.sort_end_date') %></option>
-      </select>
+    <div class="mt-3">
+      <%= search_form_for(@search, url: root_path)  do |f| %>
+      <div class="form-group">
+        <%= f.label :sorts, I18n.t('tasks.index.sort_order') %>
+        <%= f.select :sorts, options_for_select(Task::SORT_ORDER_LIST.map{|c|[c[:name], c[:sort]]}, selected:params[:q][:sorts]), {}, {onchange: 'this.form.submit()'} %>
+      </div>
+      <div class="row mt-5">
+        <div class="form-group">
+          <%= f.label :status_eq, I18n.t('tasks.index.status') %>
+          <%= f.select :status_eq, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true %>
+        </div>
+        <div class="form-group">
+          <%= f.label :title_cont, I18n.t('tasks.index.search_task_name') %>
+          <%= f.search_field :title_cont, value: params[:q][:title_cont] %>
+        </div>
+        <div class="form-group">
+          <%= f.submit %>
+        </div>
+      </div>
+      <% end %>
     </div>
     <div class="mt-4">
       <table class="table table-bordered">
@@ -22,7 +36,7 @@
         <tbody>
           <% @tasks.each do |tasks| %>
           <tr>
-            <td><%= tasks.status %></td>
+            <td><%= I18n.t("enums.task.status.#{tasks.status}") %></td>
             <td><a href="tasks/taskdetail/<%= tasks.id %>"><%= tasks.title %></a></td>
             <td><%= tasks.end_date == nil ? "-" : tasks.end_date.strftime("%Y/%m/%d") %></td>
           </tr>
@@ -35,4 +49,3 @@
     </div>
   </div>
 </div>
-<%= javascript_pack_tag 'task/index' %>

@@ -9,3 +9,12 @@ ja:
       sort_order: "並び順"
       sort_create_at: "作成日"
       sort_end_date: "終了期限"
+      search_task_name: "タスク名検索"
+      search: "検索"
+      done: "完了"
+  enums:
+    task:
+      status:
+        not_start: '未着手'
+        start: '着手'
+        done: '完了'
