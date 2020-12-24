@@ -1,0 +1,9 @@
+ja:
+  sessions:
+    new:
+      page_title: "ログイン画面"
+      user_name: "ユーザ名"
+      password: "パスワード"
+  helpers: # ここから下を追加する
+    submit:
+      submit: "ログイン"
