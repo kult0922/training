@@ -23,13 +23,13 @@
         </thead>
         <!-- テーブルボディ -->
         <tbody>
-        <tr>
-          <td class="name"><%= f.text_field :name, placeholder: "入力してください" %></td>
-          <td class="details"><%= f.text_field :details, placeholder: "入力してください" %></td>
-          <td class="deadline"><%= f.date_field :deadline %></td>
-          <td class="priority"><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {selected: @task.priority} %></td>
-          <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {selected: @task.status}  %></td>
-        </tr>
+          <tr>
+            <td class="name"><%= f.text_field :name, placeholder: "入力してください" %></td>
+            <td class="details"><%= f.text_field :details, placeholder: "入力してください" %></td>
+            <td class="deadline"><%= f.date_field :deadline %></td>
+            <td class="priority"><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {selected: @task.priority} %></td>
+            <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {selected: @task.status}  %></td>
+          </tr>
         </tbody>
       </table>
     </div>
