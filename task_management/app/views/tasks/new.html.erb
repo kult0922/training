@@ -5,9 +5,7 @@
 </head>
 <body>
   <%= flash[:notice] %>
-
   <h1>タスク管理システム：作成画面</h1>
-
   <hr>
   <%= form_for(@task) do |f| %>
   <!-- TODO:ステップ20でラベルを選択し、複数登録可能とする -->
@@ -26,9 +24,9 @@
         <!-- テーブルボディ -->
         <tbody>
           <tr>
-            <td class="name"><%= f.text_field :name %></td>
-            <td class="details"><%= f.text_field :details %></td>
-            <td class="deadline"><%= f.text_field :deadline %></td>
+            <td class="name"><%= f.text_field :name, placeholder: "入力してください" %></td>
+            <td class="details"><%= f.text_field :details, placeholder: "入力してください" %></td>
+            <td class="deadline"><%= f.date_field :deadline, value: Time.now.strftime("%Y-%m-%d") %></td>
             <td class="priority"><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></td>
             <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %></td>
           </tr>
@@ -40,6 +38,5 @@
     <%= f.submit "登録する" %>
   <% end %>
   <hr>
-
   <a href="/tasks">一覧画面へ</a><br>
 </body>

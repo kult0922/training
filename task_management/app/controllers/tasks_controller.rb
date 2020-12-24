@@ -17,8 +17,7 @@ class TasksController < ApplicationController
   # GET /tasks/[:タスクテーブルID]
   def show
     # TODO: タスクテーブルIDのみ指定の場合、ブラウザからの直接アクセスで他ユーザーのタスクが閲覧される可能性がある。
-    # step17で見直す。
-    # 将来的にログインユーザーしか見れないように対策が必要
+    # ログインユーザーしか見れないように対策が必要。ステップ17で見直す。
     @task = Task.find(params[:id])
   end
 
@@ -34,7 +33,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  # ■画面編集系
+  # ■画面更新系
   #
   # タスクを作成する
   # POST /tasks
@@ -55,15 +54,12 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-    # TODO : ユーザIDを更新対象から除外している。書き方はステップ17で見直す。
-    status = Task.statuses[params[:task][:status]]
-    priority = Task.priorities[params[:task][:priority]]
-
-    if @task.update(name: params[:name], details: params[:details], deadline: params[:deadline],
-                    status: status, priority: priority)
+    # TODO : ユーザIDは更新対象外とすべき。書き方はステップ17で見直す。
+    if @task.update(task_params)
       flash[:notice] = '更新が完了しました。'
       redirect_to action: :edit
     else
+      flash.now[:notice] = '更新に失敗しました。'
       render :edit
     end
   end
@@ -71,11 +67,13 @@ class TasksController < ApplicationController
   # タスクを削除する
   # POST /tasks/[:タスクテーブルID]
   def destroy
-
+    Task.find(params[:id]).destroy
+    flash[:notice] = '削除しました。'
+    redirect_to tasks_url
   end
 
   def task_params
-    # TODO: ステップ20でラベルを選択し、複数登録可能とする
+    # TODO: ステップ20でラベル選択、複数登録可能とする
     params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
   end
 end

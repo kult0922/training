@@ -8,7 +8,7 @@ thead, tbody {
   display: block;
 }
 tbody {
-  height: 180px;
+  height: 270px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -37,6 +37,9 @@ thead th {
   background-color: #fff5e5;
   border: 1px solid #ffcc66;
   color: #ff9900;
+}
+th.no, td.no {
+  width: 20px;
 }
 th.name, td.name {
   width: 160px;
