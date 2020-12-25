@@ -17,7 +17,6 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_link I18n.t('tasks.index.submit_button')
       end
 
-
       example '並び順のセレクトボックスが表示されること' do
         expect(page).to have_select(I18n.t('tasks.index.sort_order'), selected: I18n.t('tasks.index.sort_create_at'), options: [I18n.t('tasks.index.sort_create_at'), I18n.t('tasks.index.sort_end_date')])
       end
