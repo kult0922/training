@@ -18,4 +18,5 @@ class ApplicationController < ActionController::Base
         redirect_to maintenance_index_path
       end
     end
+  end
 end
