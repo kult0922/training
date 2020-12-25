@@ -6,6 +6,7 @@ ja:
       title: "タイトル"
       detail: "内容"
       end_date: "終了期限"
+      tags_name: "ラベル"
       back_button: "戻る"
       edit_button: "編集"
       delete_button: "削除"

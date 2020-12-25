@@ -23,7 +23,7 @@
             <td><%= @task_infos.end_date == nil ? "-" : @task_infos.end_date.strftime("%Y/%m/%d") %></td>
           </tr>
           <tr>
-            <th scope="col" class="bg-secondary text-light">ラベル</th>
+            <th scope="col" class="bg-secondary text-light"><%= I18n.t('tasks.taskdetail.tags_name') %></th>
             <td>
               <% @task_infos.tag_list.each do |tag| %>
               <span class="badge badge-info p-2"><%= tag %></span>
