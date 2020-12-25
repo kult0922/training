@@ -21,13 +21,6 @@ Rails.application.routes.draw do
 
   # ログイン画面
   get '/login' => 'sessions#new'
-
-  post '/login' => 'sessions#create'
-
-  delete 'tasks/taskdelete/:id' => 'tasks#taskdelete', :as => :tasks_taskdelete
-
-  # ログイン画面
-  get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
