@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_12_14_033456) do
-=======
 ActiveRecord::Schema.define(version: 2020_12_02_002924) do
->>>>>>> ・検索用Gem「Ransack」を追加
 
   create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "task_id"
