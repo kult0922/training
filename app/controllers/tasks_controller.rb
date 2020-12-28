@@ -16,7 +16,7 @@ class TasksController < ApplicationController
       @tasks = Task.where(user_id: user_id).page(params[:page]).per(Task::PER_PAGE_NO)
     else
       # 入力に応じて検索機能を設定
-      @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont))
+      @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont, :tags_name_eq))
 
       # 検索機能を利用した検索結果を取得
       @tasks = @search.result.where(user_id: user_id).page(params[:page]).per(Task::PER_PAGE_NO)
