@@ -3,11 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-  let!(:added_task) { create(:task) }
+  let(:test_name) { 'test_task_2' }
+  let(:test_details) { 'test2_description' }
+  let(:test_deadline) { Time.zone.now + 3.days }
+  let(:test_priority) { Task.priorities.key(1) }
+  let(:test_status) { Task.statuses.key(1) }
+  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
+  let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
+  let!(:added_index_task) { create(:task, id: 10, user_id: test_index_user.id) }
+  let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
+  let!(:added_task) { create(:task, user_id: test_user.id) }
 
   describe '#index' do
     context 'トップページにアクセスした場合' do
-      example '表示できる' do
+      example 'タスク一覧が表示される' do
         visit root_path
         expect(page).to have_content added_task.name
       end
@@ -16,8 +25,8 @@ RSpec.describe Task, type: :system do
 
   describe '#show(task_id)' do
     context '詳細ページにアクセスした場合' do
-      example 'タスク詳細を表示できる' do
-        visit task_path(added_task.id)
+      example 'タスク詳細が表示される' do
+        visit task_path(added_task)
         expect(page).to have_content added_task.name
       end
     end
@@ -25,27 +34,56 @@ RSpec.describe Task, type: :system do
 
   describe '#new' do
     before { visit new_task_path }
-    context 'with valid form' do
+    context '全項目を入力し、登録ボタンを押下した場合' do
       before do
-        fill_in 'name', with: added_task.name
-        fill_in 'details', with: added_task.details
+        fill_in 'name', with: test_name
+        fill_in 'details', with: test_details
+        fill_in 'deadline', with: test_deadline
+        select '中', from: 'task[priority]'
+        select '着手', from: 'task[status]'
       end
-      example 'タスクを正常に登録できる' do
-
+      example 'タスクを登録できる' do
+        click_button '登録'
+        expect(page).to have_content '登録が完了しました。'
       end
     end
 
-    describe '#edit' do
-      before { visit new_task_path }
-      context 'with valid form' do
-        before do
-          fill_in 'name', with: added_task.name
-          fill_in 'details', with: added_task.details
-        end
-        example 'タスクを正常に登録できる' do
-
-        end
+    context '必須項目を入力せず、登録ボタンを押下した場合' do
+      before do
+        fill_in 'name', with: ''
+        fill_in 'details', with: test_details
+        fill_in 'deadline', with: test_deadline
+        select '中', from: 'task[priority]'
+        select '着手', from: 'task[status]'
+      end
+      example 'タスクが登録できない' do
+        click_button '登録'
+        expect(page).to have_content '登録に失敗しました。'
       end
     end
   end
+
+  describe '#edit' do
+    before { visit edit_task_path(added_task) }
+    context '全項目を入力し、更新ボタンを押下した場合' do
+      before do
+        fill_in 'name', with: test_name
+      end
+      example 'タスクを更新できる' do
+        click_button '更新'
+        expect(page).to have_content '更新が完了しました。'
+      end
+    end
+
+    context '必須項目を入力せず、更新ボタンを押下した場合' do
+      before do
+        fill_in 'name', with: ''
+      end
+      example 'タスクが更新できない' do
+        click_button '更新'
+        expect(page).to have_content '更新に失敗しました。'
+      end
+    end
+  end
+
 end
