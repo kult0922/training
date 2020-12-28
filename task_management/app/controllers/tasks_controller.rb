@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   attr_reader :task
   # TODO: ユーザIDを画面からの連携パラメータに追加する。現状、テスト用のユーザIDを設定している。ステップ17で見直す。
@@ -44,7 +46,7 @@ class TasksController < ApplicationController
       flash[:notice] = '登録が完了しました。'
       redirect_to action: :new
     else
-      flash.now[:notice] = '登録に失敗しました。'
+      flash.now[:alert] = '登録に失敗しました。'
       render :new
     end
   end
@@ -59,7 +61,7 @@ class TasksController < ApplicationController
       flash[:notice] = '更新が完了しました。'
       redirect_to action: :edit
     else
-      flash.now[:notice] = '更新に失敗しました。'
+      flash.now[:alert] = '更新に失敗しました。'
       render :edit
     end
   end

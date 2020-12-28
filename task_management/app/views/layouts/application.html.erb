@@ -15,7 +15,11 @@
   </head>
 
   <body>
-    <%= flash[:notice] %>
+    <% if flash.notice.present? %>
+      <div class='alert alert-primary'><%= flash.notice %></div>
+    <% elsif flash.alert.present? %>
+      <div class='alert alert-danger'><%= flash.alert %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
