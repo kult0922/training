@@ -11,13 +11,13 @@ class TasksController < ApplicationController
       @search = Task.ransack()
 
       # 全件取得
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(Task::PER_PAGE_NO)
     else
       # 入力に応じて検索機能を設定
       @search = Task.ransack(params.require(:q).permit(:sorts, :status_eq, :title_cont))
 
       # 検索機能を利用した検索結果を取得
-      @tasks = @search.result
+      @tasks = @search.result.page(params[:page]).per(Task::PER_PAGE_NO)
     end
   end
 
@@ -59,7 +59,7 @@ class TasksController < ApplicationController
     # Getパラメータの取得
     param_id = params[:id]
 
-    @tasks_list = Task.statuses
+    # @tasks_list = Task.statuses
 
     # パラメータのIDを元にタスクテーブルを検索
     @task = Task.find(param_id)
@@ -112,18 +112,19 @@ class TasksController < ApplicationController
   end
 
   def params_int(model_params)
-    model_params.each do |key,value|
+    model_params.each do |key, value|
       if integer_string?(value)
-        model_params[key]=value.to_i
+        model_params[key] = value.to_i
       end
     end
   end
 
   private
-    def user_params
-      data = params.require(:task).permit(:status, :title, :detail, :end_date)
-      # statusはenumのテキスト型なので、整数型に変換する
-      data[:status] = params[:task][:status].to_i
-      return data
-    end
+
+  def user_params
+    data = params.require(:task).permit(:status, :title, :detail, :end_date)
+    # statusはenumのテキスト型なので、整数型に変換する
+    data[:status] = params[:task][:status].to_i
+    data
+  end
 end

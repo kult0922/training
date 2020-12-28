@@ -21,7 +21,7 @@
       <%= form_for(@task, url: {controller: 'tasks', action: 'createtask'}) do |f| %>
       <div class="form-group">
         <%= f.label :status, class: "col-sm-4" %>
-        <%= f.select :status, Task.statuses, {}, class: "col-sm-7" %>
+        <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, {}, class: "col-sm-7" %>
       </div>
       <div class="form-group">
         <%= f.label :title, class: "col-sm-4" %>

@@ -12,7 +12,7 @@
       <div class="row mt-5">
         <div class="form-group">
           <%= f.label :status_eq, I18n.t('tasks.index.status') %>
-          <%= f.select :status_eq, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true %>
+          <%= f.select :status_eq, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]} , include_blank: true %>
         </div>
         <div class="form-group">
           <%= f.label :title_cont, I18n.t('tasks.index.search_task_name') %>
@@ -43,6 +43,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @tasks %>
     </div>
     <div class="text-right">
       <a class="btn btn-secondary" href="tasks/newtask" role="button"><%= I18n.t('tasks.index.submit_button') %></a>

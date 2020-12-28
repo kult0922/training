@@ -4,7 +4,7 @@
   </div>
   <div class="row mt-5">
     <div class="col-sm-8 mx-auto">
-      <%= form_for(@task, url: {controller: 'tasks', action: 'taskupdateprocess'}) do |f| %>
+      <%= form_for(@task, url: tasks_taskupdate_process_path) do |f| %>
       <table class="table table-bordered">
         <tbody>
           <tr>
@@ -12,7 +12,7 @@
               <%= f.label :status %>
             </th>
             <td>
-              <%= f.select :status,@tasks_list, :selected=>@task.status_before_type_cast , class: "" %>
+              <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, :selected => @task.status_before_type_cast , class: "" %>
             </td>
           </tr>
           <tr>
@@ -43,7 +43,7 @@
       </table>
       <div class="row mt-5">
         <div class="col-sm-4 text-left">
-          <%= link_to("#{I18n.t('tasks.taskupdate.cancel_button')}" , tasks_taskdetail_path(@task.id), class: "btn btn-secondary") %>
+          <%= link_to("#{I18n.t('tasks.taskupdate.cancel_button')}" ,tasks_taskdetail_path(@task.id), class: "btn btn-secondary") %>
         </div>
         <div class="col-sm-4 text-right">
           <%= f.hidden_field :hid, :value => @task.id %>

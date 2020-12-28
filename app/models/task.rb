@@ -1,9 +1,14 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   enum status: { not_start: 10, start: 20, done: 30 }
 
   SORT_ORDER_LIST = [{ name: I18n.t('tasks.index.sort_create_at'), sort: 'created_at ASC' },
                      { name: I18n.t('tasks.index.sort_end_date'), sort: 'end_date DESC' }]
   SORT_ORDER_LIST.freeze
+
+  PER_PAGE_NO = 10
+  PER_PAGE_NO.freeze
 
   # 入力必須
   validates :status, :title, :detail, presence: true
@@ -21,6 +26,6 @@ class Task < ApplicationRecord
   validate :date_before_start
 
   def date_before_start
-    errors.add(:end_date, I18n.t('msg.validate_end_date')) if !end_date.nil? && end_date < Date.today
+    errors.add(:end_date, I18n.t('msg.validate_end_date')) if !end_date.nil? && end_date < Time.zone.today
   end
 end
