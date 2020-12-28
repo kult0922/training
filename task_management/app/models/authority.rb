@@ -1,6 +1,5 @@
-class Authority < ApplicationRecord
-  has_many :users
+# frozen_string_literal: true
 
-  validates :role, presence: true, length: { maximum: 1 }, uniqueness: true
-  validates :name, presence: true, length: { maximum: 25 }
+class Authority < ApplicationRecord
+  has_many :users, dependent: :destroy
 end

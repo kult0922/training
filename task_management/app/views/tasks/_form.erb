@@ -1,0 +1,28 @@
+<!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
+<%= form_with model: @task, local: true do |f| %>
+  <!-- TODO:テスト用のユーザID。ステップ17でログイン画面作成後に動的に変更する -->
+  <%= f.hidden_field :user_id, value: 1 %>
+  <%= f.submit "#{type}" %><br><br>
+  <!-- テーブルボディ -->
+  <table>
+    <!-- テーブルヘッダ -->
+    <thead>
+    <tr>
+      <th class="name">タスク</th>
+      <th class="details">詳細</th>
+      <th class="deadline">期限</th>
+      <th class="priority">優先度</th>
+      <th class="status">ステータス</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="name"><%= f.text_field :name, placeholder: "入力してください" %></td>
+      <td class="details"><%= f.text_field :details, placeholder: "入力してください" %></td>
+      <td class="deadline"><%= f.date_field :deadline, value: show_dat(@task.deadline) || show_dat(Time.now) %></td>
+      <td class="priority"><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {selected: @task.priority} %></td>
+      <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {selected: @task.status}  %></td>
+    </tr>
+    </tbody>
+  </table>
+<% end %>

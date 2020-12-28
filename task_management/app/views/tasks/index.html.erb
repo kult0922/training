@@ -1,48 +1,41 @@
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="app/assets/stylesheets/tasks.scss" type="text/css">
-  <title>タスク管理システム：一覧画面</title>
-</head>
-<body>
-  <%= flash[:notice] %>
-  <h1>タスク管理システム：一覧画面</h1>
-  <hr>
-  <div id="task_list">
-    <table>
-      <!-- テーブルヘッダ -->
-      <thead>
-        <tr>
-          <th class="no">No</th>
-          <th class="name">タスク</th>
-          <th class="deadline">期限</th>
-          <th class="priority">優先度</th>
-          <th class="status">ステータス</th>
-          <th class="edit">編集</th>
-          <th class="delete">削除</th>
-        </tr>
-      </thead>
+<% @page_title = '一覧画面' %>
+<h1>タスク管理システム：一覧画面</h1>
+<hr>
+<div id="task_list">
+  <table>
+    <!-- テーブルヘッダ -->
+    <thead>
+      <tr>
+        <th class="no">No</th>
+        <th class="name">タスク</th>
+        <th class="deadline">期限</th>
+        <th class="priority">優先度</th>
+        <th class="status">ステータス</th>
+        <th class="edit">編集</th>
+        <th class="delete">削除</th>
+      </tr>
+    </thead>
 
-      <!-- テーブルボディ -->
-      <tbody>
-        <% i = 0 %>
-        <% @tasks.each do |task| %>
-          <tr>
-            <td class="no"><%= i += 1 %></td>
-            <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
-            <td class="deadline"><%= l task.deadline %></td>
-            <td class="priority"><%= task.priority_i18n %></td>
-            <td class="status"><%= task.status_i18n %></td>
-            <td class="edit"><%= link_to '編集', edit_task_path(task), class: 'btn btn-edit' %></td>
-            <td class="delete"><%= button_to '削除', task_path(task),
-                                             { method: :delete,
-                                               data: { confirm: '本当に削除しますか？',
-                                                       disable_with: '削除中' } } %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <hr>
-  <a href="/tasks/new">作成画面へ</a><br>
-</body>
+    <!-- テーブルボディ -->
+    <tbody>
+      <% i = 0 %>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td class="no"><%= i += 1 %></td>
+          <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
+          <td class="deadline"><%= l task.deadline %></td>
+          <td class="priority"><%= task.priority_i18n %></td>
+          <td class="status"><%= task.status_i18n %></td>
+          <td class="edit"><%= link_to '編集', edit_task_path(task), class: 'btn btn-edit' %></td>
+          <td class="delete"><%= button_to '削除', task_path(task),
+                                           { method: :delete,
+                                             data: { confirm: '本当に削除しますか？',
+                                                     disable_with: '削除中' } } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<hr>
+<a href="/tasks/new">作成画面へ</a><br>

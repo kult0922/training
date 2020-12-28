@@ -18,6 +18,9 @@ tbody {
 #task_new {
   height: 90px;
 }
+#task_edit {
+  height: 90px;
+}
 tbody::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 10px;
@@ -39,7 +42,7 @@ thead th {
   color: #ff9900;
 }
 th.no, td.no {
-  width: 20px;
+  width: 45px;
 }
 th.name, td.name {
   width: 160px;
