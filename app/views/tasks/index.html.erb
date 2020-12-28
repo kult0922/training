@@ -6,19 +6,25 @@
     <div class="mt-3">
       <%= search_form_for(@search, url: root_path)  do |f| %>
       <div class="form-group">
-        <%= f.label :sorts, I18n.t('tasks.index.sort_order') %>
-        <%= f.select :sorts, options_for_select(Task::SORT_ORDER_LIST.map{|c|[c[:name], c[:sort]]}, selected:params[:q][:sorts]), {}, {onchange: 'this.form.submit()'} %>
+        <%= f.label :sorts, I18n.t('tasks.index.sort_order'), class: "col-form-label" %>
+        <div class="col-sm-10">
+          <%= f.select :sorts, options_for_select(Task::SORT_ORDER_LIST.map{|c|[c[:name], c[:sort]]}, selected:params[:q][:sorts]), {}, {onchange: 'this.form.submit()', class: 'form-control col-sm-3'} %>
+        </div>
       </div>
       <div class="row mt-5">
-        <div class="form-group">
-          <%= f.label :status_eq, I18n.t('tasks.index.status') %>
-          <%= f.select :status_eq, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]} , include_blank: true %>
+        <div class="form-group row col-sm-3">
+          <%= f.label :status_eq, I18n.t('tasks.index.status'), class: "col-form-label" %>
+          <div class="col-sm-7">
+            <%= f.select :status_eq, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, {include_blank: true}, {class: "form-control"} %>
+          </div>
         </div>
-        <div class="form-group">
-          <%= f.label :title_cont, I18n.t('tasks.index.search_task_name') %>
-          <%= f.search_field :title_cont, value: params[:q][:title_cont] %>
+        <div class="form-group row col-sm-4 pr-0">
+          <%= f.label :title_cont, I18n.t('tasks.index.search_task_name'), class: "col-form-label" %>
+          <div class="col-sm-10 pr-1">
+            <%= f.search_field :title_cont, value: params[:q][:title_cont], class: "form-control" %>
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
           <%= f.submit %>
         </div>
       </div>

@@ -26,13 +26,13 @@
       </table>
       <div class="row mt-5">
         <div class="col-sm text-center">
-          <%= link_to("#{I18n.t('tasks.taskdetail.back_button')}" , "/", class: "btn btn-outline-secondary") %>
+          <%= link_to("#{I18n.t('tasks.taskdetail.back_button')}", "/", class: "btn btn-outline-secondary") %>
         </div>
         <div class="col-sm text-center">
-          <%= link_to("#{I18n.t('tasks.taskdetail.edit_button')}" , tasks_taskupdate_path(@task_infos.id), class: "btn btn-primary") %>
+          <%= link_to("#{I18n.t('tasks.taskdetail.edit_button')}", tasks_taskupdate_path(@task_infos.id), class: "btn btn-primary") %>
         </div>
         <div class="col-sm text-center">
-          <%= link_to("#{I18n.t('tasks.taskdetail.delete_button')}" , tasks_taskdelete_path(@task_infos.id), class: "btn btn-danger",method: :delete) %>
+          <%= link_to("#{I18n.t('tasks.taskdetail.delete_button')}", tasks_taskdelete_path(@task_infos.id), class: "btn btn-danger", method: :delete) %>
         </div>
       </div>
     </div>

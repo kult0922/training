@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :users
   enum status: { not_start: 10, start: 20, done: 30 }
 
   SORT_ORDER_LIST = [{ name: I18n.t('tasks.index.sort_create_at'), sort: 'created_at ASC' },
