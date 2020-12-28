@@ -254,7 +254,6 @@ RSpec.describe 'Tasks', type: :system do
       end
 
       example '終了期限が過去の日付だった場合、エラーが表示されること' do
-
         # タイトルに「テストタイトル登録 from rspec」と入力
         fill_in I18n.t('activerecord.attributes.task.title'), with: 'テストタイトル登録 from rspec'
 

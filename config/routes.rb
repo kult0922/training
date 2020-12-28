@@ -18,4 +18,11 @@ Rails.application.routes.draw do
   patch 'tasks/taskupdateprocess' => 'tasks#taskupdateprocess', :as => :tasks_taskupdate_process
 
   delete 'tasks/taskdelete/:id' => 'tasks#taskdelete', :as => :tasks_taskdelete
+
+  # ログイン画面
+  get '/login' => 'sessions#new'
+
+  post '/login' => 'sessions#create'
+
+  delete '/logout' => 'sessions#destroy'
 end

@@ -12,6 +12,7 @@ ja:
       search_task_name: "タスク名検索"
       search: "検索"
       done: "完了"
+      logout: "ログアウト"
   enums:
     task:
       status:
