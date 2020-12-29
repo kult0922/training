@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Authority, type: :model do
@@ -46,7 +48,7 @@ RSpec.describe Authority, type: :model do
     end
 
     context '権限名の桁数が25桁よりも大きい場合' do
-      let(:name) { 12345678901234567890123456 }
+      let(:name) { 12_345_678_901_234_567_890 }
       example '登録できない' do
         expect { is_expected.to_not be_valid }
       end

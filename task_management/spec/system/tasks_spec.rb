@@ -10,7 +10,7 @@ RSpec.describe Task, type: :system do
   let(:test_status) { Task.statuses.key(1) }
   let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
   let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
-  let!(:added_index_task) { create(:task, id: 10, user_id: test_index_user.id) }
+  let!(:added_index_task) { create(:task, id: 2, user_id: test_index_user.id) }
   let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
   let!(:added_task) { create(:task, user_id: test_user.id) }
 
@@ -85,5 +85,4 @@ RSpec.describe Task, type: :system do
       end
     end
   end
-
 end
