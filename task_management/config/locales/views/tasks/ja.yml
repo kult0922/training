@@ -23,7 +23,7 @@ ja:
 
     header:
       name: タスク名
-      details: タスク詳細
+      details: 詳細
       deadline: 終了期限
       priority: 優先度
       status: ステータス
