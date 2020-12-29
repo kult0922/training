@@ -1,0 +1,8 @@
+<% @page_title = '作成画面' %>
+<h1>タスク管理システム：作成画面</h1>
+<hr>
+<div id="task_new">
+  <%= render partial: 'form', locals: { task: @task, type: '登録' } %>
+</div>
+<br><br><br>
+<a href="/">一覧画面へ</a><br>

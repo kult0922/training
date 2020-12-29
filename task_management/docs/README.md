@@ -62,7 +62,7 @@ Things you may want to cover:
 
   2.ユーザテーブル
 
-  ・マスタID UK VARCHAR
+  ・ログインID UK VARCHAR
 
   ・ユーザ名 VARCHAR
 
@@ -94,6 +94,6 @@ Things you may want to cover:
 
   5.タスクテーブル-ラベルマスタ紐付テーブル
 
-  ・タスクテーブルID UK FK BIGINT
+  ・タスクID UK FK BIGINT
 
-  ・ラベルマスタID UK FK BIGINT
+  ・ラベルID UK FK BIGINT

@@ -44,21 +44,21 @@ ActiveRecord::Schema.define(version: 2020_12_21_043604) do
     t.datetime "deadline", null: false, comment: "終了期限"
     t.integer "status", limit: 1, null: false, comment: "ステータス(0:未着手 1:着手 2:完了)"
     t.integer "priority", limit: 1, null: false, comment: "優先順位(0:低 1:中 2:高)"
-    t.datetime "creation_date", null: false, comment: "作成日時"
+    t.datetime "creation_date", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "作成日時"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "user_id", limit: 12, null: false, comment: "ユーザID"
+    t.string "login_id", limit: 12, null: false, comment: "ログインID"
     t.string "name", null: false, comment: "ユーザ名"
     t.string "password", limit: 12, null: false, comment: "パスワード(暗号化して登録)"
     t.bigint "authority_id", null: false, comment: "権限ID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["authority_id"], name: "fk_rails_eeedfb3811"
-    t.index ["user_id"], name: "index_users_on_user_id", unique: true
+    t.index ["login_id"], name: "index_users_on_login_id", unique: true
   end
 
   add_foreign_key "labels", "users"
