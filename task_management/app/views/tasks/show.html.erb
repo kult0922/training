@@ -1,17 +1,17 @@
-<% content_for(:title, '詳細') %>
-<h1>タスク管理システム：詳細画面</h1>
+<% content_for(:title, t('.title')) %>
+<h1><%= t('.title') %></h1>
 <hr>
 <div id="task_detail">
   <table>
     <!-- テーブルヘッダ -->
     <thead>
       <tr>
-        <th class="name">タスク</th>
-        <th class="details">詳細</th>
-        <th class="deadline">期限</th>
-        <th class="priority">優先度</th>
-        <th class="status">ステータス</th>
-        <th class="creation_date">作成日時</th>
+        <th class="name"><%= t('tasks.header.name') %></th>
+        <th class="details"><%= t('tasks.header.details') %></th>
+        <th class="deadline"><%= t('tasks.header.deadline') %></th>
+        <th class="priority"><%= t('tasks.header.priority') %></th>
+        <th class="status"><%= t('tasks.header.status') %></th>
+        <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
       </tr>
     </thead>
 
@@ -29,4 +29,4 @@
   </table>
 </div>
 <hr>
-<a href="/tasks">一覧画面へ</a><br>
+<%= link_to t('tasks.footer.index'), tasks_path %>

@@ -13,13 +13,13 @@ tbody {
     overflow-y: scroll;
 }
 #task_detail {
-    height: 90px;
+    height: 180px;
 }
 #task_new {
-    height: 90px;
+    height: 180px;
 }
 #task_edit {
-    height: 90px;
+    height: 180px;
 }
 tbody::-webkit-scrollbar {
     -webkit-appearance: none;
