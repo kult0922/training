@@ -70,7 +70,7 @@ th.edit, td.edit {
     text-align: center;
 }
 th.creation_date, td.creation_date {
-    width: 150px;
+    width: 180px;
 }
 tbody tr:hover td {
     background: #ccffff;

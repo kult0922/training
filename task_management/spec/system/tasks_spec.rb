@@ -10,15 +10,28 @@ RSpec.describe Task, type: :system do
   let(:test_status) { Task.statuses.key(1) }
   let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
   let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
-  let!(:added_index_task) { create(:task, id: 2, user_id: test_index_user.id) }
+  let!(:added_index_task) { create(:task, id: 2, creation_date: Time.current + 5.days, user_id: test_index_user.id) }
   let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
-  let!(:added_task) { create(:task, user_id: test_user.id) }
+  let!(:added_task) { create(:task, creation_date: Time.current + 1.days, user_id: test_user.id) }
 
   describe '#index' do
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
         visit root_path
         expect(page).to have_content added_task.name
+      end
+    end
+
+    describe 'sorting' do
+      let!(:taskA) { create(:task, id: 3, name:'taskA', creation_date: Time.current + 1.days, user_id: test_index_user.id) }
+      let!(:taskB) { create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days, user_id: test_index_user.id) }
+      before do
+        visit root_path
+      end
+      context 'トップページにアクセスした場合（サーバ側で「作成日時」を降順ソート）' do
+        example '「作成日時」で降順ソートされた状態で表示される' do
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+        end
       end
     end
   end
