@@ -22,9 +22,9 @@ ja:
       btn_update: 更新
 
     header:
-      name: タスク
-      details: 詳細
-      deadline: 期限
+      name: タスク名
+      details: タスク詳細
+      deadline: 終了期限
       priority: 優先度
       status: ステータス
       creation_date: 作成日時
