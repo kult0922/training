@@ -16,10 +16,10 @@ tbody {
     height: 180px;
 }
 #task_new {
-    height: 180px;
+    height: 220px;
 }
 #task_edit {
-    height: 180px;
+    height: 220px;
 }
 tbody::-webkit-scrollbar {
     -webkit-appearance: none;
