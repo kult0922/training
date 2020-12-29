@@ -5,7 +5,6 @@ class Task < ApplicationRecord
   has_many :task_label_relations, dependent: :destroy
   has_many :labels, through: :task_label_relations
 
-  # TODO: 日付の厳密なバリデーション
   validates :name, presence: true, length: { maximum: 50 }
   validates :details, presence: true
   validates :deadline, presence: true
