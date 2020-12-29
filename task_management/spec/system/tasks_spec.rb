@@ -100,7 +100,6 @@ RSpec.describe Task, type: :system do
       example '500ページを表示する' do
         allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
         visit tasks_path
-
         expect(page).to have_content '大変申し訳ありません。一時的なエラーが発生しました。'
       end
     end
