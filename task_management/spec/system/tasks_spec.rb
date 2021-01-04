@@ -104,6 +104,17 @@ RSpec.describe Task, type: :system do
         end
       end
 
+      context 'ステータス「着手」と検索キーワードを入力し、検索ボタンを押下した場合' do
+        before do
+          choose 'in_progress'
+          fill_in 'search_word', with: 'task'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskD'
+        end
+      end
+
     end
 
     describe 'sorting' do
