@@ -7,7 +7,7 @@ RSpec.describe Task, type: :system do
   let(:test_details) { 'test2_description' }
   let(:test_deadline) { Time.zone.now + 3.days }
   let(:test_priority) { Task.priorities.key(1) }
-  let(:test_status) { Task.statuses.key(1) }
+  let(:test_status) { Task.statuses.key(2) }
   let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
   let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
   let!(:added_index_task) { create(:task, id: 2, creation_date: Time.current + 5.days, user_id: test_index_user.id) }
@@ -15,15 +15,45 @@ RSpec.describe Task, type: :system do
   let!(:added_task) { create(:task, creation_date: Time.current + 1.days, user_id: test_user.id) }
 
   describe '#index' do
+    before { visit root_path }
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
-        visit root_path
         expect(page).to have_content added_task.name
       end
     end
 
+    context '検索キーワードを入力し、検索ボタンを押下した場合' do
+      before do
+        fill_in 'search_word', with: 'test_task'
+      end
+      example 'タスクを検索できる' do
+        click_button '検索'
+        expect(page).to have_content 'test_task_1'
+      end
+    end
+
+    context 'ステータスを選択し、検索ボタンを押下した場合' do
+      before do
+        choose 'todo'
+      end
+      example 'タスクを検索できる' do
+        click_button '検索'
+        expect(page).to have_content 'test_task_1'
+      end
+    end
+
+    context 'ステータスを選択し、検索ボタンを押下した場合' do
+      before do
+        fill_in 'search_word', with: 'test_task'
+        choose 'todo'
+      end
+      example 'タスクを検索できる' do
+        click_button '検索'
+        expect(page).to have_content 'test_task_1'
+      end
+    end
+
     context '編集リンクを押下した場合' do
-      before { visit root_path }
       example 'タスク編集画面に遷移する' do
         click_link '編集'
         expect(page).to have_content 'タスク編集'
@@ -31,7 +61,6 @@ RSpec.describe Task, type: :system do
     end
 
     context '削除ボタンを押下した場合' do
-      before { visit root_path }
       example 'タスクを削除できる' do
         page.accept_confirm do
           click_button '削除'
