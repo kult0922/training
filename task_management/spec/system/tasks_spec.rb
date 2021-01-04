@@ -22,37 +22,6 @@ RSpec.describe Task, type: :system do
       end
     end
 
-    context '検索キーワードを入力し、検索ボタンを押下した場合' do
-      before do
-        fill_in 'search_word', with: 'test_task'
-      end
-      example 'タスクを検索できる' do
-        click_button '検索'
-        expect(page).to have_content 'test_task_1'
-      end
-    end
-
-    context 'ステータスを選択し、検索ボタンを押下した場合' do
-      before do
-        choose 'todo'
-      end
-      example 'タスクを検索できる' do
-        click_button '検索'
-        expect(page).to have_content 'test_task_1'
-      end
-    end
-
-    context 'ステータスを選択し、検索ボタンを押下した場合' do
-      before do
-        fill_in 'search_word', with: 'test_task'
-        choose 'todo'
-      end
-      example 'タスクを検索できる' do
-        click_button '検索'
-        expect(page).to have_content 'test_task_1'
-      end
-    end
-
     context '編集リンクを押下した場合' do
       example 'タスク編集画面に遷移する' do
         click_link '編集'
@@ -67,6 +36,74 @@ RSpec.describe Task, type: :system do
         end
         expect(page).to have_content '削除しました。'
       end
+    end
+
+    describe 'search' do
+      let!(:taskC) { create(:task, id: 5, name:'taskC', creation_date: Time.current + 2.days,
+                            user_id: test_index_user.id, deadline: Time.current + 4.days,
+                            status: 1) }
+      let!(:taskD) { create(:task, id: 6, name:'taskD', creation_date: Time.current + 2.days,
+                            user_id: test_index_user.id, deadline: Time.current + 4.days,
+                            status: 2) }
+      let!(:taskE) { create(:task, id: 7, name:'taskE', creation_date: Time.current + 2.days,
+                            user_id: test_index_user.id, deadline: Time.current + 4.days,
+                            status: 3) }
+      context '検索キーワードを入力し、検索ボタンを押下した場合' do
+        before do
+          fill_in 'search_word', with: 'task'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'test_task_1'
+          expect(page).to have_content 'taskC'
+          expect(page).to have_content 'taskD'
+          expect(page).to have_content 'taskE'
+        end
+      end
+
+      context 'ステータス「全て」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'all'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'test_task_1'
+          expect(page).to have_content 'taskC'
+          expect(page).to have_content 'taskD'
+          expect(page).to have_content 'taskE'
+        end
+      end
+
+      context 'ステータス｢未着手」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'todo'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskC'
+        end
+      end
+
+      context 'ステータス「着手」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'in_progress'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskD'
+        end
+      end
+
+      context 'ステータス「完了」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'done'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskE'
+        end
+      end
+
     end
 
     describe 'sorting' do

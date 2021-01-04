@@ -26,7 +26,12 @@ class TasksController < ApplicationController
     if t('.search') == search_btn
       status = params[:status]
       search_word = params[:search_word]
-      @tasks = Task.where(user_id: user_id).where(status: status).where('name like ?','%' + search_word + '%').order(order)
+      # TODO: もっと美しく書けないかな
+      if 'all' == status
+        @tasks = Task.where(user_id: user_id).where('name like ?','%' + search_word + '%').order(order)
+      else
+        @tasks = Task.where(user_id: user_id).where(status: status).where('name like ?','%' + search_word + '%').order(order)
+      end
     else
       @tasks = Task.where(user_id: user_id).order(order)
     end
