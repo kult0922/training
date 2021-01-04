@@ -2,6 +2,7 @@
 <h1><%= t('.title') %></h1>
 
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
+  <%= t('tasks.header.status') %>
   <%= f.radio_button :status, :todo, id: 'all', checked: true %><%= f.label 'all', t('.status.all') %>
   <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', t('.status.todo') %>
   <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', t('.status.in_progress') %>
