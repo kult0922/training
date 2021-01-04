@@ -10,6 +10,12 @@ ja:
       btn_delete: 削除
       confirm_delete: 本当に削除しますか？
       load_delete: 削除中
+      search: 検索
+      status:
+        all: 全て
+        todo: 未着手
+        in_progress: 着手
+        done: 完了
 
     show:
       title: タスク詳細

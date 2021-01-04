@@ -86,9 +86,9 @@ Things you may want to cover:
 
   ・終了期限 DATETIME
 
-  ・ステータス INT (0:未着手 1:着手 2:完了)
+  ・ステータス INT (1:未着手 2:着手 3:完了)
 
-  ・優先順位 INT (0:低 1:中 2:高)
+  ・優先順位 INT (1:低 2:中 3:高)
 
   ・作成日時 DATETIME
 

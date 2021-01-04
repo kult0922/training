@@ -11,12 +11,24 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    user_id = User.select(:id).where(login_id: TEST_USER_ID)
+    user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
+
+    # ソートキーを設定
     sort = params[:sort]
-    if sort.nil? then
-      @tasks = Task.where(user_id: user_id).order('creation_date DESC')
+    if sort.nil?
+      order = 'creation_date DESC'
     else
-      @tasks = Task.where(user_id: user_id).order(sort + ' DESC')
+      order = sort + ' DESC'
+    end
+
+    # 検索ボタンを押下した場合
+    search_btn = params[:search_btn]
+    if t('.search') == search_btn
+      status = params[:status]
+      search_word = params[:search_word]
+      @tasks = Task.where(user_id: user_id).where(status: status).where('name like ?','%' + search_word + '%').order(order)
+    else
+      @tasks = Task.where(user_id: user_id).order(order)
     end
   end
 
@@ -83,4 +95,5 @@ class TasksController < ApplicationController
     # TODO: ステップ20でラベル選択、複数登録可能とする
     params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
   end
+
 end

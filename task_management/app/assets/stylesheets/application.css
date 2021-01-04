@@ -83,3 +83,6 @@ tbody tr:hover td {
     margin-left: 10px;
     border: 1px dashed #999; /* わかりやすくボーターを付けておきます */
 }
+#search_word {
+    width: 200px;
+}
