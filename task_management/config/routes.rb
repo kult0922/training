@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'sessions#index'
   resources :tasks
 
-  resources :users do
+  resources :sessions do
     collection do
       post 'login'
     end

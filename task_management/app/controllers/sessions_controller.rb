@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class SessionsController < ApplicationController
   attr_reader :user
 
   def index
@@ -11,11 +11,12 @@ class UsersController < ApplicationController
       flash[:alert] = 'ログインに失敗しました。'
       render :index
     else
+      flash[:alert] = ''
       redirect_to controller: :tasks, action: :index
     end
   end
 
-  def user_params
+  def session_params
     params.require(:user).permit(:login_id, :password)
   end
 
