@@ -24,16 +24,15 @@ class TasksController < ApplicationController
     # 検索ボタンを押下した場合
     search_btn = params[:search_btn]
     if t('.search') == search_btn
-      status = params[:status]
       search_word = params[:search_word]
-      # TODO: もっと美しく書けないかな
-      if 'all' == status
-        @tasks = Task.where(user_id: user_id).where('name like ?','%' + search_word + '%').order(order)
-      else
-        @tasks = Task.where(user_id: user_id).where(status: status).where('name like ?','%' + search_word + '%').order(order)
-      end
+      status = params[:status]
+      if 'all' == status then status = Task.statuses.values end
+      @tasks = Task.where(user_id: user_id)
+                     .where(status: status)
+                     .where('name like ?','%' + search_word + '%')
+                     .order(order).page(params[:page])
     else
-      @tasks = Task.where(user_id: user_id).order(order)
+      @tasks = Task.where(user_id: user_id).order(order).page(params[:page])
     end
   end
 

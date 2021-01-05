@@ -21,7 +21,7 @@ Label.create!(
 )
 
 # 4.タスクテーブル
-5.times do |n|
+30.times do |n|
   Task.create!(
     user_id:       1,
     name:          "テストタスク#{n + 1}",
@@ -34,7 +34,7 @@ Label.create!(
 end
 
 # 5.タスクテーブル-ラベルマスタ紐付テーブル
-5.times do |n|
+30.times do |n|
   TaskLabelRelation.create!(
     task_id:  n + 1,
     label_id: 1,
