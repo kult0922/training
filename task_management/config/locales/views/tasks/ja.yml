@@ -41,7 +41,3 @@ ja:
     edit:
       title: タスク編集
       btn_update: 更新
-
-  users:
-    index:
-      title: ログイン
