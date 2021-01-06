@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def index
     user_id = session[:user_id]
     user = User.find(user_id) if user_id
-    return if user.nil?
+    return if user.blank?
     flash[:alert] = ''
     redirect_to controller: :tasks, action: :index
   end
@@ -20,6 +20,8 @@ class SessionsController < ApplicationController
       redirect_to controller: :tasks, action: :index
     end
   end
+
+  private
 
   def session_params
     params.require(:user).permit(:login_id, :password)

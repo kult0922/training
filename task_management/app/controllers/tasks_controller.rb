@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  attr_reader :task
-  # TODO: ユーザIDを画面からの連携パラメータに追加する。現状、テスト用のユーザIDを設定している。ステップ17で見直す。
-  TEST_USER_ID = 'yokuno'
+  attr_reader :task, :user
+
+  before_action :check_login
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -11,8 +11,6 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
-
     # ソートキーを設定
     sort = params[:sort]
     order = if sort.nil?
@@ -27,20 +25,18 @@ class TasksController < ApplicationController
       search_word = params[:search_word]
       status      = params[:status]
       status = Task.statuses.values if status == 'all'
-      @tasks = Task.where(user_id: user_id)
+      @tasks = Task.where(user_id: @user.id)
                      .where(status: status)
                      .where('name like ?', '%' + search_word + '%')
                      .order(order).page(params[:page])
     else
-      @tasks = Task.where(user_id: user_id).order(order).page(params[:page])
+      @tasks = Task.where(user_id: @user.id).order(order).page(params[:page])
     end
   end
 
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    # TODO: タスクテーブルIDのみ指定の場合、ブラウザからの直接アクセスで他ユーザーのタスクが閲覧される可能性がある。
-    # ログインユーザーしか見れないように対策が必要。ステップ17で見直す。
     @task = Task.find(params[:id])
   end
 
@@ -62,7 +58,7 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @task = Task.new(task_params)
-
+    @task.user_id = @user.id
     if @task.save
       flash[:notice] = '登録が完了しました。'
       redirect_to action: :new
@@ -76,8 +72,6 @@ class TasksController < ApplicationController
   # POST /tasks/[:タスクテーブルID]
   def update
     @task = Task.find(params[:id])
-
-    # TODO : ユーザIDは更新対象外とすべき。書き方はステップ17で見直す。
     if @task.update(task_params)
       flash[:notice] = '更新が完了しました。'
       redirect_to action: :edit
@@ -95,9 +89,21 @@ class TasksController < ApplicationController
     redirect_to tasks_url
   end
 
+  private
+
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task).permit(:name, :details, :deadline, :status, :priority, label_ids: [])
+  end
+
+  private
+
+  def check_login
+    user_id = session[:user_id]
+    @user = User.find(user_id) if user_id
+    return if @user
+    flash[:alert] = ''
+    redirect_to controller: :sessions, action: :index
   end
 
 end
