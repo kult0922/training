@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
         login_id: login_id,
         name: name,
         password: password,
-        authority_id: authority.id,
+        authority_id: authority.id
       )
     end
 
@@ -69,7 +69,5 @@ RSpec.describe User, type: :model do
         expect { is_expected.to_not be_valid }
       end
     end
-
   end
-
 end

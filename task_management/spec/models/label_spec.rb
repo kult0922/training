@@ -8,7 +8,7 @@ RSpec.describe Label, type: :model do
       build(
         :label,
         user_id: user.id,
-        name: name,
+        name: name
       )
     end
 
@@ -31,6 +31,5 @@ RSpec.describe Label, type: :model do
         expect { is_expected.to_not be_valid }
       end
     end
-
   end
 end

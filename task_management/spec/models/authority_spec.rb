@@ -8,7 +8,7 @@ RSpec.describe Authority, type: :model do
       build(
         :authority,
         role: role,
-        name: name,
+        name: name
       )
     end
 
@@ -53,6 +53,5 @@ RSpec.describe Authority, type: :model do
         expect { is_expected.to_not be_valid }
       end
     end
-
   end
 end

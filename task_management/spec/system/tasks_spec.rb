@@ -8,11 +8,33 @@ RSpec.describe Task, type: :system do
   let(:test_deadline) { Time.zone.now + 3.days }
   let(:test_priority) { Task.priorities.key(1) }
   let(:test_status) { Task.statuses.key(1) }
-  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
-  let!(:added_index_task) { create(:task, id: 2, user_id: test_index_user.id) }
-  let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
-  let!(:added_task) { create(:task, user_id: test_user.id) }
+  let!(:test_authority) do
+    create(:authority,
+           id: 1,
+           role: 0,
+           name: 'test')
+  end
+  let!(:test_index_user) do
+    create(:user,
+           id: 1,
+           login_id: 'yokuno',
+           authority_id: test_authority.id)
+  end
+  let!(:added_index_task) do
+    create(:task,
+           id: 2,
+           user_id: test_index_user.id)
+  end
+  let!(:test_user) do
+    create(:user,
+           id: 2,
+           login_id: 'test_user_2',
+           authority_id: test_authority.id)
+  end
+  let!(:added_task) do
+    create(:task,
+           user_id: test_user.id)
+  end
 
   describe '#index' do
     context 'トップページにアクセスした場合' do
