@@ -6,13 +6,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.select(:id, :login_id, :name, :authority_id).find_by(login_id: params[:login_id], password: params[:password])
+    user = User.select(:id, :name, :authority_id).find_by(login_id: params[:login_id], password: params[:password])
     if user.nil?
       flash[:alert] = 'ログインに失敗しました。'
       render :index
     else
       flash[:alert] = ''
-      session[:login_id] = user.login_id
+      session[:user_id] = user.id
       redirect_to controller: :tasks, action: :index
     end
   end
