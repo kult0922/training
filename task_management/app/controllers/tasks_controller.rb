@@ -18,7 +18,6 @@ class TasksController < ApplicationController
             else
               sort + ' DESC'
             end
-
     search_btn = params[:search_btn]
     # 検索ボタンを押下した場合
     if t('.search') == search_btn

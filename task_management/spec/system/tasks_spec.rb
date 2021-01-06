@@ -246,6 +246,7 @@ RSpec.describe Task, type: :system do
           click_button 'ログアウト'
         end
         expect(page).to have_content 'ログアウトしました。'
+        expect(page).to have_current_path login_path
       end
     end
   end

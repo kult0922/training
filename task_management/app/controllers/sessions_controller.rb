@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   def create
     user = User.select(:id, :name, :authority_id).find_by(login_id: params[:login_id], password: params[:password])
     if user.nil?
-      flash[:alert] = 'ログインに失敗しました。'
+      flash[:alert] = 'ログインIDかパスワードを確認してください。'
       render :index
     else
       flash[:alert] = ''
