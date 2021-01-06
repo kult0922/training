@@ -2,7 +2,7 @@
 <h1><%= t('.title') %></h1>
 <hr>
 <div id="login">
-  <%= form_with url: login_sessions_path, user: @user, method: :post, local: true do |f| %>
+  <%= form_with url: sessions_path, user: @user, method: :post, local: true do |f| %>
     <dl>
       <dt>ログインID</dt>
       <dd><%= f.text_field :login_id, placeholder: "入力してください", id: 'login_id' %></dd>
