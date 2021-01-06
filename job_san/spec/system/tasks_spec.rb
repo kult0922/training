@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-# @deprecated: Capybaraではsvelteの要素の検出がうまくいかない
+#
+# @legacy: Capybaraではsvelteの要素の検出がうまくいかない
 #
 # require 'rails_helper'
 #
