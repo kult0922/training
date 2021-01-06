@@ -13,6 +13,10 @@ RSpec.describe Task, type: :system do
   let!(:added_index_task) { create(:task, id: 2, creation_date: Time.current + 5.days, user_id: test_index_user.id) }
   let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
   let!(:added_task) { create(:task, creation_date: Time.current + 1.days, user_id: test_user.id) }
+  before {
+    allow_any_instance_of(ActionDispatch::Request)
+      .to receive(:session).and_return(user_id: test_index_user.id)
+  }
 
   describe '#index' do
     before { visit root_path }
@@ -39,15 +43,21 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'search' do
-      let!(:taskC) { create(:task, id: 5, name:'taskC', creation_date: Time.current + 2.days,
-                            user_id: test_index_user.id, deadline: Time.current + 4.days,
-                            status: 1) }
-      let!(:taskD) { create(:task, id: 6, name:'taskD', creation_date: Time.current + 2.days,
-                            user_id: test_index_user.id, deadline: Time.current + 4.days,
-                            status: 2) }
-      let!(:taskE) { create(:task, id: 7, name:'taskE', creation_date: Time.current + 2.days,
-                            user_id: test_index_user.id, deadline: Time.current + 4.days,
-                            status: 3) }
+      let!(:taskC) {
+        create(:task, id: 5, name:'taskC', creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id, deadline: Time.current + 4.days,
+                      status: 1)
+      }
+      let!(:taskD) {
+        create(:task, id: 6, name:'taskD', creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id, deadline: Time.current + 4.days,
+                      status: 2)
+      }
+      let!(:taskE) {
+        create(:task, id: 7, name:'taskE', creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id, deadline: Time.current + 4.days,
+                      status: 3)
+      }
       context '検索キーワードを入力し、検索ボタンを押下した場合' do
         before do
           fill_in 'search_word', with: 'task'
@@ -118,10 +128,14 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'sorting' do
-      let!(:taskA) { create(:task, id: 3, name:'taskA', creation_date: Time.current + 2.days,
-                            user_id: test_index_user.id, deadline: Time.current + 4.days) }
-      let!(:taskB) { create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days,
-                            user_id: test_index_user.id, deadline: Time.current + 1.days) }
+      let!(:taskA) { 
+        create(:task, id: 3, name:'taskA', creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id, deadline: Time.current + 4.days)
+      }      
+      let!(:taskB) { 
+        create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days,
+                      user_id: test_index_user.id, deadline: Time.current + 1.days)
+      }      
       before do
         visit root_path
       end
