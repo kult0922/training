@@ -17,11 +17,15 @@
     </thead>
     <tbody>
     <tr>
-      <td class="name"><%= f.text_field :name, placeholder: "入力してください" %></td>
-      <td class="details"><%= f.text_field :details, placeholder: "入力してください" %></td>
-      <td class="deadline"><%= f.date_field :deadline, value: show_dat(@task.deadline) || show_dat(Time.now) %></td>
-      <td class="priority"><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {selected: @task.priority} %></td>
-      <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {selected: @task.status}  %></td>
+      <td class="name"><%= f.text_field :name, placeholder: "入力してください", id: 'name' %></td>
+      <td class="details"><%= f.text_field :details, placeholder: "入力してください", id: 'details' %></td>
+      <td class="deadline"><%= f.date_field :deadline, value: show_dat(@task.deadline) ||
+                                             show_dat(Time.now), id: 'deadline' %></td>
+      <td class="priority"><%= f.select :priority,
+                                         Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
+                                         {selected: @task.priority}, id: 'priority' %></td>
+      <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]},
+                                      {selected: @task.status}, id: 'status'  %></td>
     </tr>
     </tbody>
   </table>
