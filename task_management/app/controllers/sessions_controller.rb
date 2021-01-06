@@ -21,6 +21,12 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    session.delete(:user_id)
+    flash[:alert] = ''
+    redirect_to controller: :tasks, action: :index
+  end
+
   private
 
   def session_params
