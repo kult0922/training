@@ -3,21 +3,6 @@ ja:
     application:
       title: タスク管理システム
 
-    header:
-      name: タスク名
-      details: 詳細
-      deadline: 終了期限
-      priority: 優先度
-      status: ステータス
-      creation_date: 作成日時
-      edit: 編集
-      delete: 削除
-      registration: 登録
-
-    footer:
-      index: 一覧画面へ
-      new: 作成画面へ
-
   tasks:
     index:
       title: タスク一覧
@@ -44,3 +29,18 @@ ja:
     edit:
       title: タスク編集
       btn_update: 更新
+
+    header:
+      name: タスク名
+      details: 詳細
+      deadline: 終了期限
+      priority: 優先度
+      status: ステータス
+      creation_date: 作成日時
+      edit: 編集
+      delete: 削除
+      registration: 登録
+
+    footer:
+      index: 一覧画面へ
+      new: 作成画面へ
