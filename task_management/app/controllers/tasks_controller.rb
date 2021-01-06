@@ -15,18 +15,18 @@ class TasksController < ApplicationController
 
     # ソートキーを設定
     sort = params[:sort]
-    if sort.nil?
-      order = 'creation_date DESC'
-    else
-      order = sort + ' DESC'
-    end
+    order = if sort.nil?
+              'creation_date DESC'
+            else
+              sort + ' DESC'
+            end
 
     search_btn = params[:search_btn]
     # 検索ボタンを押下した場合
     if t('.search') == search_btn
       search_word = params[:search_word]
       status      = params[:status]
-      if 'all' == status then status = Task.statuses.values end
+      status = Task.statuses.values if status == 'all'
       @tasks = Task.where(user_id: user_id)
                      .where(status: status)
                      .where('name like ?', '%' + search_word + '%')
