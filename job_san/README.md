@@ -4,8 +4,8 @@
 # 環境構築
 
 1. docker build
-1. db migration
-1. webpack compile(暫定)
+1. db migration(暫定)
+1. install svelte(暫定)
 
 ## 1. Docker build
 
@@ -48,27 +48,31 @@ $ git checkout job_san/db/schema.rb
 > 自動で変更された内容を戻す 
 ```
 
+余裕があったらdockerfile修正します。
 
-## 4. webpackerのインストール（暫定対応）
+## 4. webpackerでsvelteをコンパイルできるようにする（暫定対応）
 
-目的：webpackerのインストール
+目的：svelteをコンパイルできるようにする
 
 以下のエラー画面が表示された際、この項目を行ってください。
 
 <img width="400" alt="docker-setup" src="docs/readme_images/webpacker_install.png">
 
-webpackerのインストールが正しく行えていないです。
-
-`rails new`のやり方がよくなかったっぽいです。余裕があったら直します。
-
-TODO: svelteのインストールも同時に行ってください。 
+svelteをコンパイルできるようにします。
 
 以下のコマンドを実行してください。
 ```
-$ docker-compose run web bundle exec rails webpacker:install
-> Webpacker successfully installed
 $ docker-compose run web bundle exec rails webpacker:install:svelte
+> Webpacker now supports Svelte 🎉
+
+$ git status
+> 	app/javascript/app.svelte
+>	app/javascript/packs/hello_svelte.js
+$ rm -rf app/javascript/app.svelte app/javascript/packs/hello_svelte.js
+> 自動生成されてしまうファイルを削除する
 ```
+
+余裕があったらdockerfile修正します。
 
 ## 4. HELLO WORLD !
 
