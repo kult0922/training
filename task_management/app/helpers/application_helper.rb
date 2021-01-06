@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# アプリケーションヘルパー
 module ApplicationHelper
   def show_dat(time)
     return time unless time

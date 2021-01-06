@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# アプリケーションコントローラー
 class ApplicationController < ActionController::Base
   rescue_from Exception, with: :render_500
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
@@ -10,13 +11,12 @@ class ApplicationController < ActionController::Base
   end
 
   def render_404(exception = nil)
-    logger.info "Rendering 404 with exception: #{exception.message}" if exception
+    logger.info "Rendering 404: #{exception.message}" if exception
     render 'errors/404', status: :not_found
   end
 
   def render_500(exception = nil)
-    logger.info "Rendering 500 with exception: #{exception.message}" if exception
+    logger.info "Rendering 500: #{exception.message}" if exception
     render 'errors/500', status: :internal_server_error
   end
-
 end

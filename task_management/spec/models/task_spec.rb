@@ -13,7 +13,7 @@ RSpec.describe Task, type: :model do
         deadline: deadline,
         status: status,
         priority: priority,
-        creation_date: creation_date,
+        creation_date: creation_date
       )
     end
 
@@ -78,6 +78,5 @@ RSpec.describe Task, type: :model do
         expect { is_expected.to_not be_valid }
       end
     end
-
   end
 end

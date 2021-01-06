@@ -8,7 +8,7 @@ RSpec.describe TaskLabelRelation, type: :model do
       build(
         :task_label_relation,
         task_id: task_id,
-        label_id: label_id,
+        label_id: label_id
       )
     end
 
@@ -31,6 +31,5 @@ RSpec.describe TaskLabelRelation, type: :model do
         expect { is_expected.to_not be_valid }
       end
     end
-
   end
 end
