@@ -87,6 +87,12 @@ $ docker-compose up
 ブラウザにアクセスしてください。
 ```
 
+初期から使えるログインユーザ情報は以下です。
+
+- Email: `xxx@gmail.com`
+- Password: `password`
+
+
 # 確認方法
 
 ## 動作確認
@@ -98,7 +104,7 @@ $ docker-compose up
 ## 注意事項
 
 ### 1. railsによるdbのマイグレーション関連
-`ex: rake db:migrate:redo`
+`ex: rails db:migrate:redo`
 
 mysql側のバグ？で `utf8mb4のエスケープ文字を扱うことができません`。
 
