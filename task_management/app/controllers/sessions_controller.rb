@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
     user_id = session[:user_id]
     user = User.find(user_id) if user_id
     return if user.blank?
-    flash[:alert] = ''
     redirect_to controller: :tasks, action: :index
   end
 
@@ -23,8 +22,8 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    flash[:alert] = ''
-    redirect_to controller: :tasks, action: :index
+    flash[:notice] = 'ログアウトしました。'
+    redirect_to action: :index
   end
 
   private

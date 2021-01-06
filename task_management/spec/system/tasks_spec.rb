@@ -238,4 +238,15 @@ RSpec.describe Task, type: :system do
     end
   end
 
+  describe 'session' do
+    before { visit root_path }
+    context 'ログアウトボタンを押下した場合' do
+      example 'ログアウトできる' do
+        page.accept_confirm do
+          click_button 'ログアウト'
+        end
+        expect(page).to have_content 'ログアウトしました。'
+      end
+    end
+  end
 end

@@ -102,8 +102,6 @@ class TasksController < ApplicationController
     user_id = session[:user_id]
     @user = User.find(user_id) if user_id
     return if @user
-    flash[:alert] = ''
     redirect_to controller: :sessions, action: :index
   end
-
 end
