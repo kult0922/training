@@ -63,7 +63,12 @@ svelteをコンパイルできるようにします。
 以下のコマンドを実行してください。
 ```
 $ docker-compose run web bundle exec rails webpacker:install:svelte
+> Copying svelte loader to config/webpack/loaders
+>    conflict  config/webpack/loaders/svelte.js
+> Overwrite /usr/src/app/config/webpack/loaders/svelte.js? (enter "h" for help) [Ynaqdhm] h
+$ n
 > Webpacker now supports Svelte 🎉
+> 自動生成されたファイル名を変更してしまっているので、生成されます。
 
 $ git status
 > 	app/javascript/app.svelte
