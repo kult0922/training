@@ -19,7 +19,7 @@
   function viewedTaskName(_name) {
     return _name.length > 10 ? `${_name.substring(0, 9)}...` : _name;
   }
-
+  
   function openModal(_task) {
     $task = _task;
     $updateModalOpen = true;
@@ -35,7 +35,7 @@
     initFetchTasks();
   }
 
-  const viewedSortedMark = (_sortKey) => {
+  $: viewedSortedMark = (_sortKey) => {
     if ($sortKey === _sortKey) {
       return $sortOrder === "desc" ? "☝️" : "️👇";
     } else {
