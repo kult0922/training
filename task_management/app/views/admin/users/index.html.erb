@@ -15,6 +15,7 @@
         <th class="authority"><%= t('admin.header.authority') %></th>
         <th class="task_count"><%= t('admin.header.task') %></th>
         <th class="task_list"><%= t('admin.header.task_list') %></th>
+        <th class="edit_user"><%= t('admin.header.edit_user') %></th>
       </tr>
       </thead>
 
@@ -32,6 +33,10 @@
           <td class="task_list"><%= link_to image_tag('admin/users/list_icon.png', class: 'icon list_icon'),
                                             admin_user_path(user),
                                             { id: "list_link_#{i}" } %>
+          </td>
+          <td class="edit_user"><%= link_to image_tag('admin/users/edit_icon.png', class: 'icon edit_user_icon'),
+                                            edit_admin_user_path(user),
+                                            { id: "edit_user_link_#{i}" } %>
           </td>
         </tr>
       <% end %>
