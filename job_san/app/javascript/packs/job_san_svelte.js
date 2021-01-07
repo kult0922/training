@@ -1,6 +1,6 @@
-import TaskIndex from '../tasks/index.svelte';
-import JobsanHeader from '../jobsan_header.svelte';
-import TaskCreate from '../tasks/create.svelte';
+import TaskList from 'pages/TaskList';
+import JobsanHeader from 'pages/shares/_JobsanHeader.svelte';
+import TaskNew from 'pages/TaskNew';
 
 document.addEventListener('turbolinks:visit', () => {
   if(window.app) {
@@ -10,8 +10,8 @@ document.addEventListener('turbolinks:visit', () => {
 });
 
 document.addEventListener('turbolinks:load', () => {
-  let apps = [{ elem: document.getElementById("task_index"), object: TaskIndex },
-      { elem: document.getElementById("task_create"), object: TaskCreate },
+  let apps = [{ elem: document.getElementById("task_list"), object: TaskList },
+      { elem: document.getElementById("task_new"), object: TaskNew },
       { elem: document.getElementById("jobsan_header"), object: JobsanHeader }];
   let props = window.jsProps || {}
 

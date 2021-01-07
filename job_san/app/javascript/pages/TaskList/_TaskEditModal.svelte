@@ -9,7 +9,7 @@
     Select,
     SelectItem,
   } from "carbon-components-svelte";
-  import { updateModalOpen, task, tasks } from "./store.js";
+  import { updateModalOpen, task, tasks } from "models/tasks/store.js";
 
   export let taskStatuses = {};
   let updateModalChecked = true;

@@ -11,16 +11,15 @@
     Select,
     SelectItem,
   } from "carbon-components-svelte";
-
-  import TaskUpdateModal from "./task_update_modal.svelte";
+  import TaskUpdateModal from "./_TaskEditModal.svelte";
+  import TaskTable from "./_TaskTable.svelte";
   import {
     updateModalOpen,
     tasks,
     searchPage,
     sortKey,
     sortOrder,
-  } from "./store.js";
-  import TaskTable from "./task_table.svelte";
+  } from "models/tasks/store.js";
 
   let searchName;
   let searchStatus = "";
@@ -31,11 +30,6 @@
     doing: "着手中",
     done: "完了",
   };
-
-  onMount(() => {
-    fetchTasks();
-    $updateModalOpen = false;
-  });
 
   function fetchTasks() {
     axios
@@ -64,6 +58,11 @@
     loading = true;
     fetchTasks();
   }
+
+  onMount(() => {
+    fetchTasks();
+    $updateModalOpen = false;
+  });
 </script>
 
 <Grid padding>
