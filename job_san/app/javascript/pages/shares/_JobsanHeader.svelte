@@ -2,7 +2,9 @@
   import "carbon-components-svelte/css/all.css";
   import axios from "axios";
   import { ContentSwitcher, Switch } from "carbon-components-svelte";
-  export var loggedIn;
+
+  export let loggedIn;
+
   const redirectTo = (_path) => (location.href = _path);
   function logout() {
     axios

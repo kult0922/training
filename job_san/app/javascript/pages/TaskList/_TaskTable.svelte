@@ -9,15 +9,17 @@
     searchPage,
     sortKey,
     sortOrder,
-  } from "./store.js";
+  } from "models/tasks/store.js";
 
-  function viewedTaskName(_name) {
-    return _name.length > 10 ? `${_name.substring(0, 9)}...` : _name;
-  }
   export let taskStatuses, initFetchTasks, fetchTasks, fetchedTasks;
   const viewedTaskTargetDate = (_targetDate) => _targetDate || "未設定";
   const viewedTaskCreatedAt = (_createdAt) =>
     moment(_createdAt).format("YYYY年MM月DD日");
+
+  function viewedTaskName(_name) {
+    return _name.length > 10 ? `${_name.substring(0, 9)}...` : _name;
+  }
+
   function openModal(_task) {
     $task = _task;
     $updateModalOpen = true;
@@ -33,7 +35,7 @@
     initFetchTasks();
   }
 
-  $: viewedSortedMark = (_sortKey) => {
+  const viewedSortedMark = (_sortKey) => {
     if ($sortKey === _sortKey) {
       return $sortOrder === "desc" ? "☝️" : "️👇";
     } else {

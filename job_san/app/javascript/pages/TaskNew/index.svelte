@@ -2,11 +2,18 @@
   import axios from "axios";
   import { TextInput, Checkbox } from "carbon-components-svelte";
 
+  let inputTargetDate = false;
+  let targetDate = null;
+  let validationError = " ";
+  let description = "";
+  let taskName = "";
+  let taskStatus = "todo";
   const taskStatuses = {
     todo: "未着手",
     doing: "着手中",
     done: "完了",
   };
+
   const createTask = () => {
     axios
       .post("/api/tasks", {
@@ -24,12 +31,7 @@
       })
       .catch((e) => alert(e));
   };
-  let inputTargetDate = false;
-  let targetDate = null;
-  let validationError = " ";
-  let description = "";
-  let taskName = "";
-  let taskStatus = "todo";
+
   const validateCreateTask = () => {
     if (taskName < 1 || taskName > 255) {
       validationError = "タスク名は１文字以上２５５文字以内にしてください";
