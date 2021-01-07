@@ -63,22 +63,31 @@ RSpec.describe 'Sessions', type: :system do
         it { is_expected.to have_content 'ログインIDかパスワードを確認してください。' }
       end
     end
+  end
 
-    describe '#destroy' do
-      before do
-        visit root_path
-        fill_in 'login_id', with: test_user1.login_id
-        fill_in 'password', with: test_user1.password
-        click_button 'ログイン'
-      end
-      context 'ログイン後、ログアウトボタンを押下した場合' do
-        it 'logout' do
-          page.accept_confirm do
-            click_button 'ログアウト'
-          end
-          expect(page).to have_content 'ログアウトしました。'
-          expect(page).to have_current_path login_path
+  describe '#destroy' do
+    before do
+      visit root_path
+      fill_in 'login_id', with: test_user1.login_id
+      fill_in 'password', with: test_user1.password
+      click_button 'ログイン'
+    end
+    context 'ログイン後、ログアウトボタンを押下した場合' do
+      it 'logout' do
+        page.accept_confirm do
+          click_button 'ログアウト'
         end
+        expect(page).to have_content 'ログアウトしました。'
+        expect(page).to have_current_path login_path
+      end
+    end
+  end
+
+  describe 'root' do
+    context 'ログインしていない状態でタスク管理画面にアクセスした場合' do
+      before { visit root_path }
+      it 'ログイン画面に遷移する' do
+        expect(page).to have_current_path login_path
       end
     end
   end
