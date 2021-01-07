@@ -1,69 +1,77 @@
-<% content_for(:title, t('.title')) %>
-<h1><%= t('.title') %></h1>
+<div class="container_tasks">
+  <% content_for(:title, t('.title')) %>
+  <h1><%= t('.title') %></h1>
 
-<%= form_with url: tasks_path, method: :get, local: true do |f| %>
-  <%= t('tasks.header.status') %>
-  <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', t('.status.all') %>
-  <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', t('.status.todo') %>
-  <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', t('.status.in_progress') %>
-  <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', t('.status.done') %>
-  <br>
-  <%= f.text_field :search_word, placeholder: "タスク名を入力してください", id: 'search_word' %>
-  <%= f.submit t('.search'), name: 'search_btn' %>
-<% end %>
+  <%= form_with url: tasks_path, method: :get, local: true do |f| %>
+    <%= t('tasks.header.status') %>
+    <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', t('.status.all') %>
+    <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', t('.status.todo') %>
+    <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', t('.status.in_progress') %>
+    <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', t('.status.done') %>
+    <br>
+    <%= f.text_field :search_word, placeholder: "タスク名を入力してください", id: 'search_word' %>
+    <%= f.submit t('.search'), name: 'search_btn' %>
+  <% end %>
 
-<hr>
-<div id="task_list">
-  <table>
-    <!-- テーブルヘッダ -->
-    <thead>
-      <tr>
-        <th class="no">No</th>
-        <th class="name"><%= t('tasks.header.name') %></th>
-        <!-- TODO:昇順ソートも出来るようにする。状態はローカルストレージかセッションストレージに保存 -->
-        <th class="deadline"><%= t('tasks.header.deadline') %><%= link_to image_tag('sort/desc_icon.png', class: 'sort_icon'),
-                                                                          {controller: "tasks", action: "index",
-                                                                          sort: "deadline"},
-                                                                          id: "deadline_desc" %>
-        </th>
-        <th class="priority"><%= t('tasks.header.priority') %></th>
-        <th class="status"><%= t('tasks.header.status') %></th>
-        <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
-        <th class="edit"><%= t('tasks.header.edit') %></th>
-        <th class="delete"><%= t('tasks.header.delete') %></th>
-      </tr>
-    </thead>
-
-    <!-- テーブルボディ -->
-    <tbody>
-      <% i = 0 %>
-      <% @tasks.each do |task| %>
+  <hr>
+  <div id="tasks_list">
+    <table>
+      <!-- テーブルヘッダ -->
+      <thead>
         <tr>
-          <td class="no"><%= i += 1 %></td>
-          <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
-          <td class="deadline"><%= show_date_s(task.deadline) %></td>
-          <td class="priority"><%= task.priority_i18n %></td>
-          <td class="status"><%= task.status_i18n %></td>
-          <td class="creation_date"><%= show_date_time_s(task.creation_date) %></td>
-          <td class="edit"><%= link_to t('.btn_edit'), edit_task_path(task), class: 'btn btn-edit' %></td>
-          <td class="delete"><%= button_to t('.btn_delete'), task_path(task),
+          <th class="no">No</th>
+          <th class="name"><%= t('tasks.header.name') %></th>
+          <!-- TODO:昇順ソートも出来るようにする。状態はローカルストレージかセッションストレージに保存 -->
+          <th class="deadline"><%= t('tasks.header.deadline') %><%= link_to image_tag('tasks/desc_icon.png', class: 'icon sort_icon'),
+                                                                            {controller: "tasks", action: "index",
+                                                                             sort: "deadline"},
+                                                                             id: "deadline_desc" %>
+          </th>
+          <th class="priority"><%= t('tasks.header.priority') %></th>
+          <th class="status"><%= t('tasks.header.status') %></th>
+          <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
+          <th class="edit"><%= t('tasks.header.edit') %></th>
+          <th class="delete"><%= t('tasks.header.delete') %></th>
+        </tr>
+      </thead>
+
+      <!-- テーブルボディ -->
+      <tbody>
+        <% i = 0 %>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td class="no"><%= i += 1 %></td>
+            <td class="name"><%= link_to task.name, task_path(task), class: 'link link-show' %>
+            <td class="deadline"><%= show_date_s(task.deadline) %></td>
+            <td class="priority"><%= task.priority_i18n %></td>
+            <td class="status"><%= task.status_i18n %></td>
+            <td class="creation_date"><%= show_date_time_s(task.creation_date) %></td>
+            <td class="edit"><%= link_to image_tag('tasks/edit_icon.png', class: 'icon edit_icon'),
+                                         edit_task_path(task),
+                                         { id: "edit_link_#{i}" } %>
+            </td>
+            <td class="delete"><%= link_to image_tag('tasks/delete_icon.png', class: 'icon delete_icon'),
+                                           task_path(task),
                                            { method: :delete,
                                              data: { confirm: t('.confirm_delete'),
-                                                     disable_with: t('.load_delete') }
+                                                     disable_with: t('.load_delete')
+                                                   },
+                                             id: "delete_link_#{i}"
                                            } %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <br>
-  <%= paginate @tasks %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <%= paginate @tasks %>
+  </div>
+  <hr>
+  <%= link_to t('tasks.footer.new'), new_task_path %>
+  <hr>
+  <%= button_to t('.btn_logout'), logout_path(@user),
+                { method: :delete,
+                  data: { confirm: t('.confirm_logout'),
+                          disable_with: t('.load_logout') }
+                } %>
 </div>
-<hr>
-<%= link_to t('tasks.footer.new'), new_task_path %>
-<hr>
-<%= button_to t('.btn_logout'), logout_path(@user),
-              { method: :delete,
-                data: { confirm: t('.confirm_logout'),
-                        disable_with: t('.load_logout') }
-              } %>

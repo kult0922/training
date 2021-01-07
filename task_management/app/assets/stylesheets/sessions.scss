@@ -1,13 +1,17 @@
-#login form {
-  background-color: #fff5e5;
-  padding:30px 50px;
-}
-form#login dl dt {
-  width: 165px;
-  padding:10px 0;
-  float:left;
-  clear:both;
-}
-form#login dl dd {
-  padding:10px 0;
+.container_sessions {
+  #login form {
+    background-color: #fff5e5;
+    padding: 30px 50px;
+  }
+
+  form#login dl dt {
+    width: 165px;
+    padding: 10px 0;
+    float: left;
+    clear: both;
+  }
+
+  form#login dl dd {
+    padding: 10px 0;
+  }
 }

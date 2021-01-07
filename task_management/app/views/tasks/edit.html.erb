@@ -1,8 +1,10 @@
-<% content_for(:title, t('.title')) %>
-<h1><%= t('.title') %></h1>
-<hr>
-<div id="task_edit">
-  <%= render partial: 'form', locals: { task: @task, type: t('.btn_update') } %>
+<div class="container_tasks">
+  <% content_for(:title, t('.title')) %>
+  <h1><%= t('.title') %></h1>
+  <hr>
+  <div id="task_edit">
+    <%= render partial: 'form', locals: { task: @task, type: t('.btn_update') } %>
+  </div>
+  <hr>
+  <%= link_to t('tasks.footer.index'), tasks_path %>
 </div>
-<hr>
-<%= link_to t('tasks.footer.index'), tasks_path %>

@@ -1,0 +1,30 @@
+body {
+  margin: 10px;
+  padding: 0;
+}
+
+td a {
+  color: #1e90ff !important;
+}
+
+td a:hover {
+  text-decoration: underline !important;
+}
+
+.sort_icon {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  border: 1px dashed #999;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  border: 1px #999;
+}
+
+.pagination span {
+  margin: 3px;
+}

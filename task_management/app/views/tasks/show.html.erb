@@ -1,32 +1,34 @@
-<% content_for(:title, t('.title')) %>
-<h1><%= t('.title') %></h1>
-<hr>
-<div id="task_detail">
-  <table>
-    <!-- テーブルヘッダ -->
-    <thead>
-      <tr>
-        <th class="name"><%= t('tasks.header.name') %></th>
-        <th class="details"><%= t('tasks.header.details') %></th>
-        <th class="deadline"><%= t('tasks.header.deadline') %></th>
-        <th class="priority"><%= t('tasks.header.priority') %></th>
-        <th class="status"><%= t('tasks.header.status') %></th>
-        <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
-      </tr>
-    </thead>
+<div class="container_tasks">
+  <% content_for(:title, t('.title')) %>
+  <h1><%= t('.title') %></h1>
+  <hr>
+  <div id="task_detail">
+    <table>
+      <!-- テーブルヘッダ -->
+      <thead>
+        <tr>
+          <th class="name"><%= t('tasks.header.name') %></th>
+          <th class="details"><%= t('tasks.header.details') %></th>
+          <th class="deadline"><%= t('tasks.header.deadline') %></th>
+          <th class="priority"><%= t('tasks.header.priority') %></th>
+          <th class="status"><%= t('tasks.header.status') %></th>
+          <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
+        </tr>
+      </thead>
 
-    <!-- テーブルボディ -->
-    <tbody>
-      <tr>
-        <td class="name"><%= @task.name %></td>
-        <td class="details"><%= @task.details %></td>
-        <td class="deadline"><%= show_date_s(@task.deadline) %></td>
-        <td class="priority"><%= @task.priority_i18n %></td>
-        <td class="status"><%= @task.status_i18n %></td>
-        <td class="creation_date"><%= show_date_time_s(@task.creation_date) %></td>
-      </tr>
-    </tbody>
-  </table>
+      <!-- テーブルボディ -->
+      <tbody>
+        <tr>
+          <td class="name"><%= @task.name %></td>
+          <td class="details"><%= @task.details %></td>
+          <td class="deadline"><%= show_date_s(@task.deadline) %></td>
+          <td class="priority"><%= @task.priority_i18n %></td>
+          <td class="status"><%= @task.status_i18n %></td>
+          <td class="creation_date"><%= show_date_time_s(@task.creation_date) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <%= link_to t('tasks.footer.index'), tasks_path %>
 </div>
-<hr>
-<%= link_to t('tasks.footer.index'), tasks_path %>

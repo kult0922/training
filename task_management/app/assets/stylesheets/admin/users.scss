@@ -1,3 +1,74 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.container_admin_users {
+  table {
+    border-collapse: collapse;
+  }
+
+  thead, tbody {
+    display: block;
+  }
+
+  tbody {
+    height: 270px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  tbody::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+  }
+
+  tbody::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
+
+  tbody tr:hover td {
+    background: #ccffff;
+  }
+
+  th, td {
+    background-color: #ffffff;
+    border: 1px solid #ffcc66;
+    padding: 0 8px;
+    line-height: 40px;
+  }
+
+  thead th {
+    background-color: #fff5e5;
+    border: 1px solid #ffcc66;
+    color: #ff9900;
+    text-align: center;
+  }
+
+  th.no, td.no {
+    width: 45px;
+    text-align: center;
+  }
+
+  th.login_id, td.login_id {
+    width: 200px;
+  }
+
+  th.password, td.password {
+    width: 200px;
+  }
+
+  th.name, td.name {
+    width: 150px;
+  }
+
+  th.authority, td.authority {
+    width: 120px;
+  }
+
+  th.task_count, td.task_count {
+    width: 120px;
+  }
+
+  th.task_list, td.task_list {
+    width: 100px;
+    text-align: center;
+  }
+}

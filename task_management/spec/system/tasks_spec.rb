@@ -28,7 +28,7 @@ RSpec.describe Task, type: :system do
 
     context '編集リンクを押下した場合' do
       example 'タスク編集画面に遷移する' do
-        click_link '編集'
+        click_link 'edit_link_1'
         expect(page).to have_content 'タスク編集'
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe Task, type: :system do
     context '削除ボタンを押下した場合' do
       example 'タスクを削除できる' do
         page.accept_confirm do
-          click_button '削除'
+          click_link 'delete_link_1'
         end
         expect(page).to have_content '削除しました。'
       end
@@ -131,11 +131,11 @@ RSpec.describe Task, type: :system do
       let!(:taskA) { 
         create(:task, id: 3, name:'taskA', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days)
-      }      
+      }
       let!(:taskB) { 
         create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days,
                       user_id: test_index_user.id, deadline: Time.current + 1.day)
-      }      
+      }
       before do
         visit root_path
       end

@@ -99,7 +99,7 @@ class TasksController < ApplicationController
 
   def check_login
     user_id = session[:user_id]
-    @user = User.find(user_id) if user_id
+    @user = User.select(:id, :name, :authority_id).find(user_id) if user_id
     return if @user
     redirect_to controller: :sessions, action: :index
   end

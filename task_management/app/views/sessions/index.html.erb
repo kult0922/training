@@ -1,15 +1,17 @@
-<% content_for(:title, t('.title')) %>
-<h1><%= t('.title') %></h1>
-<hr>
-<div id="login">
-  <%= form_with url: login_path, user: @user, method: :post, local: true do |f| %>
-    <dl>
-      <dt>ログインID</dt>
-      <dd><%= f.text_field :login_id, placeholder: "入力してください", id: 'login_id' %></dd>
-      <dt>パスワード</dt>
-      <dd><%= f.password_field :password, placeholder: "入力してください", id: 'password' %></dd>
-    </dl>
-    <%= f.submit t('.login') %>
-  <% end %>
+<div class="container_sessions">
+  <% content_for(:title, t('.title')) %>
+  <h1><%= t('.title') %></h1>
+  <hr>
+  <div id="login">
+    <%= form_with url: login_path, user: @user, method: :post, local: true do |f| %>
+      <dl>
+        <dt>ログインID</dt>
+        <dd><%= f.text_field :login_id, placeholder: "入力してください", id: 'login_id' %></dd>
+        <dt>パスワード</dt>
+        <dd><%= f.password_field :password, placeholder: "入力してください", id: 'password' %></dd>
+      </dl>
+      <%= f.submit t('.login') %>
+    <% end %>
+  </div>
+  <hr>
 </div>
-<hr>
