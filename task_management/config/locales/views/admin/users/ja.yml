@@ -2,7 +2,7 @@ ja:
   admin:
     users:
      index:
-       title: ユーザ管理画面
+       title: ユーザ一覧
        link_task_list: タスク一覧
        btn_logout: ログアウト
 
