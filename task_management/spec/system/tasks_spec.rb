@@ -44,17 +44,17 @@ RSpec.describe Task, type: :system do
 
     describe 'search' do
       let!(:taskC) {
-        create(:task, id: 5, name: 'taskC', creation_date: Time.current + 2.days,
+        create(:task, id: 900, name: 'taskC', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days,
                       status: 1)
       }
       let!(:taskD) {
-        create(:task, id: 6, name: 'taskD', creation_date: Time.current + 2.days,
+        create(:task, id: 901, name: 'taskD', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days,
                       status: 2)
       }
       let!(:taskE) {
-        create(:task, id: 7, name: 'taskE', creation_date: Time.current + 2.days,
+        create(:task, id: 902, name: 'taskE', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days,
                       status: 3)
       }

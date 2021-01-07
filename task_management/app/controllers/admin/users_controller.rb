@@ -10,7 +10,8 @@ module Admin
     def index
       # user_id = session[:user_id]
       @user = User.select(:login_id, :name, :authority_id).find(TEST_USER_ID) if TEST_USER_ID
-      @users = User.select(:id, :login_id, :password, :name, :authority_id).includes(:authority)
+      @users = User.select(:id, :login_id, :password, :name, :authority_id)
+                   .includes(:authority).page(params[:page])
     end
   end
 end
