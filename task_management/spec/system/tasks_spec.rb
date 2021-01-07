@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-  let(:test_name) { 'test_task_2' }
+  let(:test_name) { 'test_task2' }
   let(:test_details) { 'test2_description' }
   let(:test_deadline) { Time.zone.now + 3.days }
   let(:test_priority) { Task.priorities.key(1) }
@@ -12,7 +12,7 @@ RSpec.describe Task, type: :system do
   let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
   let!(:added_index_task) { create(:task, id: 2, creation_date: Time.current + 5.days, user_id: test_index_user.id) }
   let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
-  let!(:added_task) { create(:task, creation_date: Time.current + 1.days, user_id: test_user.id) }
+  let!(:added_task) { create(:task, name: 'test_task', creation_date: Time.current + 1.day, user_id: test_user.id) }
   before {
     allow_any_instance_of(ActionDispatch::Request)
       .to receive(:session).and_return(user_id: test_index_user.id)
@@ -44,17 +44,17 @@ RSpec.describe Task, type: :system do
 
     describe 'search' do
       let!(:taskC) {
-        create(:task, id: 5, name:'taskC', creation_date: Time.current + 2.days,
+        create(:task, id: 5, name: 'taskC', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days,
                       status: 1)
       }
       let!(:taskD) {
-        create(:task, id: 6, name:'taskD', creation_date: Time.current + 2.days,
+        create(:task, id: 6, name: 'taskD', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days,
                       status: 2)
       }
       let!(:taskE) {
-        create(:task, id: 7, name:'taskE', creation_date: Time.current + 2.days,
+        create(:task, id: 7, name: 'taskE', creation_date: Time.current + 2.days,
                       user_id: test_index_user.id, deadline: Time.current + 4.days,
                       status: 3)
       }
@@ -64,7 +64,7 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'test_task_1'
+          expect(page).to have_content added_task.name
           expect(page).to have_content 'taskC'
           expect(page).to have_content 'taskD'
           expect(page).to have_content 'taskE'
@@ -77,7 +77,7 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'test_task_1'
+          expect(page).to have_content added_task.name
           expect(page).to have_content 'taskC'
           expect(page).to have_content 'taskD'
           expect(page).to have_content 'taskE'
@@ -134,7 +134,7 @@ RSpec.describe Task, type: :system do
       }      
       let!(:taskB) { 
         create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days,
-                      user_id: test_index_user.id, deadline: Time.current + 1.days)
+                      user_id: test_index_user.id, deadline: Time.current + 1.day)
       }      
       before do
         visit root_path

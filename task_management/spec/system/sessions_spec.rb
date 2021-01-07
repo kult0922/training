@@ -4,7 +4,10 @@ require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :system do
   let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let!(:test_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
+  let!(:test_user1) { create(:user, id: 1, login_id: 'yokuno1', authority_id: test_authority.id) }
+  let!(:added_task1) { create(:task, creation_date: Time.current + 1.day, user_id: test_user1.id) }
+  let!(:test_user2) { create(:user, id: 2, login_id: 'yokuno2', authority_id: test_authority.id) }
+  let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: test_user2.id) }
 
   describe '#index' do
     context 'ログイン画面にアクセス成功した場合' do
@@ -23,16 +26,20 @@ RSpec.describe 'Sessions', type: :system do
     end
 
     context '存在するログインIDとパスワードを入力してログインボタンを押下した場合' do
-      let(:login_id) { test_user.login_id }
-      let(:password) { test_user.password }
+      let(:login_id) { test_user1.login_id }
+      let(:password) { test_user1.password }
       context 'ログインに成功する' do
         it { is_expected.to have_current_path root_path }
+      end
+      context '自身のタスクのみが表示される' do
+        it { is_expected.to have_content added_task1.name }
+        it { is_expected.not_to have_content added_task2.name }
       end
     end
 
     context '存在しないログインIDを入力してログインボタンを押下した場合' do
       let(:login_id) { 'non-existent_user' }
-      let(:password) { test_user.password }
+      let(:password) { test_user1.password }
       context 'ログインに失敗する' do
         it { is_expected.to have_current_path login_path }
         it { is_expected.to have_content 'ログインIDかパスワードを確認してください。' }
@@ -41,7 +48,7 @@ RSpec.describe 'Sessions', type: :system do
 
     context '誤ったパスワードを入力してログインボタンを押下した場合' do
       context 'ログインに失敗する' do
-        let(:login_id) { test_user.login_id }
+        let(:login_id) { test_user1.login_id }
         let(:password) { 'wrong_password' }
         it { is_expected.to have_current_path login_path }
         it { is_expected.to have_content 'ログインIDかパスワードを確認してください。' }
@@ -60,8 +67,8 @@ RSpec.describe 'Sessions', type: :system do
     describe '#destroy' do
       before do
         visit root_path
-        fill_in 'login_id', with: test_user.login_id
-        fill_in 'password', with: test_user.password
+        fill_in 'login_id', with: test_user1.login_id
+        fill_in 'password', with: test_user1.password
         click_button 'ログイン'
       end
       context 'ログイン後、ログアウトボタンを押下した場合' do
