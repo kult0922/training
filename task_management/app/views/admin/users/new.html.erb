@@ -3,7 +3,7 @@
   <h1><%= t('.title') %></h1>
   <hr>
   <div id="user_new">
-    <%= render partial: 'form', locals: { user: @user, authority: @authority, type: t('admin.header.registration') } %>
+    <%= render partial: 'form', locals: { user: @user, authority: @authority, type: t('.btn_registration') } %>
   </div>
   <hr>
   <%= link_to t('admin.footer.index'), admin_users_path %>

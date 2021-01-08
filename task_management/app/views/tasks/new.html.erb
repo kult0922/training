@@ -3,7 +3,7 @@
   <h1><%= t('.title') %></h1>
   <hr>
   <div id="task_new">
-    <%= render partial: 'form', locals: { task: @task, type: t('tasks.header.registration') } %>
+    <%= render partial: 'form', locals: { task: @task, type: t('.btn_registration') } %>
   </div>
   <hr>
   <%= link_to t('tasks.footer.index'), tasks_path %>

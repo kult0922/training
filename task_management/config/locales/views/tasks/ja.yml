@@ -19,6 +19,7 @@ ja:
 
     new:
       title: タスク新規作成
+      btn_registration: 登録
 
     edit:
       title: タスク編集

@@ -1,0 +1,10 @@
+<div class="container_admin_users">
+  <% content_for(:title, t('.title')) %>
+  <h1><%= t('.title') %></h1>
+  <hr>
+  <div id="user_edit">
+    <%= render partial: 'form', locals: { user: @user, authority: @authority, type: t('.btn_update') } %>
+  </div>
+  <hr>
+  <%= link_to t('admin.footer.index'), admin_users_path %>
+</div>

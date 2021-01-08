@@ -1,14 +1,19 @@
 ja:
   admin:
     users:
-     index:
-       title: ユーザ一覧
-       link_task_list: タスク一覧
-       confirm_delete: 本当に削除しますか？
-       load_delete: 削除中
+      index:
+        title: ユーザ一覧
+        link_task_list: タスク一覧
+        confirm_delete: 本当に削除しますか？
+        load_delete: 削除中
 
-     new:
-       title: ユーザ登録
+      new:
+        title: ユーザ登録
+        btn_registration: 登録
+
+      edit:
+         title: ユーザ編集
+         btn_update: 更新
 
     header:
       login_id: ログインID
