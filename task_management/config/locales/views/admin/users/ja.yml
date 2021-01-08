@@ -4,7 +4,9 @@ ja:
      index:
        title: ユーザ一覧
        link_task_list: タスク一覧
-       btn_logout: ログアウト
+
+     new:
+       title: ユーザ登録
 
     header:
       login_id: ログインID
@@ -14,6 +16,8 @@ ja:
       task: タスク数
       task_list: タスク一覧
       edit_user: ユーザ編集
+      registration: 登録
 
     footer:
       new: ユーザ作成
+      index: ユーザ一覧画面へ

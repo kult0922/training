@@ -1,7 +1,7 @@
 <div class="container_admin_users">
   <% content_for(:title, t('.title')) %>
   <h1><%= t('.title') %></h1>
-  ログインユーザID：<%= @user.login_id %>
+  ログインユーザID：<%= @login_user.login_id %>
   <hr>
   <div id="users_list">
     <table>
@@ -48,9 +48,9 @@
   <hr>
   <%= link_to t('admin.footer.new'), new_admin_user_path %>
   <hr>
-  <%= button_to t('.btn_logout'), logout_path(@user),
+  <%= button_to t('layouts.common.logout'), logout_path(@login_user),
                 { method: :delete,
-                  data: { confirm: t('.confirm_logout'),
-                          disable_with: t('.load_logout') }
+                  data: { confirm: t('layouts.common.confirm_logout'),
+                          disable_with: t('layouts.common.load_logout') }
                 } %>
 </div>

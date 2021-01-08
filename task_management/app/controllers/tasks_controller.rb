@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  attr_reader :task, :user
+  attr_reader :task, :login_user
 
   before_action :check_login_user
   before_action :set_login_user, only: %i[index create]
@@ -25,12 +25,12 @@ class TasksController < ApplicationController
       search_word = params[:search_word]
       status      = params[:status]
       status = Task.statuses.values if status == 'all'
-      @tasks = Task.where(user_id: @user.id)
+      @tasks = Task.where(user_id: @login_user.id)
                      .where(status: status)
                      .where('name like ?', '%' + search_word + '%')
                      .order(order).page(params[:page])
     else
-      @tasks = Task.where(user_id: @user.id).order(order).page(params[:page])
+      @tasks = Task.where(user_id: @login_user.id).order(order).page(params[:page])
     end
   end
 
@@ -58,7 +58,7 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @task = Task.new(task_params)
-    @task.user_id = @user.id
+    @task.user_id = @login_user.id
     if @task.save
       flash[:notice] = '登録が完了しました。'
       redirect_to action: :new
@@ -107,6 +107,6 @@ class TasksController < ApplicationController
   end
 
   def set_login_user
-    @user = current_user
+    @login_user = current_user
   end
 end
