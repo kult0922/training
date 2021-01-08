@@ -1,7 +1,8 @@
 <div class="container_tasks">
   <% content_for(:title, t('.title')) %>
   <h1><%= t('.title') %></h1>
-
+  ログインユーザID：<%= @user.login_id %>
+  <hr>
   <%= form_with url: tasks_path, method: :get, local: true do |f| %>
     <%= t('tasks.header.status') %>
     <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', t('.status.all') %>

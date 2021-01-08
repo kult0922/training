@@ -3,7 +3,8 @@
 class TasksController < ApplicationController
   attr_reader :task, :user
 
-  before_action :check_login
+  before_action :check_login_user
+  before_action :set_login_user, only: %i[index create]
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -92,15 +93,20 @@ class TasksController < ApplicationController
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task).permit(:name,
+                                 :details,
+                                 :deadline,
+                                 :status,
+                                 :priority,
+                                 label_ids: [])
   end
 
-  private
-
-  def check_login
-    user_id = session[:user_id]
-    @user = User.select(:id, :name, :authority_id).find(user_id) if user_id
-    return if @user
+  def check_login_user
+    return if logged_in?
     redirect_to controller: :sessions, action: :index
+  end
+
+  def set_login_user
+    @user = current_user
   end
 end
