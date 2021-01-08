@@ -4,6 +4,8 @@ ja:
      index:
        title: ユーザ一覧
        link_task_list: タスク一覧
+       confirm_delete: 本当に削除しますか？
+       load_delete: 削除中
 
      new:
        title: ユーザ登録
@@ -17,6 +19,7 @@ ja:
       task_list: タスク一覧
       edit_user: ユーザ編集
       registration: 登録
+      delete: 削除
 
     footer:
       new: ユーザ作成

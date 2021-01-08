@@ -16,6 +16,7 @@
         <th class="task_count"><%= t('admin.header.task') %></th>
         <th class="task_list"><%= t('admin.header.task_list') %></th>
         <th class="edit_user"><%= t('admin.header.edit_user') %></th>
+        <th class="delete"><%= t('admin.header.delete') %></th>
       </tr>
       </thead>
 
@@ -37,6 +38,13 @@
           <td class="edit_user"><%= link_to image_tag('admin/users/edit_icon.png', class: 'icon edit_user_icon'),
                                             edit_admin_user_path(user),
                                             { id: "edit_user_link_#{i}" } %>
+          </td>
+          <td class="delete"><%= link_to image_tag('admin/users/delete_icon.png', class: 'icon delete_icon'),
+                                         admin_user_path(user),
+                                         { method: :delete,
+                                           data: { confirm: t('.confirm_delete') },
+                                           id: "delete_link_#{i}"
+                                         } %>
           </td>
         </tr>
       <% end %>

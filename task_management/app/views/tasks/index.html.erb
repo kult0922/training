@@ -54,9 +54,7 @@
             <td class="delete"><%= link_to image_tag('tasks/delete_icon.png', class: 'icon delete_icon'),
                                            task_path(task),
                                            { method: :delete,
-                                             data: { confirm: t('.confirm_delete'),
-                                                     disable_with: t('.load_delete')
-                                                   },
+                                             data: { confirm: t('.confirm_delete') },
                                              id: "delete_link_#{i}"
                                            } %>
             </td>

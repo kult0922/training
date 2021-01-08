@@ -9,7 +9,7 @@
 <% end %>
 
 <!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
-<%= form_with model: @task, local: true do |f| %>
+<%= form_with model: task, local: true do |f| %>
   <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
   <table>

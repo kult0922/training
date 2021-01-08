@@ -8,7 +8,7 @@
   </div>
 <% end %>
 
-<%= form_with url: admin_users_path, model: @user, local: true do |f| %>
+<%= form_with url: admin_users_path, model: user, local: true do |f| %>
   <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
   <table>
@@ -26,7 +26,10 @@
       <td class="login_id"><%= f.text_field :login_id, placeholder: "入力してください", id: 'login_id' %></td>
       <td class="password"><%= f.text_field :password, placeholder: "入力してください", id: 'password' %></td>
       <td class="name"><%= f.text_field :name, placeholder: "入力してください", id: 'name' %></td>
-      <td class="authority"><%= f.select :authority_id, @authority.map{|a| [a.name, a.id]} %></td>
+      <td class="authority"><%= f.select :authority_id,
+                                         authority.map{|a| [a.name, a.id]},
+                                         { include_blank: true, selected: 0 } %>
+      </td>
     </tr>
     </tbody>
   </table>
