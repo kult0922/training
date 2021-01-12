@@ -14,12 +14,13 @@
   const moment = require("moment").default || require("moment");
   export let taskStatuses, initFetchTasks, fetchTasks, fetchedTasks;
   const viewedTaskTargetDate = (_targetDate) => _targetDate || "未設定";
-  const viewedTaskCreatedAt = (_createdAt) => moment(_createdAt).format("YYYY年MM月DD日");
+  const viewedTaskCreatedAt = (_createdAt) =>
+    moment(_createdAt).format("YYYY年MM月DD日");
 
   function viewedTaskName(_name) {
     return _name.length > 10 ? `${_name.substring(0, 9)}...` : _name;
   }
-  
+
   function openModal(_task) {
     $task = _task;
     $updateModalOpen = true;
@@ -125,11 +126,13 @@
         </td>
       </tr>
     {/each}
-    <InfiniteScroll
-      hasMore={fetchedTasks.length}
-      threshold={10}
-      window={true}
-      on:loadMore={loadTasks} />
+    {#if process.env.NODE_ENV !== 'test'}
+      <InfiniteScroll
+        hasMore={fetchedTasks.length}
+        threshold={10}
+        window={true}
+        on:loadMore={loadTasks} />
+    {/if}
   </tbody>
 </table>
 

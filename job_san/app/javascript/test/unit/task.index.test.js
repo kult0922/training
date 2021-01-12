@@ -9,7 +9,7 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-test('shows proper elements', async () => {
+test('when visit task list page', async () => {
     const tasks = [{
         "id":3,
         "name":"zaaaaaa",
@@ -26,9 +26,7 @@ test('shows proper elements', async () => {
     axios.get.mockResolvedValue(response);
     const { queryByText } = render(TaskList);
 
-    ["ID", "タスク名", "ステータス", "完了日", "作成日", "🗑"].forEach(i => {
-        expect(queryByText(i)).toBeInTheDocument();
-    })
+    expect(queryByText("ID")).toBeInTheDocument();
     await waitFor(() => {
         expect(queryByText("zaaaaaa")).toBeInTheDocument();
     }, { timeout: 1000 });

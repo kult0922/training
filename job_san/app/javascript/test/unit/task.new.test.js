@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent, waitFor } from '@testing-library/svelte';
 import TaskNew from 'pages/TaskNew';
 
-test('shows proper elements', async () => {
+test('when visit task creation page', async () => {
     const { queryByText, getByLabelText, getByRole } = render(TaskNew);
     ["タスク名", "説明文", "完了日を入力"].forEach( label => {
         expect(getByLabelText(label, { selector: 'input' })).toBeInTheDocument();
@@ -24,7 +24,7 @@ const setup = () => {
         ...utils
     }
 }
-test('submit button should be disable until input name', async () => {
+test('when visit task creation page', async () => {
     const { inputName, getByRole, getByLabelText } = setup()
     expect(getByRole("button", { name: "作成" })).toBeDisabled();
     await fireEvent.change(inputName, { target: { value: 'Test' }});
