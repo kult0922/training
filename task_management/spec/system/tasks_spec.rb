@@ -40,23 +40,30 @@ RSpec.describe Task, type: :system do
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
         visit root_path
+        expect(current_path).to eq root_path
         expect(page).to have_content added_task.name
       end
     end
   end
 
   describe '#show(task_id)' do
-    context '詳細ページにアクセスした場合' do
-      example 'タスク詳細が表示される' do
-        visit task_path(added_task)
-        expect(page).to have_content added_task.name
+    context 'タスク詳細画面にアクセスした場合' do
+      example 'タスク詳細画面が表示される' do
+        visit task_path(added_index_task)
+        expect(current_path).to eq task_path(added_index_task)
       end
     end
   end
 
   describe '#new' do
     before { visit new_task_path }
-    context '全項目を入力し、登録ボタンを押下した場合' do
+    context 'タスク登録画面にアクセスした場合' do
+      example 'タスク登録画面が表示される' do
+        expect(current_path).to eq new_task_path
+      end
+    end
+
+    context '全項目を入力して登録ボタンを押下した場合' do
       before do
         fill_in 'name', with: test_name
         fill_in 'details', with: test_details
@@ -87,6 +94,12 @@ RSpec.describe Task, type: :system do
 
   describe '#edit' do
     before { visit edit_task_path(added_task) }
+    context 'タスク編集画面にアクセスした場合' do
+      example 'タスク編集画面が表示される' do
+        expect(current_path).to eq edit_task_path(added_task)
+      end
+    end
+
     context '全項目を入力し、更新ボタンを押下した場合' do
       before do
         fill_in 'name', with: test_name
@@ -110,8 +123,9 @@ RSpec.describe Task, type: :system do
 
   describe '404' do
     context '存在しないパスにアクセスした場合' do
-      example '404ページを表示する' do
+      example '404ページが表示される' do
         visit task_path('test404')
+        expect(current_path).to eq task_path('test404')
         expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
     end
@@ -119,10 +133,11 @@ RSpec.describe Task, type: :system do
 
   describe '500' do
     context 'サーバエラーが発生した場合' do
-      example '500ページを表示する' do
+      example '500ページが表示される' do
         allow_any_instance_of(TasksController).to receive(:index)
           .and_throw(Exception)
         visit tasks_path
+        expect(current_path).to eq tasks_path
         expect(page).to have_content '大変申し訳ありません。一時的なエラーが発生しました。'
       end
     end

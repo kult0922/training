@@ -1,17 +1,17 @@
-<% content_for(:title, t('.title')) %>
-<h1><%= t('.title') %></h1>
+<% content_for(:title, I18n.t('tasks.show.title')) %>
+<h1><%= I18n.t('tasks.show.title') %></h1>
 <hr>
 <div id="task_detail">
   <table>
     <!-- テーブルヘッダ -->
     <thead>
       <tr>
-        <th class="name"><%= t('tasks.header.name') %></th>
-        <th class="details"><%= t('tasks.header.details') %></th>
-        <th class="deadline"><%= t('tasks.header.deadline') %></th>
-        <th class="priority"><%= t('tasks.header.priority') %></th>
-        <th class="status"><%= t('tasks.header.status') %></th>
-        <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
+        <th class="name"><%= I18n.t('tasks.header.name') %></th>
+        <th class="details"><%= I18n.t('tasks.header.details') %></th>
+        <th class="deadline"><%= I18n.t('tasks.header.deadline') %></th>
+        <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
+        <th class="status"><%= I18n.t('tasks.header.status') %></th>
+        <th class="creation_date"><%= I18n.t('tasks.header.creation_date') %></th>
       </tr>
     </thead>
 
@@ -20,13 +20,13 @@
       <tr>
         <td class="name"><%= @task.name %></td>
         <td class="details"><%= @task.details %></td>
-        <td class="deadline"><%= l @task.deadline %></td>
+        <td class="deadline"><%= I18n.l @task.deadline %></td>
         <td class="priority"><%= @task.priority_i18n %></td>
         <td class="status"><%= @task.status_i18n %></td>
-        <td class="creation_date"><%= l @task.creation_date %></td>
+        <td class="creation_date"><%= I18n.l @task.creation_date %></td>
       </tr>
     </tbody>
   </table>
 </div>
 <hr>
-<%= link_to t('tasks.footer.index'), tasks_path %>
+<%= link_to I18n.t('tasks.footer.index'), tasks_path %>

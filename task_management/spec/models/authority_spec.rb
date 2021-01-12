@@ -33,8 +33,7 @@ RSpec.describe Authority, type: :model do
     end
 
     context '権限区分が重複する場合' do
-      let!(:test_authority) { create(:authority) }
-      let(:role) { test_authority.role }
+      let(:role) { authority.role }
       example '登録できない' do
         expect { is_expected.to_not be_valid }
       end
@@ -49,6 +48,21 @@ RSpec.describe Authority, type: :model do
 
     context '権限名の桁数が25桁よりも大きい場合' do
       let(:name) { 12_345_678_901_234_567_890 }
+      example '登録できない' do
+        expect { is_expected.to_not be_valid }
+      end
+    end
+
+    context '権限名が重複する場合' do
+      let(:role) { 2 }
+      let(:name) { 'test_role_1' }
+      example '登録できない' do
+        expect { is_expected.to_not be_valid }
+      end
+    end
+
+    context '権限名の桁数が50桁よりも大きい場合' do
+      let(:name) { 'a' * 51 }
       example '登録できない' do
         expect { is_expected.to_not be_valid }
       end

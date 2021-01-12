@@ -31,5 +31,19 @@ RSpec.describe Label, type: :model do
         expect { is_expected.to_not be_valid }
       end
     end
+
+    context 'ラベル名が重複する場合' do
+      let(:name) { 'test_label_1' }
+      example '登録できない' do
+        expect { is_expected.to_not be_valid }
+      end
+    end
+
+    context 'ラベル名の桁数が50桁よりも大きい場合' do
+      let(:name) { 'a' * 51 }
+      example '登録できない' do
+        expect { is_expected.to_not be_valid }
+      end
+    end
   end
 end

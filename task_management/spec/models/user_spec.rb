@@ -49,7 +49,6 @@ RSpec.describe User, type: :model do
     end
 
     context 'ログインIDが重複する場合' do
-      let!(:another_user) { create(:user) }
       let(:login_id) { user.login_id }
       example '登録できない' do
         expect { is_expected.to_not be_valid }
