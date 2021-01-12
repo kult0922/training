@@ -44,7 +44,7 @@
           <td class="delete"><%= link_to image_tag('admin/users/delete_icon.png', class: 'icon delete_icon'),
                                          admin_user_path(user),
                                          { method: :delete,
-                                           data: { confirm: I18n.t('.confirm_delete') },
+                                           data: { confirm: I18n.t('admin.users.index.confirm_delete') },
                                            id: "delete_link_#{user.id}"
                                          } %>
           </td>

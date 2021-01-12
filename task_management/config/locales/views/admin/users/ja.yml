@@ -5,7 +5,6 @@ ja:
         title: ユーザ一覧
         link_task_list: タスク一覧
         confirm_delete: 本当に削除しますか？
-        load_delete: 削除中
 
       show:
         title: ユーザタスク一覧
