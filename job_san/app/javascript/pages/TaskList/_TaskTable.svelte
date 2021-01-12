@@ -1,5 +1,5 @@
 <script>
-  import moment from "moment";
+  // import moment from "moment";
   import axios from "axios";
   import InfiniteScroll from "svelte-infinite-scroll";
   import {
@@ -11,10 +11,10 @@
     sortOrder,
   } from "models/tasks/store.js";
 
+  const moment = require("moment").default || require("moment");
   export let taskStatuses, initFetchTasks, fetchTasks, fetchedTasks;
   const viewedTaskTargetDate = (_targetDate) => _targetDate || "未設定";
-  const viewedTaskCreatedAt = (_createdAt) =>
-    moment(_createdAt).format("YYYY年MM月DD日");
+  const viewedTaskCreatedAt = (_createdAt) => moment(_createdAt).format("YYYY年MM月DD日");
 
   function viewedTaskName(_name) {
     return _name.length > 10 ? `${_name.substring(0, 9)}...` : _name;

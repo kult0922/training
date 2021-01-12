@@ -23,7 +23,7 @@
 
   let searchName;
   let searchStatus = "";
-  let fetchedTasks = [];
+  export let fetchedTasks = [];
   let loading = false;
   const taskStatuses = {
     todo: "未着手",
@@ -84,11 +84,12 @@
   </Row>
 </Grid>
 
+<TaskTable {taskStatuses} {initFetchTasks} {fetchTasks} {fetchedTasks} />
+
 {#if loading}
   <div>ロードしています。</div>
 {:else if $tasks.length < 1}
   <div>検索結果が見つかりませんでした。</div>
 {/if}
 
-<TaskTable {taskStatuses} {initFetchTasks} {fetchTasks} {fetchedTasks} />
 <TaskUpdateModal {taskStatuses} />

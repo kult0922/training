@@ -57,16 +57,16 @@
       on:change={validateCreateTask} />
   </div>
   <div style="width: 640px;margin: auto;">
-    ステータス:
-    <select bind:value={taskStatus}>
+    <label for="status">ステータス:</label>
+    <select id="status" bind:value={taskStatus}>
       {#each Object.entries(taskStatuses) as [key, value]}
         <option value={key}>{value}</option>
       {/each}
     </select>
     <Checkbox labelText="完了日を入力" bind:checked={inputTargetDate} />
     {#if inputTargetDate}
-      完了日:
-      <input type="date" bind:value={targetDate} />
+      <label for="target_date">完了日:</label>
+      <input id="target_date" type="date" bind:value={targetDate} />
     {/if}
   </div>
   <div style="text-align-last: center;">
