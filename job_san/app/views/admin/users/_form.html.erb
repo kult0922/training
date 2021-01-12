@@ -1,0 +1,21 @@
+<%= form_with model: @user, method: target_method, url: form_url do |form| %>
+  <div>
+    <%= form.label(:name) %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label(:email) %>
+    <%= form.text_field :email %>
+  </div>
+  <% if admin_users_path == form_url %>
+    <div>
+      <%= form.label(:password) %>
+      <%= form.password_field :password %>
+    </div>
+    <div>
+      <%= form.label(:password_confirmation) %>
+      <%= form.password_field :password_confirmation %>
+    </div>
+  <% end %>
+  <%= form.submit "#{action_label}" %>
+<% end %>
