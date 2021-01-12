@@ -49,7 +49,7 @@ class User < ApplicationRecord
     return unless User.admin.exists?
     return unless role_type_admin? && User.count < 2
 
-    errors.add(:base, '最後の管理者です')
+    errors.add(:base, I18n.t('user.error.last_admin'))
     throw :abort
   end
 end
