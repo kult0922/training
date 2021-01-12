@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# タスクコントローラー
 class TasksController < ApplicationController
   attr_reader :task, :login_user
 
@@ -24,13 +25,15 @@ class TasksController < ApplicationController
     if t('.search') == search_btn
       search_word = params[:search_word]
       status      = params[:status]
-      status = Task.statuses.values if status == 'all'
+      status      = Task.statuses.values if status == 'all'
       @tasks = Task.where(user_id: @login_user.id)
-                     .where(status: status)
-                     .where('name like ?', '%' + search_word + '%')
-                     .order(order).page(params[:page])
+                   .where(status: status)
+                   .where('name like ?', '%' + search_word + '%')
+                   .order(order).page(params[:page])
     else
-      @tasks = Task.where(user_id: @login_user.id).order(order).page(params[:page])
+      @tasks = Task.where(user_id: @login_user.id)
+                   .order(order)
+                   .page(params[:page])
     end
   end
 

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# アドミンユーザーモジュール
 module Admin
+  # アドミンユーザーコントローラ
   class UsersController < ApplicationController
-    attr_reader :login_user, :users, :user, :authority, :task
+    attr_reader :login_user, :users, :user, :authority, :tasks
 
     before_action :set_authority, only: %i[new edit create update]
 
@@ -11,14 +13,18 @@ module Admin
 
     def index
       # TODO: @current_user = current_user ステップ19用
-      @login_user = User.select(:login_id, :name, :authority_id).find(TEST_USER_ID) if TEST_USER_ID
+      @login_user = User.select(:login_id, :name, :authority_id)
+                        .find(TEST_USER_ID)
       @users = User.select(:id, :login_id, :password, :name, :authority_id)
-                   .includes(:authority).page(params[:page])
+                   .includes(:authority)
+                   .page(params[:page])
                    .order(:authority_id).order(:id)
     end
 
     def show
-      @user = User.find(params[:id])
+      @tasks = Task.where(user_id: params[:id])
+                   .order('creation_date DESC')
+                   .page(params[:page])
     end
 
     def new

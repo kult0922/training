@@ -15,17 +15,17 @@
     <!-- テーブルヘッダ -->
     <thead>
     <tr>
-      <th class="login_id"><%= t('admin.header.login_id') %></th>
-      <th class="password"><%= t('admin.header.password') %></th>
-      <th class="name"><%= t('admin.header.name') %></th>
-      <th class="authority"><%= t('admin.header.authority') %></th>
+      <th class="login_id"><%= I18n.t('admin.header.login_id') %></th>
+      <th class="password"><%= I18n.t('admin.header.password') %></th>
+      <th class="name"><%= I18n.t('admin.header.name') %></th>
+      <th class="authority"><%= I18n.t('admin.header.authority') %></th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <td class="login_id"><%= f.text_field :login_id, placeholder: "入力してください", id: 'login_id' %></td>
-      <td class="password"><%= f.text_field :password, placeholder: "入力してください", id: 'password' %></td>
-      <td class="name"><%= f.text_field :name, placeholder: "入力してください", id: 'name' %></td>
+      <td class="login_id"><%= f.text_field :login_id, placeholder: I18n.t('admin.users.message.input'), id: 'login_id' %></td>
+      <td class="password"><%= f.text_field :password, placeholder: I18n.t('admin.users.message.input'), id: 'password' %></td>
+      <td class="name"><%= f.text_field :name, placeholder: I18n.t('admin.users.message.input'), id: 'name' %></td>
       <td class="authority"><%= f.select :authority_id,
                                          authority.map{|a| [a.name, a.id]}
                             %>

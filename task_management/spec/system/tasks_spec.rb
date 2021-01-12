@@ -8,15 +8,40 @@ RSpec.describe Task, type: :system do
   let(:test_deadline) { Time.zone.now + 3.days }
   let(:test_priority) { Task.priorities.key(1) }
   let(:test_status) { Task.statuses.key(2) }
-  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
-  let!(:added_index_task) { create(:task, id: 2, creation_date: Time.current + 5.days, user_id: test_index_user.id) }
-  let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
-  let!(:added_task) { create(:task, name: 'test_task', creation_date: Time.current + 1.day, user_id: test_user.id) }
-  before {
+  let!(:test_authority) do
+    create(:authority,
+           id: 1,
+           role: 0,
+           name: 'test')
+  end
+  let!(:test_index_user) do
+    create(:user,
+           id: 1,
+           login_id: 'yokuno',
+           authority_id: test_authority.id)
+  end
+  let!(:added_index_task) do
+    create(:task,
+           id: 2,
+           creation_date: Time.current + 5.days,
+           user_id: test_index_user.id)
+  end
+  let!(:test_user) do
+    create(:user,
+           id: 2,
+           login_id: 'test_user_2',
+           authority_id: test_authority.id)
+  end
+  let!(:added_task) do
+    create(:task,
+           name: 'test_task',
+           creation_date: Time.current + 1.day,
+           user_id: test_user.id)
+  end
+  before do
     allow_any_instance_of(ActionDispatch::Request)
       .to receive(:session).and_return(user_id: test_index_user.id)
-  }
+  end
 
   describe '#index' do
     before { visit root_path }
@@ -43,21 +68,33 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'search' do
-      let!(:taskC) {
-        create(:task, id: 900, name: 'taskC', creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id, deadline: Time.current + 4.days,
-                      status: 1)
-      }
-      let!(:taskD) {
-        create(:task, id: 901, name: 'taskD', creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id, deadline: Time.current + 4.days,
-                      status: 2)
-      }
-      let!(:taskE) {
-        create(:task, id: 902, name: 'taskE', creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id, deadline: Time.current + 4.days,
-                      status: 3)
-      }
+      let!(:taskC) do
+        create(:task,
+               id: 900,
+               name: 'taskC',
+               creation_date: Time.current + 2.days,
+               user_id: test_index_user.id,
+               deadline: Time.current + 4.days,
+               status: 1)
+      end
+      let!(:taskD) do
+        create(:task,
+               id: 901,
+               name: 'taskD',
+               creation_date: Time.current + 2.days,
+               user_id: test_index_user.id,
+               deadline: Time.current + 4.days,
+               status: 2)
+      end
+      let!(:taskE) do
+        create(:task,
+               id: 902,
+               name: 'taskE',
+               creation_date: Time.current + 2.days,
+               user_id: test_index_user.id,
+               deadline: Time.current + 4.days,
+               status: 3)
+      end
       context '検索キーワードを入力し、検索ボタンを押下した場合' do
         before do
           fill_in 'search_word', with: 'task'
@@ -124,24 +161,32 @@ RSpec.describe Task, type: :system do
           expect(page).to have_content 'taskD'
         end
       end
-
     end
 
     describe 'sorting' do
-      let!(:taskA) { 
-        create(:task, id: 3, name:'taskA', creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id, deadline: Time.current + 4.days)
-      }
-      let!(:taskB) { 
-        create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days,
-                      user_id: test_index_user.id, deadline: Time.current + 1.day)
-      }
+      let!(:taskA) do
+        create(:task,
+               id: 3,
+               name: 'taskA',
+               creation_date: Time.current + 2.days,
+               user_id: test_index_user.id,
+               deadline: Time.current + 4.days)
+      end
+      let!(:taskB) do
+        create(:task,
+               id: 4,
+               name: 'taskB',
+               creation_date: Time.current + 3.days,
+               user_id: test_index_user.id,
+               deadline: Time.current + 1.day)
+      end
       before do
         visit root_path
       end
       context 'トップページにアクセスした場合（サーバ側で「作成日時」を降順ソート）' do
         example '「作成日時」で降順ソートされた状態で表示される' do
-          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+          expect(page.body.index(taskA.name))
+            .to be > page.body.index(taskB.name)
         end
       end
 
@@ -149,10 +194,10 @@ RSpec.describe Task, type: :system do
         example '「終了期限」で降順ソートされた状態で表示される' do
           click_link 'deadline_desc'
           sleep 1
-          expect(page.body.index(taskB.name)).to be > page.body.index(taskA.name)
+          expect(page.body.index(taskB.name))
+            .to be > page.body.index(taskA.name)
         end
       end
-
     end
   end
 
@@ -231,7 +276,8 @@ RSpec.describe Task, type: :system do
   describe '500' do
     context 'サーバエラーが発生した場合' do
       example '500ページを表示する' do
-        allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
+        allow_any_instance_of(TasksController)
+          .to receive(:index).and_throw(Exception)
         visit tasks_path
         expect(page).to have_content '大変申し訳ありません。一時的なエラーが発生しました。'
       end

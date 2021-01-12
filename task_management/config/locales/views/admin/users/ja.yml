@@ -7,6 +7,10 @@ ja:
         confirm_delete: 本当に削除しますか？
         load_delete: 削除中
 
+      show:
+        title: ユーザタスク一覧
+        btn_close: 閉じる
+
       new:
         title: ユーザ登録
         btn_registration: 登録
@@ -14,6 +18,9 @@ ja:
       edit:
          title: ユーザ編集
          btn_update: 更新
+
+      message:
+        input: 入力してください
 
     header:
       login_id: ログインID

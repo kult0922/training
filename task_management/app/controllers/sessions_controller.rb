@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# セッションコントローラー
 class SessionsController < ApplicationController
   attr_reader :user
 

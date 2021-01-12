@@ -23,10 +23,11 @@
           <th class="no">No</th>
           <th class="name"><%= t('tasks.header.name') %></th>
           <!-- TODO:昇順ソートも出来るようにする。状態はローカルストレージかセッションストレージに保存 -->
-          <th class="deadline"><%= t('tasks.header.deadline') %><%= link_to image_tag('tasks/desc_icon.png', class: 'icon sort_icon'),
-                                                                            {controller: "tasks", action: "index",
-                                                                             sort: "deadline"},
-                                                                             id: "deadline_desc" %>
+          <th class="deadline"><%= t('tasks.header.deadline') %>
+            <%= link_to image_tag('tasks/desc_icon.png', class: 'icon sort_icon'),
+                        {controller: "tasks", action: "index",
+                         sort: "deadline"},
+                        id: "deadline_desc" %>
           </th>
           <th class="priority"><%= t('tasks.header.priority') %></th>
           <th class="status"><%= t('tasks.header.status') %></th>

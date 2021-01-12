@@ -1,6 +1,6 @@
 <div class="container_admin_users">
-  <% content_for(:title, t('.title')) %>
-  <h1><%= t('.title') %></h1>
+  <% content_for(:title, I18n.t('admin.users.index.title')) %>
+  <h1><%= I18n.t('admin.users.index.title') %></h1>
   ログインユーザID：<%= @login_user.login_id %>
   <hr>
   <div id="users_list">
@@ -9,14 +9,13 @@
       <thead>
       <tr>
         <th class="no">No</th>
-        <th class="login_id"><%= t('admin.header.login_id') %></th>
-        <th class="password"><%= t('admin.header.password') %></th>
-        <th class="name"><%= t('admin.header.name') %></th>
-        <th class="authority"><%= t('admin.header.authority') %></th>
-        <th class="task_count"><%= t('admin.header.task') %></th>
-        <th class="task_list"><%= t('admin.header.task_list') %></th>
-        <th class="edit_user"><%= t('admin.header.edit_user') %></th>
-        <th class="delete"><%= t('admin.header.delete') %></th>
+        <th class="login_id"><%= I18n.t('admin.header.login_id') %></th>
+        <th class="password"><%= I18n.t('admin.header.password') %></th>
+        <th class="name"><%= I18n.t('admin.header.name') %></th>
+        <th class="authority"><%= I18n.t('admin.header.authority') %></th>
+        <th class="task_count"><%= I18n.t('admin.header.task') %></th>
+        <th class="edit_user"><%= I18n.t('admin.header.edit_user') %></th>
+        <th class="delete"><%= I18n.t('admin.header.delete') %></th>
       </tr>
       </thead>
 
@@ -26,24 +25,27 @@
       <% @users.each do |user| %>
         <tr>
           <td class="no"><%= i += 1 %></td>
-          <td class="login_id"><%= user.login_id %>
+          <td class="login_id"><%= user.login_id %></td>
           <td class="password"><%= user.password %></td>
           <td class="name"><%= user.name %></td>
           <td class="authority"><%= user.authority.name %></td>
-          <td class="task_count"><%= user.tasks.ids.count %></td>
-          <td class="task_list"><%= link_to image_tag('admin/users/list_icon.png', class: 'icon list_icon'),
-                                            admin_user_path(user),
-                                            { id: "list_link_#{i}" } %>
+          <td class="task_count">
+            <%= link_to user.tasks.ids.count,
+                        admin_user_path(user),
+                        :onclick=>"window.open(this.href,
+                                   'new_window_#{user.id}',
+                                   'height=600px, width=1000px');
+                                   return false;" %>
           </td>
           <td class="edit_user"><%= link_to image_tag('admin/users/edit_icon.png', class: 'icon edit_user_icon'),
                                             edit_admin_user_path(user),
-                                            { id: "edit_user_link_#{i}" } %>
+                                            { id: "edit_user_link_#{user.id}" } %>
           </td>
           <td class="delete"><%= link_to image_tag('admin/users/delete_icon.png', class: 'icon delete_icon'),
                                          admin_user_path(user),
                                          { method: :delete,
-                                           data: { confirm: t('.confirm_delete') },
-                                           id: "delete_link_#{i}"
+                                           data: { confirm: I18n.t('.confirm_delete') },
+                                           id: "delete_link_#{user.id}"
                                          } %>
           </td>
         </tr>
@@ -54,11 +56,11 @@
     <%= paginate @users %>
   </div>
   <hr>
-  <%= link_to t('admin.footer.new'), new_admin_user_path %>
+  <%= link_to I18n.t('admin.footer.new'), new_admin_user_path %>
   <hr>
-  <%= button_to t('layouts.common.logout'), logout_path(@login_user),
+  <%= button_to I18n.t('layouts.common.logout'), logout_path(@login_user),
                 { method: :delete,
-                  data: { confirm: t('layouts.common.confirm_logout'),
-                          disable_with: t('layouts.common.load_logout') }
+                  data: { confirm: I18n.t('layouts.common.confirm_logout'),
+                          disable_with: I18n.t('layouts.common.load_logout') }
                 } %>
 </div>
