@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :name, null: false, limit: 100
       t.string :email, null: false
       t.string :password_digest, null: false
+      t.string :remember_digest
       t.timestamp :deleted_at, comment: 'for soft delete'
       t.timestamps
     end
@@ -22,6 +23,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
 
   def down
     remove_foreign_key :tasks, :users
+    remove_index :users, :email
     Task.all.update_all(user_id: nil)
     change_column :tasks, :user_id, :integer
     drop_table :users

@@ -2,7 +2,7 @@
 
 module Admin
   class UsersController < ApplicationController
-    before_action :logged_in_user
+    before_action :logged_in_user, :authorized_user
 
     def index
       @query = User.ransack(params[:query])
@@ -33,14 +33,11 @@ module Admin
       @user = User.find_by(id: params[:id])
       return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
 
-      if @user.update(user_params.except(:password, :password_confirmation))
-        flash[:notice] = I18n.t('view.user.flash.updated')
-        redirect_to admin_users_path
-      else
-        @errors = @user.errors
-        flash.now[:alert] = I18n.t('view.user.flash.not_updated')
-        render :edit
-      end
+      @user = UserService.new(@user, @current_user).update_user(user_params.except(:password, :password_confirmation))
+      @errors = @user.errors
+      return redirect_to admin_users_path, notice: I18n.t('view.user.flash.updated') if @errors.blank?
+
+      render 'admin/users/edit', id: @user.id, alert: I18n.t('view.user.flash.not_updated')
     end
 
     def user_tasks
@@ -48,26 +45,23 @@ module Admin
       return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
 
       @query = Task.ransack(params[:query])
-      @tasks = @query.result.where(user_id: params[:id]).order(created_at: :desc).page params[:page]
+      @tasks = @query.result.includes(:labels).where(user_id: params[:id]).order(created_at: :desc).page params[:page]
+      @labels = Label.all
     end
 
     def destroy
-      user = User.find_by(id: params[:id])
-      return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless user
+      @user = User.find_by(id: params[:id])
+      return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
+      return redirect_to admin_users_path, notice: I18n.t('view.user.flash.deleted') if @user.destroy
 
-      if user.destroy
-        redirect_to admin_users_path, notice: I18n.t('view.user.flash.deleted')
-      else
-        @errors = user.errors
-        flash.now[:alert] = I18n.t('view.user.flash.not_deleted')
-        render admin_users_path
-      end
+      @errors = @user.errors
+      render 'admin/users/edit', id: @user.id, alert: I18n.t('view.user.flash.not_deleted')
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :role_type, :password, :password_confirmation)
     end
   end
 end

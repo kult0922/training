@@ -3,6 +3,7 @@ ja:
     models:
       task: タスク
       user: ユーザ
+      label: ラベル
     attributes:
       task:
         id: ID
@@ -16,3 +17,7 @@ ja:
         password: パスワード
         password_confirmation: パスワード確認
         name: 名前
+        role_type: ロール
+      label:
+        id: ID
+        name: ラベル名
