@@ -13,7 +13,8 @@
 
   const moment = require("moment").default || require("moment");
   export let taskStatuses, initFetchTasks, fetchTasks, fetchedTasks;
-  const viewedTaskTargetDate = (_targetDate) => _targetDate || "未設定";
+  const viewedTaskTargetDate = (_targetDate) =>
+    !_targetDate ? "未設定" : moment(_targetDate).format("YYYY年MM月DD日");
   const viewedTaskCreatedAt = (_createdAt) =>
     moment(_createdAt).format("YYYY年MM月DD日");
 

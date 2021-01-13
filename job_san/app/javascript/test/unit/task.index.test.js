@@ -12,8 +12,8 @@ afterEach(() => {
 test('when visit task list page', async () => {
     const tasks = [{
         "id":3,
-        "name":"zaaaaaa",
-        "description":"",
+        "name":"サンプルタスク名",
+        "description":"サンプル説明文",
         "created_at":"2021-01-08T03:14:24.000+09:00",
         "updated_at":"2021-01-08T03:14:24.000+09:00",
         "priority":null,
@@ -24,10 +24,13 @@ test('when visit task list page', async () => {
     }]
     const response = {data: tasks};
     axios.get.mockResolvedValue(response);
-    const { queryByText } = render(TaskList);
+    const { queryByText, getByRole, getByPlaceholderText, getByLabelText } = render(TaskList);
 
-    expect(queryByText("ID")).toBeInTheDocument();
+    expect(getByPlaceholderText("タスク名")).toBeInTheDocument();
+    expect(getByRole("button", { name: "検索" } )).toBeInTheDocument();
     await waitFor(() => {
-        expect(queryByText("zaaaaaa")).toBeInTheDocument();
+        expect(queryByText("サンプルタスク名")).toBeInTheDocument();
+        expect(queryByText("未設定")).toBeInTheDocument();
+        expect(queryByText("2021年01月08日")).toBeInTheDocument();
     }, { timeout: 1000 });
 })

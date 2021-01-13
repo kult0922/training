@@ -1,6 +1,11 @@
 <script>
   import axios from "axios";
-  import { TextInput, Checkbox } from "carbon-components-svelte";
+  import {
+    TextInput,
+    Checkbox,
+    Select,
+    SelectItem,
+  } from "carbon-components-svelte";
 
   let inputTargetDate = false;
   let targetDate = null;
@@ -47,22 +52,25 @@
   <div style="width: 640px;margin: auto;">
     <TextInput
       labelText="タスク名"
-      placeholder="サンプルタスク"
+      placeholder="タスク名を入力してください"
       bind:value={taskName}
       on:change={validateCreateTask} />
     <TextInput
       labelText="説明文"
-      placeholder="サンプル説明文"
+      placeholder="説明文を入力してください"
       bind:value={description}
       on:change={validateCreateTask} />
   </div>
   <div style="width: 640px;margin: auto;">
-    <label for="status">ステータス:</label>
-    <select id="status" bind:value={taskStatus}>
-      {#each Object.entries(taskStatuses) as [key, value]}
-        <option value={key}>{value}</option>
-      {/each}
-    </select>
+    <div style="margin: 20px 0px; width: 200px">
+      <Select labelText="ステータス" bind:selected={taskStatus}>
+        <SelectItem value="" text="全てのステータス" />
+        {#each Object.entries(taskStatuses) as [key, value]}
+          <SelectItem value={key} text={value} />
+        {/each}
+      </Select>
+    </div>
+
     <Checkbox labelText="完了日を入力" bind:checked={inputTargetDate} />
     {#if inputTargetDate}
       <label for="target_date">完了日:</label>
