@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def index
     return unless logged_in?
-    redirect_to controller: :tasks, action: :index
+    redirect_to_user_page
   end
 
   # TODO: ステップ19でパスワードの暗号化を行う（password→password_digest）
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     else
       log_in(user)
       flash[:alert] = ''
-      redirect_to controller: :tasks, action: :index
+      redirect_to_user_page
     end
   end
 
@@ -31,6 +31,16 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def redirect_to_user_page
+    redirect_path = tasks_path
+
+    if current_user.authority_id == Settings.authority[:admin]
+      redirect_path = admin_users_path
+    end
+
+    redirect_to redirect_path
+  end
 
   def session_params
     params.require(:user).permit(:login_id, :password)

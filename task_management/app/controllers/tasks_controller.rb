@@ -106,7 +106,7 @@ class TasksController < ApplicationController
 
   def check_login_user
     return if logged_in?
-    redirect_to controller: :sessions, action: :index
+    redirect_to admin_users_path
   end
 
   def set_login_user
