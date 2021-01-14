@@ -67,11 +67,13 @@ RSpec.describe 'Users', type: :system do
     end
 
     context 'ユーザ削除ボタンを押下した場合' do
-      example '対象ユーザのデータが削除される' do
+      example '対象ユーザと対応づくタスクが全て削除される' do
         page.accept_confirm do
           click_link "delete_user_link_#{@test_user_admin.id}"
         end
         expect(current_path).not_to eq admin_user_path(@test_user_admin.id)
+        expect(Task.where(user_id: @test_user_general.id).count).to eq 1
+        expect(Task.where(user_id: @test_user_admin.id).count).to eq 0
         expect(page).to have_content '削除しました。'
       end
     end
