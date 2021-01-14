@@ -104,11 +104,6 @@ class TasksController < ApplicationController
                                  label_ids: [])
   end
 
-  def check_login_user
-    return if logged_in?
-    redirect_to admin_users_path
-  end
-
   def set_login_user
     @login_user = current_user
   end

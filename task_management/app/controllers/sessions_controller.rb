@@ -5,11 +5,13 @@ class SessionsController < ApplicationController
   attr_reader :user
 
   def index
+    # TODO: セッションのログインユーザーによって遷移先画面を切り変える
+    # 現状、ログインしていたらそこで処理終了する
     return unless logged_in?
     redirect_to_user_page
   end
 
-  # TODO: ステップ19でパスワードの暗号化を行う（password→password_digest）
+  # TODO: 各コントローラのフラッシュメッセージのjaファイル化
   def create
     user = User.select(:id, :name, :authority_id)
                .find_by(login_id: params[:login_id],
