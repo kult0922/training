@@ -8,23 +8,56 @@ RSpec.describe Task, type: :system do
   let(:test_deadline) { Time.zone.now + 3.days }
   let(:test_priority) { Task.priorities.key(1) }
   let(:test_status) { Task.statuses.key(1) }
-  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let!(:test_index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id) }
-  let!(:added_index_task) { create(:task, id: 2, creation_date: Time.current + 5.days, user_id: test_index_user.id) }
-  let!(:test_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: test_authority.id) }
-  let!(:added_task) { create(:task, creation_date: Time.current + 1.days, user_id: test_user.id) }
+  let!(:test_authority) do
+    create(:authority,
+           id: 1,
+           role: 0,
+           name: 'test')
+  end
+  let!(:test_index_user) do
+    create(:user,
+           id: 1,
+           login_id: 'yokuno',
+           authority_id: test_authority.id)
+  end
+  let!(:added_index_task) do
+    create(:task,
+           id: 2,
+           user_id: test_index_user.id)
+  end
+  let!(:test_user) do
+    create(:user,
+           id: 2,
+           login_id: 'test_user_2',
+           authority_id: test_authority.id)
+  end
+  let!(:added_task) do
+    create(:task,
+           user_id: test_user.id)
+  end
 
   describe '#index' do
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
         visit root_path
+        expect(current_path).to eq root_path
         expect(page).to have_content added_task.name
       end
     end
 
     describe 'sorting' do
-      let!(:taskA) { create(:task, id: 3, name:'taskA', creation_date: Time.current + 1.days, user_id: test_index_user.id) }
-      let!(:taskB) { create(:task, id: 4, name:'taskB', creation_date: Time.current + 3.days, user_id: test_index_user.id) }
+      let!(:taskA) do
+        create(:task, id: 3, name: 'taskA',
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days)
+      end
+      let!(:taskB) do
+        create(:task, id: 4, name: 'taskB',
+                      creation_date: Time.current + 3.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 1.day)
+      end
       before do
         visit root_path
       end
@@ -37,17 +70,23 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#show(task_id)' do
-    context '詳細ページにアクセスした場合' do
-      example 'タスク詳細が表示される' do
-        visit task_path(added_task)
-        expect(page).to have_content added_task.name
+    context 'タスク詳細画面にアクセスした場合' do
+      example 'タスク詳細画面が表示される' do
+        visit task_path(added_index_task)
+        expect(current_path).to eq task_path(added_index_task)
       end
     end
   end
 
   describe '#new' do
     before { visit new_task_path }
-    context '全項目を入力し、登録ボタンを押下した場合' do
+    context 'タスク登録画面にアクセスした場合' do
+      example 'タスク登録画面が表示される' do
+        expect(current_path).to eq new_task_path
+      end
+    end
+
+    context '全項目を入力して登録ボタンを押下した場合' do
       before do
         fill_in 'name', with: test_name
         fill_in 'details', with: test_details
@@ -78,6 +117,12 @@ RSpec.describe Task, type: :system do
 
   describe '#edit' do
     before { visit edit_task_path(added_task) }
+    context 'タスク編集画面にアクセスした場合' do
+      example 'タスク編集画面が表示される' do
+        expect(current_path).to eq edit_task_path(added_task)
+      end
+    end
+
     context '全項目を入力し、更新ボタンを押下した場合' do
       before do
         fill_in 'name', with: test_name
@@ -98,24 +143,4 @@ RSpec.describe Task, type: :system do
       end
     end
   end
-
-  describe '404' do
-    context '存在しないパスにアクセスした場合' do
-      example '404ページを表示する' do
-        visit task_path('test404')
-        expect(page).to have_content 'お探しのページは見つかりませんでした。'
-      end
-    end
-  end
-
-  describe '500' do
-    context 'サーバエラーが発生した場合' do
-      example '500ページを表示する' do
-        allow_any_instance_of(TasksController).to receive(:index).and_throw(Exception)
-        visit tasks_path
-        expect(page).to have_content '大変申し訳ありません。一時的なエラーが発生しました。'
-      end
-    end
-  end
-
 end
