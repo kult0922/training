@@ -1,5 +1,5 @@
-<% content_for(:title, '一覧') %>
-<h1>タスク管理システム：一覧画面</h1>
+<% content_for(:title, I18n.t('tasks.index.title')) %>
+<h1><%= I18n.t('tasks.index.title') %></h1>
 <hr>
 <div id="task_list">
   <table>
@@ -7,12 +7,12 @@
     <thead>
       <tr>
         <th class="no">No</th>
-        <th class="name">タスク</th>
-        <th class="deadline">期限</th>
-        <th class="priority">優先度</th>
-        <th class="status">ステータス</th>
-        <th class="edit">編集</th>
-        <th class="delete">削除</th>
+        <th class="name"><%= I18n.t('tasks.header.name') %></th>
+        <th class="deadline"><%= I18n.t('tasks.header.deadline') %></th>
+        <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
+        <th class="status"><%= I18n.t('tasks.header.status') %></th>
+        <th class="edit"><%= I18n.t('tasks.header.edit') %></th>
+        <th class="delete"><%= I18n.t('tasks.header.delete') %></th>
       </tr>
     </thead>
 
@@ -23,14 +23,15 @@
         <tr>
           <td class="no"><%= i += 1 %></td>
           <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
-          <td class="deadline"><%= l task.deadline %></td>
+          <td class="deadline"><%= I18n.l task.deadline %></td>
           <td class="priority"><%= task.priority_i18n %></td>
           <td class="status"><%= task.status_i18n %></td>
-          <td class="edit"><%= link_to '編集', edit_task_path(task), class: 'btn btn-edit' %></td>
-          <td class="delete"><%= button_to '削除', task_path(task),
+          <td class="edit"><%= link_to I18n.t('tasks.index.edit'), edit_task_path(task), class: 'link link-edit' %></td>
+          <td class="delete"><%= button_to I18n.t('tasks.index.btn_delete'), task_path(task),
                                            { method: :delete,
-                                             data: { confirm: '本当に削除しますか？',
-                                                     disable_with: '削除中' } } %>
+                                             data: { confirm: I18n.t('tasks.index.confirm_delete'),
+                                                     disable_with: I18n.t('tasks.index.load_delete') }
+                                           } %>
           </td>
         </tr>
       <% end %>
@@ -38,4 +39,4 @@
   </table>
 </div>
 <hr>
-<a href="/tasks/new">作成画面へ</a><br>
+<%= link_to I18n.t('tasks.footer.new'), new_task_path %>

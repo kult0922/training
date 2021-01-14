@@ -1,0 +1,36 @@
+ja:
+  tasks:
+    header:
+      name: タスク
+      details: 詳細
+      deadline: 期限
+      priority: 優先度
+      status: ステータス
+      creation_date: 作成日時
+      edit: 編集
+      delete: 削除
+
+    footer:
+      index: 一覧画面へ
+      new: 作成画面へ
+
+    index:
+      title: タスク一覧
+      edit: 編集
+      btn_delete: 削除
+      confirm_delete: 本当に削除しますか？
+      load_delete: 削除中
+
+    show:
+      title: タスク詳細
+
+    new:
+      title: タスク新規作成
+      btn_registration: 登録
+
+    edit:
+      title: タスク編集
+      btn_update: 更新
+
+    message:
+      input: 入力してください
