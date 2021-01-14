@@ -6,8 +6,8 @@ RSpec.describe Task, type: :model do
   describe 'validation' do
     let!(:test_authority) do
       create(:authority,
-             role: 5,
-             name: 'test5')
+             role: 1,
+             name: 'test')
     end
     let!(:test_user) do
       create(:user,

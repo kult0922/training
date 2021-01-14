@@ -3,9 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe Authority, type: :model do
+  before :all do
+    @test_authority =
+      create(:authority,
+             role: 0,
+             name: 'test')
+  end
+
+  after :all do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
   describe 'validation' do
-    let(:role) { 0 }
-    let(:name) { 'test_name' }
+    let(:role) { @test_authority.role }
+    let(:name) { @test_authority.name }
 
     subject do
       build(
@@ -16,6 +27,8 @@ RSpec.describe Authority, type: :model do
     end
 
     context '権限区分、権限名が有る場合' do
+      let(:role) { 1 }
+      let(:name) { 'test_name' }
       example '登録できる' do
         is_expected.to be_valid
       end
@@ -53,9 +66,9 @@ RSpec.describe Authority, type: :model do
       let!(:test_authority) do
         create(:authority,
                role: 1,
-               name: 'test1')
+               name: 'test_name')
       end
-      let(:role) { 1 }
+      let(:role) { test_authority.role }
       example '登録できない' do
         is_expected.to_not be_valid
       end

@@ -6,7 +6,6 @@ RSpec.describe Label, type: :model do
   before :all do
     @test_authority =
       create(:authority,
-             id: 1,
              role: 0,
              name: 'test')
 
@@ -19,18 +18,19 @@ RSpec.describe Label, type: :model do
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  let!(:user_id) { @test_user.id }
-  subject do
-    build(
-      :label,
-      user_id: user_id,
-      name: name
-    )
-  end
-
   describe 'validation' do
+    let(:user_id) { @test_user.id }
+    let(:name) { @test_user.name }
+
+    subject do
+      build(
+        :label,
+        user_id: user_id,
+        name: name
+      )
+    end
+
     context 'ユーザID、ラベル名が有る場合' do
-      let!(:name) { 'test' }
       example '登録できる' do
         is_expected.to be_valid
       end
