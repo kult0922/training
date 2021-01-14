@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# アプリケーションコントローラー
 class ApplicationController < ActionController::Base
   rescue_from Exception, with: :render_500
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
