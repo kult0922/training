@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_043604) do
+ActiveRecord::Schema.define(version: 2021_01_14_042234) do
 
   create_table "authorities", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "role", limit: 1, null: false, comment: "権限区分"
+    t.integer "role", null: false, comment: "権限区分"
     t.string "name", null: false, comment: "権限名"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
