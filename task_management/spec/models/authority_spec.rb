@@ -68,9 +68,10 @@ RSpec.describe Authority, type: :model do
                role: 1,
                name: 'test_name')
       end
+      let(:name) { 'test1' }
       let(:role) { test_authority.role }
-      example '登録できない' do
-        is_expected.to_not be_valid
+      example '登録できる' do
+        is_expected.to be_valid
       end
     end
 
