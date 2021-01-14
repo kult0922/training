@@ -9,24 +9,21 @@
     Select,
     SelectItem,
   } from "carbon-components-svelte";
-  import LabelCheckbox from "./_LabelCheckbox.svelte";
-  import { updateModalOpen, tasks, labels } from "models/tasks/store.js";
+  import { updateModalOpen, tasks } from "models/tasks/store.js";
 
-  export let taskStatuses = {};
+  const userRoleTypes = {
+    member: "メンバー",
+    admin: "管理者",
+  };
   export let selectedTask = {};
+  let userRoleType = "member";
   let updateModalChecked = true;
   let validationError = "";
 
   const updateTask = () => {
     axios
       .put(`/api/tasks/${selectedTask.id}`, {
-        task: {
-          name: selectedTask.name,
-          description: selectedTask.description,
-          target_date: selectedTask.target_date,
-          status: selectedTask.status,
-          attach_labels: selectedTask.attach_labels.map((l) => l.id),
-        },
+        task: selectedTask,
       })
       .then((res) => {
         const updatedTaskIndex = $tasks.findIndex(
@@ -46,23 +43,14 @@
   const validateUpdateTask = () => {
     if (selectedTask.name < 1 || selectedTask.name > 255) {
       updateModalChecked = false;
-      validationError = "タスク名は１文字以上２５５文字以下に設定してください";
+      validationError = "ユーザ名は１文字以上２５５文字以下に設定してください";
     } else if (selectedTask.description > 255) {
       updateModalChecked = false;
-      validationError = "説明文は２５５文字以下に設定してください";
+      validationError = "アドレスは２５５文字以下に設定してください";
     } else {
       updateModalChecked = true;
       validationError = "";
     }
-  };
-
-  const onClickLabelCheckbox = (label) => {
-    const matchedIndex = selectedTask.attach_labels.findIndex(
-      (l) => l.id === label.id
-    );
-    matchedIndex > -1
-      ? selectedTask.attach_labels.splice(matchedIndex, 1)
-      : selectedTask.attach_labels.push(label);
   };
 
   const onClose = () => {
@@ -75,33 +63,24 @@
   open={$updateModalOpen}
   on:submit={updateTask}
   on:close={onClose}>
-  <ModalHeader title="タスクの詳細" />
+  <ModalHeader title="ユーザの詳細" />
   <ModalBody hasForm>
     <p>ID: {selectedTask.id}</p>
     <TextInput
-      labelText="タスク名"
-      placeholder="サンプルタスク"
+      labelText="ユーザ名"
+      placeholder="ユーザ名を入力してください"
       bind:value={selectedTask.name}
       on:change={validateUpdateTask} />
     <TextInput
-      labelText="説明文"
-      placeholder="サンプル説明文"
+      labelText="アドレス"
+      placeholder="アドレスを入力してください"
       bind:value={selectedTask.description}
       on:change={validateUpdateTask} />
-    <label>
-      完了日：<input type="date" bind:value={selectedTask.target_date} />
-    </label>
-    <Select inline labelText="ステータス" bind:selected={selectedTask.status}>
-      {#each Object.entries(taskStatuses) as [key, value]}
+    <Select inline labelText="ロール" bind:selected={userRoleType}>
+      {#each Object.entries(userRoleTypes) as [key, value]}
         <SelectItem value={key} text={value} />
       {/each}
     </Select>
-    {#each $labels as label}
-      <LabelCheckbox
-        {label}
-        attachLabels={selectedTask.attach_labels}
-        {onClickLabelCheckbox} />
-    {/each}
 
     <p style="color: red;">{validationError}</p>
   </ModalBody>

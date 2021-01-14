@@ -39,8 +39,8 @@
     "axios": "^0.21.1",
     "moment": "^2.29.1",
     "svelte": "^3.31.2",
-    "svelte-infinite-scroll": "^1.5.1",
     "svelte-loader": "^2.13.6",
+    "svelte-paginate": "^0.0.1",
     "svelte-simple-modal": "^0.6.1",
     "turbolinks": "^5.2.0"
   },

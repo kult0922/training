@@ -7,11 +7,12 @@ Rails.application.routes.draw do
 
   resources :tasks
 
-  get 'api/tasks/search' => 'api/tasks#search'
-  post 'api/tasks' => 'api/tasks#create'
-  put 'api/tasks/:id' => 'api/tasks#update'
-  delete 'api/tasks/:id' => 'api/tasks#destroy'
-  delete 'api/logout' => 'api/sessions#destroy'
+  get    'api/tasks/search' => 'api/tasks#search'
+  post   'api/tasks'        => 'api/tasks#create'
+  put    'api/tasks/:id'    => 'api/tasks#update'
+  delete 'api/tasks/:id'    => 'api/tasks#destroy'
+  delete 'api/logout'       => 'api/sessions#destroy'
+  get    'api/labels'       => 'api/labels#index'
 
   namespace :admin do
     resources :users, controller: 'users', only: %i[index create new edit update destroy] do

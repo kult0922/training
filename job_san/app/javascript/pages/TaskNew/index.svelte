@@ -6,7 +6,19 @@
     Select,
     SelectItem,
   } from "carbon-components-svelte";
+  import { onMount } from "svelte";
 
+  function fetchLabels() {
+    axios
+      .get("/api/labels")
+      .then((res) => {
+        labels = res.data.labels;
+      })
+      .catch((e) => alert(e));
+  }
+
+  let labels = [];
+  let selectedLabelId = [];
   let inputTargetDate = false;
   let targetDate = null;
   let validationError = " ";
@@ -27,10 +39,10 @@
           description: description,
           target_date: targetDate,
           status: taskStatus,
+          attach_labels: selectedLabelId,
         },
       })
       .then(() => {
-        document.cookie = "_job_san_session=; max-age=0";
         alert("タスクを作成しました");
         location.href = "/tasks";
       })
@@ -46,6 +58,20 @@
       validationError = "";
     }
   };
+
+  const onClickLabelCheckbox = (label) => {
+    console.log(label);
+    console.log(selectedLabelId);
+    const matchedIndex = selectedLabelId.findIndex((id) => id === label.id);
+    console.log(matchedIndex);
+    matchedIndex > -1
+      ? selectedLabelId.splice(matchedIndex, 1)
+      : selectedLabelId.push(label.id);
+  };
+
+  onMount(() => {
+    fetchLabels();
+  });
 </script>
 
 <div style="width: 100%">
@@ -76,6 +102,17 @@
       <label for="target_date">完了日:</label>
       <input id="target_date" type="date" bind:value={targetDate} />
     {/if}
+  </div>
+  <div style="border: solid; padding: 10px 20px;">
+    <p>付与するラベルを選択</p>
+    <div>
+      {#each labels as label}
+        <label>
+          <input type="checkbox" on:click={() => onClickLabelCheckbox(label)} />
+          {label.name}
+        </label>
+      {/each}
+    </div>
   </div>
   <div style="text-align-last: center;">
     <p style="color: red">{validationError}</p>
