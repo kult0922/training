@@ -28,6 +28,12 @@
         <Switch
           on:click={() => redirectTo('/admin/users/new')}
           text="ユーザ作成" />
+        <Switch
+          on:click={() => redirectTo('/admin/labels')}
+          text="ラベル一覧" />
+        <Switch
+          on:click={() => redirectTo('/admin/labels/new')}
+          text="ラベル作成" />
       {:else}
         <Switch on:click={() => redirectTo('/tasks')} text="タスク一覧" />
         <Switch on:click={() => redirectTo('/tasks/new')} text="タスク作成" />
