@@ -5,7 +5,7 @@ module Api
     before_action :logged_in_user
 
     def search
-      query = current_user.tasks.includes(:labels).ransack(search_params)
+      query = current_user.tasks.distinct(:id).includes(:labels).ransack(search_params)
       task_count = query.result.count
       tasks = query.result.order(created_at: :desc).page params[:page]
       render json: { tasks: tasks.map { |t| response_task(t) }, count: task_count }

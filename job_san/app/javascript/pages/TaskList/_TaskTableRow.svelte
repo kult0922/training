@@ -58,7 +58,7 @@
       {#each task.attach_labels as label}
         <li
           style="padding: 5px 10px; color: cornsilk; background: deepskyblue; width: 80px; border-radius: 2em;">
-          {`${label.name.substring(0, 5)}...`}
+          {label.name}
         </li>
       {/each}
     </ul>

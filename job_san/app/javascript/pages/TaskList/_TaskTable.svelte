@@ -1,6 +1,7 @@
 <script>
-  import TaskUpdateModal from "./_TaskEditModal.svelte";
+  import TaskEditModal from "./_TaskEditModal.svelte";
   import TaskTableRow from "./_TaskTableRow.svelte";
+  import deepcopy from "deepcopy";
 
   import {
     updateModalOpen,
@@ -35,12 +36,15 @@
   };
 
   function openModal(_task) {
-    selectedTask = Object.assign({}, _task);
+    $: selectedTask = _task;
     $updateModalOpen = true;
   }
 </script>
 
-<TaskUpdateModal {taskStatuses} {selectedTask} />
+<TaskEditModal
+  {taskStatuses}
+  selectedTask={deepcopy(selectedTask)}
+  attachLabels={deepcopy(selectedTask.attach_labels)} />
 
 <table style="width: 100%; border: solid;">
   <thead style="border: solid 1px">

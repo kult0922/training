@@ -1,5 +1,7 @@
 <script>
   import axios from "axios";
+
+  import deepcopy from "deepcopy";
   import {
     ComposedModal,
     ModalHeader,
@@ -16,6 +18,7 @@
   export let selectedTask = {};
   let updateModalChecked = true;
   let validationError = "";
+  export let attachLabels = [];
 
   const updateTask = () => {
     axios
@@ -25,7 +28,7 @@
           description: selectedTask.description,
           target_date: selectedTask.target_date,
           status: selectedTask.status,
-          attach_labels: selectedTask.attach_labels.map((l) => l.id),
+          attach_labels: attachLabels.map((l) => l.id),
         },
       })
       .then((res) => {
@@ -33,6 +36,7 @@
           (t) => t.id === selectedTask.id
         );
         if (updatedTaskIndex > -1) {
+          selectedTask.attach_labels = attachLabels;
           $tasks[updatedTaskIndex] = selectedTask;
         }
         alert(res.data.message);
@@ -57,12 +61,11 @@
   };
 
   const onClickLabelCheckbox = (label) => {
-    const matchedIndex = selectedTask.attach_labels.findIndex(
-      (l) => l.id === label.id
-    );
+    attachLabels = Object.assign([], attachLabels);
+    const matchedIndex = attachLabels.findIndex((l) => l.id === label.id);
     matchedIndex > -1
-      ? selectedTask.attach_labels.splice(matchedIndex, 1)
-      : selectedTask.attach_labels.push(label);
+      ? attachLabels.splice(matchedIndex, 1)
+      : attachLabels.push(label);
   };
 
   const onClose = () => {
@@ -99,7 +102,7 @@
     {#each $labels as label}
       <LabelCheckbox
         {label}
-        attachLabels={selectedTask.attach_labels}
+        attachLabels={deepcopy(attachLabels)}
         {onClickLabelCheckbox} />
     {/each}
 
