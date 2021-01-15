@@ -95,6 +95,13 @@ RSpec.describe 'Users', type: :system do
         end
       end
 
+      context 'タスク一覧画面へのリンクを押下した場合' do
+        example 'タスク一覧画面に遷移する' do
+          click_link 'タスク一覧画面へ'
+          expect(current_path).to eq tasks_path
+        end
+      end
+
       context 'ログアウトボタンを押下した場合' do
         example 'ログアウトし、ログイン画面に遷移する' do
           page.accept_confirm do
