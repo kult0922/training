@@ -18,9 +18,6 @@ ja:
          title: ユーザ編集
          btn_update: 更新
 
-      message:
-        input: 入力してください
-
     header:
       login_id: ログインID
       password: パスワード

@@ -7,3 +7,6 @@ ja:
       logout: ログアウト
       confirm_logout: 本当にログアウトしますか？
       load_logout: ログアウト中
+
+    message:
+        input: 入力してください

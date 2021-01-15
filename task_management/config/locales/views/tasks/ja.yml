@@ -7,7 +7,10 @@ ja:
       confirm_delete: 本当に削除しますか？
       load_delete: 削除中
 
-      search: 検索
+      search:
+        button: 検索
+        task: タスク名を入力してください
+
       status:
         all: 全て
         todo: 未着手
