@@ -95,7 +95,7 @@ module Admin
     end
 
     def check_login_admin_user
-      redirect_to login_path unless logged_in? || admin_user?(current_user)
+      redirect_to login_path unless logged_in? && admin_user?(current_user)
     end
 
     def delete_login_user?(user)
