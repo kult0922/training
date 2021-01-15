@@ -61,7 +61,7 @@ RSpec.describe Label, js: true, type: :system do
 
       context 'when search labels by a label_name' do
         let(:search_name) { Faker::JapaneseMedia::Naruto.character }
-        let!(:filtered_labels) { (0..2).map { |_| create(:label, name: search_name + SecureRandom.uuid) } }
+        let!(:filtered_labels) { (0..2).map { |_| create(:label, name: search_name + SecureRandom.hex(10)) } }
         before do
           fill_in 'ラベル名 は以下を含む', with: search_name[2..7]
         end

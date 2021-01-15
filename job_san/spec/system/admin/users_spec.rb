@@ -154,18 +154,13 @@ RSpec.describe User, js: true, type: :system do
                  password: login_user_password,
                  password_confirmation: login_user_password)
         }
+
         before do
           visit login_path
           fill_in 'session_email', with: login_user.email
           fill_in 'session_password', with: login_user_password
           click_button 'ログイン'
         end
-
-        # context 'when update own role_type to member' do
-        #   it 'should not be updated' do
-        #
-        #   end
-        # end
 
         context 'when update own name' do
           before do

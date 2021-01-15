@@ -62,7 +62,7 @@ RSpec.describe SessionsController, js: true, type: :system do
     end
 
     subject do
-      click_link 'ログアウト'
+      click_on 'ログアウト'
       sleep(0.3)
     end
 

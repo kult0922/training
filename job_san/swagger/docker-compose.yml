@@ -1,0 +1,6 @@
+viewer:
+  image: newgyu/swagger-spec-viewer
+  volumes:
+    - "./swagger.yaml:/opt/swagger/api/swagger.yaml"
+  ports:
+    - "8080:8080"

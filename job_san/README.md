@@ -11,7 +11,7 @@
 大まかな流れは以下です
 1. docker build
 1. db migration
-1. webpack compile(暫定)
+1. install svelte(暫定)
 1. こんにちは世界
 1. 各種確認
 
@@ -56,22 +56,31 @@ $ git checkout job_san/db/schema.rb
 > 自動で変更された内容を戻す 
 ```
 
-### 4. webpackerのインストール（暫定対応）
+## 4. webpackerでsvelteをコンパイルできるようにする（暫定対応）
 
-目的：webpackerのインストール
+目的：svelteをコンパイルできるようにする
 
 以下のエラー画面が表示された際、この項目を行ってください。
 
 <img width="400" alt="docker-setup" src="docs/readme_images/webpacker_install.png">
 
-webpackerのインストールが正しく行えていないです。
-
-`rails new`のやり方がよくなかったっぽいです。余裕があったら直します。
+svelteをコンパイルできるようにします。
 
 以下のコマンドを実行してください。
 ```
-$ docker-compose run web bundle exec rails webpacker:install
-> Webpacker successfully installed
+$ docker-compose run web bundle exec rails webpacker:install:svelte
+> Copying svelte loader to config/webpack/loaders
+>    conflict  config/webpack/loaders/svelte.js
+> Overwrite /usr/src/app/config/webpack/loaders/svelte.js? (enter "h" for help) [Ynaqdhm] h
+$ n
+> Webpacker now supports Svelte 🎉
+> 自動生成されたファイル名を変更してしまっているので、生成されます。
+
+$ git status
+> 	app/javascript/app.svelte
+>	app/javascript/packs/hello_svelte.js
+$ rm -rf app/javascript/app.svelte app/javascript/packs/hello_svelte.js
+> 自動生成されてしまうファイルを削除する
 ```
 
 ### 5. HELLO WORLD !
@@ -87,6 +96,11 @@ $ docker-compose up
 ブラウザにアクセスしてください。
 ```
 
+初期から使えるログインユーザ情報は以下です。
+
+- Email: `xxx@gmail.com`
+- Password: `password`
+
 ### 6. 確認方法
 
 #### 動作確認
@@ -100,43 +114,25 @@ $ docker-compose up
 1. メンテナンスモード開始
 1. メンテナンスモード終了
 
-### メンテナンスモード開始
+### current directory確認
 
 ```
 $ pwd
 > ${リポジトリがある場所}/training/job_san
 $ ls
-> maintenance_manage.sh
+> maintenance_manage.sh Makefile
+```
+
+### メンテナンスモード開始
+
+#### shell編
+```
 $ ./meintenance_manage.sh
 > スタートする場合は start、ストップする場合は stop と入力して下さい
 $ start
 > Maintenance mode changed to start
 ```
-
-### メンテナンスモード終了
-
-#### shell編
-```
-$ pwd
-> ${リポジトリがある場所}/training/job_san
-$ ls
-> maintenance_manage.sh
-$ ./maintenance_manage.sh
-> スタートする場合は start、ストップする場合は stop と入力して下さい
-$ stop
-> Maintenance mode changed to stop
-```
-
 #### Makefile編
-
-1. current directoryの確認
-```
-$ pwd
-> ${リポジトリがある場所}/training/job_san
-$ ls
-> Makefile
-```
-2. メンテナンスモード開始
 
 ```
 $ make maintenance-start
@@ -145,7 +141,17 @@ $ make maintenance-start
 ブラウザで確認してください
 ```
 
-3. メンテナンスモード終了
+### メンテナンスモード終了
+
+#### shell編
+```
+$ ./maintenance_manage.sh
+> スタートする場合は start、ストップする場合は stop と入力して下さい
+$ stop
+> Maintenance mode changed to stop
+```
+
+#### Makefile編
 
 ```
 $ make maintenance-stop
@@ -157,7 +163,7 @@ $ make maintenance-stop
 ## 注意事項
 
 ### 1. railsによるdbのマイグレーション関連
-`ex: rake db:migrate:redo`
+`ex: rails db:migrate:redo`
 
 mysql側のバグ？で `utf8mb4のエスケープ文字を扱うことができません`。
 
