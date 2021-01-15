@@ -1,13 +1,21 @@
 # JobSanとは
 タスクを管理してくれるすごいやつ
 
-# 環境構築
+# 目次
 
+1. 環境構築
+1. メンテナンスモードに関して
+
+## 環境構築
+
+大まかな流れは以下です
 1. docker build
-1. db migration(暫定)
+1. db migration
 1. install svelte(暫定)
+1. こんにちは世界
+1. 各種確認
 
-## 1. Docker build
+### 1. Docker build
 
 目的：サーバの構築
 
@@ -22,7 +30,7 @@ $ docker-compose up
 > webとdbとselenium_chromeが立ち上がったことを確認してください。
 ````
 
-## 2. マイグレーション
+### 2. マイグレーション
 
 目的：開発・テスト環境のデータベースのマイグレーション
 
@@ -33,7 +41,7 @@ $ docker-compose run web bundle exec rake db:migrate
 > 開発環境用のテーブルが生成される。
 ```
 
-## 3. テーブルスキーマを戻す（暫定対応）
+### 3. テーブルスキーマを戻す（暫定対応）
 
 目的：自動で変更された差分を元に戻す
 
@@ -47,8 +55,6 @@ $ git diff
 $ git checkout job_san/db/schema.rb
 > 自動で変更された内容を戻す 
 ```
-
-余裕があったらdockerfile修正します。
 
 ## 4. webpackerでsvelteをコンパイルできるようにする（暫定対応）
 
@@ -77,9 +83,7 @@ $ rm -rf app/javascript/app.svelte app/javascript/packs/hello_svelte.js
 > 自動生成されてしまうファイルを削除する
 ```
 
-余裕があったらdockerfile修正します。
-
-## 4. HELLO WORLD !
+### 5. HELLO WORLD !
 
 お疲れ様でした。 これで環境構築は終わりです。
 
@@ -97,14 +101,64 @@ $ docker-compose up
 - Email: `xxx@gmail.com`
 - Password: `password`
 
+### 6. 確認方法
 
-# 確認方法
+#### 動作確認
+`docker-compouse up` してサーバを立ち上げてから`http://localhost:80` へアクセスして下さい。
 
-## 動作確認
-`docker-compouse up` してサーバを立ち上げてから`http://localhost:3000` へアクセスして下さい。
-
-## テスト実行
+### テスト実行
 `docker-compose exec web bundle exec rspec`
+
+## メンテナンスモードに関して
+
+1. メンテナンスモード開始
+1. メンテナンスモード終了
+
+### current directory確認
+
+```
+$ pwd
+> ${リポジトリがある場所}/training/job_san
+$ ls
+> maintenance_manage.sh Makefile
+```
+
+### メンテナンスモード開始
+
+#### shell編
+```
+$ ./meintenance_manage.sh
+> スタートする場合は start、ストップする場合は stop と入力して下さい
+$ start
+> Maintenance mode changed to start
+```
+#### Makefile編
+
+```
+$ make maintenance-start
+> メンテナンスモードスタート
+
+ブラウザで確認してください
+```
+
+### メンテナンスモード終了
+
+#### shell編
+```
+$ ./maintenance_manage.sh
+> スタートする場合は start、ストップする場合は stop と入力して下さい
+$ stop
+> Maintenance mode changed to stop
+```
+
+#### Makefile編
+
+```
+$ make maintenance-stop
+>　メンテナンスモードフィニッシュ
+
+ブラウザで確認してください
+```
 
 ## 注意事項
 

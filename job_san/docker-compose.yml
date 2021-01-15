@@ -19,7 +19,6 @@ services:
       - chrome
     environment:
       - SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
   chrome:
     image: selenium/standalone-chrome:latest
     ports:
