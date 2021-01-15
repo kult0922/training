@@ -56,7 +56,6 @@ $ git checkout job_san/db/schema.rb
 > 自動で変更された内容を戻す 
 ```
 
-
 ### 4. webpackerのインストール（暫定対応）
 
 目的：webpackerのインストール
@@ -91,7 +90,7 @@ $ docker-compose up
 ### 6. 確認方法
 
 #### 動作確認
-`docker-compouse up` してサーバを立ち上げてから`http://localhost:3000` へアクセスして下さい。
+`docker-compouse up` してサーバを立ち上げてから`http://localhost:80` へアクセスして下さい。
 
 ### テスト実行
 `docker-compose exec web bundle exec rspec`
@@ -116,15 +115,43 @@ $ start
 
 ### メンテナンスモード終了
 
+#### shell編
 ```
 $ pwd
 > ${リポジトリがある場所}/training/job_san
 $ ls
 > maintenance_manage.sh
-$ ./meintenance_manage.sh
+$ ./maintenance_manage.sh
 > スタートする場合は start、ストップする場合は stop と入力して下さい
 $ stop
 > Maintenance mode changed to stop
+```
+
+#### Makefile編
+
+1. current directoryの確認
+```
+$ pwd
+> ${リポジトリがある場所}/training/job_san
+$ ls
+> Makefile
+```
+2. メンテナンスモード開始
+
+```
+$ make maintenance-start
+> メンテナンスモードスタート
+
+ブラウザで確認してください
+```
+
+3. メンテナンスモード終了
+
+```
+$ make maintenance-stop
+>　メンテナンスモードフィニッシュ
+
+ブラウザで確認してください
 ```
 
 ## 注意事項

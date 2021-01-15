@@ -7,7 +7,7 @@ LOCK_FILE="${LOCK_FILE_DIR}/${LOCK_FILE_NAME}"
 function StartMaintenance() {
   if [ -f ${LOCK_FILE} ]; then
   echo "すでにメンテナンスモードです"
-  exit 1
+  exit 2
 else
   touch ${LOCK_FILE}
   if [ $? = 0 ]; then
@@ -32,11 +32,11 @@ function StopMaintenance() {
     fi
   else
     echo "すでにメンテナンスモードではありません。"
-    exit 1
+    exit 2
   fi
 }
 
-echo "Run change_maintenance_mode.sh $@"
+echo "Maintenance mode $@"
 if [ $@ = "start" ]; then
   StartMaintenance
 elif [ $@ = 'stop' ] ; then

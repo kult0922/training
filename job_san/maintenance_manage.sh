@@ -1,19 +1,25 @@
 #!/bin/bash
 
 function ConfirmExecution() {
+
   echo "----------------------------"
   echo "メンテナンスモードを切り替えます"
   echo "スタートする場合は start、ストップする場合は stop と入力して下さい"
   read input
+
+  input=`echo $input | tr A-Z a-z`
+
   if [ -z $input ] ; then
     echo "  start または stop を入力して下さい"
     ConfirmExecution
-  elif [ $input = 'start' ] || [ $input = 'Start' ] || [ $input = 'START' ] ; then
+  elif [ $input = 'start' ] ; then
     echo "  メンテナンスモードを開始します"
     RunChangeMaintenanceMode start
-  elif [ $input = 'stop' ] || [ $input = 'Stop' ] || [ $input = 'STOP' ] ; then
+    exit 0
+  elif [ $input = 'stop' ]; then
     echo "  メンテナンスモードを終了します"
     RunChangeMaintenanceMode stop
+    exit 0
   else
     echo "  start または stop を入力して下さい"
     ConfirmExecution
@@ -21,18 +27,15 @@ function ConfirmExecution() {
 }
 
 function RunChangeMaintenanceMode() {
-  MAINTENANCE_SHELL_PATH="."
-  MAINTENANCE_START_SHELL="change_maintenance_mode.sh"
-  LOCK_FILE="${LOCK_FILE_DIR}/${LOCK_FILE_NAME}"
+  MAINTENANCE_SHELL_FILE_NAME="change_maintenance_mode.sh"
 
   if [ $1 != "start" ] && [ $1 != "stop" ]; then
     echo "$1 ってなに？君新人？使い方知らないの？😇"
     exit 1
   fi
 
-  echo "Maintenance mode $1"
-  docker exec ${CONTAINER_ID} /bin/sh -c "./${MAINTENANCE_START_SHELL} $1"
-  if [ $? = 1 ]; then
+  docker exec ${CONTAINER_ID} /bin/sh -c "./$MAINTENANCE_SHELL_FILE_NAME $1"
+  if [ $? != 0 ]; then
     echo "シェルが実行できない？管理者に問い合わせてください。"
     exit 1
   fi
