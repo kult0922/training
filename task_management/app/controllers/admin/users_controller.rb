@@ -65,10 +65,6 @@ module Admin
                                value: delete_user.login_id)
         return redirect_to admin_users_url
       end
-      if last_admin_user?(delete_user)
-        flash[:alert] = I18n.t('admin.users.flash.error.delete.last_admin_user')
-        return redirect_to admin_users_url
-      end
 
       delete_user.destroy
       flash[:notice] = I18n.t('flash.success.delete',
@@ -101,16 +97,6 @@ module Admin
     def delete_login_user?(user)
       login_user = current_user
       login_user.id == user.id
-    end
-
-    def last_admin_user?(user)
-      # 対象ユーザが管理者以外の場合：false
-      return false unless admin_user?(user)
-
-      # 管理者が一人しかいない場合：true
-      admin_role_id = Authority.select(:id)
-                               .find_by(role: Settings.authority[:admin])
-      User.where(authority_id: admin_role_id).count == 1
     end
   end
 end
