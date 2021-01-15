@@ -5,9 +5,7 @@ class SessionsController < ApplicationController
   attr_reader :user
 
   def index
-    # TODO: セッションのログインユーザーによって遷移先画面を切り変える
-    # 現状、ログインしていたらそこで処理終了する
-    return unless logged_in?
+    # ログインユーザーによって遷移先画面を切り変える
     redirect_to_user_page
   end
 
@@ -35,13 +33,11 @@ class SessionsController < ApplicationController
   private
 
   def redirect_to_user_page
-    redirect_path = tasks_path
+    # ログインしていない場合、他ページにリダイレクトしない
+    return unless logged_in?
 
-    if current_user.authority_id == Settings.authority[:admin]
-      redirect_path = admin_users_path
-    end
-
-    redirect_to redirect_path
+    return redirect_to admin_users_path if admin_user?(current_user)
+    redirect_to tasks_path if general_user?(current_user)
   end
 
   def session_params

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# アドミンユーザーモジュール
+# アドミンユーザモジュール
 module Admin
-  # アドミンユーザーコントローラ
+  # アドミンユーザコントローラ
   class UsersController < ApplicationController
     attr_reader :login_user, :users, :user, :authority, :tasks
 
     before_action :set_login_user, only: :index
     before_action :set_authority
-    before_action :check_login_user
+    before_action :check_login_admin_user
 
     def index
       @users = User.select(:id, :login_id, :password, :name, :authority_id)
@@ -56,17 +56,17 @@ module Admin
     end
 
     def destroy
-      delete_user_id = params[:id]
-      if delete_login_user?(delete_user_id)
+      delete_user = User.find_by(id: params[:id])
+      if delete_login_user?(delete_user)
         flash[:alert] = 'ログイン中のユーザは削除できません。'
         return redirect_to admin_users_url
       end
-      if delete_last_admin_user?(delete_user_id)
+      if last_admin_user?(delete_user)
         flash[:alert] = '管理ユーザは最低1人必要です。'
         return redirect_to admin_users_url
       end
 
-      User.find(delete_user_id).destroy
+      User.find(delete_user.id).destroy
       flash[:notice] = '削除しました。'
       redirect_to admin_users_url
     end
@@ -88,24 +88,23 @@ module Admin
       @login_user = current_user
     end
 
-    def delete_login_user?(user_id)
-      login_user = current_user
-      login_user.id.to_s == user_id.to_s
+    def check_login_admin_user
+      redirect_to login_path unless logged_in? || admin_user?(current_user)
     end
 
-    def delete_last_admin_user?(user_id)
-      # 削除対象のユーザが管理者ではない場合：false
-      target_user = User.select(:authority_id)
-                        .find_by(id: user_id)
-      target_user_auth = Authority.select(:role)
-                                  .find_by(id: target_user.authority_id)
-      return false if Settings.authority[:admin] != target_user_auth.role
+    def delete_login_user?(user)
+      login_user = current_user
+      login_user.id == user.id
+    end
 
-      # 削除対象のユーザが最後1人の管理者の場合：true
+    def last_admin_user?(user)
+      # 対象ユーザが管理者以外の場合：false
+      return false unless admin_user?(user)
+
+      # 管理者が一人しかいない場合：true
       admin_role_id = Authority.select(:id)
                                .find_by(role: Settings.authority[:admin])
-      admin_user_cnt = User.where(authority_id: admin_role_id).count
-      admin_user_cnt == 1
+      User.where(authority_id: admin_role_id).count == 1
     end
   end
 end

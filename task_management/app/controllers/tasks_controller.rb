@@ -107,4 +107,8 @@ class TasksController < ApplicationController
   def set_login_user
     @login_user = current_user
   end
+
+  def check_login_user
+    redirect_to login_path unless logged_in?
+  end
 end
