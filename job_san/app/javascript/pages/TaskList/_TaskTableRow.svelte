@@ -2,6 +2,7 @@
   import axios from "axios";
   // import moment from "moment";
   import { updateModalOpen, tasks } from "models/tasks/store.js";
+  import { Tag } from "carbon-components-svelte";
 
   export let task, taskStatuses, openModal;
 
@@ -49,19 +50,22 @@
     e.currentTarget.style.backgroundColor = 'white';
     e.currentTarget.style.color = 'black';
   }}
-  style="cursor: pointer;">
-  <td>{task.id}</td>
-  <td>{viewedTaskName(task.name)}</td>
+  style="cursor: pointer; border: solid;">
+  <td>
+    <div>{task.id}</div>
+  </td>
+  <td>
+    <div>{viewedTaskName(task.name)}</div>
+  </td>
   <td style="text-align: -webkit-center;">{taskStatuses[task.status]}</td>
   <td style="width: 500px;">
-    <ul style="display: -webkit-inline-box;">
-      {#each task.attach_labels as label}
-        <li
-          style="padding: 5px 10px; color: cornsilk; background: deepskyblue; width: 80px; border-radius: 2em;">
-          {label.name}
-        </li>
-      {/each}
-    </ul>
+    {#each task.attach_labels as label, i}
+      <!--        <Tag type="teal">{label.name}</Tag>-->
+      <div
+        style="float: left; padding: 10px; font-size: 10px; background: khaki; border-radius: 2em;">
+        {label.name}
+      </div>
+    {/each}
   </td>
   <td style="text-align: -webkit-center;">
     {viewedTaskTargetDate(task.target_date)}
