@@ -12,9 +12,16 @@ ENV APP_ROOT /usr/src/app
 
 WORKDIR $APP_ROOT
 
+RUN mkdir -p tmp/sockets
+
 COPY ./Gemfile        $APP_ROOT/Gemfile
 COPY ./Gemfile.lock   $APP_ROOT/Gemfile.lock
 
+RUN gem install bundler:2.2.2
 RUN bundle install
 
-COPY . $APP_ROOT
+COPY ./ $APP_ROOT
+
+ENTRYPOINT ["./entrypoint.sh"]
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
