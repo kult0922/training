@@ -9,13 +9,12 @@ class SessionsController < ApplicationController
     redirect_to_user_page
   end
 
-  # TODO: 各コントローラのフラッシュメッセージのjaファイル化
   def create
     user = User.select(:id, :name, :authority_id)
                .find_by(login_id: params[:login_id],
                         password: params[:password])
     if user.nil?
-      flash[:alert] = 'ログインIDかパスワードを確認してください。'
+      flash[:alert] = I18n.t('sessions.flash.error.create')
       render :index
     else
       log_in(user)
@@ -26,7 +25,7 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    flash[:notice] = 'ログアウトしました。'
+    flash[:notice] = I18n.t('sessions.flash.success.delete')
     redirect_to action: :index
   end
 

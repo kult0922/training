@@ -1,0 +1,8 @@
+ja:
+  admin:
+    users:
+      flash:
+        error:
+          delete:
+            login_user: "ログイン中のユーザは削除できません。%{name}：%{value}"
+            last_admin_user: 管理ユーザは最低1人必要です。

@@ -46,7 +46,7 @@ RSpec.describe 'Sessions', type: :system do
       let(:login_id) { test_user1.login_id }
       let(:password) { test_user1.password }
       context 'ログインに成功する' do
-        it { is_expected.to have_current_path root_path }
+        it { is_expected.to have_current_path admin_users_path }
       end
       context '自身のタスクのみが表示される' do
         it { is_expected.to have_content added_task1.name }

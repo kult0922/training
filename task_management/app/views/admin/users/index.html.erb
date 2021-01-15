@@ -9,13 +9,13 @@
       <thead>
       <tr>
         <th class="no">No</th>
-        <th class="login_id"><%= I18n.t('admin.header.login_id') %></th>
-        <th class="password"><%= I18n.t('admin.header.password') %></th>
-        <th class="name"><%= I18n.t('admin.header.name') %></th>
-        <th class="authority"><%= I18n.t('admin.header.authority') %></th>
-        <th class="task_count"><%= I18n.t('admin.header.task') %></th>
-        <th class="edit_user"><%= I18n.t('admin.header.edit_user') %></th>
-        <th class="delete"><%= I18n.t('admin.header.delete') %></th>
+        <th class="login_id"><%= I18n.t('admin.users.header.login_id') %></th>
+        <th class="password"><%= I18n.t('admin.users.header.password') %></th>
+        <th class="name"><%= I18n.t('admin.users.header.name') %></th>
+        <th class="authority"><%= I18n.t('admin.users.header.authority') %></th>
+        <th class="task_count"><%= I18n.t('admin.users.header.task') %></th>
+        <th class="edit_user"><%= I18n.t('admin.users.header.edit_user') %></th>
+        <th class="delete"><%= I18n.t('admin.users.header.delete') %></th>
       </tr>
       </thead>
 
@@ -58,9 +58,9 @@
     <%= paginate @users %>
   </div>
   <hr>
-  <%= link_to I18n.t('admin.footer.new'), new_admin_user_path %>
+  <%= link_to I18n.t('admin.users.footer.new'), new_admin_user_path %>
   <hr>
-  <%= link_to I18n.t('admin.footer.tasks'), tasks_path %>
+  <%= link_to I18n.t('admin.users.footer.tasks'), tasks_path %>
   <hr>
   <%= button_to I18n.t('layouts.common.logout'), logout_path(@login_user),
                 { method: :delete,

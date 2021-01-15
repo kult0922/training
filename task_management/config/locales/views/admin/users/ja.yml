@@ -18,18 +18,18 @@ ja:
          title: ユーザ編集
          btn_update: 更新
 
-    header:
-      login_id: ログインID
-      password: パスワード
-      name: 名前
-      authority: 権限
-      task: タスク数
-      task_list: タスク一覧
-      edit_user: ユーザ編集
-      registration: 登録
-      delete: 削除
+      header:
+        login_id: ログインID
+        password: パスワード
+        name: 名前
+        authority: 権限
+        task: タスク数
+        task_list: タスク一覧
+        edit_user: ユーザ編集
+        registration: 登録
+        delete: 削除
 
-    footer:
-      new: ユーザ作成
-      index: ユーザ一覧画面へ
-      tasks: タスク一覧画面へ
+      footer:
+        new: ユーザ作成
+        index: ユーザ一覧画面へ
+        tasks: タスク一覧画面へ

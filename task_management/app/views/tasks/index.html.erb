@@ -10,8 +10,8 @@
     <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
     <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
     <br>
-    <%= f.text_field :search_word, placeholder: I18n.t('tasks.index.search.task'), id: 'search_word' %>
-    <%= f.submit I18n.t('tasks.index.search.button'), name: 'search_btn' %>
+    <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'), id: 'search_word' %>
+    <%= f.submit I18n.t('tasks.button.type.search'), name: 'search_btn' %>
   <% end %>
 
   <hr>

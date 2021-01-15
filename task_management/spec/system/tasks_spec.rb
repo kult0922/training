@@ -63,7 +63,7 @@ RSpec.describe Task, type: :system do
         page.accept_confirm do
           click_link 'delete_link_1'
         end
-        expect(page).to have_content '削除しました。'
+        expect(page).to have_content '削除しました。タスク名：' + added_task.name
       end
     end
 
@@ -222,7 +222,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクを登録できる' do
         click_button '登録'
-        expect(page).to have_content '登録が完了しました。'
+        expect(page).to have_content '登録が完了しました。タスク名：' + test_name
       end
     end
 
@@ -236,7 +236,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクが登録できない' do
         click_button '登録'
-        expect(page).to have_content '登録に失敗しました。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
@@ -245,11 +245,12 @@ RSpec.describe Task, type: :system do
     before { visit edit_task_path(added_task) }
     context '全項目を入力し、更新ボタンを押下した場合' do
       before do
+        fill_in 'name', with: ''
         fill_in 'name', with: test_name
       end
       example 'タスクを更新できる' do
         click_button '更新'
-        expect(page).to have_content '更新が完了しました。'
+        expect(page).to have_content '更新が完了しました。タスク名：' + test_name
       end
     end
 
@@ -259,7 +260,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクが更新できない' do
         click_button '更新'
-        expect(page).to have_content '更新に失敗しました。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end

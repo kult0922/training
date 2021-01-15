@@ -36,10 +36,11 @@ module Admin
     def create
       @user = User.new(user_params)
       if @user.save
-        flash[:notice] = '登録が完了しました。'
+        flash[:notice] = I18n.t('flash.success.create',
+                                name: I18n.t('admin.users.header.login_id'),
+                                value: @user.login_id)
         redirect_to action: :new
       else
-        flash.now[:alert] = '登録に失敗しました。'
         render :new
       end
     end
@@ -47,10 +48,11 @@ module Admin
     def update
       @user = User.find(params[:id])
       if @user.update(user_params)
-        flash[:notice] = '更新が完了しました。'
+        flash[:notice] = I18n.t('flash.success.update',
+                                name: I18n.t('admin.users.header.login_id'),
+                                value: @user.login_id)
         redirect_to action: :edit
       else
-        flash.now[:alert] = '更新に失敗しました。'
         render :edit
       end
     end
@@ -58,16 +60,20 @@ module Admin
     def destroy
       delete_user = User.find_by(id: params[:id])
       if delete_login_user?(delete_user)
-        flash[:alert] = 'ログイン中のユーザは削除できません。'
+        flash[:alert] = I18n.t('admin.users.flash.error.delete.login_user',
+                               name: I18n.t('admin.users.header.login_id'),
+                               value: delete_user.login_id)
         return redirect_to admin_users_url
       end
       if last_admin_user?(delete_user)
-        flash[:alert] = '管理ユーザは最低1人必要です。'
+        flash[:alert] = I18n.t('admin.users.flash.error.delete.last_admin_user')
         return redirect_to admin_users_url
       end
 
-      User.find(delete_user.id).destroy
-      flash[:notice] = '削除しました。'
+      delete_user.destroy
+      flash[:notice] = I18n.t('flash.success.delete',
+                              name: I18n.t('admin.users.header.login_id'),
+                              value: delete_user.login_id)
       redirect_to admin_users_url
     end
 

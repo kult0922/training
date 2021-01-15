@@ -74,7 +74,8 @@ RSpec.describe 'Users', type: :system do
         expect(current_path).not_to eq admin_user_path(@test_user_admin.id)
         expect(Task.where(user_id: @test_user_general.id).count).to eq 1
         expect(Task.where(user_id: @test_user_admin.id).count).to eq 0
-        expect(page).to have_content '削除しました。'
+        expect(page).to have_content '削除しました。ログインID：'
+        + @test_user_admin.login_id
       end
     end
 
@@ -126,14 +127,16 @@ RSpec.describe 'Users', type: :system do
       end
       example 'ユーザを登録できる' do
         click_button '登録'
-        expect(page).to have_content '登録が完了しました。'
+        expect(page).to have_content '登録が完了しました。ログインID：' + login_id
       end
     end
 
     context '必須項目を入力せず、登録ボタンを押下した場合' do
       example 'ユーザを登録できない' do
         click_button '登録'
-        expect(page).to have_content '登録に失敗しました。'
+        expect(page).to have_content 'ログインIDを入力してください'
+        expect(page).to have_content 'パスワードを入力してください'
+        expect(page).to have_content 'ユーザ名を入力してください'
       end
     end
 
@@ -148,11 +151,12 @@ RSpec.describe 'Users', type: :system do
   describe '#edit' do
     before { visit edit_admin_user_path(@test_user_admin.id) }
     context '全項目を入力し、更新ボタンを押下した場合' do
-      let(:login_id) { 'id' }
+      let(:login_id) { 'test_id' }
       let(:password) { 'pass' }
       let(:name) { 'name' }
       let(:authority) { '一般' }
       before do
+        fill_in 'login_id', with: ''
         fill_in 'login_id', with: login_id
         fill_in 'password', with: password
         fill_in 'name', with: name
@@ -160,18 +164,24 @@ RSpec.describe 'Users', type: :system do
       end
       example 'ユーザを更新できる' do
         click_button '更新'
-        expect(page).to have_content '更新が完了しました。'
+        expect(page).to have_content '更新が完了しました。ログインID：' + login_id
       end
     end
 
     context '必須項目を入力せず、更新ボタンを押下した場合' do
       let(:login_id) { '' }
+      let(:password) { '' }
+      let(:name) { '' }
       before do
         fill_in 'login_id', with: login_id
+        fill_in 'password', with: password
+        fill_in 'name', with: name
       end
       example 'ユーザを更新できない' do
         click_button '更新'
-        expect(page).to have_content '更新に失敗しました。'
+        expect(page).to have_content 'ログインIDを入力してください'
+        expect(page).to have_content 'パスワードを入力してください'
+        expect(page).to have_content 'ユーザ名を入力してください'
       end
     end
 

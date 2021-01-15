@@ -1,0 +1,6 @@
+ja:
+  flash:
+    success:
+      create: "登録が完了しました。%{name}：%{value}"
+      update: "更新が完了しました。%{name}：%{value}"
+      delete: "削除しました。%{name}：%{value}"

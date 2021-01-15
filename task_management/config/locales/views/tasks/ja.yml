@@ -7,10 +7,6 @@ ja:
       confirm_delete: 本当に削除しますか？
       load_delete: 削除中
 
-      search:
-        button: 検索
-        task: タスク名を入力してください
-
       status:
         all: 全て
         todo: 未着手
@@ -27,6 +23,13 @@ ja:
     edit:
       title: タスク編集
       btn_update: 更新
+
+    input:
+      task: タスク名を入力してください
+
+    button:
+      type:
+        search: 検索
 
     header:
       name: タスク名
