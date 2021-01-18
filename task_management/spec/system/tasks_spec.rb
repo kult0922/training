@@ -70,7 +70,6 @@ RSpec.describe Task, type: :system do
     describe 'search' do
       let!(:taskC) do
         create(:task,
-               id: 900,
                name: 'taskC',
                creation_date: Time.current + 2.days,
                user_id: test_index_user.id,
@@ -79,7 +78,6 @@ RSpec.describe Task, type: :system do
       end
       let!(:taskD) do
         create(:task,
-               id: 901,
                name: 'taskD',
                creation_date: Time.current + 2.days,
                user_id: test_index_user.id,
@@ -88,7 +86,6 @@ RSpec.describe Task, type: :system do
       end
       let!(:taskE) do
         create(:task,
-               id: 902,
                name: 'taskE',
                creation_date: Time.current + 2.days,
                user_id: test_index_user.id,
