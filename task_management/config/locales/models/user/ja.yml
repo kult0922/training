@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザ
+
+    attributes:
+      user:
+        login_id: ログインID
+        name: ユーザ名
+        password: パスワード
+        authority_id: 権限ID

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# タスクテーブル
 class Task < ApplicationRecord
   belongs_to :user
   has_many :task_label_relations, dependent: :destroy
