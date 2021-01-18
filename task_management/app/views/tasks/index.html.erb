@@ -46,8 +46,7 @@
             <td class="no"><%= i += 1 %></td>
             <td class="name">
               <% task.labels.each do |label| %>
-                <%= label.name %>
-                <br>
+                <%= content_tag(:div, label.name, class: 'task-label test-color') %>
               <% end %>
               <%= link_to task.name, task_path(task), class: 'link link-show' %>
             <td class="deadline"><%= show_date_s(task.deadline) %></td>
