@@ -36,15 +36,19 @@ User.create!(
 end
 
 # 3.ラベルマスタ
-Label.create!(
-  user_id: 1,
-  name:    'テストラベル1',
-)
+5.times do |n|
+  Label.create!(
+    user_id: 1,
+    name:    "テストラベル#{n + 1}",
+  )
+end
 
-Label.create!(
-  user_id: 2,
-  name:    'テストラベル2',
-)
+5.times do |n|
+  Label.create!(
+    user_id: 2,
+    name:    "テストラベル#{n + 1}",
+  )
+end
 
 # 4.タスクテーブル
 30.times do |n|
@@ -72,11 +76,32 @@ end
 end
 
 # 5.タスクテーブル-ラベルマスタ紐付テーブル
-30.times do |n|
+25.times do |n|
   TaskLabelRelation.create!(
     task_id:  n + 1,
     label_id: 1,
   )
+end
+
+2.times do |n|
+  TaskLabelRelation.create!(
+    task_id:  n + 26,
+    label_id: 2,
+    )
+end
+
+3.times do |n|
+  TaskLabelRelation.create!(
+    task_id:  n + 28,
+    label_id: 3,
+    )
+end
+
+3.times do |n|
+  TaskLabelRelation.create!(
+    task_id:  n + 28,
+    label_id: 4,
+    )
 end
 
 5.times do |n|

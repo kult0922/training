@@ -5,7 +5,8 @@ class TasksController < ApplicationController
   attr_reader :task, :login_user
 
   before_action :check_login_user
-  before_action :set_login_user, only: %i[index create]
+  before_action :set_login_user, only: %i[index new edit create]
+  before_action :set_relation_models
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -41,6 +42,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = @login_user.id
+    label_ids = params[:task_label_relations]
     if @task.save
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
@@ -49,6 +51,10 @@ class TasksController < ApplicationController
     else
       render :new
     end
+
+    # TODO: タスクラベルテーブルへの登録。登録エラーの処理も必要
+    # TODO: ラベルを１次元配列にしたい（ビューのチェックボックスを変更する必要がある）
+    relations_flg = insert_task_label_relations(@task.id, label_ids)
   end
 
   # タスクを更新する
@@ -84,8 +90,16 @@ class TasksController < ApplicationController
                                  :details,
                                  :deadline,
                                  :status,
-                                 :priority,
-                                 label_ids: [])
+                                 :priority)
+  end
+
+  def insert_task_label_relations(task_id, label_id)
+    success_flg = true
+    label_ids.each do |label_id|
+      next if label_id.blank?
+      # TODO: label_idを１次元配列にし、タスクラベルテーブルに登録
+    end
+    success_flg
   end
 
   def search_tasks(params)
@@ -144,5 +158,9 @@ class TasksController < ApplicationController
 
   def check_login_user
     redirect_to login_path unless logged_in?
+  end
+
+  def set_relation_models
+    @labels = Label.where(user_id: @login_user.id)
   end
 end
