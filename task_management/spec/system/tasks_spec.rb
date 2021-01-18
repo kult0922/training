@@ -22,7 +22,6 @@ RSpec.describe Task, type: :system do
   end
   let!(:added_index_task) do
     create(:task,
-           id: 2,
            user_id: test_index_user.id)
   end
   let!(:test_user) do
@@ -42,6 +41,29 @@ RSpec.describe Task, type: :system do
         visit root_path
         expect(current_path).to eq root_path
         expect(page).to have_content added_task.name
+      end
+    end
+
+    describe 'sorting' do
+      let!(:taskA) do
+        create(:task, name: 'taskA',
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days)
+      end
+      let!(:taskB) do
+        create(:task, name: 'taskB',
+                      creation_date: Time.current + 3.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 1.day)
+      end
+      before do
+        visit root_path
+      end
+      context 'トップページにアクセスした場合（サーバ側で「作成日時」を降順ソート）' do
+        example '「作成日時」で降順ソートされた状態で表示される' do
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+        end
       end
     end
   end

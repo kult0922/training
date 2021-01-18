@@ -19,8 +19,8 @@
     <tr>
       <td class="name"><%= f.text_field :name, placeholder: I18n.t('tasks.message.input'), id: 'name' %></td>
       <td class="details"><%= f.text_field :details, placeholder: I18n.t('tasks.message.input'), id: 'details' %></td>
-      <td class="deadline"><%= f.date_field :deadline, value: show_dat(@task.deadline) ||
-                                             show_dat(Time.now), id: 'deadline' %></td>
+      <td class="deadline"><%= f.date_field :deadline, value: show_date(@task.deadline) ||
+                                             show_date(Time.now), id: 'deadline' %></td>
       <td class="priority"><%= f.select :priority,
                                          Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
                                          {selected: @task.priority}, id: 'priority' %></td>

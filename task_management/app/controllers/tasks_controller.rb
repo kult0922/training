@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     user_id = User.select(:id).where(login_id: TEST_USER_ID)
-    @tasks = Task.where(user_id: user_id)
+    @tasks = Task.where(user_id: user_id).order('creation_date DESC')
   end
 
   # 詳細画面
