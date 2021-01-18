@@ -103,6 +103,7 @@ class TasksController < ApplicationController
 
   def select_tasks(user_id, sort_key)
     tasks = Task.where(user_id: user_id)
+                .includes(:task_label_relations, :labels)
                 .order(sort_key)
                 .page(params[:page])
     tasks
@@ -112,6 +113,7 @@ class TasksController < ApplicationController
     tasks = Task.where(user_id: user_id)
                 .where(status: status)
                 .where('name like ?', '%' + search_word + '%')
+                .includes(:task_label_relations, :labels)
                 .order(sort_key)
                 .page(params[:page])
     tasks
