@@ -13,29 +13,7 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    # ソートキーを設定
-    sort = params[:sort]
-    order = if sort.nil?
-              'creation_date DESC'
-            else
-              sort + ' DESC'
-            end
-    search_btn = params[:search_btn]
-
-    # 検索ボタンを押下した場合
-    if search_btn == I18n.t('tasks.button.type.search')
-      search_word = params[:search_word]
-      status      = params[:status]
-      status      = Task.statuses.values if status == 'all'
-      @tasks = Task.where(user_id: @login_user.id)
-                   .where(status: status)
-                   .where('name like ?', '%' + search_word + '%')
-                   .order(order).page(params[:page])
-    else
-      @tasks = Task.where(user_id: @login_user.id)
-                   .order(order)
-                   .page(params[:page])
-    end
+    @tasks = search_tasks(params)
   end
 
   # 詳細画面
@@ -108,6 +86,54 @@ class TasksController < ApplicationController
                                  :status,
                                  :priority,
                                  label_ids: [])
+  end
+
+  def search_tasks(params)
+    sort_key = create_sort_key(params[:sort])
+    search_word = params[:search_word]
+    search_btn = params[:search_btn]
+    tasks = if search_btn == I18n.t('tasks.button.type.search')
+              status = create_status
+              find_tasks(@login_user.id, search_word, status, sort_key)
+            else
+              select_tasks(@login_user.id, sort_key)
+            end
+    tasks
+  end
+
+  def select_tasks(user_id, sort_key)
+    tasks = Task.where(user_id: user_id)
+                .order(sort_key)
+                .page(params[:page])
+    tasks
+  end
+
+  def find_tasks(user_id, search_word, status, sort_key)
+    tasks = Task.where(user_id: user_id)
+                .where(status: status)
+                .where('name like ?', '%' + search_word + '%')
+                .order(sort_key)
+                .page(params[:page])
+    tasks
+  end
+
+  def create_status
+    status = if params[:status] == 'all' || params[:status].nil?
+               Task.statuses.values
+             else
+               params[:status]
+             end
+    status
+  end
+
+  def create_sort_key(key)
+    order    = ' DESC'
+    sort_key = if key.nil?
+                 'creation_date'
+               else
+                 key
+               end
+    sort_key + order
   end
 
   def set_login_user
