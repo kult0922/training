@@ -22,7 +22,6 @@ RSpec.describe Task, type: :system do
   end
   let!(:added_index_task) do
     create(:task,
-           id: 2,
            user_id: test_index_user.id)
   end
   let!(:test_user) do
@@ -47,13 +46,13 @@ RSpec.describe Task, type: :system do
 
     describe 'sorting' do
       let!(:taskA) do
-        create(:task, id: 3, name: 'taskA',
+        create(:task, name: 'taskA',
                       creation_date: Time.current + 2.days,
                       user_id: test_index_user.id,
                       deadline: Time.current + 4.days)
       end
       let!(:taskB) do
-        create(:task, id: 4, name: 'taskB',
+        create(:task, name: 'taskB',
                       creation_date: Time.current + 3.days,
                       user_id: test_index_user.id,
                       deadline: Time.current + 1.day)
