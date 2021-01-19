@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   attr_reader :task, :login_user
 
   before_action :check_login_user
-  before_action :set_login_user, only: %i[index new edit create]
+  before_action :set_login_user
   before_action :set_relation_models
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
