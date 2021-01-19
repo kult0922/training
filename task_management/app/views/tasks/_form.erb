@@ -1,3 +1,13 @@
+<% if task.errors.any? %>
+  <div class = "alert alert-warning">
+    <ul>
+      <% task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
 <%= form_with model: @task, local: true do |f| %>
   <!-- TODO:テスト用のユーザID。ステップ17でログイン画面作成後に動的に変更する -->

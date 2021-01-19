@@ -7,7 +7,6 @@ class Task < ApplicationRecord
   has_many :labels, through: :task_label_relations
 
   validates :name, presence: true, length: { maximum: 50 }
-  validates :details, presence: true
   validates :deadline, presence: true
 
   enum priority: { low: 0, normal: 1, high: 2 }
