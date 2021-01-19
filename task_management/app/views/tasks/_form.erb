@@ -8,7 +8,6 @@
   </div>
 <% end %>
 
-<!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
 <%= form_with model: task, local: true do |f| %>
   <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
@@ -33,11 +32,13 @@
                                          Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
                                          {selected: @task.priority}, id: 'priority' %></td>
       <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]},
-                                      {selected: @task.status}, id: 'status'  %></td>
+                                      {selected: @task.status}, id: 'status' %></td>
     </tr>
     <div class = "labels">
-      <%= collection_check_boxes :task_label_relations, :label_ids, @labels, :id, :name do |label| %>
-        <%= label.label { label.check_box + label.text } %>
+      <% @labels.each do |label| %>
+        <% label_ids = "label_ids[#{label.id}]" %>
+        <%= check_box_tag label_ids, "#{label.id}", false, :name => "label_ids[]" %>
+        <%= label_tag label_ids, label.name %>
       <% end %>
     </div>
     </tbody>

@@ -42,8 +42,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = @login_user.id
-    label_ids = params[:task_label_relations]
-    if @task.save
+    label_ids = params[:label_ids]
+    if @task.save && insert_task_label_relations(@task.id, label_ids)
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
@@ -51,10 +51,6 @@ class TasksController < ApplicationController
     else
       render :new
     end
-
-    # TODO: タスクラベルテーブルへの登録。登録エラーの処理も必要
-    # TODO: ラベルを１次元配列にしたい（ビューのチェックボックスを変更する必要がある）
-    relations_flg = insert_task_label_relations(@task.id, label_ids)
   end
 
   # タスクを更新する
@@ -85,7 +81,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    # TODO: ステップ20でラベル選択、複数登録可能とする
     params.require(:task).permit(:name,
                                  :details,
                                  :deadline,
@@ -93,11 +88,15 @@ class TasksController < ApplicationController
                                  :priority)
   end
 
-  def insert_task_label_relations(task_id, label_id)
+  def insert_task_label_relations(task_id, label_ids)
     success_flg = true
     label_ids.each do |label_id|
       next if label_id.blank?
-      # TODO: label_idを１次元配列にし、タスクラベルテーブルに登録
+      @task_label_relations = TaskLabelRelation.create!(
+        task_id: task_id,
+        label_id: label_id
+      )
+      success_flg = false unless @task_label_relations.save
     end
     success_flg
   end
