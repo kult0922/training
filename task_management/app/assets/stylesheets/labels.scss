@@ -1,11 +1,18 @@
+.labels {
+  margin-bottom: 5px;
+}
+.labels input,
+.labels select,
+.labels label {
+  vertical-align:middle;
+  margin-bottom: 0;
+}
+
 .task-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
   font-size: 12px;
-  margin-top: 5px;
+  padding: 1px 5px;
 }
 
 .test-color {

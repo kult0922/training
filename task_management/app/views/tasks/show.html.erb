@@ -20,9 +20,14 @@
       <tbody>
         <tr>
           <td class="name">
-            <% @task.labels.each do |label| %>
-              <%= content_tag(:div, label.name, class: 'task-label test-color') %>
+            <div class="labels">
+              <% @task.labels.each do |label| %>
+                <div class="task-label test-color">
+                  <% label_ids = "label_ids[#{label.id}]" %>
+                  <%= label_tag label_ids, label.name %>
+                </div>
               <% end %>
+            </div>
             <%= @task.name %>
           </td>
           <td class="details"><%= @task.details %></td>

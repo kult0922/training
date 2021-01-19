@@ -27,6 +27,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @task_label_relations = TaskLabelRelation.where(task_id: @task.id)
   end
 
   # 編集画面
