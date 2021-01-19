@@ -2,7 +2,7 @@
 
 # タスクコントローラー
 class TasksController < ApplicationController
-  attr_reader :task, :login_user
+  attr_reader :task, :login_user, :task_label_relations
 
   before_action :check_login_user
   before_action :set_login_user
@@ -33,6 +33,7 @@ class TasksController < ApplicationController
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
     @task = Task.find(params[:id])
+    @task_label_relations = TaskLabelRelation.where(task_id: @task.id)
   end
 
   # ■画面更新系

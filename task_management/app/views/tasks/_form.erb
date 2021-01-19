@@ -37,7 +37,14 @@
     <div class = "labels">
       <% @labels.each do |label| %>
         <% label_ids = "label_ids[#{label.id}]" %>
-        <%= check_box_tag label_ids, "#{label.id}", false, :name => "label_ids[]" %>
+        <%  label_flg = false %>
+        <% @task_label_relations.each do |task_label| %>
+          <% if task_label.label_id == label.id %>
+            <% label_flg = true %>
+            <% break %>
+          <% end %>
+        <% end %>
+        <%= check_box_tag label_ids, "#{label.id}", label_flg, :name => "label_ids[]" %>
         <%= label_tag label_ids, label.name %>
       <% end %>
     </div>
