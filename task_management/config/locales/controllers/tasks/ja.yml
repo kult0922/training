@@ -1,0 +1,5 @@
+ja:
+  tasks:
+    flash:
+      error:
+        create: "%{table}の登録に失敗しました。"

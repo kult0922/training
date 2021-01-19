@@ -1,6 +1,5 @@
 ja:
   activerecord:
-
     models:
       authority: 権限
       user: ユーザ
