@@ -42,8 +42,8 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = @login_user.id
-    label_ids = params[:label_ids]
     if @task.save
+      label_ids = params[:label_ids]
       unless insert_task_label_relations(@task.id, label_ids)
         flash[:alert] = I18n.t('tasks.flash.error.create',
                                table: I18n.t('activerecord.models.task_label_relation'))
