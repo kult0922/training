@@ -46,7 +46,7 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
-      unless insert_task_label_relations(@task.id, params[:label_ids])
+      unless update_task_label_relations(@task.id, params[:label_ids])
         flash[:alert] = I18n.t('tasks.flash.error.create',
                                table: I18n.t('activerecord.models.task_label_relation'))
       end
@@ -64,6 +64,10 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
+      unless update_task_label_relations(@task.id, params[:label_ids])
+        flash[:alert] = I18n.t('tasks.flash.error.create',
+                               table: I18n.t('activerecord.models.task_label_relation'))
+      end
       redirect_to action: :edit
     else
       render :edit
@@ -91,11 +95,12 @@ class TasksController < ApplicationController
                                  :priority)
   end
 
-  def insert_task_label_relations(task_id, label_ids)
+  def update_task_label_relations(task_id, label_ids)
     success_flg = true
+    TaskLabelRelation.where(task_id: task_id).delete_all
     label_ids.each do |label_id|
       next if label_id.blank?
-      @task_label_relations = TaskLabelRelation.create!(
+      @task_label_relations = TaskLabelRelation.create(
         task_id: task_id,
         label_id: label_id
       )
