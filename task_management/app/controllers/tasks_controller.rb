@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# タスクコントローラー
 class TasksController < ApplicationController
   attr_reader :task
   # TODO: ユーザIDを画面からの連携パラメータに追加する。現状、テスト用のユーザIDを設定している。ステップ17で見直す。
@@ -81,6 +82,13 @@ class TasksController < ApplicationController
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task)
+          .permit(:user_id,
+                  :name,
+                  :details,
+                  :deadline,
+                  :status,
+                  :priority,
+                  label_ids: [])
   end
 end
