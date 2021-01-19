@@ -19,7 +19,12 @@
       <!-- テーブルボディ -->
       <tbody>
         <tr>
-          <td class="name"><%= @task.name %></td>
+          <td class="name">
+            <% @task.labels.each do |label| %>
+              <%= content_tag(:div, label.name, class: 'task-label test-color') %>
+              <% end %>
+            <%= @task.name %>
+          </td>
           <td class="details"><%= @task.details %></td>
           <td class="deadline"><%= show_date_s(@task.deadline) %></td>
           <td class="priority"><%= @task.priority_i18n %></td>
