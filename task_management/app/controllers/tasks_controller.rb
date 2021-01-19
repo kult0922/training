@@ -43,14 +43,13 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = @login_user.id
     if @task.save
-      label_ids = params[:label_ids]
-      unless insert_task_label_relations(@task.id, label_ids)
-        flash[:alert] = I18n.t('tasks.flash.error.create',
-                               table: I18n.t('activerecord.models.task_label_relation'))
-      end
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
+      unless insert_task_label_relations(@task.id, params[:label_ids])
+        flash[:alert] = I18n.t('tasks.flash.error.create',
+                               table: I18n.t('activerecord.models.task_label_relation'))
+      end
       redirect_to action: :new
     else
       render :new
