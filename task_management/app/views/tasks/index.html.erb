@@ -10,13 +10,18 @@
     <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
     <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
     <div class="labels">
-      <% @labels.each do |label| %>
-        <div class="task-label test-color">
-          <% label_ids = "label_ids[#{label.id}]" %>
-          <%= check_box_tag label_ids, "#{label.id}", false, :name => "label_ids[]" %>
-          <%= label_tag label_ids, label.name %>
-        </div>
-      <% end %>
+      <%= I18n.t('tasks.header.label') %>
+      <%= check_box_tag 'all-select', 'all-select', true %>
+      <%= label_tag 'all-select', '全選択' %>
+      <div id="boxes">
+        <% @labels.each do |label| %>
+          <div class="task-label test-color">
+            <% label_ids = "label_ids[][#{label.id}]" %>
+            <%= check_box_tag label_ids, "#{label.id}", true, :name => "label_ids[]" %>
+            <%= label_tag label_ids, label.name %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'), id: 'search_word' %>
     <%= f.submit I18n.t('tasks.button.type.search'), name: 'search_btn' %>
@@ -55,7 +60,7 @@
               <div class="labels">
                 <% task.labels.each do |label| %>
                   <div class="task-label test-color">
-                    <% label_ids = "label_ids[#{label.id}]" %>
+                    <% label_ids = "label_ids[][#{label.id}]" %>
                     <%= label_tag label_ids, label.name %>
                   </div>
                 <% end %>
