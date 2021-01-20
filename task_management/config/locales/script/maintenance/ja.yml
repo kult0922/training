@@ -1,0 +1,11 @@
+ja:
+  script:
+    maintenance:
+      success:
+        start: メンテナンスモードを開始します。
+        started: メンテナンスモードを開始しました。
+        finish: メンテナンスモードを終了します。
+        finished: メンテナンスモードを終了しました。
+      error:
+        no_arguments: 第一引数がありません。
+        invalid_argument: "正しい値を入力してください。入力値：%{argument}"

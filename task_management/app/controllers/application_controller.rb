@@ -2,9 +2,29 @@
 
 # アプリケーションコントローラー
 class ApplicationController < ActionController::Base
+  before_action :render_maintenance, if: :maintenance_mode?
+
   rescue_from Exception, with: :render_500
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
+
+  def maintenance_mode?
+    maintenance_file = File.open(Settings.maintenance[:file], 'r')
+    mode = maintenance_file.read
+    maintenance_file.close
+
+    mode = mode.delete("\n") if mode.present?
+    mode == '1'
+  end
+
+  def render_maintenance
+    render(
+      file: Rails.public_path.join('maintenance.html'),
+      content_type: 'text/html',
+      layout: false,
+      status: :service_unavailable
+    )
+  end
 
   def routing_error
     raise ActionController::RoutingError, params[:path]

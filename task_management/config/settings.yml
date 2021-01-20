@@ -1,3 +1,6 @@
 authority:
   admin: 0
   general: 1
+
+maintenance:
+  file: lib/script/file/maintenance.txt
