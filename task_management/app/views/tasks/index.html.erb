@@ -16,7 +16,7 @@
       <div id="boxes">
         <% @labels.each do |label| %>
           <div class="task-label test-color">
-            <% label_ids = "label_ids[][#{label.id}]" %>
+            <% label_ids = "label_ids[#{label.id}]" %>
             <%= check_box_tag label_ids, "#{label.id}", true, :name => "label_ids[]" %>
             <%= label_tag label_ids, label.name %>
           </div>
