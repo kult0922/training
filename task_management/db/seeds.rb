@@ -12,6 +12,7 @@ Authority.create!(
 )
 
 # 2.ユーザテーブル
+# 管理ユーザ
 User.create!(
   login_id:     'yokuno',
   name:         '奥野',
@@ -19,6 +20,7 @@ User.create!(
   authority_id: 1,
 )
 
+# 一般ユーザ
 User.create!(
   login_id:     'yokuno2',
   name:         '奥野2',
@@ -46,7 +48,7 @@ end
 5.times do |n|
   Label.create!(
     user_id: 2,
-    name:    "テストラベル#{n + 1}",
+    name:    "テストラベル#{n + 6}",
   )
 end
 
@@ -76,6 +78,7 @@ end
 end
 
 # 5.タスクテーブル-ラベルマスタ紐付テーブル
+# 管理ユーザ
 25.times do |n|
   TaskLabelRelation.create!(
     task_id:  n + 1,
@@ -104,9 +107,15 @@ end
     )
 end
 
+# 一般ユーザ
 5.times do |n|
   TaskLabelRelation.create!(
     task_id:  n + 31,
-    label_id: 2,
+    label_id: 6,
   )
 end
+TaskLabelRelation.create!(
+  task_id:  35,
+  label_id: 7,
+)
+
