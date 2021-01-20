@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   before_action :check_login_user
   before_action :set_login_user
-  before_action :set_relations_models
+  before_action :set_labels
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -14,7 +14,11 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    @tasks = find_tasks(params)
+    @search_params = params
+    @label_ids_json = @search_params[:label_ids].to_json.html_safe
+    @status = @search_params[:status]
+    @status = 'all' if @status.blank?
+    @tasks = find_tasks(@search_params)
   end
 
   # 詳細画面
@@ -223,7 +227,7 @@ class TasksController < ApplicationController
     redirect_to login_path unless logged_in?
   end
 
-  def set_relations_models
+  def set_labels
     @labels = Label.where(user_id: @login_user.id)
   end
 end

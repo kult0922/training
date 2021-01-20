@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'tasks/index', 'data-turbolinks-track': 'reload' %>
 <div class="container_tasks">
   <% content_for(:title, I18n.t('tasks.index.title')) %>
   <h1><%= I18n.t('tasks.index.title') %></h1>
@@ -17,13 +18,13 @@
         <% @labels.each do |label| %>
           <div class="task-label test-color">
             <% label_ids = "label_ids[#{label.id}]" %>
-            <%= check_box_tag label_ids, "#{label.id}", true, :name => "label_ids[]" %>
+            <%= check_box_tag label_ids, "#{label.id}", false, :name => "label_ids[]" %>
             <%= label_tag label_ids, label.name %>
           </div>
         <% end %>
       </div>
     </div>
-    <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'), id: 'search_word' %>
+    <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'), id: 'search_word', value: @search_params[:search_word] %>
     <%= f.submit I18n.t('tasks.button.type.search'), name: 'search_btn' %>
   <% end %>
 
@@ -98,3 +99,36 @@
                           disable_with: I18n.t('layouts.common.load_logout') }
                 } %>
 </div>
+
+<input name="label_ids_json" type="hidden" value=<%= @label_ids_json %> class='label_ids_json'/>
+<input name="status_btn_val" type="hidden" value=<%= @status %> id='status_btn_val'/>
+<%= javascript_tag do %>
+  setStatus();
+  setLabel();
+
+  function setStatus() {
+    $('input[name=status]').val([$('#status_btn_val').val()]);
+  }
+
+  function setLabel() {
+    let labelIdsJson = $('.label_ids_json').val();
+    let label = JSON.parse(labelIdsJson);
+    let label_ids_elm = $("input[name='label_ids[]']");
+
+    label_ids_elm.each(function(i, elem) {
+        $(elem).prop('checked', false);
+    });
+    for (let key in label) {
+      label_ids_elm.each(function(i, elem) {
+      if (elem.defaultValue === label[key]) {
+        $(elem).prop('checked', true);
+      }
+      });
+    }
+    if ($('#boxes :checked').length === $('#boxes :input').length) {
+      $('#all-select').prop('checked', true);
+    } else {
+      $('#all-select').prop('checked', false);
+    }
+  }
+<% end %>

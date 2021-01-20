@@ -86,7 +86,10 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#index' do
-    before { visit root_path }
+    before do
+      visit root_path
+      check 'all-select'
+    end
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
         expect(page).to have_content added_task.name
