@@ -12,9 +12,7 @@ class ApplicationController < ActionController::Base
     maintenance_file = File.open(Settings.maintenance[:file], 'r')
     mode = maintenance_file.read
     maintenance_file.close
-
-    mode = mode.delete("\n") if mode.present?
-    mode == '1'
+    mode == Settings.maintenance[:start]
   end
 
   def render_maintenance

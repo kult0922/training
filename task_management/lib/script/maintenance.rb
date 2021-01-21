@@ -16,11 +16,11 @@ class Maintenance
     return puts I18n.t('script.maintenance.error.no_arguments') if mode.blank?
 
     case mode
-    when '1' then
+    when Settings.maintenance[:start] then
       puts I18n.t('script.maintenance.success.start')
       write_maintenance_file(mode)
       puts I18n.t('script.maintenance.success.started')
-    when '0' then
+    when Settings.maintenance[:end] then
       puts I18n.t('script.maintenance.success.finish')
       write_maintenance_file(mode)
       puts I18n.t('script.maintenance.success.finished')
@@ -30,9 +30,9 @@ class Maintenance
     end
   end
 
-  def self.write_maintenance_file(mode)
+  def self.write_maintenance_file(maintenance_mode)
     maintenance_file = File.open(Settings.maintenance[:file], 'w')
-    maintenance_file.puts(mode)
+    maintenance_file.print(maintenance_mode)
     maintenance_file.close
   end
 end
