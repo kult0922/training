@@ -3,6 +3,6 @@ authority:
   general: 1
 
 maintenance:
-  file: lib/script/file/maintenance.txt
+  file_path : lib/script/file/maintenance.txt
   start: '1' # メンテナンス開始
   end: '0'   # メンテナンス終了

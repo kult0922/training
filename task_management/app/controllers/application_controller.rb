@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_404
 
   def maintenance_mode?
-    maintenance_file = File.open(Settings.maintenance[:file], 'r')
+    maintenance_file = File.open(Settings.maintenance[:file_path], 'r')
     mode = maintenance_file.read
     maintenance_file.close
     mode == Settings.maintenance[:start]

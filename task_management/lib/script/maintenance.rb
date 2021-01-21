@@ -31,7 +31,7 @@ class Maintenance
   end
 
   def self.write_maintenance_file(maintenance_mode)
-    maintenance_file = File.open(Settings.maintenance[:file], 'w')
+    maintenance_file = File.open(Settings.maintenance[:file_path], 'w')
     maintenance_file.print(maintenance_mode)
     maintenance_file.close
   end
