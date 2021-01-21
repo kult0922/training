@@ -65,15 +65,15 @@ RSpec.describe Task, type: :system do
     describe 'sorting' do
       let!(:taskA) do
         create(:task, name: 'taskA',
-                      creation_date: Time.current + 2.days,
+                      creation_date: Time.zone.now + 2.days,
                       user_id: test_index_user.id,
-                      deadline: Time.current + 4.days)
+                      deadline: Time.zone.now + 4.days)
       end
       let!(:taskB) do
         create(:task, name: 'taskB',
-                      creation_date: Time.current + 3.days,
+                      creation_date: Time.zone.now + 3.days,
                       user_id: test_index_user.id,
-                      deadline: Time.current + 1.day)
+                      deadline: Time.zone.now + 1.day)
       end
       before do
         visit root_path
@@ -84,11 +84,20 @@ RSpec.describe Task, type: :system do
         end
       end
 
-      context '「終了期限」のソートリンクを押下した場合' do
+      context '「終了期限」の降順ソートリンクを押下した場合' do
         example '「終了期限」で降順ソートされた状態で表示される' do
           click_link 'deadline_desc'
-          sleep 1
+          until page.has_link?('deadline_asc'); end
           expect(page.body.index(taskB.name)).to be > page.body.index(taskA.name)
+        end
+      end
+
+      context '「終了期限」の昇順ソートリンクを押下した場合' do
+        example '「終了期限」で昇順ソートされた状態で表示される' do
+          click_link 'deadline_desc'
+          click_link 'deadline_asc'
+          until page.has_link?('deadline_desc'); end
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
         end
       end
     end
