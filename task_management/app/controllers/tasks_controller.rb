@@ -15,12 +15,12 @@ class TasksController < ApplicationController
     user_id = User.select(:id).where(login_id: TEST_USER_ID)
     sort_key = params[:sort]
     order = params[:order]
-    @tasks = if sort_key.blank?
-               Task.where(user_id: user_id).order('creation_date DESC')
-             else
-               sort = sort_key + ' ' + order
-               Task.where(user_id: user_id).order(sort)
-             end
+    if sort_key.blank? || order.blank?
+      sort_key = 'creation_date'
+      order = 'DESC'
+    end
+    sort = sort_key + ' ' + order
+    @tasks = Task.where(user_id: user_id).order(sort)
   end
 
   # 詳細画面
