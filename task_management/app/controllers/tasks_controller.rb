@@ -14,12 +14,12 @@ class TasksController < ApplicationController
   def index
     user_id = User.select(:id).where(login_id: TEST_USER_ID)
     sort_key = params[:sort]
-    order = params[:order]
-    if sort_key.blank? || order.blank?
-      sort_key = 'creation_date'
-      order = 'DESC'
-    end
-    sort = sort_key + ' ' + order
+    @order = params[:order]
+    sort = if sort_key.blank? || @order.blank?
+             'creation_date' + ' ' + 'DESC'
+           else
+             sort_key + ' ' + @order
+           end
     @tasks = Task.where(user_id: user_id).order(sort)
   end
 

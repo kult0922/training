@@ -9,7 +9,7 @@
         <th class="no">No</th>
         <th class="name"><%= I18n.t('tasks.header.name') %></th>
         <th class="deadline"><%= I18n.t('tasks.header.deadline') %>
-          <%= sort_link_to('deadline', params[:order]) %>
+          <%= sort_link_to('deadline', @order) %>
         </th>
         <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
         <th class="status"><%= I18n.t('tasks.header.status') %></th>
