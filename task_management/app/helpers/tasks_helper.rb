@@ -2,18 +2,22 @@
 
 # タスク ヘルパー
 module TasksHelper
-  def sort_link_to(sort)
-    if sort == 'deadline DESC'
-      link_to image_tag('sort/desc_icon.png', class: 'sort_icon'),
-              { controller: 'tasks', action: 'index',
-                sort: 'deadline' },
-              id: 'deadline_asc'
+  def sort_link_to(sort_key, order)
+    if order == 'DESC'
+      icon_img = 'sort/desc_icon.png'
+      sort_id = sort_key + '_asc'
+      sort_order = 'ASC'
     else
-      link_to image_tag('sort/asc_icon.png', class: 'sort_icon'),
-              { controller: 'tasks', action: 'index',
-                sort: 'deadline DESC' },
-              id: 'deadline_desc'
+      icon_img = 'sort/asc_icon.png'
+      sort_id = sort_key + '_desc'
+      sort_order = 'DESC'
     end
+
+    link_to image_tag(icon_img, class: 'sort_icon'),
+            { controller: 'tasks', action: 'index',
+              sort: sort_key,
+              order: sort_order },
+            id: sort_id
   end
 
   def delete_button_to(path)

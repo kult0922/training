@@ -13,11 +13,13 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     user_id = User.select(:id).where(login_id: TEST_USER_ID)
-    @sort = params[:sort]
-    @tasks = if @sort.nil?
+    sort_key = params[:sort]
+    order = params[:order]
+    @tasks = if sort_key.blank?
                Task.where(user_id: user_id).order('creation_date DESC')
              else
-               Task.where(user_id: user_id).order(@sort)
+               sort = sort_key + ' ' + order
+               Task.where(user_id: user_id).order(sort)
              end
   end
 
