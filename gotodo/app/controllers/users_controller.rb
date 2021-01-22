@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[edit update destroy]
   before_action :login_check, except: %i[new create]
 
   def index
@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(@current_user.id)
   end
 
   def new
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, success: I18n.t('flash.update_success', model: I18n.t('activerecord.models.user'))
+      redirect_to profile_path, success: I18n.t('flash.update_success', model: I18n.t('activerecord.models.user'))
     else
       flash.now[:danger] = I18n.t('flash.update_error', model: I18n.t('activerecord.models.user'))
       render :edit

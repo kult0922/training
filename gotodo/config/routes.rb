@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, :tasks
   end
+  get '/profile', to: 'users#show'
 end
