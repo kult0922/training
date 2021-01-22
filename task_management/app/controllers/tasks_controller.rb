@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# タスクコントローラー
 class TasksController < ApplicationController
   attr_reader :task
   # TODO: ユーザIDを画面からの連携パラメータに追加する。現状、テスト用のユーザIDを設定している。ステップ17で見直す。
@@ -14,26 +15,26 @@ class TasksController < ApplicationController
     user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
 
     # ソートキーを設定
-    sort = params[:sort]
-    if sort.nil?
-      order = 'creation_date DESC'
-    else
-      order = sort + ' DESC'
-    end
+    sort_key = params[:sort]
+    @order = params[:order]
+    sort = if sort_key.blank? || @order.blank?
+             'creation_date' + ' ' + 'DESC'
+           else
+             sort_key + ' ' + @order
+           end
 
     # 検索ボタンを押下した場合
     search_btn = params[:search_btn]
     if t('.search') == search_btn
-      status = params[:status]
       search_word = params[:search_word]
-      # TODO: もっと美しく書けないかな
-      if 'all' == status
-        @tasks = Task.where(user_id: user_id).where('name like ?','%' + search_word + '%').order(order)
-      else
-        @tasks = Task.where(user_id: user_id).where(status: status).where('name like ?','%' + search_word + '%').order(order)
-      end
+      status = params[:status]
+      status = Task.statuses.values if status == 'all'
+      @tasks = Task.where(user_id: user_id)
+                   .where(status: status)
+                   .where('name like ?','%' + search_word + '%')
+                   .order(sort)
     else
-      @tasks = Task.where(user_id: user_id).order(order)
+      @tasks = Task.where(user_id: user_id).order(sort)
     end
   end
 
@@ -98,7 +99,14 @@ class TasksController < ApplicationController
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task)
+          .permit(:user_id,
+                  :name,
+                  :details,
+                  :deadline,
+                  :status,
+                  :priority,
+                  label_ids: [])
   end
 
 end

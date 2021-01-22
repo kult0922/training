@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      label: ラベル
+
+    attributes:
+      label:
+        user_id: ユーザID
+        name: ラベル名
