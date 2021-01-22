@@ -14,8 +14,8 @@ RSpec.describe Task, type: :system do
   end
   let!(:added_index_task) do
     create(:task, id: 2,
-           creation_date: Time.current + 5.days,
-           user_id: test_index_user.id)
+                  creation_date: Time.current + 5.days,
+                  user_id: test_index_user.id)
   end
   let!(:test_user) do
     create(:user,
@@ -85,24 +85,24 @@ RSpec.describe Task, type: :system do
     describe 'search' do
       let!(:taskC) do
         create(:task, name: 'taskC',
-               creation_date: Time.current + 2.days,
-               user_id: test_index_user.id,
-               deadline: Time.current + 4.days,
-               status: 1)
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days,
+                      status: 1)
       end
       let!(:taskD) do
         create(:task, name: 'taskD',
-               creation_date: Time.current + 2.days,
-               user_id: test_index_user.id,
-               deadline: Time.current + 4.days,
-               status: 2)
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days,
+                      status: 2)
       end
       let!(:taskE) do
         create(:task, name: 'taskE',
-               creation_date: Time.current + 2.days,
-               user_id: test_index_user.id,
-               deadline: Time.current + 4.days,
-               status: 3)
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days,
+                      status: 3)
       end
       context '検索キーワードを入力し、検索ボタンを押下した場合' do
         before do
@@ -176,15 +176,15 @@ RSpec.describe Task, type: :system do
     describe 'sorting' do
       let!(:taskA) do
         create(:task, name: 'taskA',
-               creation_date: Time.zone.now + 2.days,
-               user_id: test_index_user.id,
-               deadline: Time.zone.now + 4.days)
+                      creation_date: Time.zone.now + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.zone.now + 4.days)
       end
       let!(:taskB) do
         create(:task, name: 'taskB',
-               creation_date: Time.zone.now + 3.days,
-               user_id: test_index_user.id,
-               deadline: Time.zone.now + 1.day)
+                      creation_date: Time.zone.now + 3.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.zone.now + 1.day)
       end
       before do
         visit root_path

@@ -31,7 +31,7 @@ class TasksController < ApplicationController
       status = Task.statuses.values if status == 'all'
       @tasks = Task.where(user_id: user_id)
                    .where(status: status)
-                   .where('name like ?','%' + search_word + '%')
+                   .where('name like ?', '%' + search_word + '%')
                    .order(sort)
     else
       @tasks = Task.where(user_id: user_id).order(sort)
@@ -108,5 +108,4 @@ class TasksController < ApplicationController
                   :priority,
                   label_ids: [])
   end
-
 end
