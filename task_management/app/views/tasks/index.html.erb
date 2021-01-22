@@ -1,5 +1,5 @@
-<% content_for(:title, I18n.t('tasks.index.title')) %>
-<h1><%= I18n.t('tasks.index.title') %></h1>
+<% content_for(:title, t('.title')) %>
+<h1><%= t('.title') %></h1>
 
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
   <%= t('tasks.header.status') %>
@@ -17,38 +17,45 @@
   <table>
     <!-- テーブルヘッダ -->
     <thead>
-    <tr>
-      <th class="no">No</th>
-      <th class="name"><%= I18n.t('tasks.header.name') %></th>
-      <th class="deadline"><%= I18n.t('tasks.header.deadline') %>
-        <%= sort_link_to('deadline', @order) %>
-      </th>
-      <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
-      <th class="status"><%= I18n.t('tasks.header.status') %></th>
-      <th class="creation_date"><%= I18n.t('tasks.header.creation_date') %></th>
-      <th class="edit"><%= I18n.t('tasks.header.edit') %></th>
-      <th class="delete"><%= I18n.t('tasks.header.delete') %></th>
-    </tr>
+      <tr>
+        <th class="no">No</th>
+        <th class="name"><%= t('tasks.header.name') %></th>
+        <!-- TODO:昇順ソートも出来るようにする。状態はローカルストレージかセッションストレージに保存 -->
+        <th class="deadline"><%= t('tasks.header.deadline') %><%= link_to image_tag('sort/desc_icon.png', class: 'sort_icon'),
+                                                                          {controller: "tasks", action: "index",
+                                                                          sort: "deadline"},
+                                                                          id: "deadline_desc" %>
+        </th>
+        <th class="priority"><%= t('tasks.header.priority') %></th>
+        <th class="status"><%= t('tasks.header.status') %></th>
+        <th class="creation_date"><%= t('tasks.header.creation_date') %></th>
+        <th class="edit"><%= t('tasks.header.edit') %></th>
+        <th class="delete"><%= t('tasks.header.delete') %></th>
+      </tr>
     </thead>
 
     <!-- テーブルボディ -->
     <tbody>
-    <% i = 0 %>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td class="no"><%= i += 1 %></td>
-        <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
-        <td class="deadline"><%= show_date_s(task.deadline) %></td>
-        <td class="priority"><%= task.priority_i18n %></td>
-        <td class="status"><%= task.status_i18n %></td>
-        <td class="creation_date"><%= show_date_time_s(task.creation_date) %></td>
-        <td class="edit"><%= link_to I18n.t('tasks.index.edit'), edit_task_path(task), class: 'link link-edit' %></td>
-        <td class="delete"><%= delete_button_to(task_path(task)) %>
-        </td>
-      </tr>
-    <% end %>
+      <% i = 0 %>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td class="no"><%= i += 1 %></td>
+          <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
+          <td class="deadline"><%= show_date_s(task.deadline) %></td>
+          <td class="priority"><%= task.priority_i18n %></td>
+          <td class="status"><%= task.status_i18n %></td>
+          <td class="creation_date"><%= show_date_time_s(task.creation_date) %></td>
+          <td class="edit"><%= link_to t('.btn_edit'), edit_task_path(task), class: 'btn btn-edit' %></td>
+          <td class="delete"><%= button_to t('.btn_delete'), task_path(task),
+                                           { method: :delete,
+                                             data: { confirm: t('.confirm_delete'),
+                                                     disable_with: t('.load_delete') }
+                                           } %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
 <hr>
-<%= link_to I18n.t('tasks.footer.new'), new_task_path %>
+<%= link_to t('tasks.footer.new'), new_task_path %>

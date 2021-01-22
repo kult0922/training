@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# アプリケーションヘルパー
 module ApplicationHelper
   def show_date(time)
     return time unless time

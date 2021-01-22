@@ -3,7 +3,7 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
-abort('The Rails environment is running in production mode!') if Rails.env.production?
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -62,35 +62,4 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
-
-  # headless
-  config.before(:each) do |example|
-    if example.metadata[:type] == :system
-      driven_by :selenium,
-                using:       :headless_chrome,
-                screen_size: [1400, 1400]
-    end
-  end
-
-  ENV['RAILS_ENV'] ||= 'test'
-  require File.expand_path('../config/environment', __dir__)
-  # Prevent database truncation if the environment is production
-  abort('The Rails environment is running in production mode!') if Rails.env.production?
-  require 'spec_helper'
-  require 'rspec/rails'
-  require 'shoulda/matchers' # こいつを追加してあげる
-
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
-      # 今回はRspecを使うのでこのように設定
-      with.test_framework :rspec
-
-      # shoulda-matchersを使いたいテストライブラリを指定
-      with.library :active_record
-      with.library :active_model
-      with.library :action_controller
-      # Or, choose the following (which implies all of the above):
-      with.library :rails
-    end
-  end
 end

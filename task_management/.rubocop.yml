@@ -1,21 +1,5 @@
 inherit_gem:
   fablicop:
-
+    - "config/.base_rubocop.yml"
 AllCops:
-  TargetRubyVersion: 2.5
-  Exclude:
-    - bin/**/*
-    - config/**/*
-    - node_modules/**/*
-    - db/**/*
-    - test/**/*
-    - config.ru
-    - Rakefile
-    - Gemfile
-
-AsciiComments:
-  Enabled: false
-
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*'
+  TargetRubyVersion: 2.3

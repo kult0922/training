@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# ユーザテーブル
 class User < ApplicationRecord
   belongs_to :authority
   has_many :tasks, dependent: :destroy

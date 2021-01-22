@@ -1,9 +1,0 @@
-ja:
-  activerecord:
-    models:
-      authority: 権限
-
-    attributes:
-      authority:
-        role: 権限区分
-        name: 権限名
