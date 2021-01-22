@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   resources :users, :tasks
   namespace :admin do
-    resources :users, :tasks
+    get '/users', to: 'users#index'
   end
   get '/profile', to: 'users#show'
 end
