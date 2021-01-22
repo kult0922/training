@@ -6,13 +6,13 @@
   <hr>
   <%= form_with url: tasks_path, method: :get, local: true do |f| %>
     <%= I18n.t('tasks.header.status') %>
-    <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', I18n.t('tasks.index.status.all') %>
+    <%= f.radio_button :status, :all, id: 'all' %><%= f.label 'all', I18n.t('tasks.index.status.all') %>
     <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', I18n.t('tasks.index.status.todo') %>
     <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
     <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
     <div class="labels">
       <%= I18n.t('tasks.header.label') %>
-      <%= check_box_tag 'all-select', 'all-select', true %>
+      <%= check_box_tag 'all-select', 'all-select' %>
       <%= label_tag 'all-select', '全選択' %>
       <div id="boxes">
         <% @labels.each do |label| %>
@@ -99,36 +99,5 @@
                           disable_with: I18n.t('layouts.common.load_logout') }
                 } %>
 </div>
-
 <input name="label_ids_json" type="hidden" value=<%= @label_ids_json %> class='label_ids_json'/>
 <input name="status_btn_val" type="hidden" value=<%= @status %> id='status_btn_val'/>
-<%= javascript_tag do %>
-  setStatus();
-  setLabel();
-
-  function setStatus() {
-    $('input[name=status]').val([$('#status_btn_val').val()]);
-  }
-
-  function setLabel() {
-    let labelIdsJson = $('.label_ids_json').val();
-    let label = JSON.parse(labelIdsJson);
-    let label_ids_elm = $("input[name='label_ids[]']");
-
-    label_ids_elm.each(function(i, elem) {
-        $(elem).prop('checked', false);
-    });
-    for (let key in label) {
-      label_ids_elm.each(function(i, elem) {
-      if (elem.defaultValue === label[key]) {
-        $(elem).prop('checked', true);
-      }
-      });
-    }
-    if ($('#boxes :checked').length === $('#boxes :input').length) {
-      $('#all-select').prop('checked', true);
-    } else {
-      $('#all-select').prop('checked', false);
-    }
-  }
-<% end %>
