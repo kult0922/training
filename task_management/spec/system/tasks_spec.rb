@@ -44,24 +44,59 @@ RSpec.describe Task, type: :system do
       end
     end
 
+    context '編集リンクを押下した場合' do
+      before { visit root_path }
+      example 'タスク編集画面に遷移する' do
+        click_link '編集'
+        expect(page).to have_content 'タスク編集'
+      end
+    end
+
+    context '削除ボタンを押下した場合' do
+      before { visit root_path }
+      example 'タスクを削除できる' do
+        page.accept_confirm do
+          click_button '削除'
+        end
+        expect(page).to have_content '削除しました。'
+      end
+    end
+
     describe 'sorting' do
       let!(:taskA) do
         create(:task, name: 'taskA',
-                      creation_date: Time.current + 2.days,
+                      creation_date: Time.zone.now + 2.days,
                       user_id: test_index_user.id,
-                      deadline: Time.current + 4.days)
+                      deadline: Time.zone.now + 4.days)
       end
       let!(:taskB) do
         create(:task, name: 'taskB',
-                      creation_date: Time.current + 3.days,
+                      creation_date: Time.zone.now + 3.days,
                       user_id: test_index_user.id,
-                      deadline: Time.current + 1.day)
+                      deadline: Time.zone.now + 1.day)
       end
       before do
         visit root_path
       end
       context 'トップページにアクセスした場合（サーバ側で「作成日時」を降順ソート）' do
         example '「作成日時」で降順ソートされた状態で表示される' do
+          expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+        end
+      end
+
+      context '「終了期限」の降順ソートリンクを押下した場合' do
+        example '「終了期限」で降順ソートされた状態で表示される' do
+          click_link 'deadline_desc'
+          until page.has_link?('deadline_asc'); end
+          expect(page.body.index(taskB.name)).to be > page.body.index(taskA.name)
+        end
+      end
+
+      context '「終了期限」の昇順ソートリンクを押下した場合' do
+        example '「終了期限」で昇順ソートされた状態で表示される' do
+          click_link 'deadline_desc'
+          click_link 'deadline_asc'
+          until page.has_link?('deadline_desc'); end
           expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
         end
       end
