@@ -35,8 +35,10 @@
       <th><%= sortable :status %></th>
       <th><%= sortable :created_at %></th>
       <th><%= sortable :updated_at %></th>
-      <th></th>
-      <th></th>
+      <% unless controller.class.name.include?('Admin::') %>
+        <th></th>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
