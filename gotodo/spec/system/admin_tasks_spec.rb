@@ -3,7 +3,8 @@
 require 'rails_helper'
 require 'pp'
 
-RSpec.describe 'AdminUsers', type: :system do
+RSpec.describe 'AdminTasks', type: :system do
+  let!(:login_user) { FactoryBot.create(:user, name: '夏目', email: 'natsume@example.com') }
   subject { page }
 
   before 'ログイン' do

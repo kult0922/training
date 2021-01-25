@@ -8,6 +8,7 @@ class TasksController < ApplicationController
                  .task_search(title: params[:title], status: params[:status], sort: params[:sort], direction: params[:direction])
                  .page(params[:page])
                  .per(10)
+    @partial = 'task'
   end
 
   def show
