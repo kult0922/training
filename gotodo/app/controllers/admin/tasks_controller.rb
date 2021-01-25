@@ -10,6 +10,7 @@ class Admin::TasksController < ApplicationController
                  .page(params[:page])
                  .per(10)
     @partial = 'tasks/task'
+    @user = User.find(params[:id])
     render template: 'tasks/index'
   end
 

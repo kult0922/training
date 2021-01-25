@@ -10,8 +10,10 @@ ja:
               blank: が空になっています
       messages:
         invalid_email: の形式が不正です
+
   tasks:
     status:
       todo: 未着手
       doing: 着手中
       done: 完了
+  h: '%{name}さんのタスク一覧'
