@@ -33,6 +33,21 @@ RSpec.describe 'Users', type: :system do
     end
   end
 
+  describe '#show(user_id)' do
+    describe 'ページ遷移' do
+      it '戻るボタンでトップ画面に遷移すること' do
+        visit profile_path
+        click_link nil, class: 'back-link'
+        is_expected.to have_current_path root_path
+      end
+      it '編集ボタンで編集画面に遷移すること' do
+        visit profile_path
+        click_link nil, class: 'edit-link'
+        is_expected.to have_current_path edit_user_path(login_user.id)
+      end
+    end
+  end
+
   describe '#new' do
     let(:new_user) {
       {
@@ -49,6 +64,14 @@ RSpec.describe 'Users', type: :system do
       fill_in 'user[password]', with: new_user['password']
       fill_in 'user[password_confirmation]', with: new_user['password_confirmation']
       click_button '登録する'
+    end
+
+    describe 'ページ遷移' do
+      it '戻るボタンでログイン画面に遷移すること' do
+        visit new_user_path
+        click_link nil, class: 'back-link'
+        is_expected.to have_current_path login_path
+      end
     end
 
     it '新規作成したユーザでログインできること' do
@@ -71,8 +94,16 @@ RSpec.describe 'Users', type: :system do
       {
         'name' => '夏目',
         'email' => 'natsume@example.com',
-        'password' => 'natsume'
+        'password' => 'natsume',
       } }
+
+    describe 'ページ遷移' do
+      it '戻るボタンでプロフィール画面に遷移すること' do
+        visit edit_user_path(login_user.id)
+        click_link nil, class: 'back-link'
+        is_expected.to have_current_path profile_path
+      end
+    end
 
     context 'パスワードのみ更新する' do
       before do
@@ -165,6 +196,5 @@ RSpec.describe 'Users', type: :system do
         is_expected.to have_selector('.alert-success', text: "ようこそ、#{edited_user['name']}さん")
       end
     end
-
   end
 end
