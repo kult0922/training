@@ -1,41 +1,48 @@
-<%= form_with(model: task) do |form| %>
-  <% if task.errors.any? %>
-    <div id="error_explanation" class="alert alert-warning">
-      <b><%= I18n.t('errors.validation', count: task.errors.count) %></b>
-      <% task.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
+<div class="mx-auto col-12">
+  <%= form_with(model: task) do |form| %>
+    <% if task.errors.any? %>
+      <div id="error_explanation" class="alert alert-warning">
+        <b><%= I18n.t('errors.validation', count: task.errors.count) %></b>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </div>
+    <% end %>
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md-10">
+        <%= form.text_field :title,
+                            { disabled: disabled, placeholder: Task.human_attribute_name(:title), class: 'form-control' }
+        %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= form.select :status,
+                        Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] },
+                        {},
+                        { disabled: disabled, class: 'form-control' }
+        %>
+      </div>
     </div>
+    <div class="form-group">
+      <%= form.text_area :detail,
+                         { size: "60x12", disabled: disabled, class: 'form-control' }
+      %>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <%= form.label :end_date %>
+        <%= form.date_field :end_date,
+                            { disabled: disabled, class: 'form-control' }
+        %>
+      </div>
+    </div>
+
+    <% unless disabled %>
+      <%= form.submit class: 'btn btn-info' %>
+    <% else %>
+      <%= link_to(icon('fas', 'edit'), edit_task_path(@task), { class: 'edit-link' }) %>
+    <% end %>
+
+    <%= link_to(icon('fas', 'arrow-alt-circle-left'), root_path, { class: 'back-link' }) %>
   <% end %>
-  <br>
-  <div class="form-row">
-    <div class="form-group col-md-10">
-      <%= form.text_field :title,
-                          { disabled: disabled, placeholder: Task.human_attribute_name(:title), class: 'form-control' }
-      %>
-    </div>
-    <div class="form-group col-md-2">
-      <%= form.select :status,
-                      Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] },
-                      {},
-                      { disabled: disabled, class: 'form-control' }
-      %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= form.text_area :detail,
-                       { size: "60x12", disabled: disabled, class: 'form-control' }
-    %>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <%= form.label :end_date %>
-      <%= form.date_field :end_date,
-                          { disabled: disabled, class: 'form-control' }
-      %>
-    </div>
-  </div>
-  <% unless disabled %>
-    <%= form.submit class: 'btn btn-info' %>
-  <% end %>
-<% end %>
+</div>
