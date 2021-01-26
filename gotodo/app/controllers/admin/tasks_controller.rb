@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin
+module Admin
   class TasksController < ApplicationController
     helper TasksHelper
 

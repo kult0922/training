@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin
+module Admin
   class UsersController < ApplicationController
     before_action :login_check
 
