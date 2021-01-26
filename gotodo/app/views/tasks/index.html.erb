@@ -22,12 +22,14 @@
                       { class: 'btn btn-outline-info' }
       %>
     </div>
-    <div class="ml-auto">
-      <%= link_to I18n.t('attributes.new_task'),
-                  new_task_path,
-                  { class: 'btn btn-info' }
-      %>
-    </div>
+    <% unless controller.class.name.include?('Admin::') %>
+      <div class="ml-auto">
+        <%= link_to I18n.t('attributes.new_task'),
+                    new_task_path,
+                    { class: 'btn btn-info' }
+        %>
+      </div>
+    <% end %>
   </div>
 <% end %>
 
@@ -40,10 +42,8 @@
       <th><%= sortable :status %></th>
       <th><%= sortable :created_at %></th>
       <th><%= sortable :updated_at %></th>
-      <% unless controller.class.name.include?('Admin::') %>
-        <th></th>
-        <th></th>
-      <% end %>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
