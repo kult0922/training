@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
       let(:name) { 'a' * 0 }
       it 'バリデーションを通過しないこと' do
         expect(user).to_not be_valid
-        expect(user.errors.full_messages).to match_array('ユーザー名が空です')
+        expect(user.errors.full_messages).to match_array('ユーザ名が空です')
       end
     end
     context '1文字の場合' do
@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
       let(:name) { 'a' * 11 }
       it 'バリデーションを通過しないこと' do
         expect(user).to_not be_valid
-        expect(user.errors.full_messages).to match_array('ユーザー名は10文字以内で入力してください')
+        expect(user.errors.full_messages).to match_array('ユーザ名は10文字以内で入力してください')
       end
     end
   end

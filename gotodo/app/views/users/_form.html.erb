@@ -18,18 +18,22 @@
                            { disabled: disabled, placeholder: User.human_attribute_name(:email), class: 'form-control' }
       %>
     </div>
-    <div class="form-group">
-      <%= form.password_field :password,
-                              { disabled: disabled, placeholder: User.human_attribute_name(:password), class: 'form-control' }
-      %>
-    </div>
-    <div class="form-group">
-      <%= form.password_field :password_confirmation,
-                              { disabled: disabled, placeholder: User.human_attribute_name(:password_confirmation), class: 'form-control' }
-      %>
-    </div>
     <% unless disabled %>
+      <div class="form-group">
+        <%= form.password_field :password,
+                                { disabled: disabled, placeholder: User.human_attribute_name(:password), class: 'form-control' }
+        %>
+      </div>
+      <div class="form-group">
+        <%= form.password_field :password_confirmation,
+                                { disabled: disabled, placeholder: User.human_attribute_name(:password_confirmation), class: 'form-control' }
+        %>
+      </div>
       <%= form.submit class: 'btn btn-info' %>
     <% end %>
+  <% end %>
+  <%= link_to icon('fas', 'arrow-alt-circle-left'), profile_path %>
+  <% if disabled %>
+    <%= link_to(icon('fas', 'edit'), edit_user_path(@user)) if @user.id == @current_user.id %>
   <% end %>
 </div>
