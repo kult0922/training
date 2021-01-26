@@ -42,10 +42,8 @@
       <th><%= sortable :status %></th>
       <th><%= sortable :created_at %></th>
       <th><%= sortable :updated_at %></th>
-      <% unless controller.class.name.include?('Admin::') %>
-        <th></th>
-        <th></th>
-      <% end %>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
