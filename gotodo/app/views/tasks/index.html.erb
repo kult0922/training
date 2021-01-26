@@ -22,12 +22,14 @@
                       { class: 'btn btn-outline-info' }
       %>
     </div>
-    <div class="ml-auto">
-      <%= link_to I18n.t('attributes.new_task'),
-                  new_task_path,
-                  { class: 'btn btn-info' }
-      %>
-    </div>
+    <% unless controller.class.name.include?('Admin::') %>
+      <div class="ml-auto">
+        <%= link_to I18n.t('attributes.new_task'),
+                    new_task_path,
+                    { class: 'btn btn-info' }
+        %>
+      </div>
+    <% end %>
   </div>
 <% end %>
 
