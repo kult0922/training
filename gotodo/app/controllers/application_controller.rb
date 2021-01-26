@@ -12,4 +12,13 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
+
+  def admin_check
+    redirect_to login_path unless is_admin?
+  end
+
+  helper_method :is_admin?
+  def is_admin?
+    @current_user.role.name == 'admin'
+  end
 end

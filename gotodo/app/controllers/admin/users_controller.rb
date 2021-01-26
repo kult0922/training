@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  before_action :login_check
+  before_action :admin_check
 
   def index
     user_sort_params
