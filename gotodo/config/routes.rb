@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users, :tasks
   namespace :admin do
     get '/users', to: 'users#index'
+    get '/users/:id/tasks', to: 'tasks#index'
   end
   get '/profile', to: 'users#show'
 end

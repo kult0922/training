@@ -197,7 +197,7 @@ RSpec.describe 'AdminUsers', type: :system do
     end
 
     it 'ユーザを削除すると、関連したタスクも削除されること' do
-      expect{ user2.destroy }.to change{ Task.count }.by(-2)
+      expect { user2.destroy }.to change { Task.count }.by(-2)
     end
   end
 end

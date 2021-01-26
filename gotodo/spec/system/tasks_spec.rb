@@ -24,11 +24,11 @@ RSpec.describe 'Tasks', type: :system do
         expect(current_path).to eq(root_path)
       end
       it '#show(task_id)にアクセスできること' do
-        visit task_path task.id
+        visit task_path(task.id)
         expect(current_path).to eq(task_path(task.id))
       end
       it '#edit(task_id)にアクセスできること' do
-        visit edit_task_path task.id
+        visit edit_task_path(task.id)
         expect(current_path).to eq(edit_task_path(task.id))
       end
       it '#newにアクセスできること' do
@@ -46,11 +46,11 @@ RSpec.describe 'Tasks', type: :system do
         expect(current_path).to eq(login_path)
       end
       it '#show(task_id)にアクセスできないこと' do
-        visit task_path task.id
+        visit task_path(task.id)
         expect(current_path).to eq(login_path)
       end
       it '#edit(task_id)にアクセスできないこと' do
-        visit edit_task_path task.id
+        visit edit_task_path(task.id)
         expect(current_path).to eq(login_path)
       end
       it '#newにアクセスできないこと' do
@@ -317,7 +317,14 @@ RSpec.describe 'Tasks', type: :system do
   describe '#show(task_id)' do
     let!(:task) { FactoryBot.create(:task, user: login_user) }
     before do
-      visit task_path task.id
+      visit task_path(task.id)
+    end
+
+    describe 'ページ遷移' do
+      it '戻るボタンでトップ画面に遷移すること' do
+        click_link nil, class: 'back-link'
+        is_expected.to have_current_path root_path
+      end
     end
 
     it '期待したタスクが表示されること' do
@@ -338,16 +345,24 @@ RSpec.describe 'Tasks', type: :system do
         'status' => 'doing',
       } }
     before do
-      visit edit_task_path task.id
+      visit edit_task_path(task.id)
+    end
+
+    describe 'ページ遷移' do
+      it '戻るボタンでトップ画面に遷移すること' do
+        click_link nil, class: 'back-link'
+        is_expected.to have_current_path root_path
+      end
+    end
+
+    it '期待したタスクが表示されること' do
       fill_in 'task[title]', with: edited_task['title']
       fill_in 'task[detail]', with: edited_task['detail']
       fill_in 'task[end_date]', with: edited_task['end_date']
       find('#task_status').find("option[value=#{edited_task['status']}]").select_option
       click_button '更新する'
-    end
 
-    it '期待したタスクが表示されること' do
-      is_expected.to have_current_path task_path task.id
+      is_expected.to have_current_path task_path(task.id)
       expect(find('#task_title').value).to eq edited_task['title']
       expect(find('#task_detail').value).to eq edited_task['detail']
       expect(find('#task_end_date').value).to eq edited_task['end_date'].strftime('%Y-%m-%d')
@@ -372,6 +387,14 @@ RSpec.describe 'Tasks', type: :system do
       fill_in 'task[end_date]', with: new_task['end_date']
       find('#task_status').find("option[value=#{new_task['status']}]").select_option
       click_button '登録する'
+    end
+
+    describe 'ページ遷移' do
+      it '戻るボタンでトップ画面に遷移すること' do
+        visit new_task_path
+        click_link nil, class: 'back-link'
+        is_expected.to have_current_path root_path
+      end
     end
 
     it '期待したタスクが表示されること' do

@@ -1,3 +1,8 @@
+<% if controller.class.name.include?('Admin::') %>
+  <h3 class="text-center"><%= I18n.t('h', name: @user.name) %></h3>
+  <br>
+<% end %>
+
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <div class="form-group d-flex">
     <div class="col-md-7">
@@ -17,12 +22,14 @@
                       { class: 'btn btn-outline-info' }
       %>
     </div>
-    <div class="ml-auto">
-      <%= link_to I18n.t('attributes.new_task'),
-                  new_task_path,
-                  { class: 'btn btn-info' }
-      %>
-    </div>
+    <% unless controller.class.name.include?('Admin::') %>
+      <div class="ml-auto">
+        <%= link_to I18n.t('attributes.new_task'),
+                    new_task_path,
+                    { class: 'btn btn-info' }
+        %>
+      </div>
+    <% end %>
   </div>
 <% end %>
 
@@ -40,7 +47,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: 'task', collection: @tasks %>
+    <%= render partial: 'tasks/task', collection: @tasks %>
   </tbody>
 </table>
 <br>
