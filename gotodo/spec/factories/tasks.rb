@@ -11,16 +11,9 @@ FactoryBot.define do
 
   factory :task, class: Task do
     title { generate :title }
-    # title { 'タスク' }
     detail { 'テスト' }
     end_date { generate :end_date }
     status { 'doing' }
     user
   end
-
-  # 今後使いたいためメモとしてコメントアウト
-  # trait :done do
-  #   status { :done }
-  #   completion_date { Time.current.yesterday }
-  # end
 end

@@ -43,7 +43,7 @@ class TasksController < ApplicationController
     @task.destroy
     redirect_back(
       fallback_location: root_path,
-      success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.task'))
+      success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.task')),
     )
   end
 
