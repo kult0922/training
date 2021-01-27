@@ -3,6 +3,7 @@
 module Admin
   class TasksController < ApplicationController
     helper TasksHelper
+    before_action :admin_check
 
     def index
       @tasks = Task.where(user_id: params[:id])

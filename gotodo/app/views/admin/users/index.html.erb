@@ -4,8 +4,10 @@
       <th><%= sortable :name %></th>
       <th><%= sortable :email %></th>
       <th><%= sortable :tasks_count %></th>
+      <th><%= User.human_attribute_name(:role) %></th>
       <th><%= sortable :created_at %></th>
       <th><%= sortable :updated_at %></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>

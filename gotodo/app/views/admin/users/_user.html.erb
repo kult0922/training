@@ -2,7 +2,17 @@
   <td><%= user.name %></td>
   <td><%= user.email %></td>
   <td><%= link_to(user.count_all, admin_path(user)) %></td>
+  <td><%= I18n.t("roles.#{user.role.name}") %></td>
   <td><%= I18n.l(user.created_at) %></td>
   <td><%= I18n.l(user.updated_at) %></td>
-  <td><%= link_to(icon('fas', 'trash-alt'), user, { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' }) %></td>
+  <td>
+    <%= link_to(icon('fas', 'edit'),
+                edit_user_path(user),
+                { class: 'edit-link' }) %>
+  </td>
+  <td>
+    <%= link_to(icon('fas', 'trash-alt'),
+                user,
+                { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' }) %>
+  </td>
 </tr>

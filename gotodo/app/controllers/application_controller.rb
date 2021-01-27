@@ -14,11 +14,11 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_check
-    redirect_to login_path unless is_admin?
+    redirect_to login_path unless admin?
   end
 
-  helper_method :is_admin?
-  def is_admin?
-    @current_user.role.name == 'admin'
+  helper_method :admin?
+  def admin?
+    @current_user.role.name == 'admin' if @current_user.role
   end
 end

@@ -12,6 +12,7 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認）
         tasks_count: タスク数
+        role: 権限
   errors:
     validation: '%{count}つの項目に不備が見つかりました。'
   helpers:
