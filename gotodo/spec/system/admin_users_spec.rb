@@ -18,9 +18,22 @@ RSpec.describe 'AdminUsers', type: :system do
 
   describe 'アクセス権' do
     context 'ログイン状態の時' do
-      it '#indexにアクセスできること' do
-        visit admin_users_path
-        is_expected.to have_current_path admin_users_path
+      context 'admin権限の時' do
+        it 'admin/users#indexにアクセスできること' do
+          visit admin_users_path
+          is_expected.to have_current_path admin_users_path
+        end
+      end
+      context 'admin権限でない時' do
+        let!(:editor_user) { FactoryBot.create(:user, email: 'tanuma@example.com', role: editor_role) }
+        it 'admin/users#indexにアクセスできないこと' do
+          visit login_path
+          fill_in 'email', with: editor_user.email
+          fill_in 'password', with: editor_user.password
+          click_button 'ログイン'
+          visit admin_users_path
+          is_expected.to have_current_path login_path
+        end
       end
     end
 
@@ -28,7 +41,7 @@ RSpec.describe 'AdminUsers', type: :system do
       before do
         click_link nil, href: logout_path
       end
-      it '#indexにアクセスできないこと' do
+      it 'admin/users#indexにアクセスできないこと' do
         visit admin_users_path
         is_expected.to have_current_path login_path
       end
