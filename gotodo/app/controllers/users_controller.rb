@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[edit update destroy]
   before_action :login_check, except: %i[new create]
+  before_action :set_user, only: %i[show edit update destroy]
 
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find(@current_user.id)
   end
 
   def new
@@ -32,7 +31,11 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to profile_path, success: I18n.t('flash.update_success', model: I18n.t('activerecord.models.user'))
+      if @user.id == @current_user.id
+        redirect_to profile_path, success: I18n.t('flash.update_success', model: I18n.t('activerecord.models.user'))
+      else
+        redirect_to user_path(@user), success: I18n.t('flash.update_success', model: I18n.t('activerecord.models.user'))
+      end
     else
       flash.now[:danger] = I18n.t('flash.update_error', model: I18n.t('activerecord.models.user'))
       render :edit
@@ -48,7 +51,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = params[:id] ? User.find(params[:id]) : @current_user
   end
 
   # Only allow a list of trusted parameters through.

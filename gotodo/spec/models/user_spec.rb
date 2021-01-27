@@ -3,8 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let!(:admin_role) { FactoryBot.create(:role, :admin) }
+
   describe 'string "name", limit: 10, null: false' do
-    let(:user) { FactoryBot.build_stubbed(:user, name: name) }
+    let(:user) { FactoryBot.build_stubbed(:user, name: name, role: admin_role) }
 
     context '0文字の場合' do
       let(:name) { 'a' * 0 }
@@ -35,8 +37,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'string "email", limit: 30, null: false, unique: true' do
-    let(:user1) { FactoryBot.create(:user, name: 'Taro', email: 'taro@example.com') }
-    let(:user2) { FactoryBot.build_stubbed(:user, name: 'Jiro', email: email) }
+    let(:user1) { FactoryBot.create(:user, name: 'Taro', email: 'taro@example.com', role: admin_role) }
+    let(:user2) { FactoryBot.build_stubbed(:user, name: 'Jiro', email: email, role: admin_role) }
 
     context 'メールアドレス形式の場合' do
       context '30文字の場合' do
@@ -86,7 +88,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'string "password_digest", null: false' do
-    let(:user) { FactoryBot.build_stubbed(:user, password: password, password_confirmation: password_confirmation) }
+    let(:user) { FactoryBot.build_stubbed(:user, password: password, password_confirmation: password_confirmation, role: admin_role) }
 
     context '0文字の場合' do
       let(:password) { 'a' * 0 }

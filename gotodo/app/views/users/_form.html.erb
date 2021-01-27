@@ -45,7 +45,7 @@
 
   <% if controller.action_name == 'show' %>
     <%= link_to(icon('fas', 'arrow-alt-circle-left'), root_path, { class: 'back-link' }) %>
-    <%= link_to(icon('fas', 'edit'), edit_user_path(@user), { class: 'edit-link' }) if @user.id == @current_user.id %>
+    <%= @user.id == @current_user.id ? link_to(icon('fas', 'edit'), profile_edit_path, { class: 'edit-link' }) : link_to(icon('fas', 'edit'), edit_user_path(@user), { class: 'edit-link' }) %>
   <% elsif controller.action_name == 'new' %>
     <%= link_to(icon('fas', 'arrow-alt-circle-left'), login_path, { class: 'back-link' }) %>
   <% elsif controller.action_name == 'edit' %>
