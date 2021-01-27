@@ -14,7 +14,7 @@ ja:
         tasks_count: タスク数
         role: 権限
   errors:
-    validation: '%{count}つの項目に不備が見つかりました。'
+    validation: '%{count}つの項目に不備が見つかりました'
   helpers:
     submit:
       create: 登録する
@@ -33,8 +33,10 @@ ja:
     create_success: '新しい%{model}が登録されました！'
     update_success: '%{model}が更新されました！'
     destroy_success: '%{model}が削除されました！'
-    create_error: '%{model}の作成に失敗しました。'
-    update_error: '%{model}の更新に失敗しました。'
+    create_error: '%{model}の作成に失敗しました'
+    update_error: '%{model}の更新に失敗しました'
+    destroy_error: '%{model}の削除に失敗しました'
+    destroy_cancel: 'あなたは最後の%{model}なので削除できません'
     login_success: 'ようこそ、%{user}さん'
     login_error: ログインに失敗しました
     logout_success: ログアウトしました

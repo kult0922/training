@@ -43,8 +43,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.user'))
+    if User.eager_load(:role).where(role: { name: 'admin' }).count > 1
+      if @user.destroy
+        redirect_to admin_users_path, success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.user'))
+      else
+        flash.now[:danger] = I18n.t('flash.destroy_error', model: I18n.t('activerecord.models.user'))
+      end
+    else
+      redirect_to admin_users_path, danger: I18n.t('flash.destroy_cancel', model: I18n.t('activerecord.models.user'))
+    end
   end
 
   private
