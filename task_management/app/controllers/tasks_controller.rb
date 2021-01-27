@@ -13,29 +13,9 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
-
-    # ソートキーを設定
-    sort_key = params[:sort]
     @order = params[:order]
-    sort = if sort_key.blank? || @order.blank?
-             'creation_date' + ' ' + 'DESC'
-           else
-             sort_key + ' ' + @order
-           end
-
-    # 検索ボタンを押下した場合
-    search_btn = params[:search_btn]
-    if t('.search') == search_btn
-      search_word = params[:search_word]
-      status = params[:status]
-      status = Task.statuses.values if status == 'all'
-      @tasks = Task.where(user_id: user_id)
-                   .where(status: status)
-                   .where('name like ?', '%' + search_word + '%')
-                   .order(sort)
-    else
-      @tasks = Task.where(user_id: user_id).order(sort)
-    end
+    sort_key = Task.get_sort_key(params[:sort], @order)
+    @tasks = Task.search_tasks(user_id, sort_key, params)
   end
 
   # 詳細画面
