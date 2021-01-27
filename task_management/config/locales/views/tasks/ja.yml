@@ -26,6 +26,7 @@ ja:
         todo: 未着手
         in_progress: 着手
         done: 完了
+      input_task: タスク名を入力してください
 
     show:
       title: タスク詳細
