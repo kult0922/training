@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Admin
-  class TasksController < ApplicationController
+  class TasksController < AdminController
     helper TasksHelper
-    before_action :admin_check
 
     def index
       @tasks = Task.where(user_id: params[:id])
