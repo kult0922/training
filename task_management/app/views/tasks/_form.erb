@@ -18,17 +18,17 @@
     <!-- テーブルヘッダ -->
     <thead>
     <tr>
-      <th class="name"><%= t('tasks.header.name') %></th>
-      <th class="details"><%= t('tasks.header.details') %></th>
-      <th class="deadline"><%= t('tasks.header.deadline') %></th>
-      <th class="priority"><%= t('tasks.header.priority') %></th>
-      <th class="status"><%= t('tasks.header.status') %></th>
+      <th class="name"><%= I18n.t('tasks.header.name') %></th>
+      <th class="details"><%= I18n.t('tasks.header.details') %></th>
+      <th class="deadline"><%= I18n.t('tasks.header.deadline') %></th>
+      <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
+      <th class="status"><%= I18n.t('tasks.header.status') %></th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <td class="name"><%= f.text_field :name, placeholder: "入力してください", id: 'name' %></td>
-      <td class="details"><%= f.text_field :details, placeholder: "入力してください", id: 'details' %></td>
+      <td class="name"><%= f.text_field :name, placeholder: I18n.t('tasks.message.input'), id: 'name' %></td>
+      <td class="details"><%= f.text_field :details, placeholder: I18n.t('tasks.message.input'), id: 'details' %></td>
       <td class="deadline"><%= f.date_field :deadline, value: show_date(@task.deadline) ||
                                              show_date(Time.now), id: 'deadline' %></td>
       <td class="priority"><%= f.select :priority,
