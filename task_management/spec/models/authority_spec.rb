@@ -22,7 +22,7 @@ RSpec.describe Authority, type: :model do
       build(
         :authority,
         role: role,
-        name: name
+        name: name,
       )
     end
 

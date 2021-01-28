@@ -30,7 +30,7 @@ RSpec.describe Task, type: :model do
         deadline: deadline,
         status: status,
         priority: priority,
-        creation_date: creation_date
+        creation_date: creation_date,
       )
     end
 

@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
         login_id: login_id,
         name: name,
         password: password,
-        authority_id: authority_id
+        authority_id: authority_id,
       )
     end
 

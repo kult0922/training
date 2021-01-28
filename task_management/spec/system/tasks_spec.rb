@@ -25,7 +25,7 @@ RSpec.describe Task, type: :system do
   end
   let!(:added_task) do
     create(:task,
-           creation_date: Time.current + 1.days,
+           creation_date: Time.current + 1.day,
            user_id: test_user.id)
   end
   let(:test_status) { Task.statuses.key(1) }
@@ -170,7 +170,6 @@ RSpec.describe Task, type: :system do
           expect(page).to have_content 'taskD'
         end
       end
-
     end
 
     describe 'sorting' do

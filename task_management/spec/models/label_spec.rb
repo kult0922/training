@@ -26,7 +26,7 @@ RSpec.describe Label, type: :model do
       build(
         :label,
         user_id: user_id,
-        name: name
+        name: name,
       )
     end
 

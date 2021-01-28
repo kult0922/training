@@ -26,7 +26,7 @@ RSpec.describe TaskLabelRelation, type: :model do
       build(
         :task_label_relation,
         task_id: task_id,
-        label_id: label_id
+        label_id: label_id,
       )
     end
 
