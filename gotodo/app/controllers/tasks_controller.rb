@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.where(user_id: @current_user.id)
-                 .task_search(title: params[:title], status: params[:status], sort: params[:sort], direction: params[:direction])
+                 .task_search(params)
                  .page(params[:page])
                  .per(10)
   end
