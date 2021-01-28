@@ -5,11 +5,11 @@ class ApplicationController < ActionController::Base
 
   before_action :render_503, if: :maintenance_mode?
   def render_503
-    render file: Rails.public_path.join('503.ja.html'), status: 500
+    render file: Rails.public_path.join('503.ja.html'), status: 503
   end
 
   def maintenance_mode?
-    File.exist?("tmp/maintenance")
+    File.exist?(Constants::MAINTENANCE)
   end
 
   before_action :login_check
