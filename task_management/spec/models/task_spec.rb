@@ -30,7 +30,7 @@ RSpec.describe Task, type: :model do
         deadline: deadline,
         status: status,
         priority: priority,
-        creation_date: creation_date
+        creation_date: creation_date,
       )
     end
 
@@ -64,8 +64,8 @@ RSpec.describe Task, type: :model do
     describe 'enums' do
       context '優先順位とステータスが正しく定義されている場合' do
         example '登録できる' do
-          should define_enum_for(:priority).with_values(%i[low normal high])
-          should define_enum_for(:status).with_values(%i[todo in_progress done])
+          should define_enum_for(:priority).with_values(low: 1, normal: 2, high: 3)
+          should define_enum_for(:status).with_values(todo: 1, in_progress: 2, done: 3)
         end
       end
     end

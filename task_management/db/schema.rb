@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_01_14_052353) do
     t.datetime "creation_date", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "作成日時"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["status"], name: "index_tasks_on_status"
     t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
   end
 

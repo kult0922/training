@@ -1,5 +1,17 @@
 <% content_for(:title, I18n.t('tasks.index.title')) %>
 <h1><%= I18n.t('tasks.index.title') %></h1>
+
+<%= form_with url: tasks_path, method: :get, local: true do |f| %>
+  <%= I18n.t('tasks.header.status') %>
+  <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', I18n.t('tasks.index.status.all') %>
+  <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', I18n.t('tasks.index.status.todo') %>
+  <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
+  <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
+  <br>
+  <%= f.text_field :search_word, placeholder: I18n.t('tasks.index.input_task'), id: 'search_word' %>
+  <%= f.submit I18n.t('tasks.index.search'), name: 'search_btn' %>
+<% end %>
+
 <hr>
 <div id="task_list">
   <table>

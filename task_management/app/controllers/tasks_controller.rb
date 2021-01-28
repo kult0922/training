@@ -12,15 +12,12 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    user_id = User.select(:id).where(login_id: TEST_USER_ID)
-    sort_key = params[:sort]
+    user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
     @order = params[:order]
-    sort = if sort_key.blank? || @order.blank?
-             'creation_date' + ' ' + 'DESC'
-           else
-             sort_key + ' ' + @order
-           end
-    @tasks = Task.where(user_id: user_id).order(sort)
+    @tasks = Task.where(user_id: user_id)
+                 .get_status(params[:status])
+                 .search_word(params[:search_word])
+                 .sort_key(params[:sort], @order)
   end
 
   # 詳細画面

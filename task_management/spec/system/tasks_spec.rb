@@ -7,6 +7,27 @@ RSpec.describe Task, type: :system do
   let(:test_details) { 'test2_description' }
   let(:test_deadline) { Time.zone.now + 3.days }
   let(:test_priority) { Task.priorities.key(1) }
+  let(:test_status) { Task.statuses.key(2) }
+  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
+  let!(:test_index_user) do
+    create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id)
+  end
+  let!(:added_index_task) do
+    create(:task, id: 2,
+                  creation_date: Time.current + 5.days,
+                  user_id: test_index_user.id)
+  end
+  let!(:test_user) do
+    create(:user,
+           id: 2,
+           login_id: 'test_user_2',
+           authority_id: test_authority.id)
+  end
+  let!(:added_task) do
+    create(:task,
+           creation_date: Time.current + 1.day,
+           user_id: test_user.id)
+  end
   let(:test_status) { Task.statuses.key(1) }
   let!(:test_authority) do
     create(:authority,
@@ -36,6 +57,7 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#index' do
+    before { visit root_path }
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
         visit root_path
@@ -45,7 +67,6 @@ RSpec.describe Task, type: :system do
     end
 
     context '編集リンクを押下した場合' do
-      before { visit root_path }
       example 'タスク編集画面に遷移する' do
         click_link '編集'
         expect(page).to have_content 'タスク編集'
@@ -53,12 +74,101 @@ RSpec.describe Task, type: :system do
     end
 
     context '削除ボタンを押下した場合' do
-      before { visit root_path }
       example 'タスクを削除できる' do
         page.accept_confirm do
           click_button '削除'
         end
         expect(page).to have_content '削除しました。'
+      end
+    end
+
+    describe 'search' do
+      let!(:taskC) do
+        create(:task, name: 'taskC',
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days,
+                      status: 1)
+      end
+      let!(:taskD) do
+        create(:task, name: 'taskD',
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days,
+                      status: 2)
+      end
+      let!(:taskE) do
+        create(:task, name: 'taskE',
+                      creation_date: Time.current + 2.days,
+                      user_id: test_index_user.id,
+                      deadline: Time.current + 4.days,
+                      status: 3)
+      end
+      context '検索キーワードを入力し、検索ボタンを押下した場合' do
+        before do
+          fill_in 'search_word', with: 'task'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'test_task_1'
+          expect(page).to have_content 'taskC'
+          expect(page).to have_content 'taskD'
+          expect(page).to have_content 'taskE'
+        end
+      end
+
+      context 'ステータス「全て」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'all'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'test_task_1'
+          expect(page).to have_content 'taskC'
+          expect(page).to have_content 'taskD'
+          expect(page).to have_content 'taskE'
+        end
+      end
+
+      context 'ステータス｢未着手」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'todo'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskC'
+        end
+      end
+
+      context 'ステータス「着手」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'in_progress'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskD'
+        end
+      end
+
+      context 'ステータス「完了」を選択し、検索ボタンを押下した場合' do
+        before do
+          choose 'done'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskE'
+        end
+      end
+
+      context 'ステータス「着手」と検索キーワードを入力し、検索ボタンを押下した場合' do
+        before do
+          choose 'in_progress'
+          fill_in 'search_word', with: 'task'
+        end
+        example 'タスクを検索できる' do
+          click_button '検索'
+          expect(page).to have_content 'taskD'
+        end
       end
     end
 
