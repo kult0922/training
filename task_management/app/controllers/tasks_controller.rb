@@ -14,8 +14,10 @@ class TasksController < ApplicationController
   def index
     user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
     @order = params[:order]
-    sort_key = Task.get_sort_key(params[:sort], @order)
-    @tasks = Task.search_tasks(user_id, sort_key, params)
+    @tasks = Task.where(user_id: user_id)
+                 .get_status(params[:status])
+                 .search_word(params[:search_word])
+                 .sort_key(params[:sort], @order)
   end
 
   # 詳細画面
