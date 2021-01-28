@@ -12,3 +12,7 @@ ja:
               blank: が空です
             password_confirmation:
               blank: もう一度入力してください
+
+  roles:
+    admin: 管理者
+    editor: 一般

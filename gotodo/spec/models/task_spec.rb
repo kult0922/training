@@ -65,7 +65,8 @@ RSpec.describe Task, type: :model do
   end
 
   describe '検索機能' do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:admin_role) { FactoryBot.create(:role, :admin) }
+    let!(:user) { FactoryBot.create(:user, role: admin_role) }
     let!(:task1) { FactoryBot.create(:task, title: '買い物に行く', status: 'done', user: user) }
     let!(:task2) { FactoryBot.create(:task, title: '料理をする', status: 'doing', user: user) }
     let!(:task3) { FactoryBot.create(:task, title: '食べる', status: 'todo', user: user) }

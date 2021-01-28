@@ -4,8 +4,9 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:login_user) { FactoryBot.create(:user, name: '夏目', email: 'natsume@example.com') }
-  let!(:other_user) { FactoryBot.create(:user, name: 'ニャンコ先生', email: 'nyanko@example.com') }
+  let!(:editor_role) { FactoryBot.create(:role, :editor) }
+  let!(:login_user) { FactoryBot.create(:user, name: '夏目', email: 'natsume@example.com', role: editor_role) }
+  let!(:other_user) { FactoryBot.create(:user, name: 'ニャンコ先生', email: 'nyanko@example.com', role: editor_role) }
   subject { page }
 
   before 'ログイン' do

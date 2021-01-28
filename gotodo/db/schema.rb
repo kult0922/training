@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_065449) do
+ActiveRecord::Schema.define(version: 2021_01_26_004948) do
+
+  create_table "roles", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name", limit: 10, null: false
+    t.integer "no", limit: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "title", limit: 50, null: false
@@ -33,8 +40,11 @@ ActiveRecord::Schema.define(version: 2021_01_13_065449) do
     t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
   add_foreign_key "tasks", "users"
+  add_foreign_key "users", "roles"
 end

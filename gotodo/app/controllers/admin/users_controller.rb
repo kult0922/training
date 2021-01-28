@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class UsersController < ApplicationController
-    before_action :login_check
-
+  class UsersController < AdminController
     def index
       user_sort_params
       @users = User.users_with_tasks_count
