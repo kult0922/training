@@ -1,10 +1,7 @@
 # GoToDo!!!
 
 ## OVERVIEW
-* 場所も登録できるタスク管理アプリ
-* 近くを通りがかったらやる系のタスクを管理できる  
-  e.g. 雑誌で見かけたカフェに行く  
-  e.g. 期間限定イベントに行く
+* タスク管理アプリ
 
 
 ## REQUIREMENT
@@ -13,32 +10,41 @@
 
 ## ENVIRONMENT
 * Ruby
-```
+```console
 # ruby -v
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-linux]
 ```
 
 * Ruby on Rails
-```
+```console
 # rails -v
 Rails 6.1.0
 ```
 
 * MySQL
-```
+```console
 # mysql --version
 mysql  Ver 8.0.22 for Linux on x86_64 (MySQL Community Server - GPL)
 ```
 
 
 ## INSTALL
-```
+```console
 $ cd training/gotodo/
 $ docker-compose build
 $ docker-compose up -d
 ```
 http://localhost:3001/ にアクセス
 
+
+## MAINTENANCE
+```console
+# メンテナンスモード開始
+x@x:training/gotodo$ bundle exec rails runner Batch::Maintenance.start
+
+# メンテナンスモード終了
+x@x:training/gotodo$ bundle exec rails runner Batch::Maintenance.end
+```
 
 ## TABLE SCHEMA
 
