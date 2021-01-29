@@ -48,39 +48,9 @@ http://localhost:3001/ にアクセス
 | ID | id | SERIAL | PK | 自動追加 |
 | タスク名 | title | VARCHAR(50) | NN | t.string |
 | 説明 | detail | VARCHAR(200) | | t.string |
-| ※住所 | location| TEXT | | t.text |
-| ※緯度 | lat | DOUBLE | | t.decimal |
-| ※経度 | lng | DOUBLE | | t.decimal |
 | ステータス | status | INT |  | t.integer (enum) |
-| ※優先度ID | priority_id | INT | FK(優先度テーブル.優先度ID) | t.references :priority, foreign_key: true |
 | ユーザID | user_id | INT | FK(ユーザテーブル.ID) | t.references :user, foreign_key: true |
 | 終了期限 | end_date | DATETIME | | t.datetime |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-### ※優先度テーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| 優先度番号 | priority_no | INT | NN | t.integer |
-| 優先度 | priority | VARCHAR(255) | NN | t.string |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-### ※ラベルテーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| ラベル | label_name | VARCHAR(255) | NN | t.string |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-### ※タスクラベルテーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| タスクID | task_id | INT | FK(タスクテーブル.ID) | t.integer |
-| ラベルID | label_id | INT | FK(ラベルテーブル.ID) | t.integer |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
@@ -95,7 +65,7 @@ http://localhost:3001/ にアクセス
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
-### ※ロールテーブル
+### ロールテーブル
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
