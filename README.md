@@ -1,10 +1,7 @@
 # GoToDo!!!
 
 ## OVERVIEW
-* 場所も登録できるタスク管理アプリ
-* 近くを通りがかったらやる系のタスクを管理できる  
-  e.g. 雑誌で見かけたカフェに行く  
-  e.g. 期間限定イベントに行く
+* タスク管理アプリ
 
 
 ## REQUIREMENT
@@ -13,32 +10,41 @@
 
 ## ENVIRONMENT
 * Ruby
-```
+```console
 # ruby -v
 ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-linux]
 ```
 
 * Ruby on Rails
-```
+```console
 # rails -v
 Rails 6.1.0
 ```
 
 * MySQL
-```
+```console
 # mysql --version
 mysql  Ver 8.0.22 for Linux on x86_64 (MySQL Community Server - GPL)
 ```
 
 
 ## INSTALL
-```
+```console
 $ cd training/gotodo/
 $ docker-compose build
 $ docker-compose up -d
 ```
 http://localhost:3001/ にアクセス
 
+
+## MAINTENANCE
+```console
+# メンテナンスモード開始
+x@x:training/gotodo$ bundle exec rails runner Batch::Maintenance.start
+
+# メンテナンスモード終了
+x@x:training/gotodo$ bundle exec rails runner Batch::Maintenance.end
+```
 
 ## TABLE SCHEMA
 
@@ -48,39 +54,9 @@ http://localhost:3001/ にアクセス
 | ID | id | SERIAL | PK | 自動追加 |
 | タスク名 | title | VARCHAR(50) | NN | t.string |
 | 説明 | detail | VARCHAR(200) | | t.string |
-| ※住所 | location| TEXT | | t.text |
-| ※緯度 | lat | DOUBLE | | t.decimal |
-| ※経度 | lng | DOUBLE | | t.decimal |
 | ステータス | status | INT |  | t.integer (enum) |
-| ※優先度ID | priority_id | INT | FK(優先度テーブル.優先度ID) | t.references :priority, foreign_key: true |
 | ユーザID | user_id | INT | FK(ユーザテーブル.ID) | t.references :user, foreign_key: true |
 | 終了期限 | end_date | DATETIME | | t.datetime |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-### ※優先度テーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| 優先度番号 | priority_no | INT | NN | t.integer |
-| 優先度 | priority | VARCHAR(255) | NN | t.string |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-### ※ラベルテーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| ラベル | label_name | VARCHAR(255) | NN | t.string |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-### ※タスクラベルテーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| タスクID | task_id | INT | FK(タスクテーブル.ID) | t.integer |
-| ラベルID | label_id | INT | FK(ラベルテーブル.ID) | t.integer |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
@@ -95,7 +71,7 @@ http://localhost:3001/ にアクセス
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
-### ※ロールテーブル
+### ロールテーブル
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |

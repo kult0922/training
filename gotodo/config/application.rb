@@ -24,5 +24,6 @@ module Myapp
     config.i18n.default_locale = :ja
 
     config.action_controller.include_all_helpers = false
+    config.eager_load_paths += Dir["#{config.root}/lib"]
   end
 end

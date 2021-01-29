@@ -3,6 +3,15 @@
 class ApplicationController < ActionController::Base
   add_flash_types :success, :info, :warning, :danger
 
+  before_action :render_503, if: :maintenance_mode?
+  def render_503
+    render file: Rails.public_path.join('503.ja.html'), status: 503
+  end
+
+  def maintenance_mode?
+    File.exist?(Constants::MAINTENANCE)
+  end
+
   before_action :login_check
 
   def login_check
