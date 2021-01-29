@@ -62,7 +62,7 @@ RSpec.describe Task, type: :system do
       example 'タスク一覧が表示される' do
         visit root_path
         expect(current_path).to eq root_path
-        expect(page).to have_content added_task.name
+        expect(page).to have_content added_index_task.name
       end
     end
 
@@ -110,10 +110,10 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'test_task_1'
-          expect(page).to have_content 'taskC'
-          expect(page).to have_content 'taskD'
-          expect(page).to have_content 'taskE'
+          expect(page).to have_content added_index_task.name
+          expect(page).to have_content taskC.name
+          expect(page).to have_content taskD.name
+          expect(page).to have_content taskE.name
         end
       end
 
@@ -123,10 +123,10 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'test_task_1'
-          expect(page).to have_content 'taskC'
-          expect(page).to have_content 'taskD'
-          expect(page).to have_content 'taskE'
+          expect(page).to have_content added_index_task.name
+          expect(page).to have_content taskC.name
+          expect(page).to have_content taskD.name
+          expect(page).to have_content taskE.name
         end
       end
 
@@ -136,7 +136,7 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'taskC'
+          expect(page).to have_content taskC.name
         end
       end
 
@@ -146,7 +146,7 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'taskD'
+          expect(page).to have_content taskD.name
         end
       end
 
@@ -156,7 +156,7 @@ RSpec.describe Task, type: :system do
         end
         example 'タスクを検索できる' do
           click_button '検索'
-          expect(page).to have_content 'taskE'
+          expect(page).to have_content taskE.name
         end
       end
 
@@ -208,6 +208,65 @@ RSpec.describe Task, type: :system do
           click_link 'deadline_asc'
           until page.has_link?('deadline_desc'); end
           expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
+        end
+      end
+    end
+
+    describe 'paging' do
+      before do
+        @tasks = create_list(:task, 25,
+                             creation_date: Time.zone.now + 30.days,
+                             user_id: test_index_user.id)
+        visit root_path
+      end
+      context 'ページングの「最初」リンクを押下した場合' do
+        example '最初のページにタスクが25件表示される' do
+          click_link '最後'
+          click_link '最初'
+          @tasks.each do |task|
+            expect(page).to have_content task.name
+          end
+        end
+      end
+
+      context 'ページングの「最後」リンクを押下した場合' do
+        example '最後のページにタスクが1件表示される' do
+          click_link '最後'
+          expect(page).to have_content added_index_task.name
+        end
+      end
+
+      context 'ページングの「前」リンクを押下した場合' do
+        example '最初のページにタスクが25件表示される' do
+          click_link '次'
+          click_link '前'
+          @tasks.each do |task|
+            expect(page).to have_content task.name
+          end
+        end
+      end
+
+      context 'ページングの「次」リンクを押下した場合' do
+        example '最後のページにタスクが1件表示される' do
+          click_link '次'
+          expect(page).to have_content added_index_task.name
+        end
+      end
+
+      context 'ページングの「1」リンクを押下した場合' do
+        example '最初のページにタスクが25件表示される' do
+          click_link '2'
+          click_link '1'
+          @tasks.each do |task|
+            expect(page).to have_content task.name
+          end
+        end
+      end
+
+      context 'ページングの「2」リンクを押下した場合' do
+        example '最後のページにタスクが1件表示される' do
+          click_link '2'
+          expect(page).to have_content added_index_task.name
         end
       end
     end
