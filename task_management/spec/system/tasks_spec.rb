@@ -213,17 +213,15 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'paging' do
+      let!(:tasks) { create_list(:task, 25, creation_date: Time.zone.now + 30.days, user_id: test_index_user.id) }
       before do
-        @tasks = create_list(:task, 25,
-                             creation_date: Time.zone.now + 30.days,
-                             user_id: test_index_user.id)
         visit root_path
       end
       context 'ページングの「最初」リンクを押下した場合' do
         example '最初のページにタスクが25件表示される' do
           click_link '最後'
           click_link '最初'
-          @tasks.each do |task|
+          tasks.each do |task|
             expect(page).to have_content task.name
           end
         end
@@ -240,7 +238,7 @@ RSpec.describe Task, type: :system do
         example '最初のページにタスクが25件表示される' do
           click_link '次'
           click_link '前'
-          @tasks.each do |task|
+          tasks.each do |task|
             expect(page).to have_content task.name
           end
         end
@@ -257,7 +255,7 @@ RSpec.describe Task, type: :system do
         example '最初のページにタスクが25件表示される' do
           click_link '2'
           click_link '1'
-          @tasks.each do |task|
+          tasks.each do |task|
             expect(page).to have_content task.name
           end
         end
