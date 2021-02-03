@@ -49,6 +49,8 @@
       <% end %>
     </tbody>
   </table>
+  <br>
+  <%= paginate @tasks %>
 </div>
 <hr>
 <%= link_to I18n.t('tasks.footer.new'), new_task_path %>

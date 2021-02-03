@@ -18,6 +18,7 @@ class TasksController < ApplicationController
                  .get_status(params[:status])
                  .search_word(params[:search_word])
                  .sort_key(params[:sort], @order)
+                 .page(params[:page])
   end
 
   # 詳細画面
