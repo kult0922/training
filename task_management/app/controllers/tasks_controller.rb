@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# タスクコントローラー
 class TasksController < ApplicationController
   attr_reader :task
   # TODO: ユーザIDを画面からの連携パラメータに追加する。現状、テスト用のユーザIDを設定している。ステップ17で見直す。
@@ -12,28 +13,12 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     user_id = User.select(:id).find_by(login_id: TEST_USER_ID)
-
-    # ソートキーを設定
-    sort = params[:sort]
-    if sort.nil?
-      order = 'creation_date DESC'
-    else
-      order = sort + ' DESC'
-    end
-
-    # 検索ボタンを押下した場合
-    search_btn = params[:search_btn]
-    if t('.search') == search_btn
-      search_word = params[:search_word]
-      status = params[:status]
-      if 'all' == status then status = Task.statuses.values end
-      @tasks = Task.where(user_id: user_id)
-                     .where(status: status)
-                     .where('name like ?','%' + search_word + '%')
-                     .order(order).page(params[:page])
-    else
-      @tasks = Task.where(user_id: user_id).order(order).page(params[:page])
-    end
+    @order = params[:order]
+    @tasks = Task.where(user_id: user_id)
+                 .get_status(params[:status])
+                 .search_word(params[:search_word])
+                 .sort_key(params[:sort], @order)
+                 .page(params[:page])
   end
 
   # 詳細画面
@@ -97,7 +82,13 @@ class TasksController < ApplicationController
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task)
+          .permit(:user_id,
+                  :name,
+                  :details,
+                  :deadline,
+                  :status,
+                  :priority,
+                  label_ids: [])
   end
-
 end
