@@ -1,0 +1,100 @@
+body {
+  margin: 10px;
+  padding: 0;
+}
+table {
+  border-collapse: collapse;
+}
+thead, tbody {
+  display: block;
+}
+tbody {
+  height: 270px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+#search_word {
+  width: 230px;
+}
+#task_detail {
+  height: 180px;
+}
+#task_new, #task_edit {
+  height: 220px;
+}
+tbody::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+tbody::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+th, td {
+  background-color: #ffffff;
+  border: 1px solid #ffcc66;
+  padding: 0 8px;
+  line-height: 40px;
+}
+thead th {
+  background-color: #fff5e5;
+  border: 1px solid #ffcc66;
+  color: #ff9900;
+  text-align: center;
+}
+@mixin column-text-center($width) {
+  width: $width;
+  text-align: center;
+}
+th.no, td.no {
+  @include column-text-center(45px)
+}
+th.name, td.name {
+  width: 200px;
+}
+th.details, td.details {
+  width: 200px;
+}
+th.deadline, td.deadline {
+  width: 170px;
+}
+th.priority, td.priority {
+  @include column-text-center(70px)
+}
+th.status, td.status {
+  @include column-text-center(100px)
+}
+th.edit, td.edit {
+  @include column-text-center(80px)
+}
+th.delete, td.delete {
+  @include column-text-center(70px)
+}
+th.creation_date, td.creation_date {
+  width: 180px;
+}
+td a {
+  color: #1e90ff !important;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+tbody tr:hover td {
+  background: #ccffff;
+}
+input#deadline {
+  width: 150px;
+}
+.sort_icon {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  border: 1px dashed #999;
+}
+.pagination span {
+  margin: 3px;
+}
+.alert-color {
+  border-color: #ff0000;
+}
