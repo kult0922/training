@@ -19,10 +19,7 @@ tbody {
 #task_detail {
   height: 180px;
 }
-#task_new {
-  height: 220px;
-}
-#task_edit {
+#task_new, #task_edit {
   height: 220px;
 }
 tbody::-webkit-scrollbar {
@@ -34,7 +31,7 @@ tbody::-webkit-scrollbar-thumb {
   background-color: rgba(0,0,0,.5);
   box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
-th,td {
+th, td {
   background-color: #ffffff;
   border: 1px solid #ffcc66;
   padding: 0 8px;
@@ -46,9 +43,12 @@ thead th {
   color: #ff9900;
   text-align: center;
 }
-th.no, td.no {
-  width: 45px;
+@mixin column-text-center($width) {
+  width: $width;
   text-align: center;
+}
+th.no, td.no {
+  @include column-text-center(45px)
 }
 th.name, td.name {
   width: 200px;
@@ -60,29 +60,25 @@ th.deadline, td.deadline {
   width: 170px;
 }
 th.priority, td.priority {
-  width: 70px;
-  text-align: center;
+  @include column-text-center(70px)
 }
 th.status, td.status {
-  width: 100px;
-  text-align: center;
+  @include column-text-center(100px)
 }
 th.edit, td.edit {
-  width: 80px;
-  text-align: center;
+  @include column-text-center(80px)
 }
 th.delete, td.delete {
-  width: 70px;
-  text-align: center;
+  @include column-text-center(70px)
 }
 th.creation_date, td.creation_date {
   width: 180px;
 }
 td a {
   color: #1e90ff !important;
-}
-td a:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 tbody tr:hover td {
   background: #ccffff;
