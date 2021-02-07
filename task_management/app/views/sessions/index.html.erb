@@ -5,9 +5,9 @@
   <%= form_with url: login_path, user: @user, method: :post, local: true do |f| %>
     <dl>
       <dt>ログインID</dt>
-      <dd><%= f.text_field :login_id, placeholder: "入力してください", id: 'login_id' %></dd>
+      <dd><%= f.text_field :login_id, placeholder: I18n.t('sessions.message.input'), id: 'login_id' %></dd>
       <dt>パスワード</dt>
-      <dd><%= f.password_field :password, placeholder: "入力してください", id: 'password' %></dd>
+      <dd><%= f.password_field :password, placeholder: I18n.t('sessions.message.input'), id: 'password' %></dd>
     </dl>
     <%= f.submit t('.login') %>
   <% end %>
