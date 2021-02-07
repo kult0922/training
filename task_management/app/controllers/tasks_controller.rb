@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# タスクコントローラー
 class TasksController < ApplicationController
   attr_reader :task, :user
 
@@ -11,26 +12,12 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    # ソートキーを設定
-    sort = params[:sort]
-    order = if sort.nil?
-              'creation_date DESC'
-            else
-              sort + ' DESC'
-            end
-    search_btn = params[:search_btn]
-    # 検索ボタンを押下した場合
-    if t('.search') == search_btn
-      search_word = params[:search_word]
-      status      = params[:status]
-      status = Task.statuses.values if status == 'all'
-      @tasks = Task.where(user_id: @user.id)
-                     .where(status: status)
-                     .where('name like ?', '%' + search_word + '%')
-                     .order(order).page(params[:page])
-    else
-      @tasks = Task.where(user_id: @user.id).order(order).page(params[:page])
-    end
+    @order = params[:order]
+    @tasks = Task.where(user_id: @user.id)
+                 .get_status(params[:status])
+                 .search_word(params[:search_word])
+                 .sort_key(params[:sort], @order)
+                 .page(params[:page])
   end
 
   # 詳細画面
@@ -92,10 +79,8 @@ class TasksController < ApplicationController
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task).permit(:user_id, :name, :details, :deadline, :status, :priority, label_ids: [])
   end
-
-  private
 
   def check_login
     user_id = session[:user_id]

@@ -38,6 +38,8 @@ group :development, :test do
   gem 'debase'
   gem 'ruby-debug-ide'
   gem 'debase-ruby_core_source'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 group :development do

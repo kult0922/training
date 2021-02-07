@@ -1,10 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :authority do
-    sequence :role do |n|
-      n
-    end
-    sequence :name do |n|
-      'test_role_1'
-    end
+    sequence(:role, 1)
+    sequence(:name, 'test_role_1')
   end
 end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :task do
-    sequence(:name, "test_task_1")
-    sequence(:details, "test_details_1")
+    sequence(:name, 'test_task_1')
+    sequence(:details, 'test_details_1')
     deadline { Time.zone.now + 10.days }
     status { 1 }
     priority { 1 }
