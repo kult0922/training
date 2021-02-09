@@ -361,7 +361,7 @@ RSpec.describe Task, type: :system do
   describe 'session' do
     before { visit root_path }
     context 'ログアウトボタンを押下した場合' do
-      example 'ログアウトできる' do
+      example 'ログアウトし、ログイン画面に遷移する' do
         page.accept_confirm do
           click_button 'ログアウト'
         end
