@@ -4,15 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'validation' do
-    let!(:test_authority) do
-      create(:authority,
-             role: 1,
-             name: 'test')
-    end
-    let!(:test_user) do
-      create(:user,
-             authority_id: test_authority.id)
-    end
+    let(:test_authority) { create(:authority, role: 1, name: 'test') }
+    let(:test_user) { create(:user, authority_id: test_authority.id) }
     let(:user_id) { test_user.id }
     let(:name) { 'test_name' }
     let(:details) { 'test_details' }

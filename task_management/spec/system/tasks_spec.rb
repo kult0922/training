@@ -5,56 +5,24 @@ require 'rails_helper'
 RSpec.describe Task, type: :system do
   before do
     visit login_path
-    fill_in 'login_id', with: test_index_user.login_id
-    fill_in 'password', with: test_index_user.password
+    fill_in 'login_id', with: index_user.login_id
+    fill_in 'password', with: index_user.password
     click_button 'ログイン'
   end
-  let(:test_name) { 'test_task2' }
-  let(:test_details) { 'test2_description' }
-  let(:test_deadline) { Time.zone.now + 3.days }
-  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let!(:test_index_user) do
-    create(:user, id: 1, login_id: 'yokuno', authority_id: test_authority.id)
-  end
+  let(:authority) { create(:authority, id: 1, role: 0, name: 'test') }
+  let(:index_user) { create(:user, id: 1, login_id: 'yokuno', authority_id: authority.id) }
   let!(:added_index_task) do
-    create(:task, id: 2,
-                  creation_date: Time.current + 5.days,
-                  user_id: test_index_user.id)
+    create(:task, creation_date: Time.current + 5.days,
+                  user_id: index_user.id)
   end
-  let!(:test_user) do
-    create(:user,
-           id: 2,
-           login_id: 'test_user_2',
-           authority_id: test_authority.id)
+  let(:other_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: authority.id) }
+  let!(:added_other_task) do
+    create(:task, creation_date: Time.current + 1.day,
+                  user_id: other_user.id)
   end
-  let!(:added_task) do
-    create(:task,
-           creation_date: Time.current + 1.day,
-           user_id: test_user.id)
-  end
-  let(:test_status) { Task.statuses.key(1) }
-  let!(:test_authority) do
-    create(:authority,
-           id: 1,
-           role: 0,
-           name: 'test')
-  end
-  let!(:test_index_user) do
-    create(:user,
-           id: 1,
-           login_id: 'yokuno',
-           authority_id: test_authority.id)
-  end
-  let!(:added_index_task) do
-    create(:task,
-           user_id: test_index_user.id)
-  end
-  let!(:test_user) do
-    create(:user,
-           id: 2,
-           login_id: 'test_user_2',
-           authority_id: test_authority.id)
-  end
+  let(:name) { 'test_task2' }
+  let(:details) { 'test2_description' }
+  let(:deadline) { Time.zone.now + 3.days }
 
   describe '#index' do
     before { visit root_path }
@@ -86,21 +54,21 @@ RSpec.describe Task, type: :system do
       let!(:taskC) do
         create(:task, name: 'taskC',
                       creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id,
+                      user_id: index_user.id,
                       deadline: Time.current + 4.days,
                       status: 1)
       end
       let!(:taskD) do
         create(:task, name: 'taskD',
                       creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id,
+                      user_id: index_user.id,
                       deadline: Time.current + 4.days,
                       status: 2)
       end
       let!(:taskE) do
         create(:task, name: 'taskE',
                       creation_date: Time.current + 2.days,
-                      user_id: test_index_user.id,
+                      user_id: index_user.id,
                       deadline: Time.current + 4.days,
                       status: 3)
       end
@@ -177,13 +145,13 @@ RSpec.describe Task, type: :system do
       let!(:taskA) do
         create(:task, name: 'taskA',
                       creation_date: Time.zone.now + 2.days,
-                      user_id: test_index_user.id,
+                      user_id: index_user.id,
                       deadline: Time.zone.now + 4.days)
       end
       let!(:taskB) do
         create(:task, name: 'taskB',
                       creation_date: Time.zone.now + 3.days,
-                      user_id: test_index_user.id,
+                      user_id: index_user.id,
                       deadline: Time.zone.now + 1.day)
       end
       before do
@@ -214,7 +182,7 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'paging' do
-      let!(:tasks) { create_list(:task, 25, creation_date: Time.zone.now + 30.days, user_id: test_index_user.id) }
+      let!(:tasks) { create_list(:task, 25, creation_date: Time.zone.now + 30.days, user_id: index_user.id) }
       before do
         visit root_path
       end
@@ -280,9 +248,9 @@ RSpec.describe Task, type: :system do
     end
 
     context 'ログインユーザに対応付かないタスクIDを用いてタスク詳細画面にアクセスした場合' do
-      before { visit task_path(added_task) }
+      before { visit task_path(added_other_task) }
       example '404ページに遷移する' do
-        expect(current_path).to eq task_path(added_task)
+        expect(current_path).to eq task_path(added_other_task)
         expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
     end
@@ -298,9 +266,9 @@ RSpec.describe Task, type: :system do
 
     context '全項目を入力して登録ボタンを押下した場合' do
       before do
-        fill_in 'name', with: test_name
-        fill_in 'details', with: test_details
-        fill_in 'deadline', with: test_deadline
+        fill_in 'name', with: name
+        fill_in 'details', with: details
+        fill_in 'deadline', with: deadline
         select '中', from: 'task[priority]'
         select '着手', from: 'task[status]'
       end
@@ -313,8 +281,8 @@ RSpec.describe Task, type: :system do
     context '必須項目を入力せず、登録ボタンを押下した場合' do
       before do
         fill_in 'name', with: ''
-        fill_in 'details', with: test_details
-        fill_in 'deadline', with: test_deadline
+        fill_in 'details', with: details
+        fill_in 'deadline', with: deadline
         select '中', from: 'task[priority]'
         select '着手', from: 'task[status]'
       end
@@ -334,16 +302,16 @@ RSpec.describe Task, type: :system do
     end
 
     context 'ログインユーザに対応付かないタスクIDを用いてタスク編集画面にアクセスした場合' do
-      before { visit edit_task_path(added_task) }
+      before { visit edit_task_path(added_other_task) }
       example '404ページに遷移する' do
-        expect(current_path).to eq edit_task_path(added_task)
+        expect(current_path).to eq edit_task_path(added_other_task)
         expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
     end
 
     context '全項目を入力し、更新ボタンを押下した場合' do
       before do
-        fill_in 'name', with: test_name
+        fill_in 'name', with: name
       end
       example 'タスクを更新できる' do
         click_button '更新'
@@ -365,12 +333,12 @@ RSpec.describe Task, type: :system do
   describe '#update' do
     context 'ログインユーザに対応付かないタスクIDを用いてタスク更新をした場合' do
       example 'タスクが更新できない' do
-        patch task_path(added_index_task), params: { id: added_task.id,
-                                                     name: added_task.name,
-                                                     deadline: added_task.deadline,
-                                                     status: added_task.status,
-                                                     priority: added_task.priority }
-        expect(added_index_task.reload.name).not_to eq added_task.name
+        patch task_path(added_index_task), params: { id: added_other_task.id,
+                                                     name: added_other_task.name,
+                                                     deadline: added_other_task.deadline,
+                                                     status: added_other_task.status,
+                                                     priority: added_other_task.priority }
+        expect(added_index_task.reload.name).not_to eq added_other_task.name
         expect(added_index_task.reload.name).to eq added_index_task.name
       end
     end
@@ -379,12 +347,12 @@ RSpec.describe Task, type: :system do
   describe 'destroy' do
     context 'ログインユーザに対応付かないタスクIDを用いてタスク削除をした場合' do
       example 'タスクが削除できない' do
-        delete task_path(added_index_task), params: { id: added_task.id,
-                                                      name: added_task.name,
-                                                      deadline: added_task.deadline,
-                                                      status: added_task.status,
-                                                      priority: added_task.priority }
-        expect(added_index_task.reload.name).not_to eq added_task.name
+        delete task_path(added_index_task), params: { id: added_other_task.id,
+                                                      name: added_other_task.name,
+                                                      deadline: added_other_task.deadline,
+                                                      status: added_other_task.status,
+                                                      priority: added_other_task.priority }
+        expect(added_index_task.reload.name).not_to eq added_other_task.name
         expect(added_index_task.reload.name).to eq added_index_task.name
       end
     end
