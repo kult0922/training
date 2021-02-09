@@ -2,27 +2,27 @@ class SessionsController < ApplicationController
   attr_reader :user
 
   def index
-    user_id = session[:user_id]
-    user = User.find(user_id) if user_id
-    return if user.blank?
+    return unless logged_in?
     redirect_to controller: :tasks, action: :index
   end
 
   # TODO: パスワードの暗号化はステップ18で行う（password→password_digest）
   def create
-    user = User.select(:id, :name, :authority_id).find_by(login_id: params[:login_id], password: params[:password])
+    user = User.select(:id, :name, :authority_id)
+               .find_by(login_id: params[:login_id],
+                        password: params[:password])
     if user.nil?
       flash[:alert] = 'ログインIDかパスワードを確認してください。'
       render :index
     else
+      log_in(user)
       flash[:alert] = ''
-      session[:user_id] = user.id
       redirect_to controller: :tasks, action: :index
     end
   end
 
   def destroy
-    session.delete(:user_id) if session[:user_id]
+    log_out
     flash[:notice] = 'ログアウトしました。'
     redirect_to action: :index
   end

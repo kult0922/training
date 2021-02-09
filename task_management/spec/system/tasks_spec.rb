@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-  before {
-    allow_any_instance_of(ActionDispatch::Request)
-      .to receive(:session).and_return(user_id: test_index_user.id)
-  }
+  before do
+    visit login_path
+    fill_in 'login_id', with: test_index_user.login_id
+    fill_in 'password', with: test_index_user.password
+    click_button 'ログイン'
+  end
   let(:test_name) { 'test_task2' }
   let(:test_details) { 'test2_description' }
   let(:test_deadline) { Time.zone.now + 3.days }
@@ -52,10 +54,6 @@ RSpec.describe Task, type: :system do
            id: 2,
            login_id: 'test_user_2',
            authority_id: test_authority.id)
-  end
-  let!(:added_task) do
-    create(:task,
-           user_id: test_user.id)
   end
 
   describe '#index' do
@@ -274,10 +272,18 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#show(task_id)' do
+    before { visit task_path(added_index_task) }
     context 'タスク詳細画面にアクセスした場合' do
       example 'タスク詳細画面が表示される' do
-        visit task_path(added_index_task)
         expect(current_path).to eq task_path(added_index_task)
+      end
+    end
+
+    context 'ログインユーザに対応付かないタスクIDを用いてタスク詳細画面にアクセスした場合' do
+      before { visit task_path(added_task) }
+      example '404ページに遷移する' do
+        expect(current_path).to eq task_path(added_task)
+        expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
     end
   end
@@ -320,10 +326,18 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#edit' do
-    before { visit edit_task_path(added_task) }
+    before { visit edit_task_path(added_index_task) }
     context 'タスク編集画面にアクセスした場合' do
       example 'タスク編集画面が表示される' do
+        expect(current_path).to eq edit_task_path(added_index_task)
+      end
+    end
+
+    context 'ログインユーザに対応付かないタスクIDを用いてタスク編集画面にアクセスした場合' do
+      before { visit edit_task_path(added_task) }
+      example '404ページに遷移する' do
         expect(current_path).to eq edit_task_path(added_task)
+        expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
     end
 
@@ -344,6 +358,34 @@ RSpec.describe Task, type: :system do
       example 'タスクが更新できない' do
         click_button '更新'
         expect(page).to have_content '更新に失敗しました。'
+      end
+    end
+  end
+
+  describe '#update' do
+    context 'ログインユーザに対応付かないタスクIDを用いてタスク更新をした場合' do
+      example 'タスクが更新できない' do
+        patch task_path(added_index_task), params: { id: added_task.id,
+                                                     name: added_task.name,
+                                                     deadline: added_task.deadline,
+                                                     status: added_task.status,
+                                                     priority: added_task.priority }
+        expect(added_index_task.reload.name).not_to eq added_task.name
+        expect(added_index_task.reload.name).to eq added_index_task.name
+      end
+    end
+  end
+
+  describe 'destroy' do
+    context 'ログインユーザに対応付かないタスクIDを用いてタスク削除をした場合' do
+      example 'タスクが削除できない' do
+        delete task_path(added_index_task), params: { id: added_task.id,
+                                                      name: added_task.name,
+                                                      deadline: added_task.deadline,
+                                                      status: added_task.status,
+                                                      priority: added_task.priority }
+        expect(added_index_task.reload.name).not_to eq added_task.name
+        expect(added_index_task.reload.name).to eq added_index_task.name
       end
     end
   end
