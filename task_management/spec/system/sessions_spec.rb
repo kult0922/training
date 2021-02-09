@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :system do
-  let(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let(:user1) { create(:user, id: 1, login_id: 'yokuno1', authority_id: test_authority.id) }
-  let(:user2) { create(:user, id: 2, login_id: 'yokuno2', authority_id: test_authority.id) }
+  let(:test_authority) { create(:authority, role: 0, name: 'test') }
+  let(:user1) { create(:user, login_id: 'yokuno1', authority_id: test_authority.id) }
+  let(:user2) { create(:user, login_id: 'yokuno2', authority_id: test_authority.id) }
   let!(:added_task1) { create(:task, creation_date: Time.current + 1.day, user_id: user1.id) }
   let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: user2.id) }
 

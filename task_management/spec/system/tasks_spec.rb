@@ -9,8 +9,8 @@ RSpec.describe Task, type: :system do
     fill_in 'password', with: user.password
     click_button 'ログイン'
   end
-  let(:authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let(:user) { create(:user, id: 1, login_id: 'yokuno', authority_id: authority.id) }
+  let(:authority) { create(:authority, role: 0, name: 'test') }
+  let(:user) { create(:user, login_id: 'yokuno', authority_id: authority.id) }
   let!(:added_user_task) { create(:task, creation_date: Time.current + 5.days, user_id: user.id) }
 
   describe '#index' do
