@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :system do
-  let!(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
-  let!(:test_user1) { create(:user, id: 1, login_id: 'yokuno1', authority_id: test_authority.id) }
+  let(:test_authority) { create(:authority, id: 1, role: 0, name: 'test') }
+  let(:test_user1) { create(:user, id: 1, login_id: 'yokuno1', authority_id: test_authority.id) }
+  let(:test_user2) { create(:user, id: 2, login_id: 'yokuno2', authority_id: test_authority.id) }
   let!(:added_task1) { create(:task, creation_date: Time.current + 1.day, user_id: test_user1.id) }
-  let!(:test_user2) { create(:user, id: 2, login_id: 'yokuno2', authority_id: test_authority.id) }
   let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: test_user2.id) }
 
   describe '#index' do
