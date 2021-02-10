@@ -86,7 +86,7 @@ class TasksController < ApplicationController
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:name, :details, :deadline, :status, :priority, label_ids: [])
+    params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
   end
 
   def check_existence_task(task)
