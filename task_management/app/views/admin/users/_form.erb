@@ -26,9 +26,7 @@
       <td class="login_id"><%= f.text_field :login_id, placeholder: I18n.t('admin.users.message.input'), id: 'login_id' %></td>
       <td class="password"><%= f.text_field :password, placeholder: I18n.t('admin.users.message.input'), id: 'password' %></td>
       <td class="name"><%= f.text_field :name, placeholder: I18n.t('admin.users.message.input'), id: 'name' %></td>
-      <td class="authority"><%= f.select :authority_id,
-                                         authority.map{|a| [a.name, a.id]}
-                            %>
+      <td class="authority"><%= f.select :authority_id, authority.map{|a| [a.name, a.id]} %>
       </td>
     </tr>
     </tbody>

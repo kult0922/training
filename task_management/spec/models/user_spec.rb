@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validation' do
-    let(:test_authority) {create(:authority)}
+    let(:test_authority) { create(:authority) }
     let(:login_id) { 'test_login' }
     let(:name) { 'test_name' }
     let(:password) { 'pass' }
