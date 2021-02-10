@@ -5,9 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Sessions', type: :system do
   let(:test_authority) { create(:authority, role: 0, name: 'test') }
   let(:user1) { create(:user, login_id: 'yokuno1', authority_id: test_authority.id) }
-  let(:user2) { create(:user, login_id: 'yokuno2', authority_id: test_authority.id) }
   let!(:added_task1) { create(:task, creation_date: Time.current + 1.day, user_id: user1.id) }
-  let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: user2.id) }
 
   describe '#index' do
     context 'ログイン画面にアクセス成功した場合' do
@@ -28,6 +26,8 @@ RSpec.describe 'Sessions', type: :system do
     context '存在するログインIDとパスワードを入力してログインボタンを押下した場合' do
       let(:login_id) { user1.login_id }
       let(:password) { user1.password }
+      let(:user2) { create(:user, login_id: 'yokuno2', authority_id: test_authority.id) }
+      let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: user2.id) }
       context 'ログインに成功する' do
         it { is_expected.to have_current_path root_path }
       end
