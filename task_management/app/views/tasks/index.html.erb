@@ -54,3 +54,9 @@
 </div>
 <hr>
 <%= link_to I18n.t('tasks.footer.new'), new_task_path %>
+<hr>
+<%= button_to t('.btn_logout'), logout_path(@user),
+              { method: :delete,
+                data: { confirm: t('.confirm_logout'),
+                        disable_with: t('.load_logout') }
+              } %>
