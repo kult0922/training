@@ -238,7 +238,7 @@ RSpec.describe Task, type: :system do
 
     context 'ログインユーザに対応付かないタスクIDを用いてタスク詳細画面にアクセスした場合' do
       before { visit task_path(added_other_user_task) }
-      let(:other_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: authority.id) }
+      let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example '404ページに遷移する' do
         expect(current_path).to eq task_path(added_other_user_task)
@@ -297,7 +297,7 @@ RSpec.describe Task, type: :system do
 
     context 'ログインユーザに対応付かないタスクIDを用いてタスク編集画面にアクセスした場合' do
       before { visit edit_task_path(added_other_user_task) }
-      let(:other_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: authority.id) }
+      let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example '404ページに遷移する' do
         expect(current_path).to eq edit_task_path(added_other_user_task)
@@ -328,7 +328,7 @@ RSpec.describe Task, type: :system do
 
   describe '#update' do
     context 'ログインユーザに対応付かないタスクIDを用いてタスク更新をした場合' do
-      let(:other_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: authority.id) }
+      let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example 'タスクが更新できない' do
         patch task_path(added_user_task), params: { id: added_other_user_task.id,
@@ -344,7 +344,7 @@ RSpec.describe Task, type: :system do
 
   describe 'destroy' do
     context 'ログインユーザに対応付かないタスクIDを用いてタスク削除をした場合' do
-      let(:other_user) { create(:user, id: 2, login_id: 'test_user_2', authority_id: authority.id) }
+      let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example 'タスクが削除できない' do
         delete task_path(added_user_task), params: { id: added_other_user_task.id,
