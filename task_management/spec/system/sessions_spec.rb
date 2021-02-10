@@ -6,74 +6,75 @@ RSpec.describe 'Sessions', type: :system do
   let(:test_authority) { create(:authority, role: 0, name: 'test') }
   let(:user1) { create(:user, login_id: 'yokuno1', authority_id: test_authority.id) }
   let!(:added_task1) { create(:task, creation_date: Time.current + 1.day, user_id: user1.id) }
+  let(:login_id) { user1.login_id }
+  let(:password) { user1.password }
 
   describe '#index' do
-    context 'ログイン画面にアクセス成功した場合' do
+    context 'ログイン画面にアクセスした場合' do
       before { visit login_path }
-      it { is_expected.to have_content 'ログイン' }
+      example 'ログイン画面が表示される' do
+        expect(current_path).to eq login_path
+        expect(page).to have_content 'ログイン'
+      end
     end
   end
 
   describe '#create' do
-    before { visit root_path }
-    subject do
+    before do
+      visit root_path
       fill_in 'login_id', with: login_id
       fill_in 'password', with: password
       click_button 'ログイン'
-      page
     end
 
     context '存在するログインIDとパスワードを入力してログインボタンを押下した場合' do
-      let(:login_id) { user1.login_id }
-      let(:password) { user1.password }
       let(:user2) { create(:user, login_id: 'yokuno2', authority_id: test_authority.id) }
       let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: user2.id) }
-      context 'ログインに成功する' do
-        it { is_expected.to have_current_path root_path }
+      example 'ログインに成功する' do
+        expect(current_path).to eq root_path
       end
-      context '自身のタスクのみが表示される' do
-        it { is_expected.to have_content added_task1.name }
-        it { is_expected.not_to have_content added_task2.name }
+      example '自身のタスクのみが表示される' do
+        expect(page).to have_content added_task1.name
+        expect(page).not_to have_content added_task2.name
       end
     end
 
     context '存在しないログインIDを入力してログインボタンを押下した場合' do
       let(:login_id) { 'non-existent_user' }
-      let(:password) { user1.password }
-      context 'ログインに失敗する' do
-        it { is_expected.to have_current_path login_path }
-        it { is_expected.to have_content 'ログインIDかパスワードを確認してください。' }
+      example 'ログインに失敗する' do
+        expect(current_path).to eq login_path
+        expect(page).to have_content 'ログインIDかパスワードを確認してください。'
       end
     end
 
     context '誤ったパスワードを入力してログインボタンを押下した場合' do
-      context 'ログインに失敗する' do
-        let(:login_id) { user1.login_id }
-        let(:password) { 'wrong_password' }
-        it { is_expected.to have_current_path login_path }
-        it { is_expected.to have_content 'ログインIDかパスワードを確認してください。' }
+      let(:password) { 'wrong_password' }
+      example 'ログインに失敗する' do
+        expect(current_path).to eq login_path
+        expect(page).to have_content 'ログインIDかパスワードを確認してください。'
       end
     end
 
     context 'ログインIDとパスワードを未入力でログインボタンを押下した場合' do
-      context 'ログインに失敗する' do
-        let(:login_id) { '' }
-        let(:password) { '' }
-        it { is_expected.to have_current_path login_path }
-        it { is_expected.to have_content 'ログインIDかパスワードを確認してください。' }
+      let(:login_id) { '' }
+      let(:password) { '' }
+      example 'ログインに失敗する' do
+        expect(current_path).to eq login_path
+        expect(page).to have_content 'ログインIDかパスワードを確認してください。'
       end
     end
   end
 
   describe '#destroy' do
     before do
-      visit root_path
+      visit login_path
       fill_in 'login_id', with: user1.login_id
       fill_in 'password', with: user1.password
       click_button 'ログイン'
     end
+
     context 'ログイン後、ログアウトボタンを押下した場合' do
-      it 'logout' do
+      example 'ログアウトし、ログイン画面に遷移する' do
         page.accept_confirm do
           click_button 'ログアウト'
         end
@@ -86,8 +87,9 @@ RSpec.describe 'Sessions', type: :system do
   describe 'root' do
     context 'ログインしていない状態でタスク管理画面にアクセスした場合' do
       before { visit root_path }
-      it 'ログイン画面に遷移する' do
-        expect(page).to have_current_path login_path
+      example 'ログイン画面に遷移する' do
+        expect(current_path).to eq login_path
+        expect(page).to have_content 'ログイン'
       end
     end
   end
