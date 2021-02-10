@@ -6,6 +6,7 @@ RSpec.describe 'Users', type: :system do
   before :all do
     @test_authority_admin =
       create(:authority,
+             id: 1,
              role: 0,
              name: '管理者')
     @test_user_admin =
@@ -19,6 +20,7 @@ RSpec.describe 'Users', type: :system do
 
     @test_authority_general =
       create(:authority,
+             id: 2,
              role: 1,
              name: '一般')
     @test_user_general =
