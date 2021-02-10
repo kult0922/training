@@ -332,10 +332,7 @@ RSpec.describe Task, type: :system do
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example 'タスクが更新できない' do
         patch task_path(added_user_task), params: { id: added_other_user_task.id,
-                                                    name: added_other_user_task.name,
-                                                    deadline: added_other_user_task.deadline,
-                                                    status: added_other_user_task.status,
-                                                    priority: added_other_user_task.priority }
+                                                    name: added_other_user_task.name }
         expect(added_user_task.reload.name).not_to eq added_other_user_task.name
         expect(added_user_task.reload.name).to eq added_user_task.name
       end
@@ -347,11 +344,7 @@ RSpec.describe Task, type: :system do
       let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example 'タスクが削除できない' do
-        delete task_path(added_user_task), params: { id: added_other_user_task.id,
-                                                     name: added_other_user_task.name,
-                                                     deadline: added_other_user_task.deadline,
-                                                     status: added_other_user_task.status,
-                                                     priority: added_other_user_task.priority }
+        delete task_path(added_user_task), params: { id: added_other_user_task.id }
         expect(added_user_task.reload.name).not_to eq added_other_user_task.name
         expect(added_user_task.reload.name).to eq added_user_task.name
       end
