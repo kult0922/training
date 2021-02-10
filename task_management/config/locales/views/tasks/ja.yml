@@ -1,8 +1,22 @@
 ja:
   tasks:
+    header:
+      name: タスク
+      details: 詳細
+      deadline: 期限
+      priority: 優先度
+      status: ステータス
+      creation_date: 作成日時
+      edit: 編集
+      delete: 削除
+
+    footer:
+      index: 一覧画面へ
+      new: 作成画面へ
+
     index:
       title: タスク一覧
-      btn_edit: 編集
+      edit: 編集
       btn_delete: 削除
       confirm_delete: 本当に削除しますか？
       load_delete: 削除中
@@ -13,6 +27,7 @@ ja:
         todo: 未着手
         in_progress: 着手
         done: 完了
+      input_task: タスク名を入力してください
 
     show:
       title: タスク詳細
@@ -25,17 +40,5 @@ ja:
       title: タスク編集
       btn_update: 更新
 
-    header:
-      name: タスク名
-      details: 詳細
-      deadline: 終了期限
-      priority: 優先度
-      status: ステータス
-      creation_date: 作成日時
-      edit: 編集
-      delete: 削除
-      registration: 登録
-
-    footer:
-      index: 一覧画面へ
-      new: 作成画面へ
+    message:
+      input: 入力してください

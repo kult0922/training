@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_001213) do
+ActiveRecord::Schema.define(version: 2021_01_14_052353) do
 
   create_table "authorities", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "role", limit: 1, null: false, comment: "権限区分"
+    t.integer "role", null: false, comment: "権限区分"
     t.string "name", null: false, comment: "権限名"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["role"], name: "index_authorities_on_role", unique: true
   end
 
   create_table "labels", charset: "utf8mb4", force: :cascade do |t|

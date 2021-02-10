@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# セッションコントローラー
 class SessionsController < ApplicationController
   attr_reader :user
 
@@ -9,7 +8,7 @@ class SessionsController < ApplicationController
     redirect_to controller: :tasks, action: :index
   end
 
-  # TODO: ステップ19でパスワードの暗号化を行う（password→password_digest）
+  # TODO: パスワードの暗号化はステップ18で行う（password→password_digest）
   def create
     user = User.select(:id, :name, :authority_id)
                .find_by(login_id: params[:login_id],

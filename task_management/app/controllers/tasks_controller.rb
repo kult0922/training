@@ -2,10 +2,9 @@
 
 # タスクコントローラー
 class TasksController < ApplicationController
-  attr_reader :task, :login_user
+  attr_reader :task, :user
 
   before_action :check_login_user
-  before_action :set_login_user, only: %i[index create]
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -13,34 +12,19 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    # ソートキーを設定
-    sort = params[:sort]
-    order = if sort.nil?
-              'creation_date DESC'
-            else
-              sort + ' DESC'
-            end
-    search_btn = params[:search_btn]
-    # 検索ボタンを押下した場合
-    if t('.search') == search_btn
-      search_word = params[:search_word]
-      status      = params[:status]
-      status      = Task.statuses.values if status == 'all'
-      @tasks = Task.where(user_id: @login_user.id)
-                   .where(status: status)
-                   .where('name like ?', '%' + search_word + '%')
-                   .order(order).page(params[:page])
-    else
-      @tasks = Task.where(user_id: @login_user.id)
-                   .order(order)
-                   .page(params[:page])
-    end
+    @order = params[:order]
+    @tasks = Task.where(user_id: current_user.id)
+                 .get_status(params[:status])
+                 .search_word(params[:search_word])
+                 .sort_key(params[:sort], @order)
+                 .page(params[:page])
   end
 
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    check_existence_task(@task)
   end
 
   # 作成画面
@@ -52,7 +36,8 @@ class TasksController < ApplicationController
   # 編集画面
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    check_existence_task(@task)
   end
 
   # ■画面更新系
@@ -61,7 +46,7 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @task = Task.new(task_params)
-    @task.user_id = @login_user.id
+    @task.user_id = current_user.id
     if @task.save
       flash[:notice] = '登録が完了しました。'
       redirect_to action: :new
@@ -74,7 +59,7 @@ class TasksController < ApplicationController
   # タスクを更新する
   # POST /tasks/[:タスクテーブルID]
   def update
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
     if @task.update(task_params)
       flash[:notice] = '更新が完了しました。'
       redirect_to action: :edit
@@ -87,29 +72,29 @@ class TasksController < ApplicationController
   # タスクを削除する
   # POST /tasks/[:タスクテーブルID]
   def destroy
-    Task.find(params[:id]).destroy
-    flash[:notice] = '削除しました。'
-    redirect_to tasks_url
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    if @task.destroy
+      flash[:notice] = '削除しました。'
+      redirect_to tasks_url
+    else
+      flash.now[:alert] = '削除に失敗しました。'
+      render tasks_url
+    end
   end
 
   private
 
   def task_params
     # TODO: ステップ20でラベル選択、複数登録可能とする
-    params.require(:task).permit(:name,
-                                 :details,
-                                 :deadline,
-                                 :status,
-                                 :priority,
-                                 label_ids: [])
+    params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
+  end
+
+  def check_existence_task(task)
+    render_404 if task.blank?
   end
 
   def check_login_user
     return if logged_in?
     redirect_to controller: :sessions, action: :index
-  end
-
-  def set_login_user
-    @login_user = current_user
   end
 end

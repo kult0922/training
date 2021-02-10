@@ -29,27 +29,9 @@
           <td class="password"><%= user.password %></td>
           <td class="name"><%= user.name %></td>
           <td class="authority"><%= user.authority.name %></td>
-          <td class="task_count">
-            <%= link_to user.tasks.ids.count,
-                        admin_user_path(user),
-                        { onclick: "window.open(this.href,
-                                   'new_window_#{user.id}',
-                                   'height=600px, width=1000px');
-                                   return false;",
-                          id: "show_user_link_#{user.id}"
-                        } %>
-          </td>
-          <td class="edit_user"><%= link_to image_tag('admin/users/edit_icon.png', class: 'icon edit_user_icon'),
-                                            edit_admin_user_path(user),
-                                            { id: "edit_user_link_#{user.id}" } %>
-          </td>
-          <td class="delete"><%= link_to image_tag('admin/users/delete_icon.png', class: 'icon delete_icon'),
-                                         admin_user_path(user),
-                                         { method: :delete,
-                                           data: { confirm: I18n.t('admin.users.index.confirm_delete') },
-                                           id: "delete_user_link_#{user.id}"
-                                         } %>
-          </td>
+          <td class="task_count"><%= tasks_link_to(user) %></td>
+          <td class="edit_user"><%= edit_icon_to(edit_admin_user_path(user), user.id) %></td>
+          <td class="delete"><%= delete_icon_to(admin_user_path(user), user.id) %></td>
         </tr>
       <% end %>
       </tbody>
@@ -60,9 +42,5 @@
   <hr>
   <%= link_to I18n.t('admin.footer.new'), new_admin_user_path %>
   <hr>
-  <%= button_to I18n.t('layouts.common.logout'), logout_path(@login_user),
-                { method: :delete,
-                  data: { confirm: I18n.t('layouts.common.confirm_logout'),
-                          disable_with: I18n.t('layouts.common.load_logout') }
-                } %>
+  <%= logout_button_to(@login_user) %>
 </div>
