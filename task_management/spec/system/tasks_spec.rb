@@ -172,9 +172,7 @@ RSpec.describe Task, type: :system do
 
     describe 'paging' do
       let!(:tasks) { create_list(:task, 25, creation_date: Time.zone.now + 30.days, user_id: user.id) }
-      before do
-        visit root_path
-      end
+      before { visit root_path }
       context 'ページングの「最初」リンクを押下した場合' do
         example '最初のページにタスクが25件表示される' do
           click_link '最後'
@@ -229,18 +227,18 @@ RSpec.describe Task, type: :system do
   end
 
   describe '#show(task_id)' do
-    before { visit task_path(added_user_task) }
     context 'タスク詳細画面にアクセスした場合' do
       example 'タスク詳細画面が表示される' do
+        visit task_path(added_user_task)
         expect(current_path).to eq task_path(added_user_task)
       end
     end
 
     context 'ログインユーザに対応付かないタスクIDを用いてタスク詳細画面にアクセスした場合' do
-      before { visit task_path(added_other_user_task) }
       let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example '404ページに遷移する' do
+        visit task_path(added_other_user_task)
         expect(current_path).to eq task_path(added_other_user_task)
         expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
@@ -291,15 +289,16 @@ RSpec.describe Task, type: :system do
     before { visit edit_task_path(added_user_task) }
     context 'タスク編集画面にアクセスした場合' do
       example 'タスク編集画面が表示される' do
+        visit edit_task_path(added_user_task)
         expect(current_path).to eq edit_task_path(added_user_task)
       end
     end
 
     context 'ログインユーザに対応付かないタスクIDを用いてタスク編集画面にアクセスした場合' do
-      before { visit edit_task_path(added_other_user_task) }
       let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
       example '404ページに遷移する' do
+        visit edit_task_path(added_other_user_task)
         expect(current_path).to eq edit_task_path(added_other_user_task)
         expect(page).to have_content 'お探しのページは見つかりませんでした。'
       end
