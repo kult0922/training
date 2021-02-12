@@ -4,14 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Label, type: :model do
   before :all do
-    @test_authority =
+    @authority_admin =
       create(:authority,
              role: 0,
              name: 'test')
-
-    @test_user =
-      create(:user,
-             authority_id: @test_authority.id)
   end
 
   after :all do
@@ -19,8 +15,9 @@ RSpec.describe Label, type: :model do
   end
 
   describe 'validation' do
-    let(:user_id) { @test_user.id }
-    let(:name) { @test_user.name }
+    let(:admin_user) { create(:user, authority_id: @authority_admin.id) }
+    let(:user_id) { admin_user.id }
+    let(:name) { admin_user.name }
 
     subject do
       build(
@@ -54,7 +51,7 @@ RSpec.describe Label, type: :model do
       let!(:test_label) do
         create(:label,
                name: 'test_label',
-               user_id: @test_user.id)
+               user_id: admin_user.id)
       end
       let(:name) { test_label.name }
       example '登録できない' do

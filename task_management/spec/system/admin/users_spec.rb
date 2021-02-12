@@ -6,13 +6,11 @@ RSpec.describe 'Users', type: :system do
   before :all do
     @authority_admin =
       create(:authority,
-             id: 1,
              role: 0,
              name: '管理者')
 
     @authority_general =
       create(:authority,
-             id: 2,
              role: 1,
              name: '一般')
   end

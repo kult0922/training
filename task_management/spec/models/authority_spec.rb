@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Authority, type: :model do
   before :all do
-    @test_authority =
+    @authority_admin =
       create(:authority,
              role: 0,
              name: 'test')
@@ -15,8 +15,8 @@ RSpec.describe Authority, type: :model do
   end
 
   describe 'validation' do
-    let(:role) { @test_authority.role }
-    let(:name) { @test_authority.name }
+    let(:role) { @authority_admin.role }
+    let(:name) { @authority_admin.name }
 
     subject do
       build(
