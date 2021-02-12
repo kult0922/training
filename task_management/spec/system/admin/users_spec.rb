@@ -4,72 +4,61 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :system do
   before :all do
-    @test_authority_admin =
+    @authority_admin =
       create(:authority,
              id: 1,
              role: 0,
              name: '管理者')
-    @test_user_admin =
-      create(:user,
-             login_id: 'test_1',
-             authority_id: @test_authority_admin.id)
-    @test_task_admin =
-      create(:task,
-             creation_date: Time.current + 5.days,
-             user_id: @test_user_admin.id)
 
-    @test_authority_general =
+    @authority_general =
       create(:authority,
              id: 2,
              role: 1,
              name: '一般')
-    @test_user_general =
-      create(:user,
-             login_id: 'test_2',
-             authority_id: @test_authority_general.id)
-    @test_task_general =
-      create(:task,
-             creation_date: Time.current + 6.days,
-             user_id: @test_user_general.id)
   end
 
   after :all do
     DatabaseCleaner.clean_with(:truncation)
   end
 
+  let(:admin_user) { create(:user, id: 1, login_id: 'test_1', authority_id: @authority_admin.id) }
+  let(:general_user) { create(:user, id: 2, login_id: 'test_2', authority_id: @authority_general.id) }
+  let!(:admin_task) { create(:task, creation_date: Time.current + 5.days, user_id: admin_user.id) }
+  let!(:general_task) { create(:task, creation_date: Time.current + 6.days, user_id: general_user.id) }
+
   describe '#index' do
     before { visit admin_users_path }
     context 'トップページにアクセスした場合' do
       example 'ユーザ一覧が表示される' do
         expect(current_path).to eq admin_users_path
-        expect(page).to have_content @test_user_admin.name
+        expect(page).to have_content admin_user.name
       end
     end
 
     context 'タスク数のリンクを押下した場合' do
       example 'ユーザのタスク一覧が表示される' do
-        click_link "show_task_link_#{@test_user_admin.id}"
+        click_link 'show_task_link_' + admin_user.id.to_s
         switch_to_window(windows.last)
-        expect(current_path).to eq admin_user_path(@test_user_admin.id)
-        expect(page).to have_content @test_task_admin.name
+        expect(current_path).to eq admin_user_path(admin_user.id)
+        expect(page).to have_content admin_task.name
       end
     end
 
     context 'ユーザ編集ボタンを押下した場合' do
       example 'ユーザ編集画面に遷移する' do
-        click_link "edit_link_#{@test_user_admin.id}"
-        expect(current_path).to eq edit_admin_user_path(@test_user_admin.id)
+        click_link 'edit_link_' + admin_user.id.to_s
+        expect(current_path).to eq edit_admin_user_path(admin_user.id)
       end
     end
 
     context 'ユーザ削除ボタンを押下した場合' do
       example '対象ユーザと対応づくタスクが全て削除される' do
         page.accept_confirm do
-          click_link "delete_link_#{@test_user_admin.id}"
+          click_link 'delete_link_' + admin_user.id.to_s
         end
-        expect(current_path).not_to eq admin_user_path(@test_user_admin.id)
-        expect(Task.where(user_id: @test_user_general.id).count).to eq 1
-        expect(Task.where(user_id: @test_user_admin.id).count).to eq 0
+        expect(current_path).not_to eq admin_user_path(admin_user.id)
+        expect(Task.where(user_id: general_user.id).count).to eq 1
+        expect(Task.where(user_id: admin_user.id).count).to eq 0
         expect(page).to have_content '削除しました。'
       end
     end
@@ -94,12 +83,12 @@ RSpec.describe 'Users', type: :system do
 
   describe '#show(user_id)' do
     before { visit admin_users_path }
-    context 'ユーザタスク一覧を押下し、閉じるボタンを押下した場合' do
+    context 'ユーザタスク一覧を押下、閉じるボタンを押下した場合' do
       example 'ユーザタスク一覧画を閉じる' do
-        click_link "show_task_link_#{@test_user_admin.id}"
+        click_link 'show_task_link_' + admin_user.id.to_s
         switch_to_window(windows.last)
-        expect(current_path).to eq admin_user_path(@test_user_admin.id)
-        expect(page).to have_content @test_task_admin.name
+        expect(current_path).to eq admin_user_path(admin_user.id)
+        expect(page).to have_content admin_task.name
         click_button '閉じる'
         switch_to_window(windows.first)
         expect(page).to have_current_path admin_users_path
@@ -142,7 +131,7 @@ RSpec.describe 'Users', type: :system do
   end
 
   describe '#edit' do
-    before { visit edit_admin_user_path(@test_user_admin.id) }
+    before { visit edit_admin_user_path(admin_user.id) }
     context '全項目を入力し、更新ボタンを押下した場合' do
       let(:login_id) { 'id' }
       let(:password) { 'pass' }
