@@ -9,18 +9,18 @@ TODO List
 https://preview.studio.site/live/4Ra4k9voqD/[1~5]
 
 # データ構造 
-## user
+## users
 |カラム名|データ型|
 |----|----|
 |id|int|
 |email|varchar|
 |password|varchar|
-|role_id|tinyint|
+|role_id|int|
 |created_at|datetime|
 |updated_at|datetime|
 |deleted_at|datetime|
 
-## role
+## roles
 |カラム名|データ型|
 |----|----|
 |id|int|
@@ -29,7 +29,7 @@ https://preview.studio.site/live/4Ra4k9voqD/[1~5]
 |updated_at|datetime|
 |deleted_at|datetime|
 
-## label
+## labels
 |カラム名|データ型|
 |----|----|
 |id|int|
@@ -39,14 +39,14 @@ https://preview.studio.site/live/4Ra4k9voqD/[1~5]
 |updated_at|datetime|
 |deleted_at|datetime|
 
-## task
+## tasks
 |カラム名|データ型|
 |----|----|
 |id|int|
 |user_id|int|
 |title|varchar|
 |detail|text|
-|status|tinyint|
+|status|int|
 |priority|int|
 |end_date|datetime|
 |created_at|datetime|
