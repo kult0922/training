@@ -15,7 +15,7 @@ module Admin
       # TODO: @current_user = current_user ステップ19用
       @login_user = User.select(:login_id, :name, :authority_id)
                         .find(TEST_USER_ID)
-      @users = User.select(:id, :login_id, :password, :name, :authority_id)
+      @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
                    .includes(:authority)
                    .page(params[:page])
                    .order(:authority_id).order(:id)

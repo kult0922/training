@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_14_052353) do
+ActiveRecord::Schema.define(version: 2021_02_16_071158) do
 
   create_table "authorities", charset: "utf8mb4", force: :cascade do |t|
     t.integer "role", null: false, comment: "権限区分"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2021_01_14_052353) do
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "login_id", limit: 12, null: false, comment: "ログインID"
     t.string "name", null: false, comment: "ユーザ名"
-    t.string "password", limit: 12, null: false, comment: "パスワード(暗号化して登録)"
+    t.string "password_digest", null: false, comment: "パスワード(暗号化して登録)"
     t.bigint "authority_id", null: false, comment: "権限ID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

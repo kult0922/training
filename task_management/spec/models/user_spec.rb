@@ -75,8 +75,8 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'パスワードの桁数が12桁よりも大きい場合' do
-      let(:password) { 'b' * 13 }
+    context 'パスワードの桁数が72桁よりも大きい場合' do
+      let(:password) { 'b' * 73 }
       example '登録できない' do
         is_expected.to_not be_valid
       end

@@ -10,7 +10,7 @@
       <tr>
         <th class="no">No</th>
         <th class="login_id"><%= I18n.t('admin.header.login_id') %></th>
-        <th class="password"><%= I18n.t('admin.header.password') %></th>
+        <th class="password_digest"><%= I18n.t('admin.header.password') %></th>
         <th class="name"><%= I18n.t('admin.header.name') %></th>
         <th class="authority"><%= I18n.t('admin.header.authority') %></th>
         <th class="task_count"><%= I18n.t('admin.header.task') %></th>
@@ -26,7 +26,7 @@
         <tr>
           <td class="no"><%= i += 1 %></td>
           <td class="login_id"><%= user.login_id %></td>
-          <td class="password"><%= user.password %></td>
+          <td class="password_digest"><%= user.password_digest %></td>
           <td class="name"><%= user.name %></td>
           <td class="authority"><%= user.authority.name %></td>
           <td class="task_count"><%= tasks_link_to(user) %></td>
