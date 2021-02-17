@@ -306,7 +306,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクが登録できない' do
         click_button '登録'
-        expect(page).to have_content '登録に失敗しました。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
@@ -346,7 +346,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクが更新できない' do
         click_button '更新'
-        expect(page).to have_content '更新に失敗しました。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end

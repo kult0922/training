@@ -49,10 +49,11 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user_id = current_user.id
     if @task.save
-      flash[:notice] = '登録が完了しました。'
+      flash[:notice] = I18n.t('flash.success.create',
+                              name: I18n.t('tasks.header.name'),
+                              value: @task.name)
       redirect_to action: :new
     else
-      flash.now[:alert] = '登録に失敗しました。'
       render :new
     end
   end
@@ -62,10 +63,11 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id], user_id: current_user.id)
     if @task.update(task_params)
-      flash[:notice] = '更新が完了しました。'
+      flash[:notice] = I18n.t('flash.success.update',
+                              name: I18n.t('tasks.header.name'),
+                              value: @task.name)
       redirect_to action: :edit
     else
-      flash.now[:alert] = '更新に失敗しました。'
       render :edit
     end
   end
@@ -75,10 +77,11 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find_by(id: params[:id], user_id: current_user.id)
     if @task.destroy
-      flash[:notice] = '削除しました。'
+      flash[:notice] = I18n.t('flash.success.delete',
+                              name: I18n.t('tasks.header.name'),
+                              value: @task.name)
       redirect_to tasks_url
     else
-      flash.now[:alert] = '削除に失敗しました。'
       render tasks_url
     end
   end
