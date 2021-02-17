@@ -13,7 +13,6 @@
 ActiveRecord::Schema.define(version: 2021_02_17_063158) do
 
   create_table "tasks", charset: "utf8", force: :cascade do |t|
-    t.bigint "user_id"
     t.string "title"
     t.text "detail"
     t.integer "priority"
