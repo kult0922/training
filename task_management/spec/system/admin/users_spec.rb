@@ -26,7 +26,7 @@ RSpec.describe 'Users', type: :system do
     click_button 'ログイン'
   end
 
-  let(:admin_user) { create(:user, id: 1, login_id: 'admin_user', authority_id: @authority_admin.id) }
+  let(:admin_user) { create(:user, login_id: 'admin_user', authority_id: @authority_admin.id) }
 
   describe '#index' do
     before { visit admin_users_path }
