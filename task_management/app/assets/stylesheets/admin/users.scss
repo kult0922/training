@@ -47,12 +47,12 @@
     text-align: center;
   }
 
-  th.login_id, td.login_id {
+  th.login_id, td.login_id, th.password, td.password {
     width: 200px;
   }
 
-  th.password, td.password {
-    width: 200px;
+  th.password_digest, td.password_digest {
+    width: 600px;
   }
 
   th.name, td.name {

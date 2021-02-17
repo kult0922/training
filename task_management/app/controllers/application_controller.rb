@@ -2,21 +2,23 @@
 
 # アプリケーションコントローラー
 class ApplicationController < ActionController::Base
-  rescue_from Exception, with: :render_500
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
+  unless Rails.env.development?
+    rescue_from Exception, with: :render_500
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+  end
 
   def routing_error
     raise ActionController::RoutingError, params[:path]
   end
 
   def render_404(exception = nil)
-    logger.info "404 with exception: #{exception.message}" if exception
+    logger.info "Rendering 404: #{exception.message}" if exception
     render 'errors/404', status: :not_found
   end
 
   def render_500(exception = nil)
-    logger.info "500 with exception: #{exception.message}" if exception
+    logger.info "Rendering 500: #{exception.message}" if exception
     render 'errors/500', status: :internal_server_error
   end
 
@@ -35,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
   def admin_user?(user)

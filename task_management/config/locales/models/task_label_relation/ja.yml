@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      task_label_relation: タスク-ラベル紐付
+
+    attributes:
+      task_label_relation:
+        task_id: タスクID
+        label_id: ラベルID
+

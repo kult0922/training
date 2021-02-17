@@ -9,7 +9,7 @@
 <% end %>
 
 <!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
-<%= form_with model: task, local: true do |f| %>
+<%= form_with model: @task, local: true do |f| %>
   <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
   <table>
@@ -25,8 +25,8 @@
     </thead>
     <tbody>
     <tr>
-      <td class="name"><%= f.text_field :name, placeholder: I18n.t('layouts.message.input'), id: 'name' %></td>
-      <td class="details"><%= f.text_field :details, placeholder: I18n.t('layouts.message.input'), id: 'details' %></td>
+      <td class="name"><%= f.text_field :name, placeholder: I18n.t('tasks.message.input'), id: 'name' %></td>
+      <td class="details"><%= f.text_field :details, placeholder: I18n.t('tasks.message.input'), id: 'details' %></td>
       <td class="deadline"><%= f.date_field :deadline, value: show_date(@task.deadline) ||
                                              show_date(Time.now), id: 'deadline' %></td>
       <td class="priority"><%= f.select :priority,

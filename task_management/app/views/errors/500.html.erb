@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <title>500エラー</title>
+  <title><%= I18n.t('errors.505.title') %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
   .rails-default-error-page {
@@ -58,10 +58,10 @@
   <!-- This file lives in public/500.html.erb -->
   <div class="dialog">
     <div>
-      <h1>大変申し訳ありません。一時的なエラーが発生しました。</h1>
-      <p>正常にご覧いただけるよう、解決に取り組んでおります。</p>
+      <h1><%= I18n.t('errors.505.contents') %></h1>
+      <p><%= I18n.t('errors.505.message') %></p>
     </div>
-    <p><a href="/login">トップページへ</a></p>
+    <p><a href="/"><%= I18n.t('errors.footer.root') %></a></p>
   </div>
 </body>
 </html>

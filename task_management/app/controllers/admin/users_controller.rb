@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-# アドミンユーザモジュール
+# アドミンユーザーモジュール
 module Admin
-  # アドミンユーザコントローラ
+  # アドミンユーザーコントローラ
   class UsersController < ApplicationController
     attr_reader :login_user, :users, :user, :authority, :tasks
 
-    before_action :set_login_user, only: :index
     before_action :set_authority
     before_action :check_login_admin_user
 
     def index
-      @users = User.select(:id, :login_id, :password, :name, :authority_id)
+      @login_user = current_user
+      @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
                    .includes(:authority)
                    .page(params[:page])
                    .order(:authority_id).order(:id)
@@ -84,10 +84,6 @@ module Admin
 
     def set_authority
       @authority = Authority.all
-    end
-
-    def set_login_user
-      @login_user = current_user
     end
 
     def check_login_admin_user

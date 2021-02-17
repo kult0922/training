@@ -3,3 +3,6 @@ ja:
     index:
       title: ログイン
       login: ログイン
+
+    message:
+      input: 入力してください

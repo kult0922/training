@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :label do
-    user_id { create(:user).id }
+    association :user
     sequence(:name, 'test_label_1')
   end
 end
