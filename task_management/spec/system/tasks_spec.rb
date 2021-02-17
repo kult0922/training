@@ -17,7 +17,6 @@ RSpec.describe Task, type: :system do
     before { visit tasks_path }
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
-        visit tasks_path
         expect(current_path).to eq tasks_path
         expect(page).to have_content added_user_task.name
       end
