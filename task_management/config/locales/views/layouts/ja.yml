@@ -2,3 +2,8 @@ ja:
   layouts:
     application:
       title: タスク管理システム
+
+    common:
+      logout: ログアウト
+      confirm_logout: 本当にログアウトしますか？
+      load_logout: ログアウト中

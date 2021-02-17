@@ -91,7 +91,7 @@ rails s
 
   ・ユーザ名 VARCHAR
 
-  ・パスワード(暗号化して登録) VARCHAR
+  ・パスワード(暗号化) VARCHAR
 
   ・権限ID FK BIGINT
 

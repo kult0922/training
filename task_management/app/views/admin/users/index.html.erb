@@ -1,0 +1,46 @@
+<div class="container_admin_users">
+  <% content_for(:title, I18n.t('admin.users.index.title')) %>
+  <h1><%= I18n.t('admin.users.index.title') %></h1>
+  ログインユーザID：<%= @login_user.login_id %>
+  <hr>
+  <div id="users_list">
+    <table>
+      <!-- テーブルヘッダ -->
+      <thead>
+      <tr>
+        <th class="no">No</th>
+        <th class="login_id"><%= I18n.t('admin.header.login_id') %></th>
+        <th class="password_digest"><%= I18n.t('admin.header.password') %></th>
+        <th class="name"><%= I18n.t('admin.header.name') %></th>
+        <th class="authority"><%= I18n.t('admin.header.authority') %></th>
+        <th class="task_count"><%= I18n.t('admin.header.task') %></th>
+        <th class="edit_user"><%= I18n.t('admin.header.edit_user') %></th>
+        <th class="delete"><%= I18n.t('admin.header.delete') %></th>
+      </tr>
+      </thead>
+
+      <!-- テーブルボディ -->
+      <tbody>
+      <% i = 0 %>
+      <% @users.each do |user| %>
+        <tr>
+          <td class="no"><%= i += 1 %></td>
+          <td class="login_id"><%= user.login_id %></td>
+          <td class="password_digest"><%= user.password_digest %></td>
+          <td class="name"><%= user.name %></td>
+          <td class="authority"><%= user.authority.name %></td>
+          <td class="task_count"><%= tasks_link_to(user) %></td>
+          <td class="edit_user"><%= edit_icon_to(edit_admin_user_path(user), user.id) %></td>
+          <td class="delete"><%= delete_icon_to(admin_user_path(user), user.id) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <br>
+    <%= paginate @users %>
+  </div>
+  <hr>
+  <%= link_to I18n.t('admin.footer.new'), new_admin_user_path %>
+  <hr>
+  <%= logout_button_to(@login_user) %>
+</div>

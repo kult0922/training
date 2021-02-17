@@ -20,9 +20,7 @@ ja:
       btn_delete: 削除
       confirm_delete: 本当に削除しますか？
       load_delete: 削除中
-      btn_logout: ログアウト
-      confirm_logout: 本当にログアウトしますか？
-      load_logout: ログアウト中
+
       search: 検索
       status:
         all: 全て

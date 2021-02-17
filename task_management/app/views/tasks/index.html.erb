@@ -42,8 +42,8 @@
           <td class="priority"><%= task.priority_i18n %></td>
           <td class="status"><%= task.status_i18n %></td>
           <td class="creation_date"><%= show_date_time_s(task.creation_date) %></td>
-          <td class="edit"><%= link_to I18n.t('tasks.index.edit'), edit_task_path(task), class: 'link link-edit' %></td>
-          <td class="delete"><%= delete_button_to(task_path(task)) %>
+          <td class="edit"><%= edit_icon_to(edit_task_path(task), task.id) %></td>
+          <td class="delete"><%= delete_icon_to(task_path(task), task.id) %>
           </td>
         </tr>
       <% end %>
@@ -55,8 +55,4 @@
 <hr>
 <%= link_to I18n.t('tasks.footer.new'), new_task_path %>
 <hr>
-<%= button_to t('.btn_logout'), logout_path(@user),
-              { method: :delete,
-                data: { confirm: t('.confirm_logout'),
-                        disable_with: t('.load_logout') }
-              } %>
+<%= logout_button_to(@user) %>

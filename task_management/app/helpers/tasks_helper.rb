@@ -22,11 +22,4 @@ module TasksHelper
       'DESC'
     end
   end
-
-  def delete_button_to(path)
-    button_to I18n.t('tasks.index.btn_delete'), path,
-              method: :delete,
-              data: { confirm: I18n.t('tasks.index.confirm_delete'),
-                      disable_with: I18n.t('tasks.index.load_delete') }
-  end
 end

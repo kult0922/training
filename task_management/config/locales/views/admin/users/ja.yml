@@ -1,0 +1,37 @@
+ja:
+  admin:
+    users:
+      index:
+        title: ユーザ一覧
+        link_task_list: タスク一覧
+        confirm_delete: 本当に削除しますか？
+
+      show:
+        title: ユーザタスク一覧
+        btn_close: 閉じる
+
+      new:
+        title: ユーザ登録
+        btn_registration: 登録
+
+      edit:
+         title: ユーザ編集
+         btn_update: 更新
+
+      message:
+        input: 入力してください
+
+    header:
+      login_id: ログインID
+      password: パスワード
+      name: 名前
+      authority: 権限
+      task: タスク数
+      task_list: タスク一覧
+      edit_user: ユーザ編集
+      registration: 登録
+      delete: 削除
+
+    footer:
+      new: ユーザ作成
+      index: ユーザ一覧画面へ

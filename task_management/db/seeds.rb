@@ -3,7 +3,12 @@
 # 1.権限マスタ
 Authority.create!(
   role: 0,
-  name: 'Administrator',
+  name: '管理者',
+)
+
+Authority.create!(
+  role: 1,
+  name: '一般',
 )
 
 # 2.ユーザテーブル
@@ -18,8 +23,17 @@ User.create!(
   login_id:     'yokuno2',
   name:         '奥野2',
   password:     'pass2',
-  authority_id: 1,
+  authority_id: 2,
 )
+
+30.times do |n|
+  User.create!(
+    login_id:     "g_user_#{n + 1}",
+    name:         "一般テストユーザちゃん_#{n + 1}",
+    password:     'password',
+    authority_id: 2,
+    )
+end
 
 # 3.ラベルマスタ
 Label.create!(

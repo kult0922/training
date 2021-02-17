@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validation' do
-    let(:test_authority) {create(:authority)}
+    let(:authority) { create(:authority) }
     let(:login_id) { 'test_login' }
     let(:name) { 'test_name' }
     let(:password) { 'pass' }
-    let(:authority_id) { test_authority.id }
+    let(:authority_id) { authority.id }
 
     subject do
       build(
@@ -60,7 +60,7 @@ RSpec.describe User, type: :model do
                login_id: 'test_login',
                name: 'test_name_2',
                password: 'test_pass_2',
-               authority_id: test_authority.id)
+               authority_id: authority.id)
       end
       let(:login_id) { test_user.login_id }
       example '登録できない' do
@@ -75,8 +75,8 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'パスワードの桁数が12桁よりも大きい場合' do
-      let(:password) { 'b' * 13 }
+    context 'パスワードの桁数が72桁よりも大きい場合' do
+      let(:password) { 'b' * 73 }
       example '登録できない' do
         is_expected.to_not be_valid
       end

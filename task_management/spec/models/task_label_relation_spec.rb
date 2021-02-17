@@ -4,12 +4,12 @@ require 'rails_helper'
 
 RSpec.describe TaskLabelRelation, type: :model do
   describe 'validation' do
-    let(:test_authority) { create(:authority) }
-    let(:test_user) { create(:user, authority_id: test_authority.id) }
-    let(:test_task) { create(:task, user_id: test_user.id) }
-    let(:test_label) { create(:label, user_id: test_user.id) }
-    let(:task_id) { test_task.id }
-    let(:label_id) { test_label.id }
+    let(:authority) { create(:authority) }
+    let(:user) { create(:user, authority_id: authority.id) }
+    let(:task) { create(:task, user_id: user.id) }
+    let(:label) { create(:label, user_id: user.id) }
+    let(:task_id) { task.id }
+    let(:label_id) { label.id }
 
     subject do
       build(

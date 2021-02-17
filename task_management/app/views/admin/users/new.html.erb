@@ -1,0 +1,13 @@
+<div class="container_admin_users">
+  <% content_for(:title, I18n.t('admin.users.new.title')) %>
+  <h1><%= I18n.t('admin.users.new.title') %></h1>
+  <hr>
+  <div id="user_new">
+    <%= render partial: 'form', locals: { user: @user,
+                                          authority: @authority,
+                                          type: I18n.t('admin.users.new.btn_registration') }
+    %>
+  </div>
+  <hr>
+  <%= link_to I18n.t('admin.footer.index'), admin_users_path %>
+</div>
