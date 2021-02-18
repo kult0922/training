@@ -1,6 +1,6 @@
 <%= javascript_pack_tag 'tasks/index', 'data-turbolinks-track': 'reload' %>
+<% content_for(:title, I18n.t('tasks.index.title')) %>
 <div class="container_tasks">
-  <% content_for(:title, I18n.t('tasks.index.title')) %>
   <h1><%= I18n.t('tasks.index.title') %></h1>
   ログインユーザ名：<%= @login_user.name %>
   <hr>
@@ -8,7 +8,8 @@
     <%= I18n.t('tasks.header.status') %>
     <%= f.radio_button :status, :all, id: 'all' %><%= f.label 'all', I18n.t('tasks.index.status.all') %>
     <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', I18n.t('tasks.index.status.todo') %>
-    <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
+    <%= f.radio_button :status, :in_progress, id: 'in_progress'  %>
+    <%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
     <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
     <div class="labels">
       <%= I18n.t('tasks.header.label') %>
@@ -16,33 +17,28 @@
       <%= label_tag 'all-select', '全選択' %>
       <div id="boxes">
         <% @labels.each do |label| %>
-          <div class="task-label test-color">
-            <% label_ids = "label_ids[#{label.id}]" %>
-            <%= check_box_tag label_ids, "#{label.id}", false, :name => "label_ids[]" %>
+          <% label_ids = "label_ids[#{label.id}]" %>
+          <%= tag.div(class: 'task-label test-color') do %>
+            <%= check_box_tag label_ids, label.id.to_s, false, name: 'label_ids[]' %>
             <%= label_tag label_ids, label.name %>
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>
-    <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'), id: 'search_word', value: @search_params[:search_word] %>
+    <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'),
+                     id: 'search_word', value: @search_params[:search_word] %>
     <%= f.submit I18n.t('tasks.button.type.search'), name: 'search_btn' %>
   <% end %>
 
   <hr>
-  <div id="tasks_list">
+  <div id="task_list">
     <table>
       <!-- テーブルヘッダ -->
       <thead>
         <tr>
           <th class="no">No</th>
           <th class="name"><%= I18n.t('tasks.header.name') %></th>
-          <!-- TODO:昇順ソートも出来るようにする -->
-          <th class="deadline"><%= I18n.t('tasks.header.deadline') %>
-            <%= link_to image_tag('tasks/desc_icon.png', class: 'icon sort_icon'),
-                        {controller: "tasks", action: "index",
-                         sort: "deadline"},
-                        id: "deadline_desc" %>
-          </th>
+          <th class="deadline"><%= I18n.t('tasks.header.deadline') %><%= sort_link_to('deadline', @order) %></th>
           <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
           <th class="status"><%= I18n.t('tasks.header.status') %></th>
           <th class="creation_date"><%= I18n.t('tasks.header.creation_date') %></th>
@@ -60,28 +56,19 @@
             <td class="name">
               <div class="labels">
                 <% task.labels.each do |label| %>
-                  <div class="task-label test-color">
+                  <%= tag.div(class: 'task-label test-color') do %>
                     <% label_ids = "label_ids[][#{label.id}]" %>
                     <%= label_tag label_ids, label.name %>
-                  </div>
+                  <% end %>
                 <% end %>
               </div>
-              <%= link_to task.name, task_path(task), class: 'link link-show' %>
-            </td>
+              <%= link_to task.name, task_path(task), class: 'btn btn-show' %>
             <td class="deadline"><%= show_date_s(task.deadline) %></td>
             <td class="priority"><%= task.priority_i18n %></td>
             <td class="status"><%= task.status_i18n %></td>
             <td class="creation_date"><%= show_date_time_s(task.creation_date) %></td>
-            <td class="edit"><%= link_to image_tag('tasks/edit_icon.png', class: 'icon edit_icon'),
-                                         edit_task_path(task),
-                                         { id: "edit_link_#{i}" } %>
-            </td>
-            <td class="delete"><%= link_to image_tag('tasks/delete_icon.png', class: 'icon delete_icon'),
-                                           task_path(task),
-                                           { method: :delete,
-                                             data: { confirm: I18n.t('tasks.index.confirm_delete') },
-                                             id: "delete_link_#{i}"
-                                           } %>
+            <td class="edit"><%= edit_icon_to(edit_task_path(task), task.id) %></td>
+            <td class="delete"><%= delete_icon_to(task_path(task), task.id) %>
             </td>
           </tr>
         <% end %>
@@ -93,11 +80,7 @@
   <hr>
   <%= link_to I18n.t('tasks.footer.new'), new_task_path %>
   <hr>
-  <%= button_to I18n.t('layouts.common.logout'), logout_path(@login_user),
-                { method: :delete,
-                  data: { confirm: I18n.t('layouts.common.confirm_logout'),
-                          disable_with: I18n.t('layouts.common.load_logout') }
-                } %>
+  <%= logout_button_to(@user) %>
 </div>
-<input name="label_ids_json" type="hidden" value=<%= @label_ids_json %> class='label_ids_json'/>
 <input name="status_btn_val" type="hidden" value=<%= @status %> id='status_btn_val'/>
+<input name="label_ids_json" type="hidden" value=<%= @label_ids_json.html_safe %> class='label_ids_json'/>

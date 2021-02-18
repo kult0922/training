@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# セッションコントローラー
 class SessionsController < ApplicationController
   attr_reader :user
 
@@ -10,16 +9,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.select(:id, :name, :authority_id)
-               .find_by(login_id: params[:login_id],
-                        password: params[:password])
-    if user.nil?
-      flash[:alert] = I18n.t('sessions.flash.error.create')
-      render :index
-    else
+    user = User.find_by(login_id: params[:login_id])
+    if user.present? && user.authenticate(params[:password])
       log_in(user)
       flash[:alert] = ''
       redirect_to_user_page
+    else
+      flash[:alert] = I18n.t('sessions.flash.error.create')
+      render :index
     end
   end
 

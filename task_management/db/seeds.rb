@@ -90,21 +90,21 @@ end
   TaskLabelRelation.create!(
     task_id:  n + 26,
     label_id: 2,
-    )
+  )
 end
 
 3.times do |n|
   TaskLabelRelation.create!(
     task_id:  n + 28,
     label_id: 3,
-    )
+  )
 end
 
 3.times do |n|
   TaskLabelRelation.create!(
     task_id:  n + 28,
     label_id: 4,
-    )
+  )
 end
 
 # 一般ユーザ
@@ -118,4 +118,3 @@ TaskLabelRelation.create!(
   task_id:  35,
   label_id: 7,
 )
-
