@@ -22,10 +22,7 @@
           <td class="name">
             <div class="labels">
               <% @task.labels.each do |label| %>
-                <div class="task-label test-color">
-                  <% label_ids = "label_ids[#{label.id}]" %>
-                  <%= label_tag label_ids, label.name %>
-                </div>
+                <%= make_task_label_tag(label) %>
               <% end %>
             </div>
             <%= @task.name %></td>

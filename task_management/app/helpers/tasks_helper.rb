@@ -22,4 +22,11 @@ module TasksHelper
       'DESC'
     end
   end
+
+  def make_task_label_tag(label)
+    tag.div(class: 'task-label test-color') do
+      label_ids = "label_ids[#{label.id}]"
+      label_tag label_ids, label.name
+    end
+  end
 end
