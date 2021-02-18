@@ -14,7 +14,7 @@ RSpec.describe 'Maintenance', type: :system do
       end
     end
     context 'メンテナンスモードを無効にした場合' do
-      example 'メンテナンスモードを終了する、タスク管理システムにアクセス可能となる' do
+      example 'メンテナンスモードを終了し、タスク管理システムにアクセス可能となる' do
         system('bundle exec rails runner lib/script/maintenance.rb 0')
         get login_path
         expect(response).to have_http_status 200
