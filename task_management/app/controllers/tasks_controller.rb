@@ -2,7 +2,7 @@
 
 # タスクコントローラー
 class TasksController < ApplicationController
-  attr_reader :task, :login_user, :task_label_relations
+  attr_reader :task, :user
 
   before_action :check_login_user
   before_action :set_login_user
@@ -15,30 +15,32 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     @search_params = params
-    @label_ids_json = @search_params[:label_ids].to_json.html_safe
-    @status = @search_params[:status]
-    @status = 'all' if @status.blank?
-    @tasks = find_tasks(@search_params)
+    @label_ids_json = @search_params[:label_ids].to_json
+    @order = @search_params[:order]
+    @status = @search_params[:status].presence || 'all'
+    @tasks = find_tasks(current_user.id, @search_params, @order)
   end
 
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    return if check_existence_task(@task)
   end
 
   # 作成画面
   # GET /tasks/new
   def new
     @task = Task.new
-    @task_label_relations = TaskLabelRelation.where(task_id: @task.id)
+    @task_label_relations = get_task_label_relations(@task.id)
   end
 
   # 編集画面
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
-    @task = Task.find(params[:id])
-    @task_label_relations = TaskLabelRelation.where(task_id: @task.id)
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    return if check_existence_task(@task)
+    @task_label_relations = get_task_label_relations(@task.id)
   end
 
   # ■画面更新系
@@ -47,8 +49,8 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     @task = Task.new(task_params)
-    @task.user_id = @login_user.id
-    @task_label_relations = TaskLabelRelation.where(task_id: @task.id)
+    @task.user_id = current_user.id
+    @task_label_relations = get_task_label_relations(@task.id)
     if @task.save
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
@@ -66,8 +68,8 @@ class TasksController < ApplicationController
   # タスクを更新する
   # POST /tasks/[:タスクテーブルID]
   def update
-    @task = Task.find(params[:id])
-    @task_label_relations = TaskLabelRelation.where(task_id: @task.id)
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    @task_label_relations = get_task_label_relations(@task.id)
     if @task.update(task_params)
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
@@ -85,122 +87,35 @@ class TasksController < ApplicationController
   # タスクを削除する
   # POST /tasks/[:タスクテーブルID]
   def destroy
-    @task = Task.find(params[:id])
-    @task.destroy
-    flash[:notice] = I18n.t('flash.success.delete',
-                            name: I18n.t('tasks.header.name'),
-                            value: @task.name)
-    redirect_to tasks_url
+    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    if @task.destroy
+      flash[:notice] = I18n.t('flash.success.delete',
+                              name: I18n.t('tasks.header.name'),
+                              value: @task.name)
+      redirect_to tasks_url
+    else
+      render tasks_url
+    end
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:name,
-                                 :details,
-                                 :deadline,
-                                 :status,
-                                 :priority)
+    params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
   end
 
-  def find_tasks(params)
-    search_btn = params[:search_btn]
-    if search_btn == I18n.t('tasks.button.type.search')
-      search_tasks(@login_user.id, params)
-    else
-      select_tasks(@login_user.id, params)
-    end
-  end
-
-  def search_tasks(user_id, params)
-    status = create_status(params[:status])
-    search_word = params[:search_word]
-    sort_key = create_sort_key(params[:sort])
-    label_ids = params[:label_ids]
-
-    # ラベルが選択されていない場合
-    if label_ids.blank?
-      task_ids = TaskLabelRelation.joins(:label)
-                                  .select('task_label_relations.task_id')
-      tasks = select_tasks_unlabeled(user_id,
-                                     task_ids,
-                                     status,
-                                     search_word,
-                                     sort_key)
-    else
-      task_id_ary = find_task_id(label_ids)
-      tasks = select_tasks_with_label(user_id,
-                                      task_id_ary,
-                                      status,
-                                      search_word,
-                                      sort_key)
-    end
-    tasks
-  end
-
-  def select_tasks_unlabeled(user_id,
-                             task_ids,
-                             status,
-                             search_word,
-                             sort_key)
-
+  def find_tasks(user_id, params, order)
     Task.where(user_id: user_id)
-        .where.not(id: task_ids)
-        .where(status: status)
-        .where('name like ?', '%' + search_word + '%')
+        .where_task_ids(params)
         .includes(:task_label_relations, :labels)
-        .order(sort_key)
+        .where_status(params[:status])
+        .where_search_word(params[:search_word])
+        .order_sort_column(params[:sort], order)
         .page(params[:page])
   end
 
-  def select_tasks_with_label(user_id,
-                              task_ids,
-                              status,
-                              search_word,
-                              sort_key)
-
-    Task.where(user_id: user_id)
-        .where(id: task_ids)
-        .where(status: status)
-        .where('name like ?', '%' + search_word + '%')
-        .includes(:task_label_relations, :labels)
-        .order(sort_key)
-        .page(params[:page])
-  end
-
-  def find_task_id(label_ids)
-    task_id_ary = []
-    @task_label_relations = TaskLabelRelation.where(label_id: label_ids)
-    @task_label_relations.each do |task_label|
-      task_id_ary.push task_label.task_id if task_label.task_id.present?
-    end
-    task_id_ary
-  end
-
-  def select_tasks(user_id, params)
-    sort_key = create_sort_key(params[:sort])
-    Task.where(user_id: user_id)
-        .includes(:task_label_relations, :labels)
-        .order(sort_key)
-        .page(params[:page])
-  end
-
-  def create_status(statuses)
-    if statuses == 'all' || statuses.nil?
-      Task.statuses.values
-    else
-      statuses
-    end
-  end
-
-  def create_sort_key(key)
-    order    = ' DESC'
-    sort_key = if key.nil?
-                 'creation_date'
-               else
-                 key
-               end
-    sort_key + order
+  def check_existence_task(task)
+    render_404 if task.blank?
   end
 
   def regist_task_label(task_id, label_ids)
@@ -209,11 +124,11 @@ class TasksController < ApplicationController
     if label_ids.present?
       label_ids.each do |label_id|
         next if label_id.blank?
-        @task_label_relations = TaskLabelRelation.create(
+        task_label_relations = TaskLabelRelation.create(
           task_id: task_id,
-          label_id: label_id
+          label_id: label_id,
         )
-        success_flg = false unless @task_label_relations.save
+        success_flg = false unless task_label_relations.save
       end
     end
     success_flg
@@ -224,10 +139,15 @@ class TasksController < ApplicationController
   end
 
   def check_login_user
-    redirect_to login_path unless logged_in?
+    return if logged_in?
+    redirect_to controller: :sessions, action: :index
   end
 
   def set_labels
     @labels = Label.where(user_id: @login_user.id)
+  end
+
+  def get_task_label_relations(task_id)
+    TaskLabelRelation.where(task_id: task_id)
   end
 end

@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:login_id, 'test_user_1')
-    sequence(:name, 'test_name_1')
-    password { 'pass' }
-    authority_id { create(:authority).id }
+    association :authority
+    sequence(:login_id, 'user_1')
+    sequence(:name, 'name_1')
+    sequence(:password, 'pass_1')
   end
 end

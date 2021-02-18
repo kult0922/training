@@ -7,26 +7,28 @@
 # 1:メンテナンス開始
 # 0:メンテナンス終了
 class Maintenance
+  cattr_accessor :logger
+  self.logger ||= Rails.logger
+
   def self.execute
     mode = ARGV[0]
     switching(mode)
   end
 
   def self.switching(mode)
-    return puts I18n.t('script.maintenance.error.no_arguments') if mode.blank?
+    return logger.info I18n.t('script.maintenance.error.no_arguments') if mode.blank?
 
     case mode
     when Settings.maintenance[:start] then
-      puts I18n.t('script.maintenance.success.start')
+      logger.info I18n.t('script.maintenance.success.start')
       write_maintenance_file(mode)
-      puts I18n.t('script.maintenance.success.started')
+      logger.info I18n.t('script.maintenance.success.started')
     when Settings.maintenance[:end] then
-      puts I18n.t('script.maintenance.success.finish')
+      logger.info I18n.t('script.maintenance.success.finish')
       write_maintenance_file(mode)
-      puts I18n.t('script.maintenance.success.finished')
+      logger.info I18n.t('script.maintenance.success.finished')
     else
-      puts I18n.t('script.maintenance.error.invalid_argument',
-                  argument: mode)
+      logger.info I18n.t('script.maintenance.error.invalid_argument', argument: mode)
     end
   end
 

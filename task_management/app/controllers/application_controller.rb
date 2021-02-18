@@ -4,9 +4,11 @@
 class ApplicationController < ActionController::Base
   before_action :render_maintenance, if: :maintenance_mode?
 
-  rescue_from Exception, with: :render_500
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
-  rescue_from ActionController::RoutingError, with: :render_404
+  unless Rails.env.development?
+    rescue_from Exception, with: :render_500
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from ActionController::RoutingError, with: :render_404
+  end
 
   def maintenance_mode?
     maintenance_file = File.open(Settings.maintenance[:file_path], 'r')
@@ -20,7 +22,7 @@ class ApplicationController < ActionController::Base
       file: Rails.public_path.join('maintenance.html'),
       content_type: 'text/html',
       layout: false,
-      status: :service_unavailable
+      status: :service_unavailable,
     )
   end
 
@@ -29,12 +31,12 @@ class ApplicationController < ActionController::Base
   end
 
   def render_404(exception = nil)
-    logger.info "404 with exception: #{exception.message}" if exception
+    logger.info "Rendering 404 with exception: #{exception.message}" if exception
     render 'errors/404', status: :not_found
   end
 
   def render_500(exception = nil)
-    logger.info "500 with exception: #{exception.message}" if exception
+    logger.info "Rendering 500 with exception: #{exception.message}" if exception
     render 'errors/500', status: :internal_server_error
   end
 
@@ -53,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
   def admin_user?(user)

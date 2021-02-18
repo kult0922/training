@@ -15,18 +15,13 @@
 
   #search_word {
     width: 230px;
-    margin-top: 5px;
   }
 
   #task_detail {
     height: 180px;
   }
 
-  #task_new {
-    height: 220px;
-  }
-
-  #task_edit {
+  #task_new, #task_edit {
     height: 220px;
   }
 
@@ -39,10 +34,6 @@
     border-radius: 4px;
     background-color: rgba(0, 0, 0, .5);
     box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-  }
-
-  tbody tr:hover td {
-    background: #ccffff;
   }
 
   th, td {
@@ -58,13 +49,17 @@
     text-align: center;
   }
 
-  th.no, td.no {
-    width: 45px;
+  @mixin column-text-center($width) {
+    width: $width;
     text-align: center;
   }
 
+  th.no, td.no {
+    @include column-text-center(45px)
+  }
+
   th.name, td.name {
-    width: 250px;
+    width: 200px;
   }
 
   th.details, td.details {
@@ -76,30 +71,48 @@
   }
 
   th.priority, td.priority {
-    width: 70px;
-    text-align: center;
+    @include column-text-center(70px)
   }
 
   th.status, td.status {
-    width: 100px;
-    text-align: center;
+    @include column-text-center(100px)
   }
 
   th.edit, td.edit {
-    width: 80px;
-    text-align: center;
+    @include column-text-center(80px)
   }
 
   th.delete, td.delete {
-    width: 70px;
-    text-align: center;
+    @include column-text-center(70px)
   }
 
   th.creation_date, td.creation_date {
     width: 180px;
   }
 
+  td a {
+    color: #1e90ff !important;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  tbody tr:hover td {
+    background: #ccffff;
+  }
+
   input#deadline {
     width: 150px;
+  }
+
+  .sort_icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    border: 1px dashed #999;
+  }
+
+  .pagination span {
+    margin: 3px;
   }
 }
