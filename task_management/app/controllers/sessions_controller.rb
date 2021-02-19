@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(login_id: params[:login_id])
-    if user.present? && user.authenticate(params[:password])
+    if user&.authenticate(params[:password])
       log_in(user)
       flash[:alert] = ''
       redirect_to_user_page
