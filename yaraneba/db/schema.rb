@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_063158) do
   create_table "tasks", charset: "utf8", force: :cascade do |t|
     t.string "title"
     t.text "detail"
+    t.integer "status"
     t.integer "priority"
     t.datetime "end_date", precision: 6
     t.datetime "deleted_at", precision: 6
