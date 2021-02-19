@@ -4,13 +4,12 @@
 module Admin
   # アドミンユーザーコントローラ
   class UsersController < ApplicationController
-    attr_reader :login_user, :users, :user, :authority, :tasks
+    attr_reader :users, :user, :authority, :tasks
 
     before_action :set_authority
     before_action :check_login_admin_user
 
     def index
-      @login_user = current_user
       @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
                    .includes(:authority)
                    .page(params[:page])

@@ -1,6 +1,6 @@
 <% content_for(:title, I18n.t('tasks.index.title')) %>
 <h1><%= I18n.t('tasks.index.title') %></h1>
-ログインユーザ名：<%= @login_user.name %>
+ログインユーザ名：<%= @current_user.name %>
 <hr>
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
   <%= I18n.t('tasks.header.status') %>

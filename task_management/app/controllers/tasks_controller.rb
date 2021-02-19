@@ -5,7 +5,6 @@ class TasksController < ApplicationController
   attr_reader :task, :user
 
   before_action :check_login_user
-  before_action :set_login_user, only: %i[index create]
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -95,10 +94,6 @@ class TasksController < ApplicationController
 
   def check_existence_task(task)
     render_404 if task.blank?
-  end
-
-  def set_login_user
-    @login_user = current_user
   end
 
   def check_login_user
