@@ -14,12 +14,12 @@ class ApplicationController < ActionController::Base
 
   def render_404(exception = nil)
     logger.info "Rendering 404: #{exception.message}" if exception
-    render 'errors/404', status: :not_found
+    render Settings.page_path[:not_found], status: :not_found
   end
 
   def render_500(exception = nil)
     logger.info "Rendering 500: #{exception.message}" if exception
-    render 'errors/500', status: :internal_server_error
+    render Settings.page_path[:internal_server_error], status: :internal_server_error
   end
 
   private
