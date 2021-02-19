@@ -42,17 +42,13 @@ class ApplicationController < ActionController::Base
 
   def admin_user?(user)
     return false if user.nil?
-
-    login_user_auth = Authority.select(:role)
-                               .find_by(id: user.authority_id)
+    login_user_auth = Authority.select(:role).find_by(id: user.authority_id)
     login_user_auth.role == Settings.authority[:admin]
   end
 
   def general_user?(user)
     return false if user.nil?
-
-    login_user_auth = Authority.select(:role)
-                               .find_by(id: user.authority_id)
+    login_user_auth = Authority.select(:role).find_by(id: user.authority_id)
     login_user_auth.role >= Settings.authority[:general]
   end
 end
