@@ -86,12 +86,11 @@ module Admin
     end
 
     def check_login_admin_user
-      render_404 unless logged_in? && admin_user?(current_user)
+      render_404 unless logged_in? && current_user.admin_user?
     end
 
     def delete_login_user?(user)
-      login_user = current_user
-      login_user.id == user.id
+      current_user.id == user.id
     end
   end
 end
