@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe 'Maintenance', type: :system do
   describe 'maintenance' do
-    after { system('bundle exec rails runner lib/script/maintenance.rb 0') }
     shared_examples 'メンテナンスモードの切り替え処理が実行されない' do
       example do
         get login_path
@@ -17,6 +16,7 @@ RSpec.describe 'Maintenance', type: :system do
     end
 
     context '第一引数が1の場合(メンテナンスモード有効)' do
+      after { system('bundle exec rails runner lib/script/maintenance.rb 0') }
       example 'メンテナンスモードを開始し、タスク管理システムにアクセス不可となる' do
         system('bundle exec rails runner lib/script/maintenance.rb 1')
         get login_path
