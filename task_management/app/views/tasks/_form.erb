@@ -10,7 +10,6 @@
 
 <!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
 <%= form_with model: @task, local: true do |f| %>
-  <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
   <table>
     <!-- テーブルヘッダ -->
@@ -23,7 +22,7 @@
       <th class="status"><%= I18n.t('tasks.header.status') %></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="form">
     <tr>
       <td class="name"><%= f.text_field :name, placeholder: I18n.t('tasks.message.input'), id: 'name' %></td>
       <td class="details"><%= f.text_field :details, placeholder: I18n.t('tasks.message.input'), id: 'details' %></td>
@@ -53,4 +52,5 @@
     </div>
     </tbody>
   </table>
+  <%= f.submit "#{type}" %>
 <% end %>
