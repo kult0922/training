@@ -17,7 +17,7 @@ class TasksController < ApplicationController
     @label_ids_json = @search_params[:label_ids].to_json
     @order = @search_params[:order]
     @status = @search_params[:status].presence || 'all'
-    @tasks = find_tasks(current_user.id, @search_params, @order)
+    @tasks = Task.find_tasks(current_user.id, @search_params, @order)
   end
 
   # 詳細画面
@@ -97,16 +97,6 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
-  end
-
-  def find_tasks(user_id, params, order)
-    Task.where(user_id: user_id)
-        .where_task_ids(params)
-        .includes(:task_label_relations, :labels)
-        .where_status(params[:status])
-        .where_search_word(params[:search_word])
-        .order_sort_column(params[:sort], order)
-        .page(params[:page])
   end
 
   def check_existence_task(task)

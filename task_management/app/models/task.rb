@@ -33,13 +33,23 @@ class Task < ApplicationRecord
     end
     order(sort_item + ' ' + order)
   end)
-end
 
-def find_task_id(label_ids)
-  task_id_ary = []
-  task_label_relations = TaskLabelRelation.where(label_id: label_ids)
-  task_label_relations.each do |task_label|
-    task_id_ary.push task_label.task_id if task_label.task_id.present?
+  scope :find_tasks, (lambda do |user_id, params, order|
+    where(user_id: user_id)
+    .where_task_ids(params)
+    .preload(:labels)
+    .where_status(params[:status])
+    .where_search_word(params[:search_word])
+    .order_sort_column(params[:sort], order)
+    .page(params[:page])
+  end)
+
+  def find_task_id(label_ids)
+    task_id_ary = []
+    task_label_relations = TaskLabelRelation.where(label_id: label_ids)
+    task_label_relations.each do |task_label|
+      task_id_ary.push task_label.task_id if task_label.task_id.present?
+    end
+    task_id_ary
   end
-  task_id_ary
 end
