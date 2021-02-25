@@ -5,10 +5,21 @@ TODO List
 - [画面イメージ](#画面イメージ)
 - [データ構造](#データ構造)
 
-# 画面イメージ 
+# 環境構築
+ruby ver: 2.5.7
+rails ver: 6.1.2.1
+```
+git clone git@github.com:Fablic/training.git && cd training/yaraneba
+git checkout -b ブランチ名 リモートブランチ名
+bundle install
+rails webpacker:install
+yarn install --ignore-engines
+```
+
+# 画面イメージ
 https://preview.studio.site/live/4Ra4k9voqD/[1~5]
 
-# データ構造 
+# データ構造
 ## users
 |カラム名|データ型|
 |----|----|
