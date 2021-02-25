@@ -4,8 +4,9 @@
 module Admin
   # アドミンユーザーコントローラ
   class UsersController < ApplicationController
+    before_action :check_login_user
+    before_action :check_admin_user
     before_action :set_authority
-    before_action :check_login_admin_user
 
     def index
       @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
@@ -83,8 +84,8 @@ module Admin
       @authority = Authority.all
     end
 
-    def check_login_admin_user
-      redirect_to login_path unless logged_in? && current_user.admin_user?
+    def check_admin_user
+      render_404 unless current_user.admin_user?
     end
 
     def delete_login_user?(user)
