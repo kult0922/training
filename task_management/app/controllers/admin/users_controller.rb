@@ -4,8 +4,6 @@
 module Admin
   # アドミンユーザーコントローラ
   class UsersController < ApplicationController
-    attr_reader :users, :user, :authority, :tasks
-
     before_action :set_authority
     before_action :check_login_admin_user
 

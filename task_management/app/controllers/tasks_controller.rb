@@ -2,8 +2,6 @@
 
 # タスクコントローラー
 class TasksController < ApplicationController
-  attr_reader :task, :user
-
   before_action :check_login_user
   before_action :set_labels
 
@@ -23,7 +21,7 @@ class TasksController < ApplicationController
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    @task = Task.find_by!(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
   end
 
   # 作成画面
@@ -35,7 +33,7 @@ class TasksController < ApplicationController
   # 編集画面
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
-    @task = Task.find_by!(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
   end
 
   # ■画面更新系
@@ -43,8 +41,7 @@ class TasksController < ApplicationController
   # タスクを作成する
   # POST /tasks
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
+    @task = current_user.tasks.new(task_params)
     if @task.save
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
@@ -62,7 +59,7 @@ class TasksController < ApplicationController
   # タスクを更新する
   # POST /tasks/[:タスクテーブルID]
   def update
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
@@ -80,7 +77,7 @@ class TasksController < ApplicationController
   # タスクを削除する
   # POST /tasks/[:タスクテーブルID]
   def destroy
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
     if @task.destroy
       flash[:notice] = I18n.t('flash.success.delete',
                               name: I18n.t('tasks.header.name'),
