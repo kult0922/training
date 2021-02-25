@@ -6,7 +6,7 @@ module Admin
   class UsersController < ApplicationController
     before_action :check_login_user
     before_action :check_admin_user
-    before_action :set_authority
+    before_action :set_authority, except: %i[show destroy]
 
     def index
       @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
