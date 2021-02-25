@@ -35,7 +35,7 @@
                                       {selected: @task.status}, id: 'status'  %></td>
     </tr>
     <div class="labels">
-      <% @labels.each do |label| %>
+      <% current_user.label.each do |label| %>
         <div class="task-label test-color">
           <% label_ids = "label_ids[#{label.id}]" %>
           <% label_flg = false %>

@@ -3,7 +3,6 @@
 # タスクコントローラー
 class TasksController < ApplicationController
   before_action :check_login_user
-  before_action :set_labels, except: %i[show destroy]
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -103,9 +102,5 @@ class TasksController < ApplicationController
       success_flg = false unless task_label_relations.save
     end
     success_flg
-  end
-
-  def set_labels
-    @labels = Label.where(user_id: current_user.id)
   end
 end

@@ -16,7 +16,7 @@
       <%= check_box_tag 'all-select', 'all-select' %>
       <%= label_tag 'all-select', '全選択' %>
       <div id="boxes">
-        <% @labels.each do |label| %>
+        <% current_user.label.each do |label| %>
           <% label_ids = "label_ids[#{label.id}]" %>
           <%= tag.div(class: 'task-label test-color') do %>
             <%= check_box_tag label_ids, label.id.to_s, false, name: 'label_ids[]' %>
@@ -78,7 +78,7 @@
   <hr>
   <%= link_to I18n.t('tasks.footer.new'), new_task_path %>
   <hr>
-  <%= logout_button_to(@user) %>
+  <%= logout_button_to(current_user) %>
 </div>
 <input name="status_btn_val" type="hidden" value=<%= @status %> id='status_btn_val'/>
 <input name="label_ids_json" type="hidden" value=<%= @label_ids_json.html_safe %> class='label_ids_json'/>

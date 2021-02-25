@@ -19,9 +19,9 @@ class Task < ApplicationRecord
     if params[:search_btn] == I18n.t('tasks.button.type.search')
       label_ids = params[:label_ids]
       if label_ids.blank?
-        where.not(id: TaskLabelRelation.joins(:label).select('task_label_relations.task_id'))
+        where.not(id: TaskLabelRelation.select('task_label_relations.task_id').distinct)
       else
-        where(id: find_task_id(label_ids))
+        where(id: TaskLabelRelation.select('task_label_relations.task_id').where(label_id: label_ids).distinct)
       end
     end
   end)
@@ -31,7 +31,7 @@ class Task < ApplicationRecord
       sort_item = 'creation_date'
       order = 'DESC'
     end
-    order(sort_item + ' ' + order)
+    order("#{sort_item} #{order}")
   end)
 
   scope :find_tasks, (lambda do |user_id, params, order|
@@ -43,13 +43,4 @@ class Task < ApplicationRecord
     .order_sort_column(params[:sort], order)
     .page(params[:page])
   end)
-
-  def find_task_id(label_ids)
-    task_id_ary = []
-    task_label_relations = TaskLabelRelation.where(label_id: label_ids)
-    task_label_relations.each do |task_label|
-      task_id_ary.push task_label.task_id if task_label.task_id.present?
-    end
-    task_id_ary
-  end
 end
