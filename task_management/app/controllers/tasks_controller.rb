@@ -23,8 +23,7 @@ class TasksController < ApplicationController
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    return if check_existence_task(@task)
+    @task = Task.find_by!(id: params[:id], user_id: current_user.id)
   end
 
   # 作成画面
@@ -36,8 +35,7 @@ class TasksController < ApplicationController
   # 編集画面
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    return if check_existence_task(@task)
+    @task = Task.find_by!(id: params[:id], user_id: current_user.id)
   end
 
   # ■画面更新系
@@ -97,10 +95,6 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
-  end
-
-  def check_existence_task(task)
-    render_404 if task.blank?
   end
 
   def regist_task_label(task, label_ids)
