@@ -5,7 +5,6 @@ class TasksController < ApplicationController
   attr_reader :task, :user
 
   before_action :check_login_user
-  before_action :set_login_user
   before_action :set_labels
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
@@ -134,17 +133,13 @@ class TasksController < ApplicationController
     success_flg
   end
 
-  def set_login_user
-    @login_user = current_user
-  end
-
   def check_login_user
     return if logged_in?
     redirect_to controller: :sessions, action: :index
   end
 
   def set_labels
-    @labels = Label.where(user_id: @login_user.id)
+    @labels = Label.where(user_id: current_user.id)
   end
 
   def get_task_label_relations(task_id)

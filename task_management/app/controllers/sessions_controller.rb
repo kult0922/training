@@ -32,8 +32,8 @@ class SessionsController < ApplicationController
     # ログインしていない場合、他ページにリダイレクトしない
     return unless logged_in?
 
-    return redirect_to admin_users_path if admin_user?(current_user)
-    redirect_to tasks_path if general_user?(current_user)
+    return redirect_to admin_users_path if current_user.admin_user?
+    redirect_to tasks_path if current_user.general_user?
   end
 
   def session_params

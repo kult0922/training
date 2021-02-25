@@ -1,7 +1,7 @@
 <% content_for(:title, I18n.t('admin.users.index.title')) %>
 <div class="container_admin_users">
   <h1><%= I18n.t('admin.users.index.title') %></h1>
-  ログインユーザID：<%= @login_user.login_id %>
+  ログインユーザID：<%= current_user.login_id %>
   <hr>
   <div id="users_list">
     <table>
@@ -42,5 +42,5 @@
   <hr>
   <%= link_to I18n.t('admin.users.footer.tasks'), tasks_path %>
   <hr>
-  <%= logout_button_to(@login_user) %>
+  <%= logout_button_to(current_user) %>
 </div>
