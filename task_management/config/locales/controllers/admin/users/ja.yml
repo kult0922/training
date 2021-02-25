@@ -1,0 +1,7 @@
+ja:
+  admin:
+    users:
+      flash:
+        error:
+          delete:
+            login_user: "ログイン中のユーザは削除できません。%{name}：%{value}"

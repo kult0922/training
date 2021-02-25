@@ -9,16 +9,15 @@ RSpec.describe Task, type: :system do
     fill_in 'password', with: user.password
     click_button 'ログイン'
   end
-  let(:authority) { create(:authority, role: 0, name: 'test') }
+  let(:authority) { create(:authority, role: 0, name: '管理者') }
   let(:user) { create(:user, login_id: 'yokuno', authority_id: authority.id) }
   let!(:added_user_task) { create(:task, creation_date: Time.current + 5.days, user_id: user.id) }
 
   describe '#index' do
-    before { visit root_path }
+    before { visit tasks_path }
     context 'トップページにアクセスした場合' do
       example 'タスク一覧が表示される' do
-        visit root_path
-        expect(current_path).to eq root_path
+        expect(current_path).to eq tasks_path
         expect(page).to have_content added_user_task.name
       end
     end
@@ -36,6 +35,35 @@ RSpec.describe Task, type: :system do
           click_link "delete_link_#{added_user_task.id}"
         end
         expect(page).to have_content '削除しました。'
+      end
+    end
+
+    describe 'rooting' do
+      before do
+        page.accept_confirm { click_button 'ログアウト' }
+      end
+      context '一般権限のユーザでタスク管理画面にアクセスした場合' do
+        before do
+          fill_in 'login_id', with: general_user.login_id
+          fill_in 'password', with: general_user.password
+          click_button 'ログイン'
+        end
+        let(:general_authority) { create(:authority, role: 1, name: '一般') }
+        let(:general_user) { create(:user, login_id: 'test_2', authority_id: general_authority.id) }
+        let!(:general_task) { create(:task, name: '一般のタスク', user_id: general_user.id) }
+        example 'タスク管理画面が表示される' do
+          visit tasks_path
+          expect(current_path).to eq tasks_path
+          expect(page).to have_content general_task.name
+        end
+      end
+
+      context 'ログインしていない状態でタスク管理画面にアクセスした場合' do
+        example 'ログイン画面に遷移する' do
+          visit tasks_path
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログイン'
+        end
       end
     end
 
@@ -143,9 +171,7 @@ RSpec.describe Task, type: :system do
                       user_id: user.id,
                       deadline: Time.zone.now + 1.day)
       end
-      before do
-        visit root_path
-      end
+      before { visit root_path }
       context 'トップページにアクセスした場合（サーバ側で「作成日時」を降順ソート）' do
         example '「作成日時」で降順ソートされた状態で表示される' do
           expect(page.body.index(taskA.name)).to be > page.body.index(taskB.name)
@@ -280,7 +306,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクが登録できない' do
         click_button '登録'
-        expect(page).to have_content '登録に失敗しました。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
@@ -320,7 +346,7 @@ RSpec.describe Task, type: :system do
       end
       example 'タスクが更新できない' do
         click_button '更新'
-        expect(page).to have_content '更新に失敗しました。'
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
@@ -338,7 +364,7 @@ RSpec.describe Task, type: :system do
     end
   end
 
-  describe 'destroy' do
+  describe '#destroy' do
     context 'ログインユーザに対応付かないタスクIDを用いてタスク削除をした場合' do
       let(:other_user) { create(:user, login_id: 'test_user_2', authority_id: authority.id) }
       let!(:added_other_user_task) { create(:task, creation_date: Time.current + 1.day, user_id: other_user.id) }
@@ -350,13 +376,10 @@ RSpec.describe Task, type: :system do
     end
   end
 
-  describe 'session' do
-    before { visit root_path }
+  describe 'logout' do
     context 'ログアウトボタンを押下した場合' do
       example 'ログアウトし、ログイン画面に遷移する' do
-        page.accept_confirm do
-          click_button 'ログアウト'
-        end
+        page.accept_confirm { click_button 'ログアウト' }
         expect(page).to have_content 'ログアウトしました。'
         expect(page).to have_current_path login_path
       end

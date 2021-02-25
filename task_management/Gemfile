@@ -39,11 +39,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
-  gem 'debase'
-  gem 'ruby-debug-ide'
   gem 'debase-ruby_core_source'
-  gem 'shoulda-matchers'
-  gem 'database_cleaner'
 end
 
 group :development do
@@ -75,3 +71,5 @@ gem 'rails-i18n'
 
 gem 'bootstrap', '~> 4.5.0'
 gem 'jquery-rails'
+
+gem 'config'

@@ -1,0 +1,7 @@
+ja:
+  sessions:
+    flash:
+      success:
+        delete: ログアウトしました。
+      error:
+        create: ログインIDかパスワードを確認してください。

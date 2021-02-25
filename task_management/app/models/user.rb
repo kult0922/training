@@ -12,4 +12,14 @@ class User < ApplicationRecord
   validates :authority_id, presence: true
 
   has_secure_password
+
+  def admin_user?
+    login_user_auth = Authority.select(:role).find_by(id: authority_id)
+    login_user_auth.role == Settings.authority[:admin]
+  end
+
+  def general_user?
+    login_user_auth = Authority.select(:role).find_by(id: authority_id)
+    login_user_auth.role >= Settings.authority[:general]
+  end
 end

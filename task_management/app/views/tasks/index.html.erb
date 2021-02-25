@@ -1,6 +1,7 @@
 <% content_for(:title, I18n.t('tasks.index.title')) %>
 <h1><%= I18n.t('tasks.index.title') %></h1>
-
+ログインユーザ名：<%= @current_user.name %>
+<hr>
 <%= form_with url: tasks_path, method: :get, local: true do |f| %>
   <%= I18n.t('tasks.header.status') %>
   <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', I18n.t('tasks.index.status.all') %>

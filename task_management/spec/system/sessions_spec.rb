@@ -3,11 +3,25 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :system do
-  let(:test_authority) { create(:authority, role: 0, name: 'test') }
-  let(:user1) { create(:user, login_id: 'yokuno1', authority_id: test_authority.id) }
-  let!(:added_task1) { create(:task, creation_date: Time.current + 1.day, user_id: user1.id) }
-  let(:login_id) { user1.login_id }
-  let(:password) { user1.password }
+  # 管理者ユーザ
+  let(:admin_authority) { create(:authority, role: 0, name: '管理者') }
+  let(:admin_user) { create(:user, login_id: 'yokuno1', name: '管理者', authority_id: admin_authority.id) }
+  let!(:admin_task) { create(:task, name: '管理者のタスク', user_id: admin_user.id) }
+
+  # 一般ユーザ
+  let(:general_authority) { create(:authority, role: 1, name: '一般') }
+  let(:general_user) { create(:user, login_id: 'yokuno2', name: '一般', authority_id: general_authority.id) }
+  let!(:general_task) { create(:task, name: '一般のタスク', user_id: general_user.id) }
+
+  describe 'root' do
+    context 'ルートパスにアクセスした場合' do
+      before { visit root_path }
+      example 'ログイン画面が表示される' do
+        expect(current_path).to eq login_path
+        expect(page).to have_content 'ログイン'
+      end
+    end
+  end
 
   describe '#index' do
     context 'ログイン画面にアクセスした場合' do
@@ -28,19 +42,34 @@ RSpec.describe 'Sessions', type: :system do
     end
 
     context '存在するログインIDとパスワードを入力してログインボタンを押下した場合' do
-      let(:user2) { create(:user, login_id: 'yokuno2', authority_id: test_authority.id) }
-      let!(:added_task2) { create(:task, creation_date: Time.current + 1.day, user_id: user2.id) }
-      example 'ログインに成功する' do
-        expect(current_path).to eq root_path
+      context '管理者ユーザの場合' do
+        let(:login_id) { admin_user.login_id }
+        let(:password) { admin_user.password }
+        example 'ユーザ管理画面に遷移する' do
+          expect(current_path).to eq admin_users_path
+        end
+        example 'ユーザ一覧が表示される' do
+          expect(page).to have_content admin_user.name
+          expect(page).to have_content general_user.name
+        end
       end
-      example '自身のタスクのみが表示される' do
-        expect(page).to have_content added_task1.name
-        expect(page).not_to have_content added_task2.name
+
+      context '一般ユーザの場合' do
+        let(:login_id) { general_user.login_id }
+        let(:password) { general_user.password }
+        example 'タスク一覧画面に遷移する' do
+          expect(current_path).to eq tasks_path
+        end
+        example '自身のタスクのみが表示される' do
+          expect(page).to have_content general_task.name
+          expect(page).not_to have_content admin_task.name
+        end
       end
     end
 
     context '存在しないログインIDを入力してログインボタンを押下した場合' do
       let(:login_id) { 'non-existent_user' }
+      let(:password) { admin_user.password }
       example 'ログインに失敗する' do
         expect(current_path).to eq login_path
         expect(page).to have_content 'ログインIDかパスワードを確認してください。'
@@ -48,6 +77,7 @@ RSpec.describe 'Sessions', type: :system do
     end
 
     context '誤ったパスワードを入力してログインボタンを押下した場合' do
+      let(:login_id) { admin_user.login_id }
       let(:password) { 'wrong_password' }
       example 'ログインに失敗する' do
         expect(current_path).to eq login_path
@@ -68,25 +98,41 @@ RSpec.describe 'Sessions', type: :system do
   describe '#destroy' do
     before do
       visit login_path
-      fill_in 'login_id', with: user1.login_id
-      fill_in 'password', with: user1.password
+      fill_in 'login_id', with: login_id
+      fill_in 'password', with: password
       click_button 'ログイン'
     end
 
     context 'ログイン後、ログアウトボタンを押下した場合' do
-      example 'ログアウトし、ログイン画面に遷移する' do
-        page.accept_confirm do
-          click_button 'ログアウト'
+      context '管理者ユーザの場合' do
+        let(:login_id) { admin_user.login_id }
+        let(:password) { admin_user.password }
+        example 'ログアウトし、ログイン画面に遷移する' do
+          page.accept_confirm do
+            click_button 'ログアウト'
+          end
+          expect(page).to have_content 'ログアウトしました。'
+          expect(page).to have_current_path login_path
         end
-        expect(page).to have_content 'ログアウトしました。'
-        expect(page).to have_current_path login_path
+      end
+
+      context '一般ユーザの場合' do
+        let(:login_id) { general_user.login_id }
+        let(:password) { general_user.password }
+        example 'ログアウトし、ログイン画面に遷移する' do
+          page.accept_confirm do
+            click_button 'ログアウト'
+          end
+          expect(page).to have_content 'ログアウトしました。'
+          expect(page).to have_current_path login_path
+        end
       end
     end
   end
 
-  describe 'root' do
+  describe 'tasks' do
     context 'ログインしていない状態でタスク管理画面にアクセスした場合' do
-      before { visit root_path }
+      before { visit tasks_path }
       example 'ログイン画面に遷移する' do
         expect(current_path).to eq login_path
         expect(page).to have_content 'ログイン'
