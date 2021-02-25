@@ -4,8 +4,6 @@
 module Admin
   # アドミンユーザーコントローラ
   class UsersController < ApplicationController
-    attr_reader :users, :user, :authority, :tasks
-
     before_action :set_authority
     before_action :check_login_admin_user
 
@@ -65,10 +63,15 @@ module Admin
         return redirect_to admin_users_url
       end
 
-      delete_user.destroy
-      flash[:notice] = I18n.t('flash.success.delete',
-                              name: I18n.t('admin.users.header.login_id'),
-                              value: delete_user.login_id)
+      if delete_user.destroy
+        flash[:notice] = I18n.t('flash.success.delete',
+                                name: I18n.t('admin.users.header.login_id'),
+                                value: delete_user.login_id)
+      else
+        flash[:alert] = I18n.t('flash.error.delete',
+                               name: I18n.t('admin.users.header.login_id'),
+                               value: delete_user.login_id)
+      end
       redirect_to admin_users_url
     end
 

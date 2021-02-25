@@ -2,8 +2,6 @@
 
 # タスクコントローラー
 class TasksController < ApplicationController
-  attr_reader :task, :user
-
   before_action :check_login_user
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
@@ -79,10 +77,12 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.success.delete',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
-      redirect_to tasks_url
     else
-      render tasks_url
+      flash[:alert] = I18n.t('flash.error.delete',
+                             name: I18n.t('tasks.header.name'),
+                             value: @task.name)
     end
+    redirect_to tasks_url
   end
 
   private
