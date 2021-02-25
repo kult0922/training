@@ -13,6 +13,7 @@ git clone git@github.com:Fablic/training.git && cd training/yaraneba
 git checkout -b ブランチ名 リモートブランチ名
 bundle install
 rails webpacker:install
+yarn install --ignore-engines
 ```
 
 # 画面イメージ
