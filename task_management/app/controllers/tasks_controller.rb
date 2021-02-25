@@ -106,6 +106,7 @@ class TasksController < ApplicationController
   def regist_task_label(task, label_ids)
     success_flg = true
     task.task_label_relations.delete_all
+    return success_flg if label_ids.blank?
     label_ids.each do |label_id|
       task_label_relations = task.task_label_relations.create(label_id: label_id)
       success_flg = false unless task_label_relations.save
