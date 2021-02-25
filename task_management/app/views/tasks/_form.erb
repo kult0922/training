@@ -39,7 +39,7 @@
         <div class="task-label test-color">
           <% label_ids = "label_ids[#{label.id}]" %>
           <% label_flg = false %>
-          <% @task_label_relations.each do |task_label| %>
+          <% @task.task_label_relations.each do |task_label| %>
             <% if task_label.label_id == label.id %>
               <% label_flg = true %>
               <% break %>

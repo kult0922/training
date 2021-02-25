@@ -31,7 +31,6 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @task_label_relations = @task.task_label_relations
   end
 
   # 編集画面
@@ -39,7 +38,6 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find_by(id: params[:id], user_id: current_user.id)
     return if check_existence_task(@task)
-    @task_label_relations = @task.task_label_relations
   end
 
   # ■画面更新系
@@ -49,7 +47,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
-    @task_label_relations = @task.task_label_relations
     if @task.save
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
@@ -68,7 +65,6 @@ class TasksController < ApplicationController
   # POST /tasks/[:タスクテーブルID]
   def update
     @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    @task_label_relations = @task.task_label_relations
     if @task.update(task_params)
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
@@ -119,12 +115,9 @@ class TasksController < ApplicationController
 
   def regist_task_label(task, label_ids)
     success_flg = true
-    task.task_label_relations.where(task_id: task.id).delete_all
+    task.task_label_relations.delete_all
     label_ids.each do |label_id|
-      task_label_relations = task.task_label_relations.create(
-        task_id: task.id,
-        label_id: label_id,
-      )
+      task_label_relations = task.task_label_relations.create(label_id: label_id)
       success_flg = false unless task_label_relations.save
     end
     success_flg
