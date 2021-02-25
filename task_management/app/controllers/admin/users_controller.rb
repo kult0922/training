@@ -57,7 +57,7 @@ module Admin
 
     def destroy
       delete_user = User.find_by(id: params[:id])
-      if delete_login_user?(delete_user)
+      if delete_user == current_user
         flash[:alert] = I18n.t('admin.users.flash.error.delete.login_user',
                                name: I18n.t('admin.users.header.login_id'),
                                value: delete_user.login_id)
@@ -86,11 +86,6 @@ module Admin
 
     def check_admin_user
       render_404 unless current_user.admin_user?
-    end
-
-    def delete_login_user?(user)
-      login_user = current_user
-      login_user.id == user.id
     end
   end
 end
