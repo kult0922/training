@@ -123,11 +123,6 @@ class TasksController < ApplicationController
     success_flg
   end
 
-  def check_login_user
-    return if logged_in?
-    redirect_to controller: :sessions, action: :index
-  end
-
   def set_labels
     @labels = Label.where(user_id: current_user.id)
   end
