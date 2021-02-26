@@ -35,9 +35,12 @@
                                       {selected: @task.status}, id: 'status'  %></td>
     </tr>
     <div class="labels">
-      <div class="task-label test-color">
-        <%= f.collection_check_boxes(:label_ids, current_user.label, :id, :name, include_hidden: false) %>
-      </div>
+      <%= f.collection_check_boxes(:label_ids, current_user.label, :id, :name, include_hidden: false) do |task_label| %>
+        <div class="task-label test-color">
+          <%= task_label.check_box %>
+          <%= task_label.label %>
+        </div>
+      <% end %>
     </div>
     </tbody>
   </table>
