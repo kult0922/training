@@ -119,7 +119,6 @@ rails webpacker:compile
 
   ・ステータス INT (1:未着手 2:着手 3:完了)
 
-
   ・優先順位 INT (1:低 2:中 3:高)
 
   ・作成日時 DATETIME
