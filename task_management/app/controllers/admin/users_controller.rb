@@ -4,8 +4,9 @@
 module Admin
   # アドミンユーザーコントローラ
   class UsersController < ApplicationController
-    before_action :set_authority
-    before_action :check_login_admin_user
+    before_action :check_login_user
+    before_action :check_admin_user
+    before_action :set_authority, except: %i[show destroy]
 
     def index
       @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
@@ -56,7 +57,7 @@ module Admin
 
     def destroy
       delete_user = User.find_by(id: params[:id])
-      if delete_login_user?(delete_user)
+      if delete_user == current_user
         flash[:alert] = I18n.t('admin.users.flash.error.delete.login_user',
                                name: I18n.t('admin.users.header.login_id'),
                                value: delete_user.login_id)
@@ -88,12 +89,8 @@ module Admin
       @authority = Authority.all
     end
 
-    def check_login_admin_user
-      render_404 unless logged_in? && current_user.admin_user?
-    end
-
-    def delete_login_user?(user)
-      current_user.id == user.id
+    def check_admin_user
+      render_404 unless current_user.admin_user?
     end
   end
 end

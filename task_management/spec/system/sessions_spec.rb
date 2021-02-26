@@ -104,29 +104,27 @@ RSpec.describe 'Sessions', type: :system do
     end
 
     context 'ログイン後、ログアウトボタンを押下した場合' do
-      context 'ログイン後、ログアウトボタンを押下した場合' do
-        context '管理者ユーザの場合' do
-          let(:login_id) { admin_user.login_id }
-          let(:password) { admin_user.password }
-          example 'ログアウトし、ログイン画面に遷移する' do
-            page.accept_confirm do
-              click_button 'ログアウト'
-            end
-            expect(page).to have_content 'ログアウトしました。'
-            expect(page).to have_current_path login_path
+      context '管理者ユーザの場合' do
+        let(:login_id) { admin_user.login_id }
+        let(:password) { admin_user.password }
+        example 'ログアウトし、ログイン画面に遷移する' do
+          page.accept_confirm do
+            click_button 'ログアウト'
           end
+          expect(page).to have_content 'ログアウトしました。'
+          expect(page).to have_current_path login_path
         end
+      end
 
-        context '一般ユーザの場合' do
-          let(:login_id) { general_user.login_id }
-          let(:password) { general_user.password }
-          example 'ログアウトし、ログイン画面に遷移する' do
-            page.accept_confirm do
-              click_button 'ログアウト'
-            end
-            expect(page).to have_content 'ログアウトしました。'
-            expect(page).to have_current_path login_path
+      context '一般ユーザの場合' do
+        let(:login_id) { general_user.login_id }
+        let(:password) { general_user.password }
+        example 'ログアウトし、ログイン画面に遷移する' do
+          page.accept_confirm do
+            click_button 'ログアウト'
           end
+          expect(page).to have_content 'ログアウトしました。'
+          expect(page).to have_current_path login_path
         end
       end
     end
