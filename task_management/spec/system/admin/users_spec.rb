@@ -105,16 +105,18 @@ RSpec.describe 'Users', type: :system do
         end
         let(:login_id) { general_user.login_id }
         let(:password) { general_user.password }
-        example 'ユーザ管理画面に遷移できず、404ページが表示される' do
+        example 'ユーザ管理画面に遷移できず、404画面が表示される' do
           visit admin_users_path
+          expect(current_path).to eq admin_users_path
           expect(page).to have_content 'お探しのページは見つかりませんでした。'
         end
       end
 
-      context 'ユーザ管理画面に遷移できず、404ページが表示される' do
-        example '404ページが表示される' do
-          visit admin_users_path
-          expect(page).to have_content 'お探しのページは見つかりませんでした。'
+      context 'ログインしていない状態でユーザ管理画面にアクセスした場合' do
+        example 'ログイン画面に遷移する' do
+          visit tasks_path
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログイン'
         end
       end
     end
