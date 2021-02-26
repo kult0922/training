@@ -45,10 +45,6 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
-      unless regist_task_label(@task, params[:label_ids])
-        flash[:alert] = I18n.t('tasks.flash.error.create',
-                               table: I18n.t('activerecord.models.task_label_relation'))
-      end
       redirect_to action: :new
     else
       render :new
@@ -59,14 +55,11 @@ class TasksController < ApplicationController
   # POST /tasks/[:タスクテーブルID]
   def update
     @task = current_user.tasks.find(params[:id])
+    @task.labels = []
     if @task.update(task_params)
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
-      unless regist_task_label(@task, params[:label_ids])
-        flash[:alert] = I18n.t('tasks.flash.error.create',
-                               table: I18n.t('activerecord.models.task_label_relation'))
-      end
       redirect_to action: :edit
     else
       render :edit
@@ -91,16 +84,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
-  end
-
-  def regist_task_label(task, label_ids)
-    success_flg = true
-    task.task_label_relations.delete_all
-    return success_flg if label_ids.blank?
-    label_ids.each do |label_id|
-      task_label_relations = task.task_label_relations.create(label_id: label_id)
-      success_flg = false unless task_label_relations.save
-    end
-    success_flg
   end
 end
