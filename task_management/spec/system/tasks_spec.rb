@@ -364,7 +364,7 @@ RSpec.describe Task, type: :system do
           fill_in 'deadline', with: deadline
           select '高', from: 'task[priority]'
           select '完了', from: 'task[status]'
-          check "label_ids_#{label_A.id}"
+          check "task_label_ids_#{label_A.id}"
         end
         example 'タスクを登録できる' do
           click_button '登録'
@@ -379,7 +379,7 @@ RSpec.describe Task, type: :system do
           fill_in 'deadline', with: deadline
           select '中', from: 'task[priority]'
           select '着手', from: 'task[status]'
-          check "label_ids_#{label_A.id}"
+          check "task_label_ids_#{label_A.id}"
         end
         example 'タスクが登録できない' do
           click_button '登録'
@@ -445,7 +445,7 @@ RSpec.describe Task, type: :system do
           fill_in 'deadline', with: deadline
           select '高', from: 'task[priority]'
           select '完了', from: 'task[status]'
-          check "label_ids_#{label_B.id}"
+          check "task_label_ids_#{label_B.id}"
         end
         example 'タスクを更新できる' do
           click_button '更新'
@@ -461,7 +461,7 @@ RSpec.describe Task, type: :system do
           fill_in 'deadline', with: deadline
           select '高', from: 'task[priority]'
           select '完了', from: 'task[status]'
-          check "label_ids_#{label_A.id}"
+          check "task_label_ids_#{label_A.id}"
         end
         example 'タスクを更新できる' do
           click_button '更新'
