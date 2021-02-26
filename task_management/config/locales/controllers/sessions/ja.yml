@@ -2,6 +2,7 @@ ja:
   sessions:
     flash:
       success:
+        create: ログインしました。
         delete: ログアウトしました。
       error:
         create: ログインIDかパスワードを確認してください。

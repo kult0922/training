@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
     user = User.find_by(login_id: params[:login_id])
     if user.present? && user.authenticate(params[:password])
       log_in(user)
-      flash[:alert] = ''
       redirect_to_user_page
     else
       flash[:alert] = I18n.t('sessions.flash.error.create')
@@ -32,8 +31,9 @@ class SessionsController < ApplicationController
     # ログインしていない場合、他ページにリダイレクトしない
     return unless logged_in?
 
-    return redirect_to admin_users_path if admin_user?(current_user)
-    redirect_to tasks_path if general_user?(current_user)
+    flash[:notice] = I18n.t('sessions.flash.success.create')
+    return redirect_to admin_users_path if current_user.admin_user?
+    redirect_to tasks_path if current_user.general_user?
   end
 
   def session_params

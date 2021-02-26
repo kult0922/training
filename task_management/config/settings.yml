@@ -1,3 +1,7 @@
 authority:
   admin: 0
   general: 1
+
+page_path:
+  not_found: 'errors/404'
+  internal_server_error: 'errors/500'

@@ -2,11 +2,7 @@
 
 # タスクコントローラー
 class TasksController < ApplicationController
-  attr_reader :task, :user
-
   before_action :check_login_user
-  before_action :set_login_user
-  before_action :set_labels
 
   # TODO: 将来的にはSPAにし、タスク管理を1画面で完結させたい
   # ■画面表示系
@@ -18,29 +14,25 @@ class TasksController < ApplicationController
     @label_ids_json = @search_params[:label_ids].to_json
     @order = @search_params[:order]
     @status = @search_params[:status].presence || 'all'
-    @tasks = find_tasks(current_user.id, @search_params, @order)
+    @tasks = Task.find_tasks(current_user.id, @search_params, @order)
   end
 
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    return if check_existence_task(@task)
+    @task = current_user.tasks.find(params[:id])
   end
 
   # 作成画面
   # GET /tasks/new
   def new
     @task = Task.new
-    @task_label_relations = get_task_label_relations(@task.id)
   end
 
   # 編集画面
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    return if check_existence_task(@task)
-    @task_label_relations = get_task_label_relations(@task.id)
+    @task = current_user.tasks.find(params[:id])
   end
 
   # ■画面更新系
@@ -48,17 +40,11 @@ class TasksController < ApplicationController
   # タスクを作成する
   # POST /tasks
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
-    @task_label_relations = get_task_label_relations(@task.id)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
-      unless regist_task_label(@task.id, params[:label_ids])
-        flash[:alert] = I18n.t('tasks.flash.error.create',
-                               table: I18n.t('activerecord.models.task_label_relation'))
-      end
       redirect_to action: :new
     else
       render :new
@@ -68,16 +54,12 @@ class TasksController < ApplicationController
   # タスクを更新する
   # POST /tasks/[:タスクテーブルID]
   def update
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    @task_label_relations = get_task_label_relations(@task.id)
+    @task = current_user.tasks.find(params[:id])
+    @task.labels = []
     if @task.update(task_params)
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
                               value: @task.name)
-      unless regist_task_label(@task.id, params[:label_ids])
-        flash[:alert] = I18n.t('tasks.flash.error.create',
-                               table: I18n.t('activerecord.models.task_label_relation'))
-      end
       redirect_to action: :edit
     else
       render :edit
@@ -87,7 +69,7 @@ class TasksController < ApplicationController
   # タスクを削除する
   # POST /tasks/[:タスクテーブルID]
   def destroy
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
     if @task.destroy
       flash[:notice] = I18n.t('flash.success.delete',
                               name: I18n.t('tasks.header.name'),
@@ -102,52 +84,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
-  end
-
-  def find_tasks(user_id, params, order)
-    Task.where(user_id: user_id)
-        .where_task_ids(params)
-        .includes(:task_label_relations, :labels)
-        .where_status(params[:status])
-        .where_search_word(params[:search_word])
-        .order_sort_column(params[:sort], order)
-        .page(params[:page])
-  end
-
-  def check_existence_task(task)
-    render_404 if task.blank?
-  end
-
-  def regist_task_label(task_id, label_ids)
-    success_flg = true
-    TaskLabelRelation.where(task_id: task_id).delete_all
-    if label_ids.present?
-      label_ids.each do |label_id|
-        next if label_id.blank?
-        task_label_relations = TaskLabelRelation.create(
-          task_id: task_id,
-          label_id: label_id,
-        )
-        success_flg = false unless task_label_relations.save
-      end
-    end
-    success_flg
-  end
-
-  def set_login_user
-    @login_user = current_user
-  end
-
-  def check_login_user
-    return if logged_in?
-    redirect_to controller: :sessions, action: :index
-  end
-
-  def set_labels
-    @labels = Label.where(user_id: @login_user.id)
-  end
-
-  def get_task_label_relations(task_id)
-    TaskLabelRelation.where(task_id: task_id)
   end
 end

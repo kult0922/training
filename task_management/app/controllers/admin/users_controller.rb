@@ -4,13 +4,10 @@
 module Admin
   # アドミンユーザーコントローラ
   class UsersController < ApplicationController
-    attr_reader :login_user, :users, :user, :authority, :tasks
-
     before_action :set_authority
     before_action :check_login_admin_user
 
     def index
-      @login_user = current_user
       @users = User.select(:id, :login_id, :password_digest, :name, :authority_id)
                    .includes(:authority)
                    .page(params[:page])
@@ -66,10 +63,15 @@ module Admin
         return redirect_to admin_users_url
       end
 
-      delete_user.destroy
-      flash[:notice] = I18n.t('flash.success.delete',
-                              name: I18n.t('admin.users.header.login_id'),
-                              value: delete_user.login_id)
+      if delete_user.destroy
+        flash[:notice] = I18n.t('flash.success.delete',
+                                name: I18n.t('admin.users.header.login_id'),
+                                value: delete_user.login_id)
+      else
+        flash[:alert] = I18n.t('flash.error.delete',
+                               name: I18n.t('admin.users.header.login_id'),
+                               value: delete_user.login_id)
+      end
       redirect_to admin_users_url
     end
 
@@ -87,12 +89,11 @@ module Admin
     end
 
     def check_login_admin_user
-      redirect_to login_path unless logged_in? && admin_user?(current_user)
+      render_404 unless logged_in? && current_user.admin_user?
     end
 
     def delete_login_user?(user)
-      login_user = current_user
-      login_user.id == user.id
+      current_user.id == user.id
     end
   end
 end

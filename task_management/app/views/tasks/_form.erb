@@ -10,7 +10,6 @@
 
 <!-- TODO:ステップ20でラベルを追加し、登録・編集可能とする -->
 <%= form_with model: @task, local: true do |f| %>
-  <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
   <table>
     <!-- テーブルヘッダ -->
@@ -23,34 +22,27 @@
       <th class="status"><%= I18n.t('tasks.header.status') %></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="form">
     <tr>
       <td class="name"><%= f.text_field :name, placeholder: I18n.t('tasks.message.input'), id: 'name' %></td>
       <td class="details"><%= f.text_field :details, placeholder: I18n.t('tasks.message.input'), id: 'details' %></td>
       <td class="deadline"><%= f.date_field :deadline, value: show_date(@task.deadline) ||
-                                             show_date(Time.now), id: 'deadline' %></td>
+        show_date(Time.now), id: 'deadline' %></td>
       <td class="priority"><%= f.select :priority,
-                                         Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
-                                         {selected: @task.priority}, id: 'priority' %></td>
+                                        Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
+                                        {selected: @task.priority}, id: 'priority' %></td>
       <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]},
                                       {selected: @task.status}, id: 'status'  %></td>
     </tr>
     <div class="labels">
-      <% @labels.each do |label| %>
+      <%= f.collection_check_boxes(:label_ids, current_user.label, :id, :name, include_hidden: false) do |task_label| %>
         <div class="task-label test-color">
-          <% label_ids = "label_ids[#{label.id}]" %>
-          <% label_flg = false %>
-          <% @task_label_relations.each do |task_label| %>
-            <% if task_label.label_id == label.id %>
-              <% label_flg = true %>
-              <% break %>
-            <% end %>
-          <% end %>
-          <%= check_box_tag label_ids, "#{label.id}", label_flg, :name => "label_ids[]" %>
-          <%= label_tag label_ids, label.name %>
+          <%= task_label.check_box %>
+          <%= task_label.label %>
         </div>
       <% end %>
     </div>
     </tbody>
   </table>
+  <%= f.submit "#{type}" %>
 <% end %>

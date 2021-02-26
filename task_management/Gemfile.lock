@@ -98,8 +98,6 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.0)
-    debase (2.3.2)
-      debase-ruby_core_source (~> 0.10.11)
     debase-ruby_core_source (0.10.11)
     deep_merge (1.2.1)
     diff-lcs (1.4.4)
@@ -270,8 +268,6 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     rubocop-rspec (1.26.0)
       rubocop (>= 0.53.0)
-    ruby-debug-ide (2.3.1)
-      debase (~> 2.3.2)
     ruby-progressbar (1.10.1)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -340,7 +336,6 @@ DEPENDENCIES
   capybara (>= 3.26)
   config
   database_cleaner
-  debase
   debase-ruby_core_source
   enum_help
   fablicop
@@ -355,7 +350,6 @@ DEPENDENCIES
   rails (~> 6.1.0)
   rails-i18n
   rspec-rails
-  ruby-debug-ide
   sass-rails (>= 6)
   selenium-webdriver
   shoulda-matchers
