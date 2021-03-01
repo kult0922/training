@@ -3,6 +3,11 @@ authority:
   general: 1
 
 maintenance:
-  file_path : lib/script/file/maintenance.txt
+  page_name: maintenance.html
+  file_path: lib/script/file/maintenance.txt
   start: '1' # メンテナンス開始
   end: '0'   # メンテナンス終了
+
+page_path:
+  not_found: errors/404
+  internal_server_error: errors/500

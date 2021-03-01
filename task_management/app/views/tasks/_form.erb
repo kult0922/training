@@ -27,10 +27,10 @@
       <td class="name"><%= f.text_field :name, placeholder: I18n.t('tasks.message.input'), id: 'name' %></td>
       <td class="details"><%= f.text_field :details, placeholder: I18n.t('tasks.message.input'), id: 'details' %></td>
       <td class="deadline"><%= f.date_field :deadline, value: show_date(@task.deadline) ||
-                                             show_date(Time.now), id: 'deadline' %></td>
+                                            show_date(Time.now), id: 'deadline' %></td>
       <td class="priority"><%= f.select :priority,
-                                         Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
-                                         {selected: @task.priority}, id: 'priority' %></td>
+                                        Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]},
+                                        {selected: @task.priority}, id: 'priority' %></td>
       <td class="status"><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]},
                                       {selected: @task.status}, id: 'status'  %></td>
     </tr>

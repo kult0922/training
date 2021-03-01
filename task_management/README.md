@@ -75,7 +75,6 @@
 
   ・ラベルID UK FK BIGINT
 
-
 ## アプリを起動する方法
 1. Ruby 2.7.2のインストール
 ```shell
@@ -121,8 +120,14 @@ rails db:setup
 ```shell
 rails s
 ```
-9. [localhost:3000](http://localhost:3000/)
-   に接続してタスク一覧が表示されたら成功です
+9. [localhost:3000](http://localhost:3000/) に接続してタスク一覧が表示されたら成功です
+
+10.「error Command "webpack" not found.」が発生した場合<br>
+以下のコマンドを実行してwebpackをインストールしてコンパイルする
+```shell
+rails webpacker:install
+rails webpacker:compile
+```
 
 ## メンテナンスモードの切り替え方法
 メンテナンスモード開始

@@ -34,7 +34,7 @@ User.create!(
     name:         "一般テストユーザちゃん_#{n + 1}",
     password:     'password',
     authority_id: 2,
-    )
+  )
 end
 
 # 3.ラベルマスタ
@@ -81,7 +81,7 @@ end
 # 管理ユーザ
 25.times do |n|
   TaskLabelRelation.create!(
-    task_id:  n + 1,
+    task_id:  n + 2,
     label_id: 1,
   )
 end

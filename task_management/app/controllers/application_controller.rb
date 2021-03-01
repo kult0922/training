@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def render_maintenance
     render(
-      file: Rails.public_path.join('maintenance.html'),
+      file: Rails.public_path.join(Settings.maintenance[:page_name]),
       content_type: 'text/html',
       layout: false,
       status: :service_unavailable,
@@ -36,11 +36,11 @@ class ApplicationController < ActionController::Base
 
   def render_404(exception = nil)
     logger.info "Rendering 404 with exception: #{exception.message}" if exception
-    render 'errors/404', status: :not_found
+    render Settings.page_path[:not_found], status: :not_found
   end
 
   def render_500(exception = nil)
     logger.info "Rendering 500 with exception: #{exception.message}" if exception
-    render 'errors/500', status: :internal_server_error
+    render Settings.page_path[:internal_server_error], status: :internal_server_error
   end
 end
