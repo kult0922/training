@@ -9,11 +9,11 @@ TODO List
 ruby ver: 2.5.7
 rails ver: 6.1.2.1
 ```
-git clone git@github.com:Fablic/training.git && cd training/yaraneba
+git clone git@github.com:Fablic/training.git && cd training
 git checkout -b ブランチ名 リモートブランチ名
-bundle install
-rails webpacker:install
-yarn install --ignore-engines
+docker-compose -f docker/docker-compose up -d
+docker-compose -f docker/docker-compose exec web rails db:migrate
+docker-compose -f docker/docker-compose exec web rails s -b 0.0.0.0
 ```
 
 # 画面イメージ
