@@ -2,7 +2,7 @@
 
 # アプリケーションコントローラー
 class ApplicationController < ActionController::Base
-  include Common
+  include Session
 
   helper_method :current_user
 

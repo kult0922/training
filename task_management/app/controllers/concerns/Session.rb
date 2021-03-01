@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Common
+module Session
   private
 
   def current_user
