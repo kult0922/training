@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   describe '#task' do
     it 'create task' do
-      visit new_task_path()
+      visit new_task_path
       fill_in 'Title', with: 'title'
       fill_in 'Detail', with: 'detail'
       fill_in 'Status', with: '1'
