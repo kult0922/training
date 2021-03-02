@@ -32,7 +32,7 @@ development:
   pool: 5
   username: yoikawa
   password: yoikawa
-  host: localhost
+  host: yaraneba-db
 
 test:
   adapter: mysql2
@@ -42,7 +42,7 @@ test:
   pool: 5
   username: yoikawa
   password: yoikawa
-  host: localhost
+  host: yaraneba-db-test
 
 production:
   adapter: mysql2
