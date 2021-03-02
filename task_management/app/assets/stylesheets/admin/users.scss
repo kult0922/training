@@ -51,10 +51,6 @@
     width: 200px;
   }
 
-  th.password_digest, td.password_digest {
-    width: 600px;
-  }
-
   th.name, td.name {
     width: 220px;
   }
@@ -80,6 +76,10 @@
   th.delete, td.delete {
     width: 70px;
     text-align: center;
+  }
+
+  tbody.form {
+    height: 60px;
   }
 
   #user_tasks_list {

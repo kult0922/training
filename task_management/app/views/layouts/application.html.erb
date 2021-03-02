@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta charset="utf-8">
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
 
-  <title><%= content_for?(:title) ? yield(:title) + ' | ' + I18n.t('layouts.application.title') : I18n.t('layouts.application.title') %></title>
+    <title><%= content_for?(:title) ? yield(:title) + ' | ' + I18n.t('layouts.application.title') : I18n.t('layouts.application.title') %></title>
 
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-</head>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
 
-<body>
-<% if flash.notice.present? %>
-  <div class='alert alert-primary'><%= flash.notice %></div>
-<% elsif flash.alert.present? %>
-  <div class='alert alert-danger'><%= flash.alert %></div>
-<% end %>
-<%= yield %>
-</body>
+  <body>
+    <% if flash.notice.present? %>
+      <div class='alert alert-primary'><%= flash.notice %></div>
+    <% elsif flash.alert.present? %>
+      <div class='alert alert-danger'><%= flash.alert %></div>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>

@@ -4,60 +4,6 @@
 * Rails version: 6.1.0
 * Mysql version: 5.6
 
-## アプリを起動する方法
-1. Ruby 2.7.2のインストール
-```shell
-# homebrew, rbenvのインストールをした前提
-
-rbenv install 2.7.2
-```
-
-2. MySQL 5.6のインストール
-```shell
-brew install mysql@5.6
-```
-
-3. MySQLのパスを通す
-```shell
-echo 'export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"' >> ~/.bash_profile
-source ~/.bash_profile
-```
-
-4. MySQLの起動
-```shell
-mysql.server start
-```
-
-5. MySQLへの接続
-```shell
-mysql -u yOkuno -p
-*パスワードはpassword
-```
-
-6. ライブラリ(gem)のインストール
-```shell
-gem install bundler
-cd [プロジェクト(task_management)ルート]
-bundle install
-```
-7. データベースの作成とマイグレーション
-```shell
-rails db:setup
-```
-
-8. タスク管理システムの起動
-```shell
-rails s
-```
-9. [localhost:3000](http://localhost:3000/) に接続してタスク一覧が表示されたら成功です
-
-10.「error Command "webpack" not found.」が発生した場合<br>
-   以下のコマンドを実行してwebpackをインストールしてコンパイルする
-```shell
-rails webpacker:install
-rails webpacker:compile
-```
-
 ## タスク管理システムの概要
 * 前提
 
@@ -128,3 +74,68 @@ rails webpacker:compile
   ・タスクID UK FK BIGINT
 
   ・ラベルID UK FK BIGINT
+
+## アプリを起動する方法
+1. Ruby 2.7.2のインストール
+```shell
+# homebrew, rbenvのインストールをした前提
+
+rbenv install 2.7.2
+```
+
+2. MySQL 5.6のインストール
+```shell
+brew install mysql@5.6
+```
+
+3. MySQLのパスを通す
+```shell
+echo 'export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+4. MySQLの起動
+```shell
+mysql.server start
+```
+
+5. MySQLへの接続
+```shell
+mysql -u yOkuno -p
+*パスワードはpassword
+```
+
+6. ライブラリ(gem)のインストール
+```shell
+gem install bundler
+cd [プロジェクト(task_management)ルート]
+bundle install
+```
+7. データベースの作成とマイグレーション
+```shell
+rails db:setup
+```
+
+8. タスク管理システムの起動
+```shell
+rails s
+```
+9. [localhost:3000](http://localhost:3000/) に接続してタスク一覧が表示されたら成功です
+
+10.「error Command "webpack" not found.」が発生した場合<br>
+以下のコマンドを実行してwebpackをインストールしてコンパイルする
+```shell
+rails webpacker:install
+rails webpacker:compile
+```
+
+## メンテナンスモードの切り替え方法
+メンテナンスモード開始
+```shell
+rails runner lib/script/maintenance.rb 1
+```
+
+メンテナンスモード終了
+```shell
+rails runner lib/script/maintenance.rb 0
+```

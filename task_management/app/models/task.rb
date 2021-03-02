@@ -36,11 +36,11 @@ class Task < ApplicationRecord
 
   scope :find_tasks, (lambda do |user_id, params, order|
     where(user_id: user_id)
-      .where_task_ids(params)
-      .preload(:labels)
-      .where_status(params[:status])
-      .where_search_word(params[:search_word])
-      .order_sort_column(params[:sort], order)
-      .page(params[:page])
+    .where_task_ids(params)
+    .preload(:labels)
+    .where_status(params[:status])
+    .where_search_word(params[:search_word])
+    .order_sort_column(params[:sort], order)
+    .page(params[:page])
   end)
 end

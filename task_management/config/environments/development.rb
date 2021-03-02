@@ -82,4 +82,8 @@ Rails.application.configure do
     Bullet.rails_logger = true # Railsのログに結果を出力
     Bullet.add_footer = true # ページの左下に結果を表示
   end
+
+  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
 end
