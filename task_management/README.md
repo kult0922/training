@@ -49,8 +49,14 @@ rails db:setup
 ```shell
 rails s
 ```
-9. [localhost:3000](http://localhost:3000/)
-   に接続してタスク一覧が表示されたら成功です
+9. [localhost:3000](http://localhost:3000/) に接続してタスク一覧が表示されたら成功です
+
+10.「error Command "webpack" not found.」が発生した場合<br>
+   以下のコマンドを実行してwebpackをインストールしてコンパイルする
+```shell
+rails webpacker:install
+rails webpacker:compile
+```
 
 ## タスク管理システムの概要
 * 前提

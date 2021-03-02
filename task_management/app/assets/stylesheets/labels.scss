@@ -1,0 +1,20 @@
+.labels {
+  margin-bottom: 5px;
+}
+.labels input,
+.labels select,
+.labels label {
+  vertical-align:middle;
+  margin-bottom: 0;
+}
+
+.task-label {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;
+  padding: 1px 5px;
+}
+
+.test-color {
+  background-color: #ff7f7f;
+}

@@ -1,0 +1,51 @@
+ja:
+  activerecord:
+    models:
+      authority: 権限
+      user: ユーザ
+      label: ラベル
+      task: タスク
+      task_label_relation: タスク-ラベル紐付
+
+    attributes:
+      authority:
+        role: 権限区分
+        name: 権限名
+
+      user:
+        login_id: ログインID
+        name: ユーザ名
+        password: パスワード
+        authority_id: 権限ID
+
+      label:
+        user_id: ユーザID
+        name: ラベル名
+
+      task:
+        user_id: ユーザID
+        name: タスク名
+        details: タスク詳細
+        deadline: 終了期限
+        status: ステータス
+        priority: 優先順位
+        creation_date: 作成日時
+
+      task_label_relation:
+        task_id: タスクID
+        label_id: ラベルID
+
+  attributes:
+    created_at: 作成日時
+    updated_at: 更新日時
+
+  enums:
+    task:
+      priority:
+        low: 低
+        normal: 中
+        high: 高
+      status:
+        todo: 未着手
+        in_progress: 着手
+        done: 完了

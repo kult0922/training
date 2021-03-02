@@ -58,13 +58,17 @@ RSpec.describe 'Users', type: :system do
       let(:general_user) { create(:user, login_id: 'general_user', authority_id: @authority_general.id) }
       let!(:admin_task) { create(:task, name: '管理者のタスク', user_id: admin_user.id) }
       let!(:general_task) { create(:task, name: '一般のタスク', user_id: general_user.id) }
-      example '対象ユーザと対応づくタスクが全て削除される' do
+      let(:label_A) { create(:label, user_id: general_user.id, name: 'label_A') }
+      let!(:rel_A) { create(:task_label_relation, task_id: general_task.id, label_id: label_A.id) }
+      example '対象ユーザ、及び対応づくタスク・ラベル・タスクテーブル-ラベルマスタ紐付テーブルが全て削除される' do
         visit admin_users_path
         page.accept_confirm do
           click_link 'delete_link_' + general_user.id.to_s
         end
         expect(current_path).not_to eq admin_user_path(general_user.id)
         expect(Task.where(user_id: general_user.id).count).to eq 0
+        expect(Label.where(user_id: general_user.id).count).to eq 0
+        expect(TaskLabelRelation.where(task_id: general_task.id).count).to eq 0
         expect(Task.where(user_id: admin_user.id).count).to eq 1
         expect(page).to have_content '削除しました。'
       end
@@ -101,16 +105,18 @@ RSpec.describe 'Users', type: :system do
         end
         let(:login_id) { general_user.login_id }
         let(:password) { general_user.password }
-        example 'ユーザ管理画面に遷移できず、404ページが表示される' do
+        example 'ユーザ管理画面に遷移できず、404画面が表示される' do
           visit admin_users_path
+          expect(current_path).to eq admin_users_path
           expect(page).to have_content 'お探しのページは見つかりませんでした。'
         end
       end
 
-      context 'ユーザ管理画面に遷移できず、404ページが表示される' do
-        example '404ページが表示される' do
-          visit admin_users_path
-          expect(page).to have_content 'お探しのページは見つかりませんでした。'
+      context 'ログインしていない状態でユーザ管理画面にアクセスした場合' do
+        example 'ログイン画面に遷移する' do
+          visit tasks_path
+          expect(current_path).to eq login_path
+          expect(page).to have_content 'ログイン'
         end
       end
     end

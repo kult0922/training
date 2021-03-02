@@ -1,7 +1,8 @@
 ja:
   tasks:
     header:
-      name: タスク
+      name: タスク名
+      label: ラベル
       details: 詳細
       deadline: 期限
       priority: 優先度
@@ -9,6 +10,8 @@ ja:
       creation_date: 作成日時
       edit: 編集
       delete: 削除
+      registration: 登録
+      all_select: 全選択
 
     footer:
       index: 一覧画面へ
@@ -39,6 +42,13 @@ ja:
     edit:
       title: タスク編集
       btn_update: 更新
+
+    input:
+      task: タスク名を入力してください
+
+    button:
+      type:
+        search: 検索
 
     message:
       input: 入力してください

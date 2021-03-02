@@ -1,20 +1,6 @@
 # frozen_string_literal: true
 
 module Common
-  def routing_error
-    raise ActionController::RoutingError, params[:path]
-  end
-
-  def render_404(exception = nil)
-    logger.info "Rendering 404: #{exception.message}" if exception
-    render Settings.page_path[:not_found], status: :not_found
-  end
-
-  def render_500(exception = nil)
-    logger.info "Rendering 500: #{exception.message}" if exception
-    render Settings.page_path[:internal_server_error], status: :internal_server_error
-  end
-
   private
 
   def current_user
@@ -31,5 +17,9 @@ module Common
 
   def logged_in?
     current_user.present?
+  end
+
+  def check_login_user
+    redirect_to login_url unless logged_in?
   end
 end

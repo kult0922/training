@@ -15,8 +15,8 @@ ja:
         btn_registration: 登録
 
       edit:
-         title: ユーザ編集
-         btn_update: 更新
+        title: ユーザ編集
+        btn_update: 更新
 
       header:
         login_id: ログインID

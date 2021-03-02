@@ -1,44 +1,65 @@
+<%= javascript_pack_tag 'tasks/index', 'data-turbolinks-track': 'reload' %>
 <% content_for(:title, I18n.t('tasks.index.title')) %>
-<h1><%= I18n.t('tasks.index.title') %></h1>
-ログインユーザ名：<%= @current_user.name %>
-<hr>
-<%= form_with url: tasks_path, method: :get, local: true do |f| %>
-  <%= I18n.t('tasks.header.status') %>
-  <%= f.radio_button :status, :all, id: 'all', checked: true %><%= f.label 'all', I18n.t('tasks.index.status.all') %>
-  <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', I18n.t('tasks.index.status.todo') %>
-  <%= f.radio_button :status, :in_progress, id: 'in_progress'  %><%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
-  <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
-  <br>
-  <%= f.text_field :search_word, placeholder: I18n.t('tasks.index.input_task'), id: 'search_word' %>
-  <%= f.submit I18n.t('tasks.index.search'), name: 'search_btn' %>
-<% end %>
+<div class="container_tasks">
+  <h1><%= I18n.t('tasks.index.title') %></h1>
+  ログインユーザ名：<%= current_user.name %>
+  <hr>
+  <%= form_with url: tasks_path, method: :get, local: true do |f| %>
+    <%= I18n.t('tasks.header.status') %>
+    <%= f.radio_button :status, :all, id: 'all' %><%= f.label 'all', I18n.t('tasks.index.status.all') %>
+    <%= f.radio_button :status, :todo, id: 'todo' %><%= f.label 'todo', I18n.t('tasks.index.status.todo') %>
+    <%= f.radio_button :status, :in_progress, id: 'in_progress'  %>
+    <%= f.label 'in_progress', I18n.t('tasks.index.status.in_progress') %>
+    <%= f.radio_button :status, :done, id: 'done' %><%= f.label 'done', I18n.t('tasks.index.status.done') %>
+    <div class="labels">
+      <%= I18n.t('tasks.header.label') %>
+      <%= check_box_tag 'all-select', 'all-select' %>
+      <%= label_tag 'all-select', '全選択' %>
+      <div id="boxes">
+        <%= f.collection_check_boxes(:label_ids, current_user.label, :id, :name, include_hidden: false) do |task_label| %>
+          <div class="task-label test-color">
+            <%= task_label.check_box %>
+            <%= task_label.label %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <%= f.text_field :search_word, placeholder: I18n.t('tasks.input.task'),
+                     id: 'search_word', value: @search_params[:search_word] %>
+    <%= f.submit I18n.t('tasks.button.type.search'), name: 'search_btn' %>
+  <% end %>
 
-<hr>
-<div id="task_list">
-  <table>
-    <!-- テーブルヘッダ -->
-    <thead>
+  <hr>
+  <div id="task_list">
+    <table>
+      <!-- テーブルヘッダ -->
+      <thead>
       <tr>
         <th class="no">No</th>
         <th class="name"><%= I18n.t('tasks.header.name') %></th>
-        <th class="deadline"><%= I18n.t('tasks.header.deadline') %>
-          <%= sort_link_to('deadline', @order) %>
-        </th>
+        <th class="deadline"><%= I18n.t('tasks.header.deadline') %><%= sort_link_to('deadline', @order) %></th>
         <th class="priority"><%= I18n.t('tasks.header.priority') %></th>
         <th class="status"><%= I18n.t('tasks.header.status') %></th>
         <th class="creation_date"><%= I18n.t('tasks.header.creation_date') %></th>
         <th class="edit"><%= I18n.t('tasks.header.edit') %></th>
         <th class="delete"><%= I18n.t('tasks.header.delete') %></th>
       </tr>
-    </thead>
+      </thead>
 
-    <!-- テーブルボディ -->
-    <tbody>
+      <!-- テーブルボディ -->
+      <tbody>
       <% i = 0 %>
       <% @tasks.each do |task| %>
         <tr>
           <td class="no"><%= i += 1 %></td>
-          <td class="name"><%= link_to task.name, task_path(task), class: 'btn btn-show' %>
+          <td class="name">
+            <div class="labels">
+              <% task.labels.each do |label| %>
+                <%= make_task_label_tag(label) %>
+              <% end %>
+            </div>
+            <%= link_to task.name, task_path(task), class: 'btn btn-show' %>
+          </td>
           <td class="deadline"><%= show_date_s(task.deadline) %></td>
           <td class="priority"><%= task.priority_i18n %></td>
           <td class="status"><%= task.status_i18n %></td>
@@ -48,12 +69,15 @@
           </td>
         </tr>
       <% end %>
-    </tbody>
-  </table>
-  <br>
-  <%= paginate @tasks %>
+      </tbody>
+    </table>
+    <br>
+    <%= paginate @tasks %>
+  </div>
+  <hr>
+  <%= link_to I18n.t('tasks.footer.new'), new_task_path %>
+  <hr>
+  <%= logout_button_to(current_user) %>
 </div>
-<hr>
-<%= link_to I18n.t('tasks.footer.new'), new_task_path %>
-<hr>
-<%= logout_button_to(@user) %>
+<input name="status_btn_val" type="hidden" value=<%= @status %> id='status_btn_val'/>
+<input name="label_ids_json" type="hidden" value=<%= @label_ids_json.html_safe %> class='label_ids_json'/>

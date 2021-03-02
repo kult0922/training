@@ -1,8 +1,10 @@
 <% content_for(:title, I18n.t('tasks.edit.title')) %>
-<h1><%= I18n.t('tasks.edit.title') %></h1>
-<hr>
-<div id="task_edit">
-  <%= render partial: 'form', locals: { task: @task, type: I18n.t('tasks.edit.btn_update') } %>
+<div class="container_tasks">
+  <h1><%= I18n.t('tasks.edit.title') %></h1>
+  <hr>
+  <div id="task_edit">
+    <%= render partial: 'form', locals: { task: @task, type: I18n.t('tasks.edit.btn_update') } %>
+  </div>
+  <hr>
+  <%= link_to I18n.t('tasks.footer.index'), tasks_path %>
 </div>
-<hr>
-<%= link_to I18n.t('tasks.footer.index'), tasks_path %>

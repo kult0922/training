@@ -10,19 +10,17 @@ class TasksController < ApplicationController
   # 一覧画面
   # GET /tasks
   def index
-    @order = params[:order]
-    @tasks = Task.where(user_id: current_user.id)
-                 .get_status(params[:status])
-                 .search_word(params[:search_word])
-                 .sort_key(params[:sort], @order)
-                 .page(params[:page])
+    @search_params = params
+    @label_ids_json = @search_params[:label_ids].to_json
+    @order = @search_params[:order]
+    @status = @search_params[:status].presence || 'all'
+    @tasks = Task.find_tasks(current_user.id, @search_params, @order)
   end
 
   # 詳細画面
   # GET /tasks/[:タスクテーブルID]
   def show
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    check_existence_task(@task)
+    @task = current_user.tasks.find(params[:id])
   end
 
   # 作成画面
@@ -34,8 +32,7 @@ class TasksController < ApplicationController
   # 編集画面
   # GET /tasks/[:タスクテーブルID]/edit
   def edit
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
-    check_existence_task(@task)
+    @task = current_user.tasks.find(params[:id])
   end
 
   # ■画面更新系
@@ -43,8 +40,7 @@ class TasksController < ApplicationController
   # タスクを作成する
   # POST /tasks
   def create
-    @task = Task.new(task_params)
-    @task.user_id = current_user.id
+    @task = current_user.tasks.new(task_params)
     if @task.save
       flash[:notice] = I18n.t('flash.success.create',
                               name: I18n.t('tasks.header.name'),
@@ -58,7 +54,8 @@ class TasksController < ApplicationController
   # タスクを更新する
   # POST /tasks/[:タスクテーブルID]
   def update
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
+    @task.labels = []
     if @task.update(task_params)
       flash[:notice] = I18n.t('flash.success.update',
                               name: I18n.t('tasks.header.name'),
@@ -72,7 +69,7 @@ class TasksController < ApplicationController
   # タスクを削除する
   # POST /tasks/[:タスクテーブルID]
   def destroy
-    @task = Task.find_by(id: params[:id], user_id: current_user.id)
+    @task = current_user.tasks.find(params[:id])
     if @task.destroy
       flash[:notice] = I18n.t('flash.success.delete',
                               name: I18n.t('tasks.header.name'),
@@ -88,16 +85,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    # TODO: ステップ20でラベル選択、複数登録可能とする
     params.require(:task).permit(:id, :name, :details, :deadline, :status, :priority, label_ids: [])
-  end
-
-  def check_existence_task(task)
-    render_404 if task.blank?
-  end
-
-  def check_login_user
-    return if logged_in?
-    redirect_to controller: :sessions, action: :index
   end
 end

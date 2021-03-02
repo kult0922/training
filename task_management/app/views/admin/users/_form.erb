@@ -9,7 +9,6 @@
 <% end %>
 
 <%= form_with model: [:admin, user], local: true do |f| %>
-  <%= f.submit "#{type}" %><br><br>
   <!-- テーブルボディ -->
   <table>
     <!-- テーブルヘッダ -->
@@ -21,7 +20,7 @@
       <th class="authority"><%= I18n.t('admin.users.header.authority') %></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="form">
     <tr>
       <td class="login_id"><%= f.text_field :login_id, placeholder: I18n.t('layouts.message.input'), id: 'login_id' %></td>
       <td class="password"><%= f.text_field :password, placeholder: I18n.t('layouts.message.input'), id: 'password' %></td>
@@ -31,4 +30,5 @@
     </tr>
     </tbody>
   </table>
+  <%= f.submit "#{type}" %>
 <% end %>

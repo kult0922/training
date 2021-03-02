@@ -30,11 +30,15 @@ RSpec.describe Task, type: :system do
     end
 
     context '削除ボタンを押下した場合' do
-      example 'タスクを削除できる' do
+      let(:label_A) { create(:label, user_id: user.id, name: 'label_A') }
+      let!(:rel_A) { create(:task_label_relation, task_id: added_user_task.id, label_id: label_A.id) }
+      example '対象タスク、及び対応づくタスクテーブル-ラベルマスタ紐付テーブルが全て削除される' do
         page.accept_confirm do
           click_link "delete_link_#{added_user_task.id}"
         end
         expect(page).to have_content '削除しました。'
+        expect(Task.where(id: added_user_task.id).count).to eq 0
+        expect(TaskLabelRelation.where(task_id: added_user_task.id).count).to eq 0
       end
     end
 
@@ -158,6 +162,46 @@ RSpec.describe Task, type: :system do
       end
     end
 
+    describe 'label' do
+      let(:user_task_labeled_A) { create(:task, name: 'task_labeled_A', user_id: user.id) }
+      let(:user_task_labeled_B) { create(:task, name: 'task_labeled_B', user_id: user.id) }
+      let!(:user_task_unlabeled) { create(:task, name: 'task_unlabeled', user_id: user.id) }
+      let(:label_A) { create(:label, user_id: user.id, name: 'label_A') }
+      let(:label_B) { create(:label, user_id: user.id, name: 'label_B') }
+      let!(:rel_A) { create(:task_label_relation, task_id: user_task_labeled_A.id, label_id: label_A.id) }
+      let!(:rel_B) { create(:task_label_relation, task_id: user_task_labeled_B.id, label_id: label_B.id) }
+      before { visit tasks_path }
+      context 'ラベルを全て選択して検索ボタンを押下した場合' do
+        example 'ラベルありのタスクが表示される' do
+          check 'all-select'
+          click_button '検索'
+          expect(page).to have_content user_task_labeled_A.name
+          expect(page).to have_content user_task_labeled_B.name
+          expect(page).not_to have_content user_task_unlabeled.name
+        end
+      end
+
+      context 'ラベルを全て選択せずに検索ボタンを押下した場合' do
+        example 'ラベルなしのタスクが表示される' do
+          uncheck 'all-select'
+          click_button '検索'
+          expect(page).to have_content user_task_unlabeled.name
+          expect(page).not_to have_content user_task_labeled_A.name
+          expect(page).not_to have_content user_task_labeled_B.name
+        end
+      end
+
+      context 'ラベルAを選択して検索ボタンを押下した場合' do
+        example 'ラベルAのタスクのみが表示される' do
+          check "label_ids_#{label_A.id}"
+          click_button '検索'
+          expect(page).to have_content user_task_labeled_A.name
+          expect(page).not_to have_content user_task_labeled_B.name
+          expect(page).not_to have_content user_task_unlabeled.name
+        end
+      end
+    end
+
     describe 'sorting' do
       let!(:taskA) do
         create(:task, name: 'taskA',
@@ -273,8 +317,8 @@ RSpec.describe Task, type: :system do
 
   describe '#new' do
     before { visit new_task_path }
-    let(:name) { 'test_task2' }
-    let(:details) { 'test2_description' }
+    let(:name) { 'test_task_new' }
+    let(:details) { 'test_description_new' }
     let(:deadline) { Time.zone.now + 3.days }
     context 'タスク登録画面にアクセスした場合' do
       example 'タスク登録画面が表示される' do
@@ -309,10 +353,47 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content 'タスク名を入力してください'
       end
     end
+
+    context 'ラベル登録のテスト' do
+      let!(:label_A) { create(:label, user_id: user.id, name: 'label_A') }
+      before { visit new_task_path }
+      context '必須項目を入力し、ラベルAを選択して登録した場合' do
+        before do
+          fill_in 'name', with: name
+          fill_in 'details', with: details
+          fill_in 'deadline', with: deadline
+          select '高', from: 'task[priority]'
+          select '完了', from: 'task[status]'
+          check "task_label_ids_#{label_A.id}"
+        end
+        example 'タスクを登録できる' do
+          click_button '登録'
+          expect(page).to have_content '登録が完了しました。タスク名：' + name
+        end
+      end
+
+      context '必須項目を入力せず、ラベルAを選択して登録した場合' do
+        before do
+          fill_in 'name', with: ''
+          fill_in 'details', with: details
+          fill_in 'deadline', with: deadline
+          select '中', from: 'task[priority]'
+          select '着手', from: 'task[status]'
+          check "task_label_ids_#{label_A.id}"
+        end
+        example 'タスクが登録できない' do
+          click_button '登録'
+          expect(page).to have_content 'タスク名を入力してください'
+        end
+      end
+    end
   end
 
   describe '#edit' do
     before { visit edit_task_path(added_user_task) }
+    let(:name) { 'test_task_edit' }
+    let(:details) { 'test_description_edit' }
+    let(:deadline) { Time.zone.now + 5.days }
     context 'タスク編集画面にアクセスした場合' do
       example 'タスク編集画面が表示される' do
         visit edit_task_path(added_user_task)
@@ -332,7 +413,7 @@ RSpec.describe Task, type: :system do
 
     context '全項目を入力し、更新ボタンを押下した場合' do
       before do
-        fill_in 'name', with: 'test'
+        fill_in 'name', with: name
       end
       example 'タスクを更新できる' do
         click_button '更新'
@@ -347,6 +428,45 @@ RSpec.describe Task, type: :system do
       example 'タスクが更新できない' do
         click_button '更新'
         expect(page).to have_content 'タスク名を入力してください'
+      end
+    end
+
+    context 'ラベル更新のテスト' do
+      let(:user_task_labeled_A) { create(:task, name: 'task_labeled_A', user_id: user.id) }
+      let(:label_A) { create(:label, user_id: user.id, name: 'label_A') }
+      let!(:label_B) { create(:label, user_id: user.id, name: 'label_B') }
+      let!(:rel_A) { create(:task_label_relation, task_id: user_task_labeled_A.id, label_id: label_A.id) }
+      before { visit edit_task_path(user_task_labeled_A) }
+      context '必須項目を入力し、ラベルBを選択して更新した場合' do
+        before do
+          fill_in 'name', with: ''
+          fill_in 'name', with: name
+          fill_in 'details', with: details
+          fill_in 'deadline', with: deadline
+          select '高', from: 'task[priority]'
+          select '完了', from: 'task[status]'
+          check "task_label_ids_#{label_B.id}"
+        end
+        example 'タスクを更新できる' do
+          click_button '更新'
+          expect(page).to have_content '更新が完了しました。タスク名：' + name
+        end
+      end
+
+      context '必須項目を入力し、ラベルAの選択を外して更新した場合' do
+        before do
+          fill_in 'name', with: ''
+          fill_in 'name', with: name
+          fill_in 'details', with: details
+          fill_in 'deadline', with: deadline
+          select '高', from: 'task[priority]'
+          select '完了', from: 'task[status]'
+          check "task_label_ids_#{label_A.id}"
+        end
+        example 'タスクを更新できる' do
+          click_button '更新'
+          expect(page).to have_content '更新が完了しました。タスク名：' + name
+        end
       end
     end
   end
