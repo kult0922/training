@@ -1,6 +1,6 @@
 ﻿FactoryBot.define do
   factory :task do
-    title { 'title'}
+    title { 'title' }
     detail { 'detail' }
     priority { '1' }
     status { '1' }
