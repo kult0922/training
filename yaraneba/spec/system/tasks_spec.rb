@@ -18,8 +18,6 @@ RSpec.describe 'Tasks', type: :system do
       visit new_task_path
       fill_in 'task_title', with: 'title'
       fill_in 'task_detail', with: 'detail'
-      fill_in 'task_status', with: '1'
-      fill_in 'task_priority', with: '1'
 
       click_button I18n.t('helpers.submit.create')
       expect(page).to have_content'title'

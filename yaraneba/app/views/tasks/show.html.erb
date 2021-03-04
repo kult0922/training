@@ -14,7 +14,7 @@
 
 <p>
   <strong><%= I18n.t('tasks.common.status') %></strong>
-  <%= @task.status %>
+  <%= I18n.t("tasks.status.#{@task.status}") %>
 </p>
 
 <p>
@@ -23,7 +23,7 @@
 </p>
 
 <p>
-<strong><%= I18n.t('tasks.common.end_date') %></strong>
+  <strong><%= I18n.t('tasks.common.end_date') %></strong>
   <%= @task.end_date %>
 </p>
 
