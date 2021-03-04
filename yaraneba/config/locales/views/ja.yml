@@ -1,0 +1,23 @@
+ja:
+  tasks:
+    common:
+      title: 'タイトル'
+      detail: '詳細'
+      status: 'ステータス'
+      priority: '優先順位'
+      end_date: '終了予定日'
+      show: '詳細'
+      edit: '編集'
+      destroy: '削除'
+      back: '戻る'
+    index:
+      title: 'yaraneba'
+      new_submit: '新規作成'
+      confirm: '削除実行します。よろしいですか？'
+    new:
+      title: '新規作成'
+    edit:
+      title: 'タスク編集'
+      prohibited: '削除を禁止します'
+    show:
+      title: 'タスク詳細'

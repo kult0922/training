@@ -1,0 +1,4 @@
+ja:
+  notice:
+    success: '成功しました。'
+    fault: '失敗しました。'

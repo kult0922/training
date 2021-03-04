@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :request do
@@ -27,13 +29,12 @@ RSpec.describe 'Tasks', type: :request do
       example 'create task' do
         expect do
           post tasks_path, params: { task: attributes_for(:task) }
-        end.to change{ Task.count }.by(1)
+        end.to change { Task.count }.by(1)
       end
     end
   end
 
   describe '#task edit' do
-
     context 'GET' do
       example 'request OK' do
         get edit_task_path(task)
@@ -42,13 +43,13 @@ RSpec.describe 'Tasks', type: :request do
     end
     context 'PATCH' do
       example 'request OK' do
-        patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: "sample") }
+        patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample') }
         expect(response.status).to eq(302)
       end
       example 'update OK' do
         expect do
-          patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: "sample") }
-        end.to change{ Task.find(task.id).title }.from('title').to('sample')
+          patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample') }
+        end.to change { Task.find(task.id).title }.from('title').to('sample')
       end
     end
   end
@@ -62,7 +63,7 @@ RSpec.describe 'Tasks', type: :request do
       example 'delete OK' do
         expect do
           delete task_path(task), params: { id: task.id }
-        end.to change{ Task.count }.by(-1)
+        end.to change { Task.count }.by(-1)
       end
     end
   end
