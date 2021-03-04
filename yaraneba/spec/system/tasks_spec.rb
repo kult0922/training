@@ -3,7 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
+  let!(:task) { create_list(:task, 10) }
+
   describe '#task' do
+    it 'index task' do
+      visit root_path
+
+      9.times do |i|
+        expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i + 1}").text
+      end
+    end
+
     it 'create task' do
       visit new_task_path
       fill_in 'task_title', with: 'title'

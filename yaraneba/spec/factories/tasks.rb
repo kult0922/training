@@ -6,5 +6,6 @@
     status { '1' }
     end_date { Date.yesterday }
     deleted_at { nil }
+    sequence(:created_at) { |n| Time.zone.now.since(n.day) }
   end
 end

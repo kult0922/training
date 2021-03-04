@@ -2,6 +2,10 @@ inherit_gem:
   fablicop:
     - "config/.base_rubocop.yml"
 
+Rails/DynamicFindBy:
+  Exclude:
+    - 'spec/system/*'
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'db/**/*'
