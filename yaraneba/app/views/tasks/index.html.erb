@@ -20,7 +20,7 @@
       <tr>
         <td id="title-<%= i %>"><%= task.title %></td>
         <td id="detail-<%= i %>"><%= task.detail %></td>
-        <td id="status-<%= i %>"><%= task.status %></td>
+        <td id="status-<%= i %>"><%= I18n.t("tasks.status.#{task.status}") %></td>
         <td id="priority-<%= i %>"><%= task.priority %></td>
         <td id="end_date-<%= i %>"><%= task.end_date %></td>
         <td id="created_at-<%= i %>"><%= task.created_at%></td>
