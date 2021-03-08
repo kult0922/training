@@ -12,9 +12,9 @@ ja:
       destroy: '削除'
       back: '戻る'
     status:
-      yet: '未着手'
-      started: '着手'
-      done: '完了'
+      waiting: '未着手'
+      working: '着手'
+      completed: '完了'
     index:
       title: 'yaraneba'
       new_submit: '新規作成'

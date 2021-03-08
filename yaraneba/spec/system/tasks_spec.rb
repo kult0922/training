@@ -19,7 +19,7 @@ RSpec.describe 'Tasks', type: :system do
       fill_in 'task_title', with: 'title'
       fill_in 'task_detail', with: 'detail'
 
-      click_button I18n.t('helpers.submit.create')
+      click_button '登録する'
       expect(page).to have_content'title'
     end
 
@@ -29,7 +29,7 @@ RSpec.describe 'Tasks', type: :system do
 
       fill_in 'task_title', with: 'sample'
       expect(page).to have_field 'task_detail', with: 'detail'
-      click_button I18n.t('helpers.submit.update')
+      click_button '更新する'
 
       expect(page).to have_content 'sample'
     end

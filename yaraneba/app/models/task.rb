@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  enum status: { yet: 0, started: 1, done: 2 }
+  enum status: { waiting: 0, working: 1, completed: 2 }
 
   validates :title, presence: true
   validate :date_check
