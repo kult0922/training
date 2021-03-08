@@ -7,7 +7,7 @@ RSpec.describe 'Tasks', type: :system do
 
   describe '#task' do
     it 'index task' do
-      visit root_path
+      visit root_path({ direction: 'desc', sort: 'created_at' })
 
       9.times do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i + 1}").text

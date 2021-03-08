@@ -10,6 +10,7 @@ Style/FrozenStringLiteralComment:
   Exclude:
     - 'db/**/*'
     - 'spec/**/*'
+    - 'app/helpers/*'
 
 AllCops:
   TargetRubyVersion: 2.5.7
