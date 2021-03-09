@@ -2,10 +2,21 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  helper_method :sort_column, :sort_direction
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order("#{sort_column} #{sort_direction}")
+  end
+
+  # check param asc or desc
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
+
+  # check param column
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 
   # GET /tasks/1 or /tasks/1.json
