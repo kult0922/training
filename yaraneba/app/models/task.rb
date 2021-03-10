@@ -11,4 +11,8 @@ class Task < ApplicationRecord
     err_msg = I18n.t('errors.messages.greater_than_or_equal_to', count: now_date)
     errors.add(I18n.t('tasks.common.end_date'), err_msg) if self.end_date.to_s < now_date
   end
+
+  def self.search(title, status)
+    Task.where('title LIKE ?', "%#{title}%").where('status LIKE ?', "%#{status}%")
+  end
 end

@@ -48,8 +48,8 @@ RSpec.describe 'Tasks', type: :request do
       end
       example 'update OK' do
         expect do
-          patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample') }
-        end.to change { Task.find(task.id).title }.from('title').to('sample')
+          patch task_path(task), params: { id: task.id, task: attributes_for(:task, detail: 'sample') }
+        end.to change { Task.find(task.id).detail }.from('detail').to('sample')
       end
     end
   end

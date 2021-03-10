@@ -9,7 +9,7 @@ RSpec.describe 'Tasks', type: :system do
     it 'index' do
       visit root_path({ direction: 'desc', sort: 'created_at' })
 
-      9.times do |i|
+      4.times do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i + 1}").text
       end
     end
@@ -18,14 +18,24 @@ RSpec.describe 'Tasks', type: :system do
       visit root_path({ direction: 'desc', sort: 'created_at' })
 
       find('#created_at').click
-      9.downto(1) do |i|
+      4.downto(1) do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i - 1}").text
       end
 
       find('#created_at').click
-      9.times do |i|
+      4.times do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i + 1}").text
       end
+    end
+
+    it 'search' do
+      create(:task, title: 'picktitle')
+      visit root_path
+
+      fill_in 'search_title', with: 'pick'
+      click_button '検索'
+
+      expect(page).to have_content 'picktitle'
     end
 
     it 'create' do
