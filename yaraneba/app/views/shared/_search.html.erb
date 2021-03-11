@@ -1,0 +1,7 @@
+﻿<div class="search">
+  <%= form_tag(root_path, :method => 'get') do %>
+    <%= text_field_tag :search_title, "", class: 'form-control form-search' %>
+    <%= select_tag :search_status, options_for_select(I18n.t('tasks.status').invert.merge('All' => ''), selected: ''), class: 'form-control form-search' %>
+    <%= submit_tag I18n.t('tasks.common.search'), :name => nil, class: 'btn btn-primary' %>
+  <% end %>
+</div>

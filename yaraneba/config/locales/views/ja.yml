@@ -5,7 +5,7 @@ ja:
       detail: '詳細'
       status: 'ステータス'
       priority: '優先順位'
-      end_date: '終了予定日'
+      end_date: '終了日'
       created_at: '作成日時'
       show: '詳細'
       edit: '編集'
@@ -24,6 +24,12 @@ ja:
       title: '新規作成'
     edit:
       title: 'タスク編集'
-      prohibited: '削除を禁止します'
     show:
       title: 'タスク詳細'
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
