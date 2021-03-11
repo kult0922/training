@@ -17,12 +17,14 @@ RSpec.describe 'Tasks', type: :system do
     it 'sort' do
       visit root_path({ direction: 'desc', sort: 'created_at' })
 
-      find('#created_at').click
+      # asc
+      click_link '作成日時'
       4.downto(1) do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i - 1}").text
       end
 
-      find('#created_at').click
+      # desc
+      click_link '作成日時'
       4.times do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i + 1}").text
       end

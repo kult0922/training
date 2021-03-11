@@ -26,7 +26,7 @@
           <td><%= link_to I18n.t('tasks.common.destroy'), task, method: :delete, data: { confirm: I18n.t('tasks.index.confirm') } %></td>
         </tr>
       <% end %>
-      <%= paginate @tasks %>
+      <%= paginate @tasks if @tasks.present? %>
     </tbody>
   </table>
 
