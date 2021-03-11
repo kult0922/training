@@ -6,8 +6,13 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.search(params[:search_title], params[:search_status]).order("#{sort_column} #{sort_direction}").page(params[:page])
-    raise ActiveRecord::RecordNotFound if @tasks.out_of_range?
+    @tasks = Task.search(params[:search_title], params[:search_status]).order("#{sort_column} #{sort_direction}")
+    if @tasks.blank?
+      @tasks = @tasks.page(params[:page])
+    else
+      @tasks = @tasks.page(params[:page])
+      raise ActiveRecord::RecordNotFound if @tasks.out_of_range?
+    end
   end
 
   # check param asc or desc
