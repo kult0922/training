@@ -8,6 +8,11 @@ RSpec.describe Task, type: :model do
         expect(task.valid?).to be true
       end
 
+      it 'input emoji success process' do
+        task = build(:task, title: '🍣', detail: '🍺')
+        expect(task.valid?).to be true
+      end
+
       it 'title nil' do
         task = build(:task, title: nil)
         task.valid?

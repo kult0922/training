@@ -26,7 +26,7 @@
 
 development:
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   reconnect: false
   database: yaraneba_development
   pool: 5
@@ -36,7 +36,7 @@ development:
 
 test:
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   reconnect: false
   database: yaraneba_test
   pool: 5
@@ -46,7 +46,7 @@ test:
 
 production:
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   reconnect: false
   database: yaraneba_production
   pool: 5
