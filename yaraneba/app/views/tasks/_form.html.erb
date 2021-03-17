@@ -1,8 +1,6 @@
 <%= form_with(model: task) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(task.errors.count, "error") %> <%= I18n.t('tasks.edit.prohibited') %></h2>
-
       <ul>
         <% task.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,27 +9,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-label">
     <%= form.label I18n.t('tasks.common.title') %>
-    <%= form.text_field :title, required: true %>
+    <%= form.text_field :title, required: true, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-label">
     <%= form.label I18n.t('tasks.common.detail') %>
-    <%= form.text_area :detail %>
+    <%= form.text_area :detail, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-label">
     <%= form.label I18n.t('tasks.common.status') %>
-    <%= form.select :status, Task.statuses.keys.map { |k| [I18n.t("tasks.status.#{k}"), k]} %>
+    <%= form.select :status, Task.statuses.keys.map { |k| [I18n.t("tasks.status.#{k}"), k]}, {}, {class: 'form-control'} %>
   </div>
 
-  <div class="field">
+  <div class="field form-label">
     <%= form.label I18n.t('tasks.common.end_date') %>
-    <%= form.datetime_select :end_date, discard_hour: :true, discard_minute: :true %>
+    <%= form.date_select :end_date, {}, {class: 'form-control', style: 'display: inline-block;width: auto;'} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit nil, class: 'btn btn-primary' %>
   </div>
 <% end %>
