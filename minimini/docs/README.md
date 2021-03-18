@@ -68,31 +68,31 @@
 
 ### テーブルスキーマ
 task
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(255) NOT NULL,
-`description` text NOT NULL,
-`status` int(11) NOT NULL,
-`start_time` datetime NOT NULL,
-`end_time` datetime NOT NULL,
-`user_id` int(11) NOT NULL,
-`label_id` int(11) NOT NULL,
+- `id` int(11) unsigned NOT NULL AUTO_INCREMENT
+- `name` varchar(255) NOT NULL
+- `description` text NOT NULL
+- `status` int(11) NOT NULL
+- `start_time` datetime NOT NULL
+- `end_time` datetime NOT NULL
+- `user_id` int(11) NOT NULL
+- `label_id` int(11) NOT NULL
 
 user
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(128) NOT NULL,
-`password` varchar(128) NOT NULL,
-`email` varchar(128) NOT NULL,
+- `id` int(11) unsigned NOT NULL AUTO_INCREMENT
+- `name` varchar(128) NOT NULL
+- `password` varchar(128) NOT NULL
+- `email` varchar(128) NOT NULL
 
 label
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(128) NOT NULL,
-`description` varchar(128) NOT NULL,
+- `id` int(11) unsigned NOT NULL AUTO_INCREMENT
+- `name` varchar(128) NOT NULL
+- `description` varchar(128) NOT NULL
 
 maintenance_schedule
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`status` int(11) unsigned NOT NULL,
-`start_time` datetime NOT NULL,
-`end_time` datetime NOT NULL,
+- `id` int(11) unsigned NOT NULL AUTO_INCREMENT
+- `status` int(11) unsigned NOT NULL
+- `start_time` datetime NOT NULL
+- `end_time` datetime NOT NULL
 
 ## 本カリキュラムの最終目標
 
