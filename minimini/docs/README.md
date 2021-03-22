@@ -67,7 +67,7 @@
   あまりにサイトのレスポンスが悪い場合は改善をしていただきます
 
 ### テーブルスキーマ
-task
+tasks
 - `id` int(11) unsigned NOT NULL AUTO_INCREMENT
 - `name` varchar(255) NOT NULL
 - `description` text NOT NULL
@@ -77,18 +77,18 @@ task
 - `user_id` int(11) NOT NULL
 - `label_id` int(11) NOT NULL
 
-user
+users
 - `id` int(11) unsigned NOT NULL AUTO_INCREMENT
 - `name` varchar(128) NOT NULL
 - `password` varchar(128) NOT NULL
 - `email` varchar(128) NOT NULL
 
-label
+labels
 - `id` int(11) unsigned NOT NULL AUTO_INCREMENT
 - `name` varchar(128) NOT NULL
 - `description` varchar(128) NOT NULL
 
-maintenance_schedule
+maintenance_schedules
 - `id` int(11) unsigned NOT NULL AUTO_INCREMENT
 - `status` int(11) unsigned NOT NULL
 - `start_time` datetime NOT NULL
