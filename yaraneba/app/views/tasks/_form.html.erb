@@ -29,8 +29,6 @@
     <%= form.date_select :end_date, {}, {class: 'form-control', style: 'display: inline-block;width: auto;'} %>
   </div>
 
-  <%= form.hidden_field :user_id, :value => session[:user_id] %>
-
   <div class="actions">
     <%= form.submit nil, class: 'btn btn-primary' %>
   </div>
