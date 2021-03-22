@@ -1,4 +1,7 @@
-<div class="w-75 detail m-auto">
+<% if session[:user_id].present? %>
+<%= render 'shared/search' %>
+
+<div id="top" class="w-75 detail m-auto">
   <p id="notice"><%= notice %></p>
 
   <table class="table">
@@ -34,3 +37,14 @@
 
   <%= link_to I18n.t('tasks.index.new_submit'), new_task_path %>
 </div>
+<% else %>
+<div id="welcome" class="w-75 detail m-auto">
+  <p style='text-align: center;'>
+    <%= image_tag 'logo.png' %>
+    <%= image_tag 'detail.png' %>
+  </p>
+  <p style='text-align: center;'>
+    <%= link_to '新規登録', '/users', class: 'btn btn-secondary m-auto' %>
+  </p>
+</div>
+<% end %>

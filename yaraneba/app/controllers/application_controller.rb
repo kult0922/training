@@ -18,4 +18,12 @@ class ApplicationController < ActionController::Base
   private def rescue404()
     render 'errors/not_found', status: 404
   end
+
+  private def login_check
+    redirect_to login_path if session[:user_id].blank?
+  end
+
+  private def not_logged_in_check
+    redirect_to tasks_path if session[:user_id].present?
+  end
 end
