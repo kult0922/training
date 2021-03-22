@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  get 'users' => 'users#new'
+  post 'users' => 'users#create'
+
+  get 'login' => 'login#new'
+  post 'login' => 'login#create'
+  delete 'login' => 'login#destroy'
+
   root to: 'tasks#index'
   resources :tasks, path: '/'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

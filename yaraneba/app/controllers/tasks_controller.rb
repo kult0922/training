@@ -2,11 +2,12 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :login_check, except: :index
   helper_method :sort_column, :sort_direction
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.search(params[:search_title], params[:search_status]).order("#{sort_column} #{sort_direction}")
+    @tasks = Task.search(params, session[:user_id]).order("#{sort_column} #{sort_direction}")
     return if @tasks.blank?
 
     @tasks = @tasks.page(params[:page])
@@ -25,6 +26,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    redirect_to tasks_path if @task.user_id != session[:user_id]
   end
 
   # GET /tasks/new
@@ -82,6 +84,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:title, :detail, :status, :priority, :end_date, :deleted_at)
+    params.require(:task).permit(:title, :detail, :status, :end_date, :user_id)
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :user
+
   enum status: { waiting: 0, working: 1, completed: 2 }
 
   validates :title, presence: true
@@ -12,7 +14,7 @@ class Task < ApplicationRecord
     errors.add(I18n.t('tasks.common.end_date'), err_msg) if self.end_date.to_s < now_date
   end
 
-  def self.search(title, status)
-    Task.where('title LIKE ?', "%#{title}%").where('status LIKE ?', "%#{status}%")
+  def self.search(params, user_id)
+    Task.where('title LIKE ?', "%#{params[:search_title]}%").where('status LIKE ?', "%#{Task.statuses[params[:search_status]]}%").where(user_id: user_id)
   end
 end
