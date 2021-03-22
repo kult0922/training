@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class LoginController < ApplicationController
-  before_action :not_logged_in_check, except: :destroy
+  before_action :redirect_logged_in_user, except: :destroy
 
   def new
-    redirect_to tasks_path if session[:user_id].present?
   end
 
   def create
     @user = User.find_by(email: params[:email])
-    if @user && @user&.authenticate(params[:password])
+    if @user&.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect_to tasks_path
     else

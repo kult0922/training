@@ -14,7 +14,7 @@ RSpec.describe 'Tasks', type: :request do
     describe 'index' do
       context 'GET' do
         example 'request OK' do
-          get root_path
+          get tasks_path
           expect(response.status).to eq(200)
         end
       end

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'top' => 'top#index'
+
   get 'users' => 'users#new'
   post 'users' => 'users#create'
 
@@ -6,6 +8,6 @@ Rails.application.routes.draw do
   post 'login' => 'login#create'
   delete 'login' => 'login#destroy'
 
-  root to: 'tasks#index'
-  resources :tasks, path: '/'
+  root to: 'top#index'
+  resources :tasks, path: '/tasks'
 end

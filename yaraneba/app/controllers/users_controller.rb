@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :not_logged_in_check
+  before_action :redirect_logged_in_user
 
   def new
-    redirect_to tasks_path if session[:user_id].present?
     @user = User.new
   end
 

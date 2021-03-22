@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
   let!(:user) { create(:user) }
-  let!(:task) { create_list(:task, 10) }
+  let!(:task) { create_list(:task, 10, user_id: user.id) }
 
   before 'login' do
     visit login_path
@@ -15,7 +15,7 @@ RSpec.describe 'Tasks', type: :system do
 
   describe '#task' do
     it 'index' do
-      visit root_path({ direction: 'desc', sort: 'created_at' })
+      visit tasks_path({ direction: 'desc', sort: 'created_at' })
 
       4.times do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i + 1}").text
@@ -23,7 +23,7 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'sort' do
-      visit root_path({ direction: 'desc', sort: 'created_at' })
+      visit tasks_path({ direction: 'desc', sort: 'created_at' })
 
       # asc
       click_link '作成日時'
@@ -40,8 +40,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'search' do
-      create(:task, title: 'picktitle')
-      visit root_path
+      create(:task, title: 'picktitle', user_id: user.id)
+      visit tasks_path
 
       fill_in 'search_title', with: 'pick'
       click_button '検索'

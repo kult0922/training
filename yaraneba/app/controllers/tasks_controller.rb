@@ -2,7 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-  before_action :login_check, except: :index
+  before_action :redirect_if_authorization_is_required
   helper_method :sort_column, :sort_direction
 
   # GET /tasks or /tasks.json
@@ -84,6 +84,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
+    params[:task][:user_id] = session[:user_id]
     params.require(:task).permit(:title, :detail, :status, :end_date, :user_id)
   end
 end

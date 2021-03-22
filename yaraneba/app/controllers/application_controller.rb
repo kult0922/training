@@ -7,23 +7,25 @@ class ApplicationController < ActionController::Base
   rescue_from Forbidden, with: :rescue403
   rescue_from ActiveRecord::RecordNotFound, with: :rescue404
 
-  private def rescue500()
+  private
+
+  def rescue500
     render 'errors/internal_server_error', status: 500
   end
 
-  private def rescue403()
+  def rescue403
     render 'errors/forbidden', status: 403
   end
 
-  private def rescue404()
+  def rescue404
     render 'errors/not_found', status: 404
   end
 
-  private def login_check
+  def redirect_if_authorization_is_required
     redirect_to login_path if session[:user_id].blank?
   end
 
-  private def not_logged_in_check
-    redirect_to tasks_path if session[:user_id].present?
+  def redirect_logged_in_user
+    redirect_back fallback_location: root_path if session[:user_id].present?
   end
 end

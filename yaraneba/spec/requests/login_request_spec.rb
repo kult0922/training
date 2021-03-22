@@ -16,7 +16,7 @@ RSpec.describe 'Logins', type: :request do
     context 'POST' do
       example 'create session' do
         post login_path, params: { email: 'yu.oikawa@rakuten.com', password: '12345' }
-        expect(response).to redirect_to('/')
+        expect(response).to redirect_to('/tasks')
       end
     end
   end
