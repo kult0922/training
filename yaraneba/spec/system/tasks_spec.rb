@@ -3,7 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
+  let!(:user) { create(:user) }
   let!(:task) { create_list(:task, 10) }
+
+  before 'login' do
+    visit login_path
+    fill_in 'email', with: user.email
+    fill_in 'password', with: user.password
+    click_button 'ログイン'
+  end
 
   describe '#task' do
     it 'index' do
@@ -19,6 +27,7 @@ RSpec.describe 'Tasks', type: :system do
 
       # asc
       click_link '作成日時'
+      sleep 2
       4.downto(1) do |i|
         expect(page.find_by_id("created_at-#{i}").text).to be > page.find_by_id("created_at-#{i - 1}").text
       end
@@ -46,7 +55,7 @@ RSpec.describe 'Tasks', type: :system do
       fill_in 'task_detail', with: 'detail'
 
       click_button '登録する'
-      expect(page).to have_content'title'
+      expect(page).to have_content 'title'
     end
 
     it 'update' do

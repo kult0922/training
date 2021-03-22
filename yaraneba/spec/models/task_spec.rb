@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let!(:task) { create(:user) }
+
   describe 'create' do
     context 'validation' do
       it 'success process' do
