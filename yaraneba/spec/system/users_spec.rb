@@ -26,7 +26,7 @@ RSpec.describe 'Users', type: :system do
 
     it 'create user' do
       visit users_path
-      expect(page.current_path).to eq('/')
+      expect(page.current_path).to eq('/tasks')
     end
   end
 end

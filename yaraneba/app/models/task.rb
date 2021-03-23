@@ -4,6 +4,7 @@ class Task < ApplicationRecord
   belongs_to :user
 
   enum status: { waiting: 0, working: 1, completed: 2 }
+  NEED_FUZZY = ['title'].freeze
 
   validates :title, presence: true
   validate :date_check
@@ -14,7 +15,19 @@ class Task < ApplicationRecord
     errors.add(I18n.t('tasks.common.end_date'), err_msg) if self.end_date.to_s < now_date
   end
 
-  def self.search(params, user_id)
-    Task.where('title LIKE ?', "%#{params[:search_title]}%").where('status LIKE ?', "%#{Task.statuses[params[:search_status]]}%").where(user_id: user_id)
+  def self.search(request, user_id)
+    params = request.query_parameters.except(:direction, :sort)
+    @tasks = Task.where(user_id: user_id)
+    params.each do |k, v|
+      next if v.blank?
+
+      @tasks =
+        if NEED_FUZZY.include?(k)
+          @tasks.where("#{k} LIKE ?", "%#{v}%")
+        else
+          @tasks.where("#{k}": v)
+        end
+    end
+    @tasks
   end
 end

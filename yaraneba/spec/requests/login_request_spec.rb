@@ -7,7 +7,7 @@ RSpec.describe 'Logins', type: :request do
     context 'GET' do
       example 'request OK' do
         get login_path
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe 'Logins', type: :request do
       example 'delete session' do
         post login_path, params: { email: 'yu.oikawa@rakuten.com', password: '12345' }
         delete login_path
-        expect(response.status).to eq(302)
+        expect(response).to have_http_status :redirect
       end
     end
   end

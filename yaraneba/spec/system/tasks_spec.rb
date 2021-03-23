@@ -43,7 +43,7 @@ RSpec.describe 'Tasks', type: :system do
       create(:task, title: 'picktitle', user_id: user.id)
       visit tasks_path
 
-      fill_in 'search_title', with: 'pick'
+      fill_in 'title', with: 'pick'
       click_button '検索'
 
       expect(page).to have_content 'picktitle'
@@ -59,7 +59,6 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     it 'update' do
-      task = create(:task)
       visit edit_task_path(task)
 
       fill_in 'task_title', with: 'sample'
@@ -67,6 +66,20 @@ RSpec.describe 'Tasks', type: :system do
       click_button '更新する'
 
       expect(page).to have_content 'sample'
+    end
+
+    it 'update not allowed' do
+      new_task = create(:task)
+      visit edit_task_path(new_task)
+      expect(page).to have_content '失敗しました。'
+    end
+
+    it 'delete' do
+      visit tasks_path
+      page.accept_confirm do
+        click_on '削除', match: :first
+      end
+      expect(page).to have_content '成功しました。'
     end
   end
 end

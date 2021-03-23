@@ -20,6 +20,6 @@ class LoginController < ApplicationController
   def destroy
     session.delete(:user_id)
     flash.notice = I18n.t('notice.success')
-    redirect_to tasks_path
+    redirect_to root_path
   end
 end

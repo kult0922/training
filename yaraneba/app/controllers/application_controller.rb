@@ -26,6 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_logged_in_user
-    redirect_back fallback_location: root_path if session[:user_id].present?
+    redirect_to tasks_path if session[:user_id].present?
   end
 end

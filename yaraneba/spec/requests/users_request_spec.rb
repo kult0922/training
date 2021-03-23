@@ -5,7 +5,7 @@ RSpec.describe 'Users', type: :request do
     context 'GET' do
       example 'request OK' do
         get users_path
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -26,14 +26,14 @@ RSpec.describe 'Users', type: :request do
     context 'GET' do
       example 'redirect main page' do
         get users_path
-        expect(response).to redirect_to('/')
+        expect(response).to redirect_to('/tasks')
       end
     end
 
     context 'POST' do
       example 'redirect main page' do
         post users_path, params: { email: 'sample@rakuten.com', password: 'sample' }
-        expect(response).to redirect_to('/')
+        expect(response).to redirect_to('/tasks')
       end
     end
   end
