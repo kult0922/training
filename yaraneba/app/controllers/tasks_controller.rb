@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    redirect_to tasks_path if @task.user_id != session[:user_id]
+    redirect_if_user_not_allowed
   end
 
   def new
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    redirect_if_user_not_allowed(@task.id)
+    redirect_if_user_not_allowed
   end
 
   def create
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    redirect_if_user_not_allowed(@task.id) && return
+    redirect_if_user_not_allowed && return
 
     respond_to do |format|
       if @task.update(task_params)
@@ -58,7 +58,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    redirect_if_user_not_allowed(@task.id) && return
+    redirect_if_user_not_allowed && return
 
     @task.destroy
     respond_to do |format|
@@ -78,8 +78,8 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :detail, :status, :end_date, :user_id)
   end
 
-  def redirect_if_user_not_allowed(task_id)
-    task = Task.find_by(id: task_id)
+  def redirect_if_user_not_allowed
+    task = Task.find_by(id: @task.id)
     redirect_to tasks_path, notice: I18n.t('notice.fault') if task&.user_id != session[:user_id]
   end
 end
