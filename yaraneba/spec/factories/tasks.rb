@@ -7,5 +7,6 @@
     end_date { Time.zone.now.since(1.day).strftime('%Y-%m-%d') }
     deleted_at { nil }
     sequence(:created_at) { |n| Time.zone.now.since(n.day) }
+    association :user
   end
 end

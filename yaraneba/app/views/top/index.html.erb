@@ -1,0 +1,13 @@
+<div id="welcome" class="w-75 detail m-auto">
+  <p style='text-align: center;'>
+    <%= link_to image_tag('logo.png'), tasks_path %>
+    <%= image_tag 'detail.png' %>
+  </p>
+  <p style='text-align: center;'>
+    <% if session[:user_id].blank? %>
+      <%= link_to I18n.t('top.common.user_new'), users_path, class: 'btn btn-secondary m-auto' %>
+    <% else %>
+      <%= link_to I18n.t('top.common.task_page'), tasks_path, class: 'btn btn-secondary m-auto' %>
+    <% end %>
+  </p>
+</div>

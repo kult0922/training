@@ -1,4 +1,8 @@
 ja:
+  top:
+    common:
+      user_new: '新規登録'
+      task_page: 'タスクを登録しよう'
   tasks:
     common:
       title: 'タイトル'
@@ -28,8 +32,13 @@ ja:
       title: 'タスク詳細'
   views:
     pagination:
-      first: "&laquo; 最初"
-      last: "最後 &raquo;"
-      previous: "&lsaquo; 前"
-      next: "次 &rsaquo;"
-      truncate: "..."
+      first: '&laquo; 最初'
+      last: '最後 &raquo;'
+      previous: '&lsaquo; 前'
+      next: '次 &rsaquo;'
+      truncate: '...'
+  users:
+    common:
+      email: 'email'
+      password: 'password'
+      login: 'ログイン'

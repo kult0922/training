@@ -1,3 +1,12 @@
 <header class="navbar bg-primary">
-  <a class="logo navbar-brand text-white m-auto" href="/">YARANEBA</a>
+  <a class="logo navbar-brand text-white" href="/" style='margin-left: 10px;'>YARANEBA</a>
+
+  <div style='margin-right: 10px;'>
+  <% if session[:user_id].present? %>
+      <%= link_to 'ログアウト', '/login', method: :delete, class: 'btn btn-primary' %>
+  <% else %>
+      <%= link_to 'ログイン', '/login', class: 'btn btn-primary' %>
+      <%= link_to '新規登録', :users, class: 'btn btn-primary' %>
+  <% end %>
+  </div>
 </header>
