@@ -3,6 +3,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :redirect_if_authorization_is_required
+  before_action :redirect_if_user_not_allowed, except: %i[index new create]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -35,6 +36,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = session[:user_id]
 
     respond_to do |format|
       if @task.save
@@ -74,12 +76,10 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params[:task][:user_id] = session[:user_id]
-    params.require(:task).permit(:title, :detail, :status, :end_date, :user_id)
+    params.require(:task).permit(:title, :detail, :status, :end_date)
   end
 
   def redirect_if_user_not_allowed
-    task = Task.find_by(id: @task.id)
-    redirect_to tasks_path, notice: I18n.t('notice.fault') if task&.user_id != session[:user_id]
+    redirect_to tasks_path, notice: I18n.t('notice.fault') if @task.user_id != session[:user_id]
   end
 end
