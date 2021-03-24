@@ -23,7 +23,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    redirect_if_user_not_allowed
   end
 
   def new
@@ -31,7 +30,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    redirect_if_user_not_allowed
   end
 
   def create
@@ -48,8 +46,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    redirect_if_user_not_allowed && return
-
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: I18n.t('notice.success') }
@@ -60,8 +56,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    redirect_if_user_not_allowed && return
-
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: I18n.t('notice.success') }
