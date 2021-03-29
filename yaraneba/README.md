@@ -13,6 +13,7 @@ git clone git@github.com:Fablic/training.git && cd training
 git checkout -b ブランチ名 リモートブランチ名
 docker-compose -f docker/docker-compose.yml up -d
 docker-compose -f docker/docker-compose.yml exec web rails db:migrate
+docker-compose -f docker/docker-compose.yml exec web rails db:seed
 # サーバ起動
 docker-compose -f docker/docker-compose.yml exec web rails s -b 0.0.0.0
 # テスト実行
