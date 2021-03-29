@@ -4,8 +4,8 @@
     <%= image_tag 'detail.png' %>
   </p>
   <p style='text-align: center;'>
-    <% if session[:user_id].blank? %>
-      <%= link_to I18n.t('top.common.user_new'), users_path, class: 'btn btn-secondary m-auto' %>
+    <% if session[:id].blank? %>
+      <%= link_to I18n.t('top.common.user_new'), new_user_path, class: 'btn btn-secondary m-auto' %>
     <% else %>
       <%= link_to I18n.t('top.common.task_page'), tasks_path, class: 'btn btn-secondary m-auto' %>
     <% end %>

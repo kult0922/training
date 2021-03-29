@@ -1,13 +1,7 @@
 ﻿<p id="error"><%= alert %></p>
+<p id="notice"><%= notice %></p>
 
 <div class="w-25 m-auto">
-  <%= form_with(model: @user) do |form| %>
-    <%= form.label I18n.t('users.common.email') %>
-    <%= form.text_field :email, class: 'form-control' %>
-
-    <%= form.label I18n.t('users.common.password') %>
-    <%= form.password_field :password, class: 'form-control' %>
-
-    <%= form.submit nil, class: 'btn btn-primary mt-2' %>
-  <% end %>
+  <h1><%= I18n.t('tasks.new.title') %></h1>
+  <%= render 'form', user: @user %>
 </div>
