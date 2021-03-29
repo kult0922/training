@@ -9,17 +9,15 @@ class LoginController < ApplicationController
   def create
     @user = User.find_by(email: params[:email])
     if @user&.authenticate(params[:password])
-      session[:user_id] = @user.id
+      save_user_info_to_session
       redirect_to tasks_path
     else
-      flash.alert = I18n.t('notice.fault')
-      redirect_to login_path
+      redirect_to login_path, alert: I18n.t('notice.fault')
     end
   end
 
   def destroy
-    session.delete(:user_id)
-    flash.notice = I18n.t('notice.success')
+    delete_user_info_in_session
     redirect_to root_path
   end
 end
