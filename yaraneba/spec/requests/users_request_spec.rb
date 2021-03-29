@@ -4,7 +4,7 @@ RSpec.describe 'Users', type: :request do
   describe '#users not logged in' do
     context 'GET' do
       example 'request OK' do
-        get users_path
+        get new_user_path
         expect(response).to have_http_status :ok
       end
     end
@@ -18,22 +18,48 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe '#users logging in' do
-    let!(:user) { create(:user) }
-    before do
-      post login_path, params: { email: 'yu.oikawa@rakuten.com', password: '12345' }
-    end
+    describe 'member' do
+      let!(:user) { create(:user, role_id: 'member') }
+      before do
+        post login_path, params: { email: user.email, password: user.password }
+      end
 
-    context 'GET' do
-      example 'redirect main page' do
-        get users_path
-        expect(response).to redirect_to('/tasks')
+      context 'GET' do
+        example 'redirect main page' do
+          get new_user_path
+          expect(response).to redirect_to('/tasks')
+        end
+      end
+
+      context 'POST' do
+        example 'redirect main page' do
+          post users_path, params: { email: 'sample@rakuten.com', password: 'sample' }
+          expect(response).to redirect_to('/tasks')
+        end
       end
     end
 
-    context 'POST' do
-      example 'redirect main page' do
-        post users_path, params: { email: 'sample@rakuten.com', password: 'sample' }
-        expect(response).to redirect_to('/tasks')
+    describe 'admin' do
+      let!(:user) { create(:user, role_id: 'admin') }
+      before do
+        post login_path, params: { email: user.email, password: user.password }
+      end
+
+      context 'PATCH' do
+        example 'users update' do
+          patch user_path(user), params: { user: attributes_for(:user, email: 'sample') }
+          expect(User.find(user.id).email).to eq('sample')
+        end
+      end
+
+      context 'DESTROY' do
+        example 'users delete' do
+          member_user = create(:user, role_id: 'member')
+          expect(User.count).to eq(2)
+          expect do
+            delete user_path(member_user), params: { id: member_user.id }
+          end.to change { User.count }.by(-1)
+        end
       end
     end
   end

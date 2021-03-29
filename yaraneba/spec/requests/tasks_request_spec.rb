@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :request do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, role_id: 'member') }
   let!(:task) { create(:task, user_id: user.id) }
 
   describe '#task logging in' do
     before do
-      post login_path, params: { email: 'yu.oikawa@rakuten.com', password: '12345' }
+      post login_path, params: { email: user.email, password: user.password }
     end
 
     describe 'index' do

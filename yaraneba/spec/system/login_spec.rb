@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Login', type: :system do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, role_id: 'member') }
 
   describe 'not logged in' do
     it 'access login page' do

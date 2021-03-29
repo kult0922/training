@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, role_id: 'member') }
   let!(:task) { create_list(:task, 10, user_id: user.id) }
 
   before 'login' do

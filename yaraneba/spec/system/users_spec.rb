@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :system do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, role_id: 'member') }
 
   describe 'not logged in' do
     it 'create user' do
-      visit users_path
+      visit new_user_path
       expect(page).to have_button '登録する'
       fill_in 'user_email', with: 'test@rakuten.com'
       fill_in 'user_password', with: 'test'
@@ -25,7 +25,7 @@ RSpec.describe 'Users', type: :system do
     end
 
     it 'create user' do
-      visit users_path
+      visit new_user_path
       expect(page.current_path).to eq('/tasks')
     end
   end
