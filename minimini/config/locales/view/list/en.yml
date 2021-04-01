@@ -30,4 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+    task:
+      id: 'ID'
+      name: 'TASK NAME'
+      description: 'TASK DESCRIPTION'
+      status: 'STATUS'
+      label: 'LABEL'

@@ -1,0 +1,2 @@
+class MaintenanceSchedule < ApplicationRecord
+end

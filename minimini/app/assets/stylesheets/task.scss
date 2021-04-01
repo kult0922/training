@@ -1,0 +1,20 @@
+// Place all the styles related to the task controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+table {
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+th {
+    padding: 5px;
+    text-align: center;
+    background-color: #ffcaa7;
+}
+
+td {
+    padding: 5px;
+    text-align: left;
+}
+
+tr:nth-child(even) {background-color: #fcf4fb;}

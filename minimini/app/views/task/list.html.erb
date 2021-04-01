@@ -1,0 +1,35 @@
+<h1><%= I18n.t('task.title.list') %></h1>
+<p>Find me in app/views/task/list.html.erb</p>
+<td><%= link_to I18n.t('task.create'), './create' %></td>
+<table border=2>
+    <thead>
+        <tr>
+            <th width="40"><%= I18n.t('task.id') %></th>
+            <th width="100"><%= I18n.t('task.name') %></th>
+            <th width="200"><%= I18n.t('task.description') %></th>
+            <th width="100"><%= I18n.t('task.status') %></th>
+            <th width="180"><%= I18n.t('task.label') %></th>
+            <th width="180"><%= I18n.t('task.created_at') %></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @tasks.each do |task| %>
+        <tr>
+            <td><%= task.id %></td>
+            <td><%= task.name %></td>
+            <td><%= task.description %></td>
+            <td><%= task.status %></td>
+            <td><%= task.labels %></td>
+            <td><%= task.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= link_to I18n.t('task.update'), task_view_path(task.id), method: 'get' %></td>
+            <td><%= link_to I18n.t('task.destroy'), task_delete_path(task.id), method: 'get', data: { confirm: I18n.t('task.confirm.delete') } %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<div>
+<br>
+<%= link_to I18n.t('task.title.list'), './list' %>
+</div>
