@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     render 'errors/not_found', status: 404
   end
 
-  def redirect_if_administrator_is_required
+  def reject_unless_admin
     raise ActiveRecord::RecordNotFound unless session[:role_id].eql?(Role::ROLE_ADMIN)
   end
 
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_logged_in_user
-    redirect_to tasks_path if !session[:role_id].eql?(Role::ROLE_ADMIN) && session[:id].present?
+    redirect_to tasks_path if session[:id].present? && !session[:role_id].eql?(Role::ROLE_ADMIN)
   end
 
   def save_user_info_to_session

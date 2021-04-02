@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdminController < ApplicationController
-  before_action :redirect_if_administrator_is_required
+  before_action :reject_unless_admin
 
   def user
     @users = User.left_joins(:role).left_joins(:tasks).select('users.id, users.email, roles.role_name, count(tasks.id) as tasks_count').group(:id)
@@ -22,7 +22,7 @@ class AdminController < ApplicationController
 
   def user_create
     @user = User.new(user_params)
-    if User.find_by(email: @user.email, deleted_at: nil).present?
+    if User.find_by(email: @user.email, deleted_at: nil).present? || @user.invalid?
       redirect_to admin_users_new_path, alert: I18n.t('notice.fault')
     else
       @user.save
