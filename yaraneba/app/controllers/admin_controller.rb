@@ -4,7 +4,7 @@ class AdminController < ApplicationController
   before_action :reject_unless_admin
 
   def user
-    @users = User.left_joins(:role).left_joins(:tasks).select('users.id, users.email, roles.role_name, count(tasks.id) as tasks_count').group(:id)
+    @users = User.left_joins(:role).left_joins(:tasks).group(:id).select('users.id, users.email, roles.role_name, count(tasks.id) as tasks_count')
   end
 
   def task
