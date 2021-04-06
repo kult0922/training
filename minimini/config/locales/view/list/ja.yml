@@ -45,14 +45,33 @@ ja:
       create: '新規タスク登録'
       update: 'タスク編集'
       delete: 'タスク削除'
+    button:
+      create: '登録'
+      update: '更新'
+      delete: '削除'
     confirm:
       delete: '削除します'
   flash:
-    new: 作成しました！
+    create: 作成しました！
     updated: 更新しました！
     failed: 失敗しました！
     destroy: 削除しました！
     login: ログインしました！
     logout: ログアウトしました！
     limited_access: 不正な侵入です！！
-    
+  # バリデーションエラー
+  errors:
+    messages:
+      blank: "を入力してください"
+    models:
+      task:
+        fullname_blank: "タスク名はフルネームで入力してください" 
+      description:
+        fullname_blank: "タスク内容はフルネームで入力してください" 
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        name: タスク名
+        description: タスク内容

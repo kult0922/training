@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  get 'task/create'
-  get 'task/view'
-  get 'task/update'
-  get 'task/destroy'
+  get 'task/new'
+  get 'task/show'
+  post 'task/create'
+  get 'task/edit'
+  patch 'task/update'
+  delete 'task/destroy'
   get 'task/list'
   get 'maintenance_schedules/create'
   get 'maintenance_schedules/update'
@@ -13,8 +15,5 @@ Rails.application.routes.draw do
   get 'label/create'
   get 'label/update'
   get 'label/destroy'
-  get 'task/create'
-  get 'task/update'
-  get 'task/destroy'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

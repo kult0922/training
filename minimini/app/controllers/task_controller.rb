@@ -1,25 +1,74 @@
 class TaskController < ApplicationController
-  before_action :fetch_task, only: %i[view update destroy]
+  protect_from_forgery
+  before_action :set_session_id_for_test
 
-  def create
-    @task = Task.new
+  def new
+    @task = Task.new()
+    @task.due_date = Date.today
   end
 
-  def view
+  def edit
+    @task = Task.find(params[:id])
+  end
+
+  def show
+    @task = Task.find(params[:id])
+  end
+
+  def create
+    @task = Task.new(task_params)
+    @task.user_id = session[:user_id]
+
+    if @task.save
+      flash[:notice] = I18n.t('flash.create')
+      flash.now[:notice] = I18n.t('flash.create')
+      redirect_to task_show_path(id: @task.id), notice: I18n.t('flash.create')
+    else
+      render :new
+    end
   end
 
   def update
-    @task = Task.search(params[:id])
+    @task = Task.find(task_params[:id])
+
+    if @task.update(task_params)
+      redirect_to task_edit_path(id: task_params[:id]), notice: I18n.t('flash.updated')
+    else
+      render :edit
+    end
   end
 
   def destroy
+    @task = Task.find(params[:id])
+
+    if @task.present? && @task.destroy
+      flash.now[:notice] = 'タスクを削除しました。'
+      redirect_to task_list_path, notice: I18n.t('flash.destroy')
+    else
+      render :list
+    end
   end
 
   def list
-    @tasks = Task.search("1111")
+    # 検索用
+    @task = Task.new()
+    # 検索結果
+    @tasks = Task.searchAll(session["user_id"])
   end
 
-  def fetch_task
-    @task = Task.find(params[:id])
+  def task_params
+    params.require(:task).permit(
+      :user_id,
+      :id,
+      :name,
+      :description,
+      :labels,
+      :status,
+      :due_date
+    )
+  end
+
+  def set_session_id_for_test
+    session[:user_id] = "1111"
   end
 end

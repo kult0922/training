@@ -18,3 +18,16 @@ td {
 }
 
 tr:nth-child(even) {background-color: #fcf4fb;}
+
+.notifications {
+    color: rgb(0, 0, 0);
+    text-align: center;
+  
+    .notice {
+      background-color: orange;
+    }
+  
+    .alert {
+      background-color: alert_orange;
+    }
+}

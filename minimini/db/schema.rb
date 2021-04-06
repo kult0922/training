@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 2021_03_26_074524) do
     t.string "name", null: false
     t.text "description", null: false
     t.integer "status", default: 0
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.string "labels", null: false
+    t.datetime "due_date", precision: 6, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
