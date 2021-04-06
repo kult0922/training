@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  let!(:task) { create(:user) }
+  let!(:task) { create(:user, role_id: 'member') }
 
   describe 'create' do
     context 'validation' do

@@ -1,0 +1,14 @@
+<%= form_with(model: @user) do |form| %>
+  <%= form.label I18n.t('users.common.email') %>
+  <%= form.text_field :email, class: 'form-control' %>
+
+  <%= form.label I18n.t('users.common.password') %>
+  <%= form.password_field :password, class: 'form-control' %>
+
+  <% if session[:role_id] == Role::ROLE_ADMIN && session[:id] != @user.id %>
+    <%= form.label "role_id" %>
+    <%= form.select :role_id, User.role_ids.keys.map { |k| [I18n.t("users.roles.#{k}"), k]}, {}, {class: 'form-control'} %>
+  <% end %>
+
+  <%= form.submit nil, class: 'btn btn-primary mt-2' %>
+<% end %>

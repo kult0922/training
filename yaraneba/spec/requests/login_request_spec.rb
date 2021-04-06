@@ -1,32 +1,64 @@
 require 'rails_helper'
 
 RSpec.describe 'Logins', type: :request do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, role_id: 'member') }
 
-  describe '#login new' do
-    context 'GET' do
-      example 'request OK' do
+  describe 'new' do
+    context 'logging in' do
+      before do
+        post login_path, params: { email: user.email, password: user.password }
+      end
+
+      example 'reidrect task page' do
+        get login_path
+        expect(response).to redirect_to('/tasks')
+      end
+    end
+
+    context 'not logged in' do
+      example 'response OK' do
         get login_path
         expect(response).to have_http_status :ok
       end
     end
   end
 
-  describe '#login create' do
-    context 'POST' do
-      example 'create session' do
-        post login_path, params: { email: 'yu.oikawa@rakuten.com', password: '12345' }
+  describe 'create' do
+    context 'logging in' do
+      before do
+        post login_path, params: { email: user.email, password: user.password }
+      end
+
+      example 'create session successfully' do
+        post login_path, params: { email: user.email, password: user.password }
+        expect(session[:id].present?).to eq true
+      end
+    end
+
+    context 'not logged in' do
+      example 'redirect task page' do
+        post login_path, params: { email: user.email, password: user.password }
         expect(response).to redirect_to('/tasks')
       end
     end
   end
 
-  describe '#login destroy' do
-    context 'DELETE' do
+  describe 'destroy' do
+    context 'logging in' do
+      before do
+        post login_path, params: { email: user.email, password: user.password }
+      end
+
       example 'delete session' do
-        post login_path, params: { email: 'yu.oikawa@rakuten.com', password: '12345' }
         delete login_path
-        expect(response).to have_http_status :redirect
+        expect(session[:id].blank?).to eq true
+      end
+    end
+
+    context 'not logged in' do
+      example 'destroy session successfully' do
+        delete login_path
+        expect(response).to redirect_to('/')
       end
     end
   end

@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
   get 'top' => 'top#index'
 
-  get 'users' => 'users#new'
-  post 'users' => 'users#create'
-
   get 'login' => 'login#new'
   post 'login' => 'login#create'
   delete 'login' => 'login#destroy'
 
   root to: 'top#index'
   resources :tasks, path: '/tasks'
+  resources :users, path: '/users'
+
+  get 'admin/users' => 'admin#user'
+  get 'admin/new' => 'admin#new'
+  get 'admin/tasks' => 'admin#task'
+  get 'admin/users/new' => 'admin#user_new'
+  post 'admin/users' => 'admin#user_create'
 end

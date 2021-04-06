@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.search(request, session[:user_id]).order("#{sort_column} #{sort_direction}")
+    @tasks = Task.search(request, session[:id]).order("#{sort_column} #{sort_direction}")
     return if @tasks.blank?
 
     @tasks = @tasks.page(params[:page])
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.user_id = session[:user_id]
+    @task.user_id = session[:id]
 
     respond_to do |format|
       if @task.save
@@ -57,10 +57,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: I18n.t('notice.success') }
-      format.json { head :no_content }
-    end
+    redirect_to tasks_url, notice: I18n.t('notice.success')
   end
 
   private
@@ -74,6 +71,6 @@ class TasksController < ApplicationController
   end
 
   def redirect_if_user_not_allowed
-    redirect_to tasks_path, notice: I18n.t('notice.fault') if @task.user_id != session[:user_id]
+    redirect_to tasks_path, notice: I18n.t('notice.fault') if @task.user_id != session[:id]
   end
 end

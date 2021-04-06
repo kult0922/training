@@ -1,0 +1,7 @@
+<p id="error"><%= alert %></p>
+
+<div class="w-25 m-auto">
+  <%= render 'form', user: @user %>
+
+  <%= link_to I18n.t('tasks.common.back'), tasks_path %>
+</div>
