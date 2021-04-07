@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_074524) do
+ActiveRecord::Schema.define(version: 2021_04_07_061520) do
+
+  create_table "books", charset: "utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "labels", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -26,11 +31,22 @@ ActiveRecord::Schema.define(version: 2021_03_26_074524) do
     t.string "name", null: false
     t.text "description", null: false
     t.integer "status", default: 0
-    t.integer "user_id", null: false
-    t.string "labels", null: false
-    t.datetime "due_date", precision: 6, null: false
+    t.integer "user_id"
+    t.string "labels"
+    t.datetime "due_date", precision: 6, default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks_old", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "status", default: 0
+    t.integer "user_id"
+    t.string "labels"
+    t.datetime "due_date", precision: 6, default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
+    t.datetime "created_at", precision: 6, default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

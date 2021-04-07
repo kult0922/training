@@ -1,17 +1,21 @@
 module ApplicationHelper
-    def task_edit_path(id)
-        "edit?id=#{id}"
+    def tasks_new_path()
+        "/tasks/new"
     end
 
-    def task_destroy_path(id)
-        "destroy?id=#{id}"
+    def tasks_edit_path(id)
+        "/tasks/edit?id=#{id}"
     end
 
-    def task_list_path()
-        "list"
+    def tasks_destroy_path(id)
+        "/tasks/destroy?id=#{id}"
+    end
+
+    def tasks_list_path()
+        "/tasks/list"
     end
     
-    def task_show_path(id)
-        "destroy?id=#{id}"
+    def tasks_show_path(id)
+        "/tasks/destroy?id=#{id}"
     end
 end

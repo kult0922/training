@@ -1,4 +1,4 @@
-class LabelController < ApplicationController
+class LabelsController < ApplicationController
   def create
   end
 
