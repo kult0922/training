@@ -15,7 +15,7 @@
   </div>
 <% end %>
 
-<%= form_for @task, url: "update" do |form| %>
+<%= form_with model: @task do |form| %>
     <%= form.hidden_field :id, :value => @task.id %>
     <%= form.hidden_field :user_id, :value => @task.user_id %>
     <table border=1>
@@ -48,5 +48,5 @@
 
 <div>
     <br>
-    <%= link_to I18n.t('task.title.to_list'), './list' %>
+    <%= link_to I18n.t('task.title.to_list'), tasks_path %>
 </div>

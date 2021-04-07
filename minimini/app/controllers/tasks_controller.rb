@@ -1,22 +1,19 @@
 class TasksController < ApplicationController
   protect_from_forgery
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  # 動作確認用
-  # CSRFを無効化
-  skip_before_action :verify_authenticity_token
 
   def new
     @task = Task.new()
+    @task.user_id = session[:user_id]
     # 動作確認用
     @task.due_date = Date.today
   end
 
   def create
     @task = Task.new(task_params)
-    @task.user_id = session[:user_id]
-
+    
     if @task.save
-      redirect_to tasks_show_path(id: @task.id), notice: I18n.t('flash.create')
+      redirect_to task_path(id: @task.id), notice: I18n.t('flash.create')
     else
       render :new
     end
@@ -24,7 +21,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_edit_path(id: task_params[:id]), notice: I18n.t('flash.updated')
+      redirect_to edit_task_path(id: task_params[:id]), notice: I18n.t('flash.updated')
     else
       render :edit
     end
@@ -32,13 +29,13 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.present? && @task.destroy
-      redirect_to tasks_list_path, notice: I18n.t('flash.destroy')
+      redirect_to tasks_path, notice: I18n.t('flash.destroy')
     else
       render :list
     end
   end
 
-  def list
+  def index
     # 検索用
     @task = Task.new()
     # 検索結果
