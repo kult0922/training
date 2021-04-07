@@ -64,15 +64,16 @@ ja:
   errors:
     messages:
       blank: "を入力してください"
-    models:
-      task:
-        fullname_blank: "タスク名はフルネームで入力してください" 
-      description:
-        fullname_blank: "タスク内容はフルネームで入力してください" 
   activerecord:
     models:
       task: タスク
     attributes:
       task:
-        name: タスク名
-        description: タスク内容
+        id: 'ID'
+        name: 'タスク名'
+        description: 'タスク内容'
+        status: 'ステータース'
+        label: 'ラベル'
+        due_date: '期限'
+        created_at: '作成日'
+        create: '新規タスク登録'
