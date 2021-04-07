@@ -20,8 +20,6 @@ class TaskController < ApplicationController
     @task.user_id = session[:user_id]
 
     if @task.save
-      flash[:notice] = I18n.t('flash.create')
-      flash.now[:notice] = I18n.t('flash.create')
       redirect_to task_show_path(id: @task.id), notice: I18n.t('flash.create')
     else
       render :new
@@ -42,7 +40,6 @@ class TaskController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.present? && @task.destroy
-      flash.now[:notice] = 'タスクを削除しました。'
       redirect_to task_list_path, notice: I18n.t('flash.destroy')
     else
       render :list
@@ -68,6 +65,7 @@ class TaskController < ApplicationController
     )
   end
 
+  #ログイン実装後、削除
   def set_session_id_for_test
     session[:user_id] = "1111"
   end

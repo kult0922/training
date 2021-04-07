@@ -1,5 +1,4 @@
 <h1><%= I18n.t('task.title.create') %></h1>
-
 <div class="notifications">
   <% flash.each do |key, value| %>
     <%= content_tag(:div, value, :class => "flash #{key}") %>
@@ -48,5 +47,5 @@
 
 <div>
     <br>
-    <%= link_to I18n.t('task.title.list'), './list' %>
+    <%= link_to I18n.t('task.title.to_list'), './list' %>
 </div>

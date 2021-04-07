@@ -45,6 +45,7 @@ ja:
       create: '新規タスク登録'
       update: 'タスク編集'
       delete: 'タスク削除'
+      to_list: 'タスク一覧へ'
     button:
       create: '登録'
       update: '更新'
