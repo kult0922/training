@@ -2,8 +2,8 @@ class Task < ApplicationRecord
     validates :name, presence: true
     validates :description, presence: true
     validates :due_date, presence: true
-
-    enum status: { 'Not Started': 0, 'Work In Progress': 1, 'Done': 2 }
+    
+    enum status: { '未着手': 0, '着手中': 1, '完了': 2 }
     enum labels: { 
         'A: 重要度高': "1",
         'B: 重要度低': "2",

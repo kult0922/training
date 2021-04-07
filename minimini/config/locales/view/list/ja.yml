@@ -29,6 +29,11 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 ja:
+  enums:
+    status:
+      0: '未着手1'
+      1: '着手中2'
+      2: '完了3'
   task:
     id: 'ID'
     name: 'タスク名'

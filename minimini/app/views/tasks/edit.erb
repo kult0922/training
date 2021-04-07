@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <th width="150"><%= I18n.t('task.status') %></th>
-            <td width="400"><%= form.select :status, ["Not Started", "Work In Progress", "Done"], selected: @task.status %></td>
+            <td width="400"><%= form.select :status, ['未着手', '着手中', '完了'], selected: @task.status %></td>
         </tr>
         <tr>
             <th width="150"><%= I18n.t('task.label') %></th>
