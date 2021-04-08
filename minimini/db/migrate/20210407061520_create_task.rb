@@ -1,8 +1,8 @@
 class CreateTask < ActiveRecord::Migration[6.1]
   def change
     create_table :tasks do |t|
-      t.string "name", null: false
-      t.text "description", null: false
+      t.string "name"
+      t.text "description"
       t.integer "status", default: 0
       t.integer "user_id"
       t.string "labels"

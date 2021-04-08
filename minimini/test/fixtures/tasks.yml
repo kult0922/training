@@ -4,8 +4,34 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+    name: "タスク名1"
+    description: "タスク内容1"
+    user_id: 9999
+    status: 1
+    labels: 1
+    due_date: "2022/01/01"
+
+two:
+    name: "タスク名2"
+    description: "タスク内容2"
+    user_id: 9999
+    status: 2
+    labels: 2
+    due_date: "2022/01/01"
+
+three:
+    name: "タスク名3"
+    description: "タスク内容3"
+    user_id: 9999
+    status: 3
+    labels: 3
+    due_date: "2022/01/01"
+
+four:
+    name: "タスク名4"
+    description: "タスク内容4"
+    user_id: 9999
+    status: 3
+    labels: 3
+    due_date: "2022/01/01"
