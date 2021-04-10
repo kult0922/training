@@ -45,11 +45,7 @@ class TasksController < ApplicationController
   private
     # コールバック
     def set_task
-      if params[:id] == nil
-        @task = Task.find(params[:task][:id])
-      else 
-        @task = Task.find(params[:id])
-      end
+      @task = Task.find(params[:id])
     end
 
     # ホワイトリスト
