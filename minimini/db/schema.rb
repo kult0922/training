@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 2021_04_07_061520) do
   end
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "name", null: false
-    t.text "description", null: false
+    t.string "name"
+    t.text "description"
     t.integer "status", default: 0
+    t.integer "user_id"
     t.string "labels"
     t.datetime "due_date", precision: 6, default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
     t.datetime "created_at", precision: 6, null: false
