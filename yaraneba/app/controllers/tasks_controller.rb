@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @tasks = Task.search(request, session[:id]).order("#{sort_column} #{sort_direction}")
+    @tasks = Task.search(request, session[:id]).order("tasks.#{sort_column} #{sort_direction}")
     return if @tasks.blank?
 
     @tasks = @tasks.page(params[:page])
@@ -35,24 +35,23 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = session[:id]
+    labels = params[:task][:label].split(' ')
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: I18n.t('notice.success') }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
-    end
+    create_task_related_record(labels, session[:id])
+
+    redirect_to @task, notice: I18n.t('notice.success')
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_entity
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: I18n.t('notice.success') }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
+    labels = params[:task][:label].split(' ')
+
+    update_task_related_record(labels, session[:id])
+
+    redirect_to @task, notice: I18n.t('notice.success')
+  rescue ActiveRecord::RecordInvalid
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
@@ -61,6 +60,23 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def create_task_related_record(labels, user_id)
+    Task.transaction do
+      label_ids = Label.create_labels(labels, user_id)
+      @task.save!
+      LabelTask.create_labeltasks(label_ids, @task.id)
+    end
+  end
+
+  def update_task_related_record(labels, user_id)
+    Task.transaction do
+      label_ids = Label.create_labels(labels, user_id)
+      @task.update!(task_params)
+      LabelTask.delete_by(task_id: @task.id)
+      LabelTask.create_labeltasks(label_ids, @task.id)
+    end
+  end
 
   def set_task
     @task = Task.find(params[:id])
