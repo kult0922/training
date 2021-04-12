@@ -16,7 +16,8 @@ RSpec.describe TasksController, type: :controller do
   end
 
   it 'create new task' do
-    create_block = -> { post :create, params: {
+    expect(Task.count).to eq 1
+    post :create, params: {
         task: {
           name: "NEW タスク名1",
           description: "NEW タスク内容1",
@@ -26,14 +27,14 @@ RSpec.describe TasksController, type: :controller do
           due_date: "2022-01-01"
         }
       }
-    }
-    expect(create_block).to change { Task.count }.by(1)
+    expect(Task.count).to eq 2
     expect(response.status).to eq 302
   end
 
   it 'fail to create new task' do
     # name, descriptionがnil
-    create_block = -> { post :create, params: {
+    expect(Task.count).to eq 1
+    post :create, params: {
         task: {
           status: "未着手",
           labels: "1",
@@ -41,8 +42,7 @@ RSpec.describe TasksController, type: :controller do
           due_date: "2022-01-01"
         }
       }
-    }
-    expect(create_block).to change { Task.count }.by(0)
+    expect(Task.count).to eq 1
     expect(response.status).to eq 200
   end
 
@@ -51,10 +51,9 @@ RSpec.describe TasksController, type: :controller do
     expect(response.status).to eq 200
   end
 
-  it 'record not found error' do
-    expect {
-      get :show, params: { id: "99999999" }
-    }.to raise_error(ActiveRecord::RecordNotFound)
+  it 'record not found error show 404' do
+    get :show, params: { id: "99999999" }
+    expect(response.status).to eq 404
   end
 
   it 'render the edit task page' do
@@ -78,13 +77,17 @@ RSpec.describe TasksController, type: :controller do
   end
 
   it 'delete one task' do
-    call_delete = ->  { delete :destroy, params: { id: @task[:id] } }
-    expect(call_delete).to change { Task.count }.by(-1)
+    expect(Task.count).to eq 1
+    delete :destroy, params: { id: @task[:id] }
+    expect(Task.count).to eq 0
     expect(response.status).to eq 302
   end
 
   it 'fail to delete one task' do
-    call_delete = ->  { delete :destroy, params: { id: "99999999"} }
-    expect(call_delete).to raise_error(ActiveRecord::RecordNotFound)
+    expect(Task.count).to eq 1
+    delete :destroy, params: { id: "99999999"}
+    expect(Task.count).to eq 1
+    expect(response.status).to eq 404
   end
 end
+
