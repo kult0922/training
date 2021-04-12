@@ -8,6 +8,8 @@
   <% end %>
 
   <% if session[:id].present? %>
+    <%= link_to 'タスク一覧', tasks_path, class: 'btn btn-primary' %>
+    <%= link_to 'ラベル一覧', labels_path, class: 'btn btn-primary' %>
     <%= link_to 'ログアウト', '/login', method: :delete, class: 'btn btn-primary' %>
   <% else %>
     <%= link_to 'ログイン', '/login', class: 'btn btn-primary' %>

@@ -18,13 +18,18 @@
 }
 
 .search {
-    width: 340px;
     margin-left: auto;
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
     .form-search{
         display: inline-block;
         width: auto;
     }
     .btn {
         margin-bottom: 3px;
+    }
+    #label_name {
+      width: 100px;
     }
 }

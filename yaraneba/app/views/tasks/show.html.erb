@@ -19,6 +19,11 @@
   </p>
 
   <p>
+    <strong><%= I18n.t('tasks.common.label') %></strong>
+    <%= @task.labels.map(&:name).zip.join(" ") %>
+  </p>
+
+  <p>
     <strong><%= I18n.t('tasks.common.priority') %></strong>
     <%= @task.priority %>
   </p>

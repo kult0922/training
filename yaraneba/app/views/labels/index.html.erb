@@ -1,0 +1,21 @@
+<div id="top" class="w-75 detail m-auto">
+  <p id="notice"><%= notice %></p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th id="name_head"><%= I18n.t('labels.common.name') %></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @labels.each do |label| %>
+        <tr>
+          <td id="name"><%= label.name %></td>
+          <td><%= link_to I18n.t('labels.common.edit'), edit_label_path(label) %></td>
+          <td><%= link_to I18n.t('labels.common.destroy'), label, method: :delete, data: { confirm: I18n.t('tasks.index.confirm') } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</div>
