@@ -6,6 +6,8 @@ FactoryBot.define do
         status       {"未着手"}
         labels       {"1"}
         user_id      {"9999"}
-        due_date     {"2022-01-01"}
+        due_date     {DateTime.now + 1.week}
+        created_at   {DateTime.now}
+        updated_at   {DateTime.now}
     end
 end
