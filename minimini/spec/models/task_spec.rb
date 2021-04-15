@@ -4,7 +4,7 @@ RSpec.describe Task, type: :model do
   it 'is valid with name, description, due_date' do
     task = FactoryBot.build(:task)
     expect(task).to be_valid
-end
+  end
 
   it 'is invalid without a name' do
     task = FactoryBot.build(:task)
