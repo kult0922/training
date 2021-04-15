@@ -1,0 +1,27 @@
+<h1><%= I18n.t('task.title.login') %></h1>
+<div class="notifications">
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, :class => "flash #{key}") %>
+  <% end %>
+</div>
+
+<div >
+  <div>
+    <%= form_with do |form| %>
+    <table border=1>
+      <tr>
+          <th width="120">メール</th>
+          <td width="400"><%= form.email_field :email, size: "60" %></td>
+      </tr>
+      <tr>
+          <th width="120">パスワード</th>
+          <td width="400"><%= form.password_field :password, size: "60x10" %></td>
+      </tr>
+      <tr>
+          <th width="120"></th>
+          <td width="400" class="td-right"><%= form.submit "送信"%></td>
+      </tr>
+    </table>
+    <% end %>
+  </div>
+</div>

@@ -11,7 +11,5 @@ class Task < ApplicationRecord
         'D: 緊急度低': "4"
     }
 
-    def self.searchAll(user_id)
-        @tasks = Task.where(user_id: user_id)
-    end
+    belongs_to :user
 end

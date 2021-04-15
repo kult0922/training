@@ -1,12 +1,10 @@
 class TasksController < ApplicationController
-  protect_from_forgery
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   def new
     @task = Task.new()
     @task.user_id = session[:user_id]
-    # 動作確認用
-    @task.due_date = Date.today
   end
 
   def create
@@ -39,7 +37,7 @@ class TasksController < ApplicationController
     # 検索用
     @task = Task.new()
     # 検索結果
-    @tasks = Task.searchAll(session["user_id"])
+    @tasks = Task.all.preload(:user).where(user_id: session["user_id"])
   end
 
   private
