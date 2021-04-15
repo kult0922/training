@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_042947) do
+ActiveRecord::Schema.define(version: 2021_04_06_064816) do
+
+  create_table "label_tasks", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "label_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "deleted_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "index_label_tasks_on_label_id"
+    t.index ["task_id"], name: "index_label_tasks_on_task_id"
+  end
+
+  create_table "labels", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "deleted_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_labels_on_user_id"
+  end
 
   create_table "roles", charset: "utf8mb4", force: :cascade do |t|
     t.string "role_name"
@@ -42,4 +61,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_042947) do
     t.integer "role_id"
   end
 
+  add_foreign_key "label_tasks", "labels"
+  add_foreign_key "label_tasks", "tasks"
+  add_foreign_key "labels", "users"
 end

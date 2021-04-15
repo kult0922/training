@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  before_action :maintenance
   USER_INFO = %i[id role_id].freeze
   class Forbidden < ActionController::ActionControllerError; end
 
@@ -11,6 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def maintenance
+    render './maintenance', layout: false if File.file?('./app/views/maintenance.html.erb')
+  end
 
   def rescue500
     render 'errors/internal_server_error', status: 500

@@ -16,11 +16,6 @@ RSpec.describe 'Tasks', type: :request do
         get tasks_path
         expect(response).to have_http_status :ok
       end
-
-      example 'response OK' do
-        post tasks_path, params: { task: attributes_for(:task) }
-        expect(response).to have_http_status :redirect
-      end
     end
 
     context 'not logged in' do
@@ -78,20 +73,28 @@ RSpec.describe 'Tasks', type: :request do
       end
 
       example 'response OK' do
-        post tasks_path, params: { task: attributes_for(:task) }
+        post tasks_path, params: { task: attributes_for(:task, label: '') }
         expect(response).to have_http_status :redirect
       end
 
       example 'task create successfully' do
         expect do
-          post tasks_path, params: { task: attributes_for(:task) }
+          post tasks_path, params: { task: attributes_for(:task, label: '') }
         end.to change { Task.count }.by(1)
+      end
+
+      example 'task with labels create successfully' do
+        expect do
+          post tasks_path, params: { task: attributes_for(:task, label: 'test label') }
+        end.to change { Task.count }.by(1).
+        and change { Label.count }.by(2).
+        and change { LabelTask.count }.by(2)
       end
     end
 
     context 'not logged in' do
       example 'reidrect login page' do
-        post tasks_path, params: { task: attributes_for(:task) }
+        post tasks_path, params: { task: attributes_for(:task, label: '') }
         expect(response).to redirect_to('/login')
       end
     end
@@ -104,14 +107,22 @@ RSpec.describe 'Tasks', type: :request do
       end
 
       example 'response OK' do
-        patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample') }
+        patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample', label: '') }
         expect(response).to have_http_status :redirect
       end
 
       example 'task update successfully' do
         expect do
-          patch task_path(task), params: { id: task.id, task: attributes_for(:task, detail: 'sample') }
+          patch task_path(task), params: { id: task.id, task: attributes_for(:task, detail: 'sample', label: '') }
         end.to change { Task.find(task.id).detail }.from('detail').to('sample')
+      end
+
+      example 'task with label update successfully' do
+        expect do
+          patch task_path(task), params: { id: task.id, task: attributes_for(:task, detail: 'sample', label: 'test label') }
+        end.to change { Task.find(task.id).detail }.from('detail').to('sample').
+        and change { Label.count }.by(2).
+        and change { LabelTask.count }.by(2)
       end
 
       context 'not allowed user' do
@@ -125,7 +136,7 @@ RSpec.describe 'Tasks', type: :request do
 
     context 'not logged in' do
       example 'reidrect login page' do
-        patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample') }
+        patch task_path(task), params: { id: task.id, task: attributes_for(:task, title: 'sample', label: '') }
         expect(response).to redirect_to('/login')
       end
     end

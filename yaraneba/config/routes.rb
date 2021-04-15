@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   get 'admin/tasks' => 'admin#task'
   get 'admin/users/new' => 'admin#user_new'
   post 'admin/users' => 'admin#user_create'
+
+  resources :labels, path: '/labels', except: [:new, :show, :create]
 end

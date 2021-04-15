@@ -1,0 +1,10 @@
+<%= form_with(model: @label) do |form| %>
+  <div class="field form-label">
+    <%= form.label I18n.t('labels.common.name') %>
+    <%= form.text_field :name, required: true, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

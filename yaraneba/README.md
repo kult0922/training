@@ -1,6 +1,11 @@
 # yaraneba
 TODO List
 
+# step終了後残タスク
+- Dockerをとりまわしやるくする
+  - 変更ごとにdocker build せず済むようにする
+  - docker-compose up -d ですべて環境が構築完了できるようにする
+
 # Table of Contents
 - [画面イメージ](#画面イメージ)
 - [データ構造](#データ構造)
@@ -8,6 +13,11 @@ TODO List
 # 環境構築
 ruby ver: 2.5.7
 rails ver: 6.1.2.1
+
+環境構築にはdockerを利用していますがpullを行い
+npm install --global yarn
+rails webpacker:install
+を行っても確認できます。
 ```
 git clone git@github.com:Fablic/training.git && cd training
 git checkout -b ブランチ名 リモートブランチ名
@@ -24,7 +34,7 @@ docker-compose -f docker/docker-compose.yml stop
 docker-compose -f docker/docker-compose.yml down
 ```
 
-# 画面イメージ
+# 画面イメージ(予定)
 https://preview.studio.site/live/4Ra4k9voqD/[1~5]
 
 # データ構造
