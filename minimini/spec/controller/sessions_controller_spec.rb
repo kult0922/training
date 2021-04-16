@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
   before(:each) do
     session[:current_user_id] = nil
+    create(:user)
   end
 
   it 'render the login page' do
@@ -12,7 +13,7 @@ RSpec.describe SessionsController, type: :controller do
 
   it 'fail to login with password mismatch' do
     post :create, params: {
-      email: "trainee5@rakuten.com",
+      email: "trainee1@rakuten.com",
       password: "xxxxxxx",
     }
     expect(response).to render_template(:new)
@@ -20,14 +21,17 @@ RSpec.describe SessionsController, type: :controller do
 
   it 'success to login' do
     post :create, params: {
-      email: "trainee5@rakuten.com",
-      password: "password5",
+      email: "trainee1@rakuten.com",
+      password: "password1",
     }
-    expect(response.status).to eq 200
+    puts response.body
+    expect(response.status).to eq 302
+    expect(response).to redirect_to(root_path)
   end
 
   it 'success to logout' do
-    post :destroy
+    delete :destroy
     expect(response.status).to eq 302
+    expect(response).to redirect_to(login_path)
   end
 end

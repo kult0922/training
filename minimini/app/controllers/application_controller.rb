@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery
+    
     helper_method :current_user, :is_logged_in?
 
     rescue_from StandardError, with: :render_500
@@ -31,7 +32,7 @@ class ApplicationController < ActionController::Base
             session[:current_user_id] = user.id
         end
 
-        def log_out(current_user_id)
+        def log_out
             session.delete(:current_user_id)
             @_current_user = nil
         end
