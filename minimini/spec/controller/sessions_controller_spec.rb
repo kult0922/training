@@ -24,7 +24,6 @@ RSpec.describe SessionsController, type: :controller do
       email: "trainee1@rakuten.com",
       password: "password1",
     }
-    puts response.body
     expect(response.status).to eq 302
     expect(response).to redirect_to(root_path)
   end
