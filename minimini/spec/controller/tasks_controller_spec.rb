@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe TasksController, type: :controller do
   before(:each) do
     @task = create(:task)
-    session[:user_id] = @task.user.id
+    session[:current_user_id] = @task.user.id
   end
 
   it 'render the index page' do

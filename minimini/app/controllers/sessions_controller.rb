@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
     if user && (BCrypt::Password.new(user.password_digest) == params[:password])
       log_in(user)
-      redirect_to tasks_path
+      redirect_to root_url
     else
       flash.now.notice = I18n.t('error.message.login_fail')
       @user = User.new
@@ -19,7 +19,8 @@ class SessionsController < ApplicationController
   end
   
   def destroy
-    session.delete(:user_id)
+    log_out(:current_user_id)
+    flash.notice = I18n.t('flash.logout')
     redirect_to login_path
   end
 end

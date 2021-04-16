@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new()
-    @task.user_id = session[:user_id]
+    @task.user_id = session[:current_user_id]
   end
 
   def create
@@ -37,7 +37,8 @@ class TasksController < ApplicationController
     # 検索用
     @task = Task.new()
     # 検索結果
-    @tasks = Task.all.preload(:user).where(user_id: session["user_id"])
+    @tasks = Task.all.preload(:user).where(user_id: session[:current_user_id])
+    current_user.name
   end
 
   private

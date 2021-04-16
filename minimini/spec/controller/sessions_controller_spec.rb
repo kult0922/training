@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   before(:each) do
-    session[:user_id] = nil
+    session[:current_user_id] = nil
   end
 
   it 'render the login page' do

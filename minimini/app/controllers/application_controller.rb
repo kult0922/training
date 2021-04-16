@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery
-    
+    helper_method :current_user, :is_logged_in?
+
     rescue_from StandardError, with: :render_500
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
@@ -23,10 +24,20 @@ class ApplicationController < ActionController::Base
         end
 
         def is_logged_in?
-            !session[:user_id].nil?
+            !session[:current_user_id].nil?
         end
 
         def log_in(user)
-            session[:user_id] = user.id
+            session[:current_user_id] = user.id
+        end
+
+        def log_out(current_user_id)
+            session.delete(:current_user_id)
+            @_current_user = nil
+        end
+
+        def current_user
+            @_current_user ||= session[:current_user_id] &&
+            User.find_by(id: session[:current_user_id])
         end
 end
