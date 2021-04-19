@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+  before_action :render_503, if: :maintenance_mode?
   helper_method :current_user, :is_logged_in?
 
   rescue_from StandardError, with: :render_500
@@ -15,6 +15,14 @@ class ApplicationController < ActionController::Base
     render file: Rails.root.join('public/404.html'), status: 500, layout: false, content_type: 'text/html'
   end
 
+  def maintenance_mode?
+    File.exist?('tmp/maintenance.txt')
+  end
+
+  def render_503
+    render file: Rails.root.join('public/503.html'), status: 500, layout: false, content_type: 'text/html'
+  end
+  
   include SessionsHelper
 
   private
