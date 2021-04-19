@@ -19,9 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
     def require_login
-      unless is_logged_in?
-        redirect_to login_path
-      end
+      redirect_to login_path unless is_logged_in?
     end
 
     def is_logged_in?
