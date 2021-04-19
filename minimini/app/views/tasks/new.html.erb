@@ -28,11 +28,11 @@
         </tr>
         <tr>
             <th width="120"><%= I18n.t('task.status') %></th>
-            <td width="400"><%= form.select :status, ['未着手', '着手中', '完了'], selected: @task.status %></td>
+            <td width="400"><%= form.select :status, Task.statuses.keys.to_a, selected: @task.status %></td>
         </tr>
         <tr>
             <th width="120"><%= I18n.t('task.label') %></th>
-            <td width="400"><%= form.select :labels, ["A: 重要度高", "B: 重要度低", "C: 緊急度高", "D: 緊急度低"] %></td>
+            <td width="400"><%= form.select :labels, Task.labels.keys.to_a %></td>
         </tr>
         <tr>
             <th width="120"><%= I18n.t('task.due_date') %></th>
