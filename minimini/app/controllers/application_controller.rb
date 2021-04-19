@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
     render file: Rails.root.join('public/404.html'), status: 500, layout: false, content_type: 'text/html'
   end
 
-  include SessionsHelper
-
   private
     def require_login
       redirect_to login_path unless is_logged_in?
