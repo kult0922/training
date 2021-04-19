@@ -30,11 +30,11 @@
         </tr>
         <tr>
             <th width="120"><%= I18n.t('task.status') %></th>
-            <td width="400"><%= form.select :status, Task.statuses.keys.to_a, {}, :disabled => true, selected: @task.status %></td>
+            <td width="400"><%= form.select :status, Task.statuses.map {|k, _| [Task.human_attribute_enum_value(:status, k), k] }.to_h, {}, :disabled => true, selected: @task.status %></td>
         </tr>
         <tr>
             <th width="120"><%= I18n.t('task.label') %></th>
-            <td width="400"><%= form.select :labels, Task.labels.keys.to_a, {}, :disabled => true, selected: @task.labels %></td>
+            <td width="400"><%= form.select :labels, Task.labels.map {|k, _| [Task.human_attribute_enum_value(:labels, k), k] }.to_h, {}, :disabled => true, selected: @task.labels %></td>
         </tr>
         <tr>
             <th width="120"><%= I18n.t('task.due_date') %></th>
