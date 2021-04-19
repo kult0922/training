@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :require_login
 
   def new
-    @task = Task.new()
+    @task = Task.new
     @task.user_id = session[:current_user_id]
   end
 
@@ -35,7 +35,7 @@ class TasksController < ApplicationController
 
   def index
     # 検索用
-    @task = Task.new()
+    @task = Task.new
     # 検索結果
     @tasks = Task.preload(:user).where(user_id: session[:current_user_id])
     current_user.name
