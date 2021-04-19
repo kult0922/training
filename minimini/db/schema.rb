@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_061520) do
+ActiveRecord::Schema.define(version: 2021_04_19_144409) do
 
   create_table "labels", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_061520) do
     t.integer "status", default: 0
     t.integer "user_id"
     t.string "labels"
-    t.datetime "due_date", precision: 6, default: -> { "CURRENT_TIMESTAMP(6)" }, null: false
+    t.date "due_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
