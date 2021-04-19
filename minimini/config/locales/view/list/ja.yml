@@ -51,7 +51,7 @@ ja:
       update: '更新'
       delete: '削除'
     confirm:
-      delete: '削除します'
+      delete: 'ID:%{id}を削除します'
   flash:
     create: 作成しました！
     updated: 更新しました！
