@@ -4,12 +4,12 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @task.user_id = session[:current_user_id]
   end
 
   def create
     @task = Task.new(task_params)
-    
+    @task.user = current_user
+
     if @task.save
       redirect_to task_path(id: @task.id), notice: I18n.t('flash.create')
     else
@@ -38,13 +38,12 @@ class TasksController < ApplicationController
     @task = Task.new
     # 検索結果
     @tasks = Task.preload(:user).where(user_id: session[:current_user_id])
-    current_user.name
   end
 
   private
     # コールバック
     def set_task
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params[:id])
     end
 
     # ホワイトリスト
