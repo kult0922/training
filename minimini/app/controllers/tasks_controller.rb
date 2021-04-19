@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     # 検索用
     @task = Task.new()
     # 検索結果
-    @tasks = Task.all.preload(:user).where(user_id: session[:current_user_id])
+    @tasks = Task.preload(:user).where(user_id: session[:current_user_id])
     current_user.name
   end
 
