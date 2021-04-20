@@ -21,7 +21,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to edit_task_path(id: task_params[:id]), notice: I18n.t('flash.updated')
+      redirect_to task_path(id: @task.id), notice: I18n.t('flash.updated')
     else
       render :edit
     end

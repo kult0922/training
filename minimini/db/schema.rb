@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2021_04_19_144409) do
   end
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description", null: false
+    t.string "name"
+    t.text "description"
     t.integer "status", default: 0
     t.integer "user_id"
     t.string "labels"

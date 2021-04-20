@@ -84,3 +84,11 @@ ja:
         due_date: '期限'
         created_at: '作成日'
         create: '新規タスク登録'
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              too_long: "最大%{count}文字まで使えます"
+            description:
+              too_long: "最大%{count}文字まで使えます"
