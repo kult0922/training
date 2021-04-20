@@ -38,10 +38,10 @@
             <td><%= task.description %></td>
             <td><%= task.status %></td>
             <td><%= task.labels %></td>
-            <td><%= task.due_date&.strftime('%Y-%m-%d') %></td>
+            <td><%= task.due_date %></td>
             <td><%= task.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
             <td><%= link_to I18n.t('task.update'), edit_task_path(task.id), method: 'get' %></td>
-            <td><%= link_to I18n.t('task.destroy'), task_path(task.id), method: 'delete', data: { confirm: "ID:#{task.id}を" + I18n.t('task.confirm.delete') } %></td>
+            <td><%= link_to I18n.t('task.destroy'), task_path(task.id), method: 'delete', data: { confirm: I18n.t('task.confirm.delete', id: "#{task.id}") } %></td>
         </tr>
         <% end %>
     </tbody>

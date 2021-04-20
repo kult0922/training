@@ -1,7 +1,9 @@
 class Task < ApplicationRecord
-    validates :name, presence: true, length: { maximum: 85 }
-    validates :description, presence: true, length: { maximum: 21845 }
-    validates :due_date, presence: true
+    with_options presence: true do
+      validates :name
+      validates :description
+      validates :due_date
+    end
     
     enum status: { '未着手': 0, '着手中': 1, '完了': 2 }
     enum labels: { 

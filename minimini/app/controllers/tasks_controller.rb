@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @task = Task.new()
     @task.user_id = session[:user_id]
     # 動作確認用
-    @task.due_date = Date.today
+    @task.due_date = Date.current
   end
 
   def create
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     if @task.present? && @task.destroy
       redirect_to tasks_path, notice: I18n.t('flash.destroy')
     else
-      render :list
+      render :index
     end
   end
 

@@ -29,11 +29,6 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 ja:
-  enums:
-    status:
-      0: '未着手1'
-      1: '着手中2'
-      2: '完了3'
   task:
     id: 'ID'
     name: 'タスク名'
@@ -56,7 +51,7 @@ ja:
       update: '更新'
       delete: '削除'
     confirm:
-      delete: '削除します'
+      delete: 'ID:%{id}を削除します'
   flash:
     create: 作成しました！
     updated: 更新しました！
@@ -77,8 +72,15 @@ ja:
         id: 'ID'
         name: 'タスク名'
         description: 'タスク内容'
-        status: 'ステータース'
-        label: 'ラベル'
+        status:
+          0: '未着手1'
+          1: '着手中2'
+          2: '完了3'
+        labels:
+          'A: 重要度高': "1"
+          'B: 重要度低': "2"
+          'C: 緊急度高': "3"
+          'D: 緊急度低': "4"
         due_date: '期限'
         created_at: '作成日'
         create: '新規タスク登録'
