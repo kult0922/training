@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_144409) do
+ActiveRecord::Schema.define(version: 2021_04_20_071240) do
 
   create_table "labels", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -18,6 +18,9 @@ ActiveRecord::Schema.define(version: 2021_04_19_144409) do
   end
 
   create_table "maintenance_schedules", charset: "utf8mb4", force: :cascade do |t|
+    t.string "reason"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -31,6 +34,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_144409) do
     t.date "due_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
