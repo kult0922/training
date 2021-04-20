@@ -49,7 +49,6 @@ class TasksController < ApplicationController
     # ホワイトリスト
     def task_params
       params.require(:task).permit(
-        :user_id,
         :id,
         :name,
         :description,
