@@ -1,0 +1,51 @@
+<h1><%= I18n.t('task.title.create') %></h1>
+<div class="notifications">
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, :class => "flash #{key}") %>
+  <% end %>
+</div>
+<% if @task.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@task.errors.count, "error") %></h2>
+    <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @task do |form| %>
+    <%= form.hidden_field :user_id, :value => @task.user_id %>
+    <table border=1>
+        <tr>
+            <th width="120"><%= I18n.t('task.name') %></th>
+            <td width="400"><%= form.text_field :name, size: "60" %></td>
+        </tr>
+        <tr>
+            <th width="120"><%= I18n.t('task.description') %></th>
+            <td width="400"><%= form.text_area :description, size: "60x10" %></td>
+        </tr>
+        <tr>
+            <th width="120"><%= I18n.t('task.status') %></th>
+            <td width="400"><%= form.select :status, Task.statuses.map {|k, _| [Task.human_attribute_enum_value(:status, k), k] }.to_h, selected: @task.status %></td>
+        </tr>
+        <tr>
+            <th width="120"><%= I18n.t('task.label') %></th>
+            <td width="400"><%= form.select :labels, Task.labels.map {|k, _| [Task.human_attribute_enum_value(:labels, k), k] }.to_h %></td>
+        </tr>
+        <tr>
+            <th width="120"><%= I18n.t('task.due_date') %></th>
+            <td width="400"><%= form.date_field :due_date %></td>
+        </tr>
+    </table>
+    <div align="left">
+    <br>
+    <%= form.submit I18n.t('task.button.create') %>
+</div>
+<% end %>
+
+<div>
+    <br>
+    <%= link_to I18n.t('task.title.to_list'), tasks_path %>
+</div>

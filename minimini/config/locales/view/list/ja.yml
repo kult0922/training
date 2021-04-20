@@ -1,0 +1,94 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+ja:
+  task:
+    id: 'ID'
+    name: 'タスク名'
+    description: 'タスク内容'
+    status: 'ステータース'
+    label: 'ラベル'
+    due_date: '期限'
+    created_at: '作成日'
+    create: '新規タスク登録'
+    update: '編集'
+    destroy: '削除'
+    title:
+      list: 'タスク一覧'
+      create: '新規タスク登録'
+      update: 'タスク編集'
+      delete: 'タスク削除'
+      to_list: 'タスク一覧へ'
+    button:
+      create: '登録'
+      update: '更新'
+      delete: '削除'
+    confirm:
+      delete: 'ID:%{id}を削除します'
+  flash:
+    create: 作成しました！
+    updated: 更新しました！
+    failed: 失敗しました！
+    destroy: 削除しました！
+    login: ログインしました！
+    logout: ログアウトしました！
+    limited_access: 不正な侵入です！！
+  # バリデーションエラー
+  errors:
+    messages:
+      blank: "を入力してください"
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        id: 'ID'
+        name: 'タスク名'
+        description: 'タスク内容'
+        status:
+          0: '未着手1'
+          1: '着手中2'
+          2: '完了3'
+        labels:
+          'A: 重要度高': "1"
+          'B: 重要度低': "2"
+          'C: 緊急度高': "3"
+          'D: 緊急度低': "4"
+        due_date: '期限'
+        created_at: '作成日'
+        create: '新規タスク登録'
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              too_long: "最大%{count}文字まで使えます"
+            description:
+              too_long: "最大%{count}文字まで使えます"
