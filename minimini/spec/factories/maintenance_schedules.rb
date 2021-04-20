@@ -6,5 +6,9 @@ FactoryBot.define do
     end_time   { Time.zone.now.since(10.minutes) }
     created_at { Time.zone.now }
     updated_at { Time.zone.now }
+
+    trait :maintenance_schedule_over do
+      end_time   { Time.zone.now.ago(1.minutes) }
+    end
   end
 end
