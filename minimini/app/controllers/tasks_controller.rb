@@ -29,7 +29,7 @@ class TasksController < ApplicationController
     if @task.present? && @task.destroy
       redirect_to tasks_path, notice: I18n.t('flash.destroy')
     else
-      render :list
+      render :index
     end
   end
 
