@@ -5,7 +5,7 @@ namespace :maintenance do
 
   task :on do
     unless File.exist?(MANINTENANCE_FILE)
-      File.open(MANINTENANCE_FILE, 'w') { |f| f.write "#{Time.now}"}
+      File.open(MANINTENANCE_FILE, 'w') { |f| f.write "#{Time.current}"}
       puts 'maintenance mode is on' 
     else
       puts 'maintenance mode is already on' 
