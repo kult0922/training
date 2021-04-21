@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe TasksController, type: :controller do
   before(:each) do
     @task = create(:task)
+    session[:current_user_id] = @task.user.id
   end
 
   it 'render the index page' do
@@ -63,9 +64,9 @@ RSpec.describe TasksController, type: :controller do
 
   it 'update the task' do
     patch :update, params: {
-      id: "1",
+      id: "10000",
       task: {
-        id: "1",
+        id: "10000",
         name: "[updated]タスク名1",
         description: "[updated]タスク内容1",
         status: "完了",
@@ -90,4 +91,3 @@ RSpec.describe TasksController, type: :controller do
     expect(response.status).to eq 404
   end
 end
-

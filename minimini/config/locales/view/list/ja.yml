@@ -37,6 +37,7 @@ ja:
     label: 'ラベル'
     due_date: '期限'
     created_at: '作成日'
+    created_by: '作成者'
     create: '新規タスク登録'
     update: '編集'
     destroy: '削除'
@@ -46,6 +47,8 @@ ja:
       update: 'タスク編集'
       delete: 'タスク削除'
       to_list: 'タスク一覧へ'
+      login: 'ログイン'
+      logout: 'ログアウト'
     button:
       create: '登録'
       update: '更新'
@@ -60,7 +63,9 @@ ja:
     login: ログインしました！
     logout: ログアウトしました！
     limited_access: 不正な侵入です！！
-  # バリデーションエラー
+  error:
+    message:
+      login_fail: "メールもしくはパスワード確認してください。"
   errors:
     messages:
       blank: "を入力してください"

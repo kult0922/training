@@ -17,7 +17,6 @@
 
 <%= form_with model: @task do |form| %>
     <%= form.hidden_field :id, :value => @task.id %>
-    <%= form.hidden_field :user_id, :value => @task.user_id %>
     <table border=1>
         <tr>
             <th width="120"><%= I18n.t('task.name') %></th>

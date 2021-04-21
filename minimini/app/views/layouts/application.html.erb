@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <% if is_logged_in? %>
+    <div align="right" style="font-size: 10pt;text-decoration: underline;"><%= current_user.name %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
