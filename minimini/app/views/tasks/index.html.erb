@@ -4,7 +4,7 @@
     <%= content_tag(:div, value, :class => "flash #{key}") %>
   <% end %>
 </div>
-<% if @task.errors.any? %>
+<% if @task&.errors&.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@task.errors.count, "error") %></h2>
     <ul>
@@ -20,6 +20,14 @@
 <%= link_to I18n.t('task.title.login'), login_path %>
 <br>
 <%= link_to I18n.t('task.title.logout'), logout_path, method: 'delete' %>
+<%= form_with scope: :search, url: search_path, method: :get do |form| %>
+    <%= I18n.t('task.status') %>
+    <%= form.select :status, Task.statuses.map {|k, v| [Task.human_attribute_enum_value(:statuses, k), v] }.to_h, selected: @search_param.status %>
+    <%= form.select :sort_order, Task.sort_orders.map {|k, v| [Task.human_attribute_enum_value(:sort_orders, k), v] }.to_h, selected: @search_param.sort_order %>
+    <%= submit_tag(I18n.t('task.button.search'), name: nil) %>
+</div>
+<% end %>
+<br>
 <table border=2>
     <thead>
         <tr>
@@ -41,8 +49,8 @@
             <td><%= task.id %></td>
             <td><%= task.name %></td>
             <td><%= task.description %></td>
-            <td><%= task.status %></td>
-            <td><%= task.labels %></td>
+            <td><%= Task.human_attribute_enum_value(:statuses, task.status) %></td>
+            <td><%= Task.human_attribute_enum_value(:labels, task.labels) %></td>
             <td><%= task.due_date %></td>
             <td><%= task.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
             <td><%= task.user.name %></td>

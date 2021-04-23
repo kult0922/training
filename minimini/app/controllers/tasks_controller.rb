@@ -34,19 +34,15 @@ class TasksController < ApplicationController
   end
 
   def index
-    # 検索用
-    @task = Task.new
-    # 検索結果
-    @tasks = Task.preload(:user).where(user_id: session[:current_user_id])
+    @search_param = SearchParam.new(user_search_param)
+    @tasks = Task.search(user_search_param, session[:current_user_id])
   end
 
   private
-    # コールバック
     def set_task
       @task = current_user.tasks.find(params[:id])
     end
 
-    # ホワイトリスト
     def task_params
       params.require(:task).permit(
         :name,
@@ -55,5 +51,9 @@ class TasksController < ApplicationController
         :status,
         :due_date
       )
+    end
+
+    def user_search_param
+      params.fetch(:search, {}).permit(:status, :sort_order)
     end
 end

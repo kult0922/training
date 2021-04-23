@@ -22,8 +22,8 @@ RSpec.describe TasksController, type: :controller do
         task: {
           name: "NEW タスク名1",
           description: "NEW タスク内容1",
-          status: "未着手",
-          labels: "1",
+          status: "not_started",
+          labels: "very_important",
           user_id: "9999",
           due_date: "2022-01-01"
         }
@@ -37,8 +37,8 @@ RSpec.describe TasksController, type: :controller do
     expect(Task.count).to eq 1
     post :create, params: {
         task: {
-          status: "未着手",
-          labels: "1",
+          status: "not_started",
+          labels: "very_important",
           user_id: "9999",
           due_date: "2022-01-01"
         }
@@ -69,8 +69,8 @@ RSpec.describe TasksController, type: :controller do
         id: "10000",
         name: "[updated]タスク名1",
         description: "[updated]タスク内容1",
-        status: "完了",
-        labels: "D: 緊急度低",
+        status: "completed",
+        labels: "normal",
         due_date: "2023-01-01"
       }
     }
@@ -89,5 +89,16 @@ RSpec.describe TasksController, type: :controller do
     delete :destroy, params: { id: "99999999"}
     expect(Task.count).to eq 1
     expect(response.status).to eq 404
+  end
+
+  it 'search with not_started status' do
+    get :index, params: {
+        search: {
+          status: "not_started",
+          sort_order: "ASC"
+        }
+      }
+
+    expect(response).to render_template(:index)
   end
 end

@@ -50,11 +50,13 @@ ja:
       login: 'ログイン'
       logout: 'ログアウト'
     button:
+      search: '検索'
       create: '登録'
       update: '更新'
       delete: '削除'
     confirm:
       delete: 'ID:%{id}を削除します'
+    sort: ソート順
   flash:
     create: 作成しました！
     updated: 更新しました！
@@ -77,18 +79,25 @@ ja:
         id: 'ID'
         name: 'タスク名'
         description: 'タスク内容'
-        status:
-          0: '未着手1'
-          1: '着手中2'
-          2: '完了3'
-        labels:
-          'A: 重要度高': "1"
-          'B: 重要度低': "2"
-          'C: 緊急度高': "3"
-          'D: 緊急度低': "4"
+        status: 'ステータース'
+        label: 'ラベル'
+        sort_order: 'ソート順'
         due_date: '期限'
         created_at: '作成日'
         create: '新規タスク登録'
+      task/statuses:
+        not_selected: '選択なし'
+        not_started: '未着手'
+        in_progress: '着手中'
+        completed: '完了'
+      task/labels:
+        very_important: 'A: 重要度高'
+        important: 'B: 重要度低'
+        urgent: 'C: 緊急度高'
+        normal: 'D: 緊急度低'
+      task/sort_orders:
+        asc: '昇順'
+        desc: '降順'
     errors:
       models:
         task:
@@ -97,3 +106,4 @@ ja:
               too_long: "最大%{count}文字まで使えます"
             description:
               too_long: "最大%{count}文字まで使えます"
+  
