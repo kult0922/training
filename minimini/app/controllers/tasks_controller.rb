@@ -35,7 +35,10 @@ class TasksController < ApplicationController
 
   def index
     @search_param = SearchParam.new(user_search_param)
-    @tasks = Task.search(user_search_param, session[:current_user_id])
+    # デフォルト値
+    @search_param.status ||= "-1"
+    @search_param.sort_order ||= "ASC"
+    @tasks = Task.search(@search_param, session[:current_user_id])
   end
 
   private

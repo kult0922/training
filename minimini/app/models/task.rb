@@ -26,16 +26,16 @@ class Task < ApplicationRecord
     unless search_params.blank?
       sort_order = Task.human_attribute_enum_value(
         :sort_order,
-        search_params[:sort_order]).upcase
+        search_params.sort_order).upcase
 
         # ステータースが「選択なし」
-        if search_params[:status] == "-1"
+        if search_params.status == "-1"
           @tasks = Task.preload(:user).where(
             user_id: current_user_id).order(id: sort_order)
         else 
           @tasks = Task.preload(:user).where(
             user_id: current_user_id,
-            status: search_params[:status]).order(id: sort_order)
+            status: search_params.status).order(id: sort_order)
         end
     else
       @tasks = Task.preload(:user).where(user_id: current_user_id)
