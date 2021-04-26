@@ -9,7 +9,7 @@ class Task < ApplicationRecord
     not_selected: 1,
     not_started: 2,
     in_progress: 3,
-    completed: 3,
+    completed: 4,
   }
   enum labels: {
     very_important: 1,

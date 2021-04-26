@@ -13,8 +13,8 @@
     )
 end
 
-status = [ 0, 1, 2 ]
-labels = ["1", "2", "3", "4"]
+status = [ 1, 2, 3, 4 ]
+labels = [ 1, 2, 3, 4 ]
 
 10.times do |m|
     10.times do |n|
