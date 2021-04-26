@@ -12,10 +12,10 @@ class Task < ApplicationRecord
     completed: 4,
   }
   enum labels: {
-    very_important: 1,
-    important: 2,
-    urgent: 3,
-    normal: 4,
+    very_important: "1",
+    important: "2",
+    urgent: "3",
+    normal: "4",
   }
 
   enum sort_order: { asc: "ASC", desc: "DESC" }, _default: :desc
