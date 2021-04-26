@@ -14,7 +14,7 @@
 end
 
 status = [ 1, 2, 3, 4 ]
-labels = [ 1, 2, 3, 4 ]
+labels = [ "1", "2", "3", "4" ]
 
 10.times do |m|
     10.times do |n|
