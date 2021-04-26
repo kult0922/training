@@ -29,8 +29,8 @@ RSpec.describe Task, type: :model do
 
   it 'record found when search with default status and sort order' do
     user_search_params = SearchParam.new
-    user_search_params.status = "-1"
-    user_search_params.sort_order = "ASC"
+    user_search_params.status = "#{Task.statuses[:not_selected]}"
+    user_search_params.sort_order = "#{Task.sort_orders[:asc]}"
 
     tasks = Task.search(user_search_params, "9999")
     expect(tasks.size).to eq (1)
@@ -39,8 +39,8 @@ RSpec.describe Task, type: :model do
 
   it 'record found when search with "completed" status' do
     user_search_params = SearchParam.new
-    user_search_params.status = "2"
-    user_search_params.sort_order = "ASC"
+    user_search_params.status = "#{Task.statuses[:completed]}"
+    user_search_params.sort_order = "#{Task.sort_orders[:asc]}"
 
     tasks = Task.search(user_search_params, "9999")
     expect(tasks.size).to eq (1)
@@ -49,8 +49,8 @@ RSpec.describe Task, type: :model do
 
   it 'record not found when search with "not started" status' do
     user_search_params = SearchParam.new
-    user_search_params.status = "0"
-    user_search_params.sort_order = "ASC"
+    user_search_params.status = "#{Task.statuses[:not_started]}"
+    user_search_params.sort_order = "#{Task.sort_orders[:asc]}"
 
     tasks = Task.search(user_search_params, "9999")
     expect(tasks.size).to eq (0)

@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     @search_param = SearchParam.new(user_search_param)
     # デフォルト値
     @search_param.status ||= "#{Task.statuses[:not_selected]}"
-    @search_param.sort_order ||= "#{Task.statuses[:asc]}"
+    @search_param.sort_order ||= "#{Task.sort_orders[:asc]}"
     @tasks = Task.search(@search_param, session[:current_user_id])
   end
 
