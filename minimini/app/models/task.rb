@@ -29,7 +29,7 @@ class Task < ApplicationRecord
         search_params.sort_order).upcase
 
         # ステータースが「選択なし」
-        if search_params.status == "-1"
+        if search_params.status == "#{Task.statuses[:not_selected]}"
           @tasks = Task.preload(:user).where(
             user_id: current_user_id).order(id: sort_order)
         else 
