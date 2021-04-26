@@ -6,19 +6,19 @@ class Task < ApplicationRecord
   end
 
   enum status: {
-    'not_selected': -1,
-    'not_started': 0,
-    'in_progress': 1,
-    'completed': 2
+    not_selected: 1,
+    not_started: 2,
+    in_progress: 3,
+    completed: 3
   }
   enum labels: {
-    'very_important': "1",
-    'important': "2",
-    'urgent': "3",
-    'normal': "4"
+    very_important: 1,
+    important: 2,
+    urgent: 3,
+    normal: 4
   }
 
-  enum sort_order: { 'asc': "ASC", 'desc': "DESC" }, _default: :desc
+  enum sort_order: { asc: "ASC", desc: "DESC" }, _default: :desc
 
   belongs_to :user
 
