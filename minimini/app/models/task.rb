@@ -9,13 +9,13 @@ class Task < ApplicationRecord
     not_selected: 1,
     not_started: 2,
     in_progress: 3,
-    completed: 3
+    completed: 3,
   }
   enum labels: {
     very_important: 1,
     important: 2,
     urgent: 3,
-    normal: 4
+    normal: 4,
   }
 
   enum sort_order: { asc: "ASC", desc: "DESC" }, _default: :desc
