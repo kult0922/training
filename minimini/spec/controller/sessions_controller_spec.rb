@@ -33,4 +33,16 @@ RSpec.describe SessionsController, type: :controller do
     expect(response.status).to eq 302
     expect(response).to redirect_to(login_path)
   end
+
+  it 'render the maintenance page during maintenance' do
+    create(:maintenance_schedule)
+    get :new
+    expect(response.status).to eq 503
+  end
+
+  it 'render the login page after maintenance' do
+    create(:maintenance_schedule, :maintenance_schedule_over)
+    get :new
+    expect(response).to render_template(:new)
+  end
 end

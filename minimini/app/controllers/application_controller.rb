@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
+  before_action :render_503, if: :is_maintenance_mode?
+
   helper_method :current_user, :is_logged_in?
 
   rescue_from StandardError, with: :render_500
@@ -13,6 +15,15 @@ class ApplicationController < ActionController::Base
 
   def render_500
     render file: Rails.root.join('public/404.html'), status: 500, layout: false, content_type: 'text/html'
+  end
+
+  def render_503
+    render file: Rails.root.join('public/503.html'), status: 503, layout: false, content_type: 'text/html'
+  end
+
+  def is_maintenance_mode?
+    # DBあり、DBなしメンテナンス
+    File.exist?('tmp/maintenance.txt') || MaintenanceSchedule.has_scheduled_maintenance?
   end
 
   private
