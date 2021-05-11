@@ -145,6 +145,15 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 ※ 現時点で正解のモデル図を作成する必要はまだありません。現時点での想定として作ってみましょう（今後のステップで間違いと思ったら改修していくイメージです）
 
+|    Name     |   Type   |                      Desc                      |
+| :---------: | :------: | :--------------------------------------------: |
+|   Task ID   |   INT    |                プライマリキー？                |
+|    Name     |   TEXT   |                                                |
+| Description |   TEXT   |                                                |
+|  Due Date   | DATETIME |                                                |
+|  Priority   |   INT    | High / Medium / Low の三段階でいい気がします。 |
+| Check Done  |   BOOL   |                                                |
+
 ### ステップ5: データベースの接続設定（周辺設定）をしましょう
 
 - まずGitで新たにトピックブランチを切りましょう
