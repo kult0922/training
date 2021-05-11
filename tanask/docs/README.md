@@ -145,6 +145,35 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 ※ 現時点で正解のモデル図を作成する必要はまだありません。現時点での想定として作ってみましょう（今後のステップで間違いと思ったら改修していくイメージです）
 
+タスク管理とユーザー管理の2テープル必要と予想。
+
+tasks
+
+|    Name     |   Type   |   NULL   |              Desc               |
+| :---------: | :------: | :------: | :-----------------------------: |
+|     id      |   INT    | NOT NULL |         プライマリキー          |
+|   user_id   |   INT    | NOT NULL |      userテーブルと連携？       |
+|    name     |   TEXT   | NOT NULL |                                 |
+| description |   TEXT   | NOT NULL |                                 |
+|   due_at    | DATETIME | NOT NULL |                                 |
+|  priority   |   INT    | NOT NULL |  High / Medium / Low の三段階   |
+|  progress   |   INT    | NOT NULL | Will do / Doing / Done の三段階 |
+| created_at  | DATETIME | NOT NULL |                                 |
+| updated_at  | DATETIME | NOT NULL |                                 |
+
+users
+
+|    Name    |   Type   |   NULL   |        Desc        |
+| :--------: | :------: | :------: | :----------------: |
+|     id     |   INT    | NOT NULL |     プライマリ     |
+|    name    |   TEXT   | NOT NULL |                    |
+|  login_id  |   TEXT   | NOT NULL |                    |
+|  password  |   TEXT   | NOT NULL | ハッシュ化して保存 |
+| created_at | DATETIME | NOT NULL |                    |
+| updated_at | DATETIME | NOT NULL |                    |
+
+
+
 ### ステップ5: データベースの接続設定（周辺設定）をしましょう
 
 - まずGitで新たにトピックブランチを切りましょう
