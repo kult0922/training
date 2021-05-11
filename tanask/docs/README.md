@@ -154,10 +154,10 @@ tasks
 |     id      |   INT    | NOT NULL |         プライマリキー          |
 |   user_id   |   INT    | NOT NULL |      userテーブルと連携？       |
 |    name     |   TEXT   | NOT NULL |                                 |
-| description |   TEXT   |   NULL   |                                 |
-|   due_at    | DATETIME |   NULL   |                                 |
-|  priority   |   INT    |   NULL   |  High / Medium / Low の三段階   |
-|  progress   |   INT    |   NULL   | Will do / Doing / Done の三段階 |
+| description |   TEXT   | NOT NULL |                                 |
+|   due_at    | DATETIME | NOT NULL |                                 |
+|  priority   |   INT    | NOT NULL |  High / Medium / Low の三段階   |
+|  progress   |   INT    | NOT NULL | Will do / Doing / Done の三段階 |
 | created_at  | DATETIME | NOT NULL |                                 |
 | updated_at  | DATETIME | NOT NULL |                                 |
 
