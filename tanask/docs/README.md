@@ -145,6 +145,10 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 ※ 現時点で正解のモデル図を作成する必要はまだありません。現時点での想定として作ってみましょう（今後のステップで間違いと思ったら改修していくイメージです）
 
+タスク管理とユーザー管理の2テープル必要と予想。
+
+Task Table
+
 |    Name     |   Type   |                      Desc                      |
 | :---------: | :------: | :--------------------------------------------: |
 |   Task ID   |   INT    |                プライマリキー？                |
@@ -153,6 +157,17 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 |  Due Date   | DATETIME |                                                |
 |  Priority   |   INT    | High / Medium / Low の三段階でいい気がします。 |
 | Check Done  |   BOOL   |                                                |
+
+User Table
+
+| Name     | Type | Desc       |
+| -------- | ---- | ---------- |
+| User ID  | INT  | プライマリ |
+| Name     | TEXT |            |
+| Password | TEXT | 平文保存？ |
+| isAdmin  | BOOL |            |
+
+
 
 ### ステップ5: データベースの接続設定（周辺設定）をしましょう
 
