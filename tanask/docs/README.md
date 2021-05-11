@@ -147,25 +147,30 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 タスク管理とユーザー管理の2テープル必要と予想。
 
-Task Table
+tasks
 
-|    Name     |   Type   |                      Desc                      |
-| :---------: | :------: | :--------------------------------------------: |
-|   Task ID   |   INT    |                プライマリキー？                |
-|    Name     |   TEXT   |                                                |
-| Description |   TEXT   |                                                |
-|  Due Date   | DATETIME |                                                |
-|  Priority   |   INT    | High / Medium / Low の三段階でいい気がします。 |
-| Check Done  |   BOOL   |                                                |
+|    Name     |   Type   |   NULL   |              Desc               |
+| :---------: | :------: | :------: | :-----------------------------: |
+|     id      |   INT    | NOT NULL |         プライマリキー          |
+|   user_id   |   INT    | NOT NULL |      userテーブルと連携？       |
+|    name     |   TEXT   | NOT NULL |                                 |
+| description |   TEXT   |   NULL   |                                 |
+|   due_at    | DATETIME |   NULL   |                                 |
+|  priority   |   INT    |   NULL   |  High / Medium / Low の三段階   |
+|  progress   |   INT    |   NULL   | Will do / Doing / Done の三段階 |
+| created_at  | DATETIME | NOT NULL |                                 |
+| updated_at  | DATETIME | NOT NULL |                                 |
 
-User Table
+users
 
-| Name     | Type | Desc       |
-| -------- | ---- | ---------- |
-| User ID  | INT  | プライマリ |
-| Name     | TEXT |            |
-| Password | TEXT | 平文保存？ |
-| isAdmin  | BOOL |            |
+|    Name    |   Type   |   NULL   |        Desc        |
+| :--------: | :------: | :------: | :----------------: |
+|     id     |   INT    | NOT NULL |     プライマリ     |
+|    name    |   TEXT   | NOT NULL |                    |
+|  login_id  |   TEXT   | NOT NULL |                    |
+|  password  |   TEXT   | NOT NULL | ハッシュ化して保存 |
+| created_at | DATETIME | NOT NULL |                    |
+| updated_at | DATETIME | NOT NULL |                    |
 
 
 
