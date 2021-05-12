@@ -12,10 +12,11 @@
 
   <body>
     <%= yield %>
-    <h1>task list</h1>
+    <h1>Task list</h1>
     <ul>
       <% @tasks.each do |task| %>
-        <li><%= link_to task.id, task %>:<%= task.name %></li>
+        <li><%= link_to task.name, task %></li>
+        <%# <li><%= link_to task.id, task %1>:<%= task.name %1></li> %>
           <%# <%= task.description %1> %>
       <%  end %>
     </ul>
