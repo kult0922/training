@@ -15,5 +15,7 @@
     <h1>The detail of Task #<%= @task.id =%></h1>
     <p><%= @task.name =%></p>
     <p><%= @task.description =%></p>
+
+    <%= link_to 'Go back to Task List', tasks_path %>
   </body>
 </html>
