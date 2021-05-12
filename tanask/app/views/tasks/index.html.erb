@@ -16,6 +16,7 @@
     <ul>
       <% @tasks.each do |task| %>
       <li><%= task.name %></li>
+          <%= task.description %>
       <%  end %>
     </ul>
   </body>
