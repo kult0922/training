@@ -15,8 +15,8 @@
     <h1>task list</h1>
     <ul>
       <% @tasks.each do |task| %>
-      <li><%= task.name %></li>
-          <%= task.description %>
+        <li><%= link_to task.id, task %>:<%= task.name %></li>
+          <%# <%= task.description %1> %>
       <%  end %>
     </ul>
   </body>
