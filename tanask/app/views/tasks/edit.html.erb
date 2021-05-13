@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tanask</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <h1>Edit Task</h1>
+
+    <%= form_for(@task) do |f| %>
+      <%= f.label :name, 'Task Name' %>
+      <%= f.text_field :name %>
+
+      <%= f.label :description, 'Description' %>
+      <%= f.text_field :description %>
+
+      <%= f.submit '! SUBMIT !' %>
+    <% end %>
+
+    <%= link_to 'Go back to Task List', tasks_path %>
+
+  </body>
+</html>
