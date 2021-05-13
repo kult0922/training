@@ -14,17 +14,19 @@
     <%= yield %>
     <h1>The detail of Task #<%= @task.id =%></h1>
 
-    <span>Task Name : </span>
-    <p><%= @task.name =%></p>
-    <span>Task Description : </span>
-    <p><%= @task.description =%></p>
+    <h3>Task Name : </h3>
+      <p><%= @task.name =%></p>
 
-    <p><%= link_to 'Go back to Task List', tasks_path %></p>
+    <h3>Task Description : </h3>
+      <p><%= @task.description =%></p>
 
     <p><%= link_to 'Go to Edit page', edit_task_path(@task) %></p>
 
     <p><%= link_to 'Delete this task', @task, method: :delete, data:{
       confirm: 'Are you sure to delete this task?'
     }  %></p>
+
+    <p><%= link_to 'Go back to Task List', tasks_path %></p>
+
   </body>
 </html>
