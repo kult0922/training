@@ -1,1 +1,0 @@
-requiire 'rails_helper'
