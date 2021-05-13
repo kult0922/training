@@ -29,10 +29,26 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(params[:id]) # get want to edit task id
+
+    if @task.update(task_params) # success in submit
+      flash[:success] = "Task was edited"
+      redirect_to @task # make GET method
+      # GET -> tasks/:id -> tasks/show?
+    else # false in submit
+      flash[:danger] = "Task was NOT edited"
+      render :new # Not make GET method
+    end
   end
 
   def destroy
+    @task = Task.find(params[:id]) # get want to delete task id
+    @task.destroy
+
+    flash[:success] = "Task was deleted"
+    redirect_to @task # make GET method
   end
+
 end
 
 private # only for this class
