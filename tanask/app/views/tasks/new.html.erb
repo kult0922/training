@@ -14,15 +14,7 @@
     <%= yield %>
     <h1>Make new Task</h1>
 
-    <%= form_for(@task) do |f| %>
-      <%= f.label :name, 'Task Name' %>
-      <%= f.text_field :name %>
-
-      <%= f.label :description, 'Description' %>
-      <%= f.text_field :description %>
-
-      <%= f.submit '! SUBMIT !' %>
-    <% end %>
+    <%= render partial: "layouts/form", locals: {task: @task} %>
 
     <%= link_to 'Go back to Task List', tasks_path %>
 
