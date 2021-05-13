@@ -17,5 +17,7 @@
     <p><%= @task.description =%></p>
 
     <%= link_to 'Go back to Task List', tasks_path %>
+
+    <%= link_to 'Go to Edit page', edit_task_path(@task) %>
   </body>
 </html>
