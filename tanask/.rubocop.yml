@@ -8,3 +8,6 @@ inherit_gem:
 
 AllCops:
   TargetRubyVersion: 3.0
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
