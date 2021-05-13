@@ -15,13 +15,13 @@
     <h1>Edit Task</h1>
 
     <%= form_for(@task) do |f| %>
-      <%= f.label :name, 'Task Name' %>
-      <%= f.text_field :name %>
+      <p><%= f.label :name, 'Task Name' %>
+         <%= f.text_field :name %></p>
 
-      <%= f.label :description, 'Description' %>
-      <%= f.text_field :description %>
+      <p><%= f.label :description, 'Description' %>
+         <%= f.text_field :description %></p>
 
-      <%= f.submit '! SUBMIT !' %>
+      <p><%= f.submit '! SUBMIT !' %></p>
     <% end %>
 
     <%= link_to 'Go back to Task List', tasks_path %>
