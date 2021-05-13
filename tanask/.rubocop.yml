@@ -11,10 +11,3 @@ AllCops:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-AllCops:
-  Exclude:
-    - 'bin/**/*'
-    - 'public/**/*'
-    - 'tmp/**/*'
-    - 'log/**/*'
