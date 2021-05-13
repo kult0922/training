@@ -13,7 +13,10 @@
   <body>
     <%= yield %>
     <h1>The detail of Task #<%= @task.id =%></h1>
+
+    <span>Task Name : </span>
     <p><%= @task.name =%></p>
+    <span>Task Description : </span>
     <p><%= @task.description =%></p>
 
     <p><%= link_to 'Go back to Task List', tasks_path %></p>
