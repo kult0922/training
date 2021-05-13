@@ -1,10 +1,13 @@
 class TasksController < ApplicationController
+
+  before_action :set_task, only: %i[ show edit update destroy ]
+
   def index
     @tasks = Task.all
   end
 
   def show
-    @task = Task.find(params[:id])
+    # @task = Task.find(params[:id])
   end
 
   def new
@@ -25,11 +28,11 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
+    # @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id]) # get want to edit task id
+    # @task = Task.find(params[:id]) # get want to edit task id
 
     if @task.update(task_params) # success in submit
       flash[:success] = "Task was edited"
@@ -42,7 +45,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id]) # get want to delete task id
+    # @task = Task.find(params[:id]) # get want to delete task id
     @task.destroy
 
     flash[:success] = "Task was deleted"
@@ -54,4 +57,9 @@ end
 private # only for this class
 def task_params
   params.require(:task).permit(:name, :description)
+end
+
+
+def set_task
+    @task = Task.find(params[:id])
 end
