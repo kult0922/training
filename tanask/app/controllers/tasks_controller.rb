@@ -37,7 +37,7 @@ class TasksController < ApplicationController
       # GET -> tasks/:id -> tasks/show?
     else # false in submit
       flash[:danger] = "Task was NOT edited"
-      render :new # Not make GET method
+      render :edit # Not make GET method
     end
   end
 
