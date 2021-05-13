@@ -7,6 +7,15 @@ inherit_gem:
     # - "config/rspec.yml"
 
 AllCops:
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+    - "db/migrate/*"
+    - "db/fixtures/**/*"
+    - "test/factories/**/*"
+    - "spec/factories/**/*"
+    - "spec/test_app/db/*"
+    - "bin/*/"
   TargetRubyVersion: 3.0
 
 Style/FrozenStringLiteralComment:
