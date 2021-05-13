@@ -36,6 +36,5 @@ end
 
 private # only for this class
 def task_params
-  params.require(:task).permit(:name)
-  params.require(:task).permit(:description)
+  params.require(:task).permit(:name, :description)
 end
