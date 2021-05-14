@@ -56,5 +56,12 @@ RSpec.describe 'TasksControllers', type: :system do
       visit '/tasks/1/edit'
       expect(page).to have_content('Edit Task')
     end
+    it 'cat edit task' do
+      visit '/tasks/1/edit'
+      fill_in 'Name', with: 'edited_task1'
+      fill_in 'Description', with: 'edited_description1'
+      click_on 'SUBMIT'
+      expect(page).to have_content('edited_task1')
+    end
   end
 end
