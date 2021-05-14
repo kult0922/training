@@ -64,4 +64,20 @@ RSpec.describe 'TasksControllers', type: :system do
       expect(page).to have_content('edited_task1')
     end
   end
+
+  describe 'delete' do
+    before do
+      Task.create(name: 'test_task1', description: 'test_description1')
+      Task.create(name: 'test_task2', description: 'test_description2')
+    end
+    it 'can delete' do
+      visit '/tasks/2'
+      click_on 'Delete this task'
+      expect{
+        expect(page.accept_confirm)
+        expect(page).to_not have_content('test_task2')
+      }
+    end
+  end
 end
+
