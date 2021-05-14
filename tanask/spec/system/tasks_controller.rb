@@ -47,4 +47,14 @@ RSpec.describe 'TasksControllers', type: :system do
       expect(page).to have_content('newtask1')
     end
   end
+
+  describe 'edit' do
+    before do
+      Task.create(name: 'test_task1', description: 'test_description1')
+    end
+    it 'can see detail page' do
+      visit '/tasks/1/edit'
+      expect(page).to have_content('Edit Task')
+    end
+  end
 end
