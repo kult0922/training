@@ -11,8 +11,16 @@
   </head>
 
   <body>
-    <%= render 'layouts/flash_tasks' %>
-
     <%= yield %>
+    <h1>Task list</h1>
+    <ul>
+      <% @tasks.each do |task| %>
+        <li><%= link_to task.name, task %></li>
+        <%# <li><%= link_to task.id, task %1>:<%= task.name %1></li> %>
+          <%# <%= task.description %1> %>
+      <%  end %>
+
+     <%= link_to 'Make New Task', new_task_path %>
+    </ul>
   </body>
 </html>

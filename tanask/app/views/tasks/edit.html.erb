@@ -11,8 +11,12 @@
   </head>
 
   <body>
-    <%= render 'layouts/flash_tasks' %>
-
     <%= yield %>
+    <h1>Edit Task</h1>
+
+    <%= render partial: "layouts/form", locals: {task: @task} %>
+
+    <%= link_to 'Go back to Task List', tasks_path %>
+
   </body>
 </html>

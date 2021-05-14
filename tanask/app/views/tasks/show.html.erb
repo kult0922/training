@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tanask</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <h1>The detail of Task #<%= @task.id =%></h1>
+
+    <h3>Task Name : </h3>
+      <p><%= @task.name =%></p>
+
+    <h3>Task Description : </h3>
+      <p><%= @task.description =%></p>
+
+    <p><%= link_to 'Go to Edit page', edit_task_path(@task) %></p>
+
+    <p><%= link_to 'Delete this task', @task, method: :delete, data:{
+      confirm: 'Are you sure to delete this task?'
+    }  %></p>
+
+    <p><%= link_to 'Go back to Task List', tasks_path %></p>
+
+  </body>
+</html>
