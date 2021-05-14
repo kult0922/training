@@ -16,7 +16,8 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save # success in submit
-      flash[:success] = 'Task was submitted'
+      flash[:success] = t('flash.create.success')
+      # flash[:success] = 'Task was submitted'
       redirect_to @task # make GET method
       # GET -> tasks/:id -> tasks/show?
     else # false in submit
