@@ -45,14 +45,15 @@ class TasksController < ApplicationController
     flash[:success] = 'Task was deleted'
     redirect_to @task # make GET method
   end
-end
 
-private # only for this class
+  private # only for this class
 
-def task_params
-  params.require(:task).permit(:name, :description)
-end
+  def task_params
+    params.require(:task).permit(:name, :description)
+  end
 
-def set_task
-  @task = Task.find(params[:id])
+  def set_task
+    @task = Task.find_by(params[:id])
+  end
+
 end
