@@ -1,6 +1,6 @@
 # モデル図
 
-## user
+## users
 
 |  カラム  |  データ型  |
 |----|----|
@@ -8,8 +8,10 @@
 |  name  | VARCHAR |
 |  email  | VARCHAR |
 |  password  | VARCHAR |
+|  created_at  | DATETIME |
+|  updated_at  | DATETIME |
 
-## task
+## tasks
 
 |  カラム  |  データ型  |
 |----|----|
@@ -19,19 +21,26 @@
 |  title  | VARCHAR |
 |  description  | VARCHAR |
 |  priority  | INT |
+|  due_date  | DATE |
+|  created_at  | DATETIME |
+|  updated_at  | DATETIME |
 
-## label
+## labels
 
 |  カラム  |  データ型  |
 |----|----|
 |  id  |  INT  |
 |  name  | VARCHAR |
+|  created_at  | DATETIME |
+|  updated_at  | DATETIME |
 
-## task_label
+## task_labels
 
 |  カラム  |  データ型  |
 |----|----|
 |  id  |  INT  |
 |  task_id  | INT |
 |  label_id  | INT |
+|  created_at  | DATETIME |
+|  updated_at  | DATETIME |
 
