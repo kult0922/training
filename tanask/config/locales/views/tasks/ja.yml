@@ -2,3 +2,10 @@ ja:
   tasks:
     index:
       title: 'タスク一覧'
+    new:
+      title: 'タスク登録'
+    show:
+      title: 'タスク紹介'
+    edit:
+      title: 'タスク編集'
+
