@@ -1,0 +1,23 @@
+inherit_gem:
+  fablicop:
+    - "config/.base_rubocop.yml"
+    # uncomment if use rails cops
+    # - "config/rails.yml"
+    # uncomment if use rspec cops
+    # - "config/rspec.yml"
+
+AllCops:
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+    - "db/migrate/*"
+    - "db/fixtures/**/*"
+    - "test/factories/**/*"
+    - "spec/factories/**/*"
+    - "spec/test_app/db/*"
+    - "bin/*/"
+    - "config/**/*"
+  TargetRubyVersion: 3.0
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
