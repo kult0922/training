@@ -12,7 +12,7 @@
 
   <body>
     <%= yield %>
-    <h1>Edit Task</h1>
+    <h1><%= t '.title'%></h1>
 
     <%= render partial: "layouts/form", locals: {task: @task} %>
 

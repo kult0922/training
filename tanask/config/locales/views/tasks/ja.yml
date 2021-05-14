@@ -5,7 +5,7 @@ ja:
     new:
       title: 'タスク登録'
     show:
-      title: 'タスク紹介'
+      title: 'タスク詳細'
     edit:
       title: 'タスク編集'
 
