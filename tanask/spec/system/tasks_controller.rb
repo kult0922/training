@@ -23,6 +23,17 @@ RSpec.describe 'TasksControllers', type: :system do
     end
   end
 
+  describe 'show' do
+    before do
+      Task.create(name: 'test_task1', description: 'test_description1')
+    end
+
+    it 'can see detail page' do
+      visit '/tasks/1'
+      expect(page).to have_content('The detail of Task')
+    end
+  end
+
   describe 'new' do
     it 'can see new task page' do
       visit '/tasks/new'
@@ -33,6 +44,7 @@ RSpec.describe 'TasksControllers', type: :system do
       fill_in 'Name', with: 'newtask1'
       fill_in 'Description', with: 'newdescription1'
       click_on 'SUBMIT'
+      expect(page).to have_content('newtask1')
     end
   end
 end
