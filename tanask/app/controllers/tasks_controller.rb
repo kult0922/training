@@ -55,5 +55,4 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find_by(params[:id])
   end
-
 end
