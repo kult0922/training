@@ -17,11 +17,10 @@ class TasksController < ApplicationController
 
     if @task.save # success in submit
       flash[:success] = t('flash.create.success')
-      # flash[:success] = 'Task was submitted'
       redirect_to @task # make GET method
       # GET -> tasks/:id -> tasks/show?
     else # false in submit
-      flash[:danger] = 'Task was NOT submitted'
+      flash[:danger] = t('flash.create.danger')
       render :new # Not make GET method
     end
   end
@@ -31,19 +30,18 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params) # success in submit
-      flash[:success] = 'Task was edited'
+      flash[:success] = t('flash.update.success')
       redirect_to @task # make GET method
       # GET -> tasks/:id -> tasks/show?
     else # false in submit
-      flash[:danger] = 'Task was NOT edited'
+      flash[:danger] = t('flash.update.danger')
       render :edit # Not make GET method
     end
   end
 
   def destroy
     @task.destroy
-
-    flash[:success] = 'Task was deleted'
+    flash[:success] = t('flash.delete.success')
     redirect_to @task # make GET method
   end
 
