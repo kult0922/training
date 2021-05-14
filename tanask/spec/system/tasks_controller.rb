@@ -73,11 +73,10 @@ RSpec.describe 'TasksControllers', type: :system do
     it 'can delete' do
       visit '/tasks/2'
       click_on 'Delete this task'
-      expect{
+      expect {
         expect(page.accept_confirm)
         expect(page).to_not have_content('test_task2')
       }
     end
   end
 end
-
