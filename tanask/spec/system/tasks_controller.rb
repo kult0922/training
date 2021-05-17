@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'TasksControllers', type: :system do
+  let!(:task1) { FactoryBot.create(:task1) }
+  let!(:task2) { FactoryBot.create(:task1) }
+
   describe 'index' do
-    let!(:task1) { FactoryBot.create(:task1) }
     before do
       visit '/tasks'
-      # Task.create(name: 'test_task1', description: 'test_description1')
     end
 
     it 'can see Task List' do
@@ -23,8 +24,6 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'show' do
-    let!(:task1) { FactoryBot.create(:task1) }
-
     it 'can see detail page' do
       visit '/tasks/1'
       expect(page).to have_content('The detail of Task')
@@ -35,7 +34,6 @@ RSpec.describe 'TasksControllers', type: :system do
     before do
       visit '/tasks/new'
     end
-
     it 'can see new task page' do
       expect(page).to have_content('Make new Task')
     end
@@ -48,7 +46,6 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'edit' do
-    let!(:task1) { FactoryBot.create(:task1) }
     before do
       visit '/tasks/1/edit'
     end
@@ -64,12 +61,6 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'delete' do
-    let!(:task1) { FactoryBot.create(:task1) }
-    let!(:task2) { FactoryBot.create(:task2) }
-    # before do
-    #   Task.create(name: 'test_task1', description: 'test_description1')
-    #   Task.create(name: 'test_task2', description: 'test_description2')
-    # end
     it 'can delete' do
       visit '/tasks/2'
       click_on 'Delete this task'
