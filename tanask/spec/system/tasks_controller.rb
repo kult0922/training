@@ -35,12 +35,11 @@ RSpec.describe 'TasksControllers', type: :system do
     before do
       visit '/tasks/new'
     end
-    
+
     it 'can see new task page' do
       expect(page).to have_content('Make new Task')
     end
     it 'can add new task' do
-      visit '/tasks/new'
       fill_in 'Name', with: 'newtask1'
       fill_in 'Description', with: 'newdescription1'
       click_on 'SUBMIT'
@@ -66,10 +65,12 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'delete' do
-    before do
-      Task.create(name: 'test_task1', description: 'test_description1')
-      Task.create(name: 'test_task2', description: 'test_description2')
-    end
+    let!(:task1) { FactoryBot.create(:task1) }
+    let!(:task2) { FactoryBot.create(:task2) }
+    # before do
+    #   Task.create(name: 'test_task1', description: 'test_description1')
+    #   Task.create(name: 'test_task2', description: 'test_description2')
+    # end
     it 'can delete' do
       visit '/tasks/2'
       click_on 'Delete this task'
