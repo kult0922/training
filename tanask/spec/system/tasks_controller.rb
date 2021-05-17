@@ -9,13 +9,16 @@ RSpec.describe 'TasksControllers', type: :system do
       visit '/tasks'
     end
 
-    it 'can see Task List' do
+    it 'show Task List' do
       expect(page).to have_content('Task list')
     end
 
-    before do :task end
-    it 'can see test_task1' do
-      expect(page).to have_content('test_name1')
+    # before do :task end
+    context "If the user has a task" do
+      let!(:task1) { FactoryBot.create(:task_template, name: "test_name1", description: 'test_description1') }
+      it 'show test_task1' do
+        expect(page).to have_content('test_name1')
+      end
     end
 
     it 'can go to new task page' do
