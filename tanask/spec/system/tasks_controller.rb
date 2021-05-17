@@ -48,15 +48,14 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'edit' do
+    let!(:task1) { FactoryBot.create(:task1) }
     before do
-      Task.create(name: 'test_task1', description: 'test_description1')
+      visit '/tasks/1/edit'
     end
     it 'can see detail page' do
-      visit '/tasks/1/edit'
       expect(page).to have_content('Edit Task')
     end
     it 'cat edit task' do
-      visit '/tasks/1/edit'
       fill_in 'Name', with: 'edited_task1'
       fill_in 'Description', with: 'edited_description1'
       click_on 'SUBMIT'
