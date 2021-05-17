@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'TasksControllers', type: :system do
-  let!(:task1) { FactoryBot.create(:task1) }
-  let!(:task2) { FactoryBot.create(:task2) }
+  let!(:task1) { FactoryBot.create(:task_template, name: "test_name1", description: 'test_description1') }
+  let!(:task2) { FactoryBot.create(:task_template, name: "test_name2", description: 'test_description2') }
 
   describe 'index' do
     before do
@@ -13,8 +13,9 @@ RSpec.describe 'TasksControllers', type: :system do
       expect(page).to have_content('Task list')
     end
 
+    before do :task end
     it 'can see test_task1' do
-      expect(page).to have_content('test_task1')
+      expect(page).to have_content('test_name1')
     end
 
     it 'can go to new task page' do
@@ -24,8 +25,9 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'show' do
+
+    before do :task end
     it 'can see detail page' do
-      # Task.create(name: 'aaa', description: 'test')
       visit '/tasks/1'
       expect(page).to have_content('The detail of Task')
     end
