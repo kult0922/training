@@ -25,6 +25,7 @@ RSpec.describe 'TasksControllers', type: :system do
 
   describe 'show' do
     it 'can see detail page' do
+      # Task.create(name: 'aaa', description: 'test')
       visit '/tasks/1'
       expect(page).to have_content('The detail of Task')
     end
