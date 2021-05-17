@@ -1,24 +1,38 @@
-# README
+# Kanban in the future
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## System Overview
+![SystemOvewview](./docs/SystemOverview.png)
 
-Things you may want to cover:
+## Data Structure
 
-* Ruby version
+### tasks
 
-* System dependencies
+| colmun name | type |
+| :--- | :--- |
+| name | string |
+| description | text |
+| priority | integer |
+| status | integer |
+| end_date | date |
+| creator | integer |
 
-* Configuration
+### labels
 
-* Database creation
+| colmun name | type |
+| :--- | :--- |
+| name | string |
 
-* Database initialization
+### task_labels
 
-* How to run the test suite
+| colmun name | type |
+| :--- | :--- |
+| task_id | integer |
+| label_id | integer |
 
-* Services (job queues, cache servers, search engines, etc.)
+### users
 
-* Deployment instructions
-
-* ...
+| colmun name | type |
+| :--- | :--- |
+| login_id | string |
+| login_pw | string |
+| name | string |
