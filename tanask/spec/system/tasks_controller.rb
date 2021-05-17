@@ -15,8 +15,8 @@ RSpec.describe 'TasksControllers', type: :system do
 
     # before do :task end
     context "If the user has a task" do
-      let!(:task1) { FactoryBot.create(:task_template, name: "test_name1", description: 'test_description1') }
-      it 'show test_task1' do
+      # let!(:task1) { FactoryBot.create(:task_template, name: "test_name1", description: 'test_description1') }
+      it 'show test_name1' do
         expect(page).to have_content('test_name1')
       end
     end
@@ -28,11 +28,11 @@ RSpec.describe 'TasksControllers', type: :system do
   end
 
   describe 'show' do
-
-    before do :task end
-    it 'can see detail page' do
-      visit '/tasks/1'
-      expect(page).to have_content('The detail of Task')
+    context "If the user has a task" do
+      it 'show detail page' do
+        visit task_path(task1)
+        expect(page).to have_content('The detail of Task')
+      end
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe 'TasksControllers', type: :system do
 
   describe 'edit' do
     before do
-      visit '/tasks/1/edit'
+      visit edit_task_path(task1)
     end
     it 'can see detail page' do
       expect(page).to have_content('Edit Task')
@@ -68,7 +68,7 @@ RSpec.describe 'TasksControllers', type: :system do
 
   describe 'delete' do
     it 'can delete' do
-      visit '/tasks/2'
+      visit task_path(task2)
       click_on 'Delete this task'
       expect {
         expect(page.accept_confirm)
