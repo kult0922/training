@@ -10,6 +10,7 @@ module ErrorHandlers
   end
 
   private
+  
   def rescue403(e)
     @exception = e
     render 'errors/403', status: 403
