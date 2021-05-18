@@ -10,7 +10,7 @@ RSpec.describe 'TasksControllers', type: :system do
     end
 
     it 'show Task List' do
-      expect(page).to have_content(t.'')
+      expect(page).to have_content(I18n.t 'tasks.index.title')
       # expect(page).to have_content('Task list')
     end
 
@@ -24,7 +24,7 @@ RSpec.describe 'TasksControllers', type: :system do
 
     it 'can go to new task page' do
       click_on 'Make New Task'
-      expect(page).to have_content('Make new Task')
+      expect(page).to have_content(I18n.t 'tasks.new.title')
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe 'TasksControllers', type: :system do
     context "If the user has a task" do
       it 'show detail page' do
         visit task_path(task1)
-        expect(page).to have_content('The detail of Task')
+        expect(page).to have_content(I18n.t 'tasks.show.title')
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.describe 'TasksControllers', type: :system do
       visit '/tasks/new'
     end
     it 'show new task page' do
-      expect(page).to have_content('Make new Task')
+      expect(page).to have_content(I18n.t 'tasks.new.title')
     end
 
     context 'When task create' do
@@ -62,7 +62,7 @@ RSpec.describe 'TasksControllers', type: :system do
 
     context 'when user has task' do
       it 'can see detail page' do
-        expect(page).to have_content('Edit Task')
+        expect(page).to have_content(I18n.t 'tasks.edit.title')
       end
     end
 
