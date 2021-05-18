@@ -10,7 +10,8 @@ RSpec.describe 'TasksControllers', type: :system do
     end
 
     it 'show Task List' do
-      expect(page).to have_content('Task list')
+      expect(page).to have_content(t.'')
+      # expect(page).to have_content('Task list')
     end
 
     # before do :task end
