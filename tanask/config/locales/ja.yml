@@ -40,12 +40,13 @@ ja:
     back:   '戻る'
 
   flash:
-    create:
-      success: 'タスクが登録されました！'
-      danger:  'タスクの登録に失敗しました。'
-    update:
-      success: 'タスクが更新されました！'
-      danger:  'タスクの更新に失敗しました。'
-    delete:
-      success: 'タスクが削除されました！'
-      danger:  'タスクの削除に失敗しました。'
+    tasks:
+      create:
+        success: 'タスクが登録されました！'
+        danger:  'タスクの登録に失敗しました。'
+      update:
+        success: 'タスクが更新されました！'
+        danger:  'タスクの更新に失敗しました。'
+      delete:
+        success: 'タスクが削除されました！'
+        danger:  'タスクの削除に失敗しました。'

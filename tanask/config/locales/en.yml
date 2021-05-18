@@ -40,12 +40,13 @@ en:
     back:   Back
 
   flash:
-    create:
-      success: 'The task is successfully created!'
-      danger:  'Failed to create the task'
-    update:
-      success: 'The task is successfully updated!'
-      danger:  'Failed to update the task'
-    delete:
-      success: 'The task is successfully deleted!'
-      danger:  'Failed to delete the task'
+    tasks:
+      create:
+        success: 'The task is successfully created!'
+        danger:  'Failed to create the task'
+      update:
+        success: 'The task is successfully updated!'
+        danger:  'Failed to update the task'
+      delete:
+        success: 'The task is successfully deleted!'
+        danger:  'Failed to delete the task'
