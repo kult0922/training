@@ -8,4 +8,5 @@ en:
       title: 'The Detail of Task'
     edit:
       title: 'Edit Task'
-
+    submit:
+      button: 'submit'
