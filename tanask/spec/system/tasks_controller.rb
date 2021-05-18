@@ -40,14 +40,17 @@ RSpec.describe 'TasksControllers', type: :system do
     before do
       visit '/tasks/new'
     end
-    it 'can see new task page' do
+    it 'show new task page' do
       expect(page).to have_content('Make new Task')
     end
-    it 'can add new task' do
-      fill_in 'Name', with: 'newtask1'
-      fill_in 'Description', with: 'newdescription1'
-      click_on 'SUBMIT'
-      expect(page).to have_content('newtask1')
+
+    context 'When task create' do
+      it 'can add new task' do
+        fill_in 'Name', with: 'newtask1'
+        fill_in 'Description', with: 'newdescription1'
+        click_on 'SUBMIT'
+        expect(page).to have_content('newtask1')
+      end
     end
   end
 
@@ -55,25 +58,33 @@ RSpec.describe 'TasksControllers', type: :system do
     before do
       visit edit_task_path(task1)
     end
-    it 'can see detail page' do
-      expect(page).to have_content('Edit Task')
+
+    context 'when user has task' do
+      it 'can see detail page' do
+        expect(page).to have_content('Edit Task')
+      end
     end
-    it 'cat edit task' do
-      fill_in 'Name', with: 'edited_task1'
-      fill_in 'Description', with: 'edited_description1'
-      click_on 'SUBMIT'
-      expect(page).to have_content('edited_task1')
-    end
+
+    context 'when user has task' do
+      it 'cat edit task' do
+        fill_in 'Name', with: 'edited_task1'
+        fill_in 'Description', with: 'edited_description1'
+        click_on 'SUBMIT'
+        expect(page).to have_content('edited_task1')
+        end
+      end
   end
 
   describe 'delete' do
-    it 'can delete' do
-      visit task_path(task2)
-      click_on 'Delete this task'
-      expect {
-        expect(page.accept_confirm)
-        expect(page).to_not have_content('test_task2')
-      }
+    context 'when user has task' do
+      it 'can delete' do
+        visit task_path(task2)
+        click_on 'Delete this task'
+        expect {
+          expect(page.accept_confirm)
+          expect(page).to_not have_content('test_task2')
+        }
+      end
     end
   end
 end
