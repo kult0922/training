@@ -72,8 +72,8 @@ RSpec.describe 'TasksControllers', type: :system do
         fill_in 'Description', with: 'edited_description1'
         click_on 'SUBMIT'
         expect(page).to have_content('edited_task1')
-        end
       end
+    end
   end
 
   describe 'delete' do
