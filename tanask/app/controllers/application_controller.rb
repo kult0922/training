@@ -4,4 +4,4 @@ end
 class Forbidden < ActionController::ActionControllerError; end
 class IpAddressRejected < ActionController::ActionControllerError; end
 
-include ErrorHandlers if Rails.env.production? or Rails.env.staging?``
+include ErrorHandlers if Rails.env.production? or Rails.env.staging?
