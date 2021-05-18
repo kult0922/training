@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    # p @task.name
   end
 
   def new
@@ -53,6 +54,8 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find_by(params[:id])
+    @task = Task.find(params[:id])
+    #     # p @task.name
+    #     # p "#{params[:id]}"
   end
 end
