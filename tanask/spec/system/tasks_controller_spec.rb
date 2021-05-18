@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'TasksControllers', type: :system do
-  let!(:task1) { FactoryBot.create(:task_template, name: 'test_name1', description: 'test_description1') }
-  let!(:task2) { FactoryBot.create(:task_template, name: 'test_name2', description: 'test_description2') }
+  let!(:task1) { create(:task_template, name: "test_name1", description: 'test_description1') }
+  let!(:task2) { create(:task_template, name: "test_name2", description: 'test_description2') }
 
   describe 'index' do
     before do
