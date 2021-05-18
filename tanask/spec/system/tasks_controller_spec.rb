@@ -49,7 +49,7 @@ RSpec.describe 'TasksControllers', type: :system do
       it 'can add new task' do
         fill_in 'Name', with: 'newtask1'
         fill_in 'Description', with: 'newdescription1'
-        click_on 'SUBMIT'
+        click_on '提出'
         expect(page).to have_content('newtask1')
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe 'TasksControllers', type: :system do
       it 'cat edit task' do
         fill_in 'Name', with: 'edited_task1'
         fill_in 'Description', with: 'edited_description1'
-        click_on 'SUBMIT'
+        click_on '提出'
         expect(page).to have_content('edited_task1')
       end
     end
