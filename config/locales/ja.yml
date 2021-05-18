@@ -1,0 +1,12 @@
+ja:
+  helpers:
+    submit:
+      create: "作成する"
+      update: "更新する"
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        title: タスク名
+        description: タスク詳細
