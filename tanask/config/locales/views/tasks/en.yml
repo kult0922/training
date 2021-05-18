@@ -1,0 +1,12 @@
+en:
+  tasks:
+    index:
+      title: 'Task List'
+    new:
+      title: 'Add New Task'
+    show:
+      title: 'The Detail of Task'
+    edit:
+      title: 'Edit Task'
+    submit:
+      button: 'submit'
