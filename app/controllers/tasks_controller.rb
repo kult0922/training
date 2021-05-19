@@ -12,27 +12,27 @@ class TasksController < ApplicationController
     def create
         @task = Task.new(task_params)
         if @task.save
-            redirect_to @task, notice: 'タスクの作成が完了しました'
+            redirect_to @task, notice: t('message.task.create.succeeded')
         else
-            flash.now[:alert] = 'タスクの作成に失敗しました'
+            flash.now[:alert] = t('message.task.create.failed')
             render :new
         end
     end
 
     def update
         if @task.update(task_params)
-            redirect_to @task, notice: 'タスクの削除が完了しました'
+            redirect_to @task, notice: t('message.task.update.succeeded')
         else
-            flash.now[:alert] = 'タスクの更新に失敗しました'
+            flash.now[:alert] = t('message.task.update.failed')
             render :edit
         end
     end
 
     def destroy
         if @task.destroy
-            redirect_to root_path, notice: 'タスクの削除が完了しました'
+            redirect_to root_path, notice: t('message.task.delete.succeeded')
         else
-            redirect_to root_path, alert: 'タスクの削除に失敗しました'
+            redirect_to root_path, alert: t('message.task.delete.failed')
         end
     end
 

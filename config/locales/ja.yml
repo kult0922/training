@@ -1,8 +1,8 @@
 ja:
   helpers:
     submit:
-      create: "作成する"
-      update: "更新する"
+      create: 作成する
+      update: 更新する
   activerecord:
     models:
       task: タスク
@@ -10,3 +10,23 @@ ja:
       task:
         title: タスク名
         description: タスク詳細
+  label:
+    link:
+      create: 新規作成
+      show: 詳細
+      edit: 編集
+      delete: 削除
+      back: 戻る
+  message:
+    delete:
+      confirm: 削除してもよいですか？
+    task:
+      create:
+        succeeded: タスクの作成が完了しました
+        failed: タスクの作成に失敗しました
+      update:
+        succeeded: タスクの更新が完了しました
+        failed: タスクの更新に失敗しました
+      delete:
+        succeeded: タスクの削除が完了しました
+        failed: タスクの削除に失敗しました
