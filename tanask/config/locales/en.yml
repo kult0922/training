@@ -31,22 +31,3 @@
 
 en:
   hello: "Hello world"
-
-  action:
-    create: Create
-    update: Update
-    delete: Delete
-    detail: Detail
-    back:   Back
-
-  flash:
-    tasks:
-      create:
-        success: 'The task is successfully created!'
-        danger:  'Failed to create the task'
-      update:
-        success: 'The task is successfully updated!'
-        danger:  'Failed to update the task'
-      delete:
-        success: 'The task is successfully deleted!'
-        danger:  'Failed to delete the task'

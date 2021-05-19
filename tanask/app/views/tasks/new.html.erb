@@ -12,9 +12,9 @@
 
   <body>
     <%= yield %>
-    <h1><%= t '.title'%></h1>
+    <h1>Make new Task</h1>
 
-    <%= render partial: "tasks/form", locals: {task: @task} %>
+    <%= render partial: "layouts/form", locals: {task: @task} %>
 
     <%= link_to 'Go back to Task List', tasks_path %>
 

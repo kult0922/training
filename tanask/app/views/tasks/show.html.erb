@@ -12,13 +12,13 @@
 
   <body>
     <%= yield %>
-    <h1><%= t '.title'%> #<%= @task.id %></h1>
+    <h1>The detail of Task #<%= @task.id =%></h1>
 
     <h3>Task Name : </h3>
-      <p><%= @task.name %></p>
+      <p><%= @task.name =%></p>
 
     <h3>Task Description : </h3>
-      <p><%= @task.description %></p>
+      <p><%= @task.description =%></p>
 
     <p><%= link_to 'Go to Edit page', edit_task_path(@task) %></p>
 

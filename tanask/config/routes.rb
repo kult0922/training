@@ -3,7 +3,4 @@ Rails.application.routes.draw do
   root to: 'tasks#index'
 
   resources :tasks
-
-  # for error (un exist URL)
-  get '*anything' => 'errors#routing_error'
 end
