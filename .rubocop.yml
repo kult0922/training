@@ -117,6 +117,9 @@ Style/MethodCallWithoutArgsParentheses:
 Style/DefWithParentheses:
   Enabled: false
 
+Style/BlockComments:
+  Enabled: false
+
 # 以下の両方を許容
 #   aaa.
 #     bb().
