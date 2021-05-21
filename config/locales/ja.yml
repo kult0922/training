@@ -21,6 +21,8 @@ ja:
     delete:
       confirm: 削除してもよいですか？
     task:
+      form:
+        not_saved: "%{errors_count}件のエラーのためタスクが保存されませんでした"
       create:
         succeeded: タスクの作成が完了しました
         failed: タスクの作成に失敗しました
