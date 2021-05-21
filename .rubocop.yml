@@ -6,7 +6,6 @@ AllCops:
     - "db/migrate/*"
     - "db/fixtures/**/*"
     - "test/factories/**/*"
-    - "spec/factories/**/*"
     - "spec/test_app/db/*"
     - "bin/*"
 
