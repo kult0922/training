@@ -70,4 +70,6 @@ yarn-debug.log*
 !/storage/.keep
 /public/uploads
 
+.DS_STORE
+
 
