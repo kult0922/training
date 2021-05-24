@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe 'Tasks', type: :system do
-  let!(:first_task) { FactoryBot.create(:task, title: 'First task', description: 'Submit documents') }
-  let!(:second_task) { FactoryBot.create(:task, title: 'Second task', description: 'Take e-learning') }
+  let!(:first_task) { FactoryBot.create(:task, title: 'First task', description: 'Submit documents', priority: 2) }
+  let!(:second_task) { FactoryBot.create(:task, title: 'Second task', description: 'Take e-learning', priority: 1) }
 
   shared_examples_for 'ページ名がタスク一覧になっている' do
     it { expect(page).to have_selector 'h1', text: 'タスク一覧' }
@@ -22,6 +22,10 @@ describe 'Tasks', type: :system do
     it '全てのタスクが表示される' do
       expect(page).to have_content 'First task'
       expect(page).to have_content 'Second task'
+    end
+
+    it '優先順位順に表示される' do
+      page.body.index(second_task.title).should < page.body.index(first_task.title)
     end
 
     it 'リンクが表示される' do
