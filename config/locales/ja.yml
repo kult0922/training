@@ -11,6 +11,18 @@ ja:
         title: タスク名
         description: タスク詳細
         priority: 優先順位
+    errors:
+      models:
+        task:
+          attributes:
+            priority:
+              taken: 値が重複しています
+              blank: 入力がありません
+              not_a_number: 数値ではありません
+              greater_than: 0より大きな数値を入力してください
+            title:
+              blank: 入力がありません
+              too_long: 文字列が長すぎます
   label:
     link:
       create: 新規作成

@@ -25,7 +25,7 @@ describe 'Tasks', type: :system do
     end
 
     it '優先順位順に表示される' do
-      page.body.index(second_task.title).should < page.body.index(first_task.title)
+      expect(page.body.index(second_task.title)).to be < page.body.index(first_task.title)
     end
 
     it 'リンクが表示される' do
@@ -59,6 +59,7 @@ describe 'Tasks', type: :system do
   describe '新規作成' do
     before do
       visit new_task_path
+      fill_in '優先順位', with: 3
       fill_in 'タスク名', with: 'Third task'
       fill_in 'タスク詳細', with: 'Introduce myself'
       click_button '作成する'

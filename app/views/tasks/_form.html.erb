@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :priority %>
-    <%= form.number_field :priority , step: 1, min: 1 %>
+    <%= form.number_field :priority, step: 1, min: 1 %>
   </div>
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, maxlength: 30, size: 60 %>
   </div>
 
   <div class="field">
