@@ -1,4 +1,8 @@
+<% if @task.id %>
+<h1>Task Edit Page</h1>
+<% else %>
 <h1>Task Registration Page</h1>
+<% end %>
 
 <section>
     <%= form_with(model: @task) do |form| %>

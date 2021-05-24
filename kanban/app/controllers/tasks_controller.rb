@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: %i[edit show]
+
   def index
     @all_tasks = Task.all
   end
@@ -15,5 +17,24 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     render :edit
+  end
+
+  def edit; end
+
+  def show; end
+
+  def update
+    @task = Task.find(params[:id])
+    if @task.update params.require(:task).permit(:name, :description)
+      redirect_to tasks_path, notice: 'タスクの更新に成功しました'
+    else
+      flash.now[:alert] = 'タスクの更新に失敗しました'
+    end
+  end
+
+  private
+
+  def set_task
+    @task = Task.find(params[:id])
   end
 end
