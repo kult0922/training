@@ -10,6 +10,7 @@ ja:
       task:
         title: タスク名
         description: タスク詳細
+        priority: 優先順位
   label:
     link:
       create: 新規作成

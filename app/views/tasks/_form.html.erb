@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :priority %>
+    <%= form.number_field :priority , step: 1, min: 1 %>
+  </div>
+
+  <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
