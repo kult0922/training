@@ -25,7 +25,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update params.require(:task).permit(:name, :description)
+    if @task.update(params.require(:task).permit(:name, :description))
       redirect_to tasks_path, notice: 'タスクの更新に成功しました'
     else
       flash.now[:alert] = 'タスクの更新に失敗しました'
