@@ -1,0 +1,28 @@
+<% if @task.id %>
+<h1>Task Edit Page</h1>
+<% else %>
+<h1>Task Registration Page</h1>
+<% end %>
+
+<section>
+    <%= form_with(model: @task) do |form| %>
+    <div class="field">
+        <p>
+            <%= form.label :name %>
+            <%= form.text_field :name %>
+        </p>
+        <p>
+            <%= form.label :description %>
+            <%= form.text_field :description %>
+        </p>
+    </div>
+
+    <div class="actions">
+        <%= form.submit %>
+    </div>
+    <% end %>
+</section>
+
+<section>
+    <div><%= link_to '一覧に戻る', tasks_path %></div>
+</section>
