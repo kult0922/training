@@ -1,12 +1,24 @@
 <h1>タスク一覧</h1>
 
+<div style="display:inline-flex">
+  <%= form_tag(filters_path, method: 'get') do %>
+    <%= select_tag 'state', options_from_collection_for_select(Task.aasm.states, :name, :display_name, selected: params[:state]) %>
+    <%= submit_tag(t('label.button.filter')) %>
+  <% end %>
+  <%= form_tag(root_path, method: 'get') do %>
+    <%= submit_tag(t('label.button.reset')) %>
+  <% end %>
+</div>
+
 <table border>
   <thead>
     <tr>
       <th><%= Task.human_attribute_name(:priority) %></th>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th><%= Task.human_attribute_name(:description) %></th>
-      <th colspan="3"></th>
+      <th><%= Task.human_attribute_name(:aasm_state) %></th>
+      <th colspan="2">ステータス変更</th>
+      <th colspan="3">操作</th>
     </tr>
   </thead>
 
@@ -16,6 +28,9 @@
         <td><%= task.priority %></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
+        <td><%= task.aasm.human_state %></td>
+        <td><%= link_to t('label.link.start'), task_starts_path(task), data: { confirm: t('message.task.start.confirm') } %></td>
+        <td><%= link_to t('label.link.complete'), task_completions_path(task), data: { confirm: t('message.task.complete.confirm') } %></td>
         <td><%= link_to t('label.link.show'), task %></td>
         <td><%= link_to t('label.link.edit'), edit_task_path(task) %></td>
         <td><%= link_to t('label.link.delete'), task, method: :delete, data: { confirm: t('message.delete.confirm') } %></td>

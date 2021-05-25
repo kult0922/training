@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_24_042609) do
+ActiveRecord::Schema.define(version: 2021_05_25_062017) do
 
   create_table "tasks", charset: "utf8", force: :cascade do |t|
     t.string "title", limit: 30, null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_042609) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "priority", null: false
+    t.integer "aasm_state"
     t.index ["priority"], name: "index_tasks_on_priority", unique: true
   end
 

@@ -11,6 +11,12 @@ ja:
         title: タスク名
         description: タスク詳細
         priority: 優先順位
+        aasm_state: ステータス
+    states:
+      task:
+        ready: 未着手
+        doing: 着手
+        done: 完了
     errors:
       models:
         task:
@@ -30,6 +36,11 @@ ja:
       edit: 編集
       delete: 削除
       back: 戻る
+      start: 着手する
+      complete: 完了する
+    button:
+      filter: 絞り込む
+      reset: リセット
   message:
     delete:
       confirm: 削除してもよいですか？
@@ -45,3 +56,7 @@ ja:
       delete:
         succeeded: タスクの削除が完了しました
         failed: タスクの削除に失敗しました
+      start:
+        confirm: 着手してもよいですか？
+      complete:
+        confirm: 完了してもよいですか？
