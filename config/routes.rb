@@ -6,7 +6,5 @@ Rails.application.routes.draw do
     resources :completions, only: [:index], module: 'tasks'
     resources :starts, only: [:index], module: 'tasks'
   end
-  resources :filters, only: [:index], module: 'tasks'
-
   root 'tasks#index'
 end

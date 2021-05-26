@@ -1,19 +1,21 @@
 <h1>タスク一覧</h1>
 
-<div style="display:inline-flex">
-  <%= form_tag(filters_path, method: 'get') do %>
-    <%= select_tag 'state', options_from_collection_for_select(Task.aasm.states, :name, :display_name, selected: params[:state]) %>
-    <%= submit_tag(t('label.button.filter')) %>
-  <% end %>
-  <%= form_tag(root_path, method: 'get') do %>
-    <%= submit_tag(t('label.button.reset')) %>
-  <% end %>
+<div style="margin-bottom: 10px">
+<%= search_form_for @q do |f| %>
+  <%= f.label :title, Task.human_attribute_name(:title) %>
+  <%= f.search_field :title_cont %>
+
+  <%= f.label :aasm_state, Task.human_attribute_name(:aasm_state) %>
+  <%= f.select :aasm_state_eq, options_for_select(Task.aasm_states.map{ |k,v| [Task.aasm.states[v].display_name, v] }), include_blank: true %>
+
+  <%= f.submit t('label.button.filter') %>
+<% end %>
 </div>
 
 <table border>
   <thead>
     <tr>
-      <th><%= Task.human_attribute_name(:priority) %></th>
+      <th><%= sort_link(@q, :priority, Task.human_attribute_name(:priority)) %></th>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th><%= Task.human_attribute_name(:description) %></th>
       <th><%= Task.human_attribute_name(:aasm_state) %></th>

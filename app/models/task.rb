@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   enum aasm_state: {
     ready: 0,
     doing: 1,
-    done: 2
+    done: 2,
   }
 
   aasm column: :aasm_state, enum: true do

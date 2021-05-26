@@ -33,7 +33,11 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# Ruby state machines
 gem 'aasm'
+
+# Ransack enables the creation of both simple and advanced search forms for your Ruby on Rails application
+gem 'ransack'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

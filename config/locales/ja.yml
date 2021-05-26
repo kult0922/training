@@ -40,7 +40,6 @@ ja:
       complete: 完了する
     button:
       filter: 絞り込む
-      reset: リセット
   message:
     delete:
       confirm: 削除してもよいですか？
