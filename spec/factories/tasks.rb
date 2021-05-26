@@ -5,5 +5,6 @@ FactoryBot.define do
     title { 'タスク1' }
     description { 'xxxを提出する' }
     priority { 1 }
+    aasm_state { :ready }
   end
 end

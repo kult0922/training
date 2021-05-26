@@ -52,4 +52,41 @@ RSpec.describe Task, type: :model do
     task.valid?
     expect(task.errors[:priority]).to include('値が重複しています')
   end
+
+  it '新規作成したタスクはステータスが未着手になる' do
+    task = Task.new(title: 'title', priority: 1)
+    expect(task).to have_state(:ready)
+  end
+
+  it '未着手のタスクを着手するとステータスが着手になる' do
+    task = Task.new(title: 'title', priority: 1, aasm_state: :ready)
+    task.start!
+    expect(task).to have_state(:doing)
+  end
+
+  it '着手中のタスクを完了するとステータスが完了になる' do
+    task = Task.new(title: 'title', priority: 1, aasm_state: :doing)
+    task.complete!
+    expect(task).to have_state(:done)
+  end
+
+  it '未着手のタスクを完了しようとするとエラー' do
+    task = Task.new(title: 'title', priority: 1, aasm_state: :ready)
+    expect { task.complete! }.to raise_error(AASM::InvalidTransition)
+  end
+
+  it '着手中のタスクを着手しようとするとエラー' do
+    task = Task.new(title: 'title', priority: 1, aasm_state: :doing)
+    expect { task.start! }.to raise_error(AASM::InvalidTransition)
+  end
+
+  it '完了したタスクを着手しようとするとエラー' do
+    task = Task.new(title: 'title', priority: 1, aasm_state: :done)
+    expect { task.start! }.to raise_error(AASM::InvalidTransition)
+  end
+
+  it '完了したタスクを完了しようとするとエラー' do
+    task = Task.new(title: 'title', priority: 1, aasm_state: :done)
+    expect { task.complete! }.to raise_error(AASM::InvalidTransition)
+  end
 end

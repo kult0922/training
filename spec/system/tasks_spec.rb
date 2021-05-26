@@ -3,8 +3,20 @@
 require 'rails_helper'
 
 describe 'Tasks', type: :system do
-  let!(:first_task) { FactoryBot.create(:task, title: 'First task', description: 'Submit documents', priority: 2) }
-  let!(:second_task) { FactoryBot.create(:task, title: 'Second task', description: 'Take e-learning', priority: 1) }
+  let!(:first_task) {
+    FactoryBot.create(:task,
+                      title: 'First task',
+                      description: 'Submit documents',
+                      priority: 2,
+                      aasm_state: :doing)
+  }
+  let!(:second_task) {
+    FactoryBot.create(:task,
+                      title: 'Second task',
+                      description: 'Take e-learning',
+                      priority: 1,
+                      aasm_state: :done)
+  }
 
   shared_examples_for 'ページ名がタスク一覧になっている' do
     it { expect(page).to have_selector 'h1', text: 'タスク一覧' }
@@ -33,6 +45,10 @@ describe 'Tasks', type: :system do
       expect(page).to have_link '編集'
       expect(page).to have_link '削除'
       expect(page).to have_link '新規作成'
+    end
+
+    it 'ボタンが表示される' do
+      expect(page).to have_button '絞り込む'
     end
 
     it_behaves_like 'ページ名がタスク一覧になっている'
@@ -136,6 +152,111 @@ describe 'Tasks', type: :system do
       end
 
       it_behaves_like 'ページ名がタスク一覧になっている'
+    end
+  end
+
+  describe '検索' do
+    before do
+      FactoryBot.create(:task,
+                        title: 'Third task',
+                        description: 'Create account',
+                        priority: 3,
+                        aasm_state: :ready)
+      FactoryBot.create(:task,
+                        title: 'First job',
+                        description: 'Setup environment',
+                        priority: 4,
+                        aasm_state: :ready)
+      visit root_path
+    end
+
+    context 'ステータスで検索する場合' do
+      before do
+        select '未着手', from: 'q[aasm_state_eq]'
+        click_button '絞り込む'
+      end
+
+      it '未着手のタスクのみが表示される' do
+        expect(page).to have_content 'Third task'
+        expect(page).to have_content 'First job'
+        expect(page).to have_no_content 'Second task'
+        expect(page).to have_no_content 'First task'
+      end
+    end
+
+    context 'タスク名で検索する場合' do
+      before do
+        fill_in 'q[title_cont]', with: 'First'
+        click_button '絞り込む'
+      end
+
+      it '指定したタスク名のタスクのみが表示される' do
+        expect(page).to have_content 'First job'
+        expect(page).to have_content 'First task'
+        expect(page).to have_no_content 'Third task'
+        expect(page).to have_no_content 'Second task'
+      end
+    end
+
+    context 'タスク名とステータスで検索する場合' do
+      before do
+        fill_in 'q[title_cont]', with: 'First'
+        select '未着手', from: 'q[aasm_state_eq]'
+        click_button '絞り込む'
+      end
+
+      it '指定した条件のタスクのみが表示される' do
+        expect(page).to have_content 'First job'
+        expect(page).to have_no_content 'First task'
+        expect(page).to have_no_content 'Third task'
+        expect(page).to have_no_content 'Second task'
+      end
+    end
+  end
+
+  describe 'ステータス変更' do
+    before do
+      FactoryBot.create(:task,
+                        title: 'Third task',
+                        description: 'Create account',
+                        priority: 3,
+                        aasm_state: :ready)
+      visit root_path
+    end
+
+    it 'ボタンが表示される' do
+      trs = page.all('tbody tr')
+      expect(trs[1]).to have_button '完了する'
+      expect(trs[2]).to have_button '着手する'
+    end
+
+    context '「完了する」ボタンを押す場合' do
+      before do
+        click_button '完了する'
+        page.accept_confirm
+      end
+
+      it '「完了する」ボタンがなくなりステータスが完了になる' do
+        trs = page.all('tbody tr')
+        expect(trs[1]).to have_no_button '完了する'
+        expect(trs[1]).to have_no_content '着手'
+        expect(trs[1]).to have_content '完了'
+      end
+    end
+
+    context '「着手する」ボタンを押す場合' do
+      before do
+        click_button '着手する'
+        page.accept_confirm
+      end
+
+      it '「着手する」ボタンが「完了する」ボタンになり、ステータスが着手になる' do
+        trs = page.all('tbody tr')
+        expect(trs[2]).to have_no_button '着手する'
+        expect(trs[2]).to have_button '完了する'
+        expect(trs[2]).to have_no_content '未着手'
+        expect(trs[2]).to have_content '着手'
+      end
     end
   end
 end
