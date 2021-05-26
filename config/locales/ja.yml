@@ -29,6 +29,12 @@ ja:
             title:
               blank: 入力がありません
               too_long: 文字列が長すぎます
+  views:
+    pagination:
+      first: 最初
+      last: 最後
+      previous: 前
+      next: 次
   label:
     link:
       create: 新規作成

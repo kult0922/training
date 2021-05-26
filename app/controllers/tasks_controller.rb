@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @q = Task.ransack(params[:q])
     @q.sorts = 'priority asc' if @q.sorts.empty?
-    @tasks = @q.result(distinct: true)
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   def new
