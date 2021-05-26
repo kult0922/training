@@ -1,7 +1,7 @@
 <div style="margin-bottom: 10px">
   <%= search_form_for @q do |f| %>
     <%= f.label :title, Task.human_attribute_name(:title) %>
-    <%= f.search_field :title_cont %>
+    <%= f.search_field :title_cont, maxlength: 30 %>
 
     <%= f.label :aasm_state, Task.human_attribute_name(:aasm_state) %>
     <%= f.select :aasm_state_eq,
