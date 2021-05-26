@@ -1,0 +1,13 @@
+<div style="margin-bottom: 10px">
+  <%= search_form_for @q do |f| %>
+    <%= f.label :title, Task.human_attribute_name(:title) %>
+    <%= f.search_field :title_cont %>
+
+    <%= f.label :aasm_state, Task.human_attribute_name(:aasm_state) %>
+    <%= f.select :aasm_state_eq,
+                 options_for_select(Task.aasm_states.map{ |k,v| [Task.aasm.states[v].display_name, v] }),
+                 include_blank: true %>
+
+    <%= f.submit t('label.button.filter') %>
+  <% end %>
+</div>

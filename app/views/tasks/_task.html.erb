@@ -1,0 +1,31 @@
+<tr>
+    <td><%= task.priority %></td>
+    <td><%= task.title %></td>
+    <td><%= task.description %></td>
+    <td><%= task.aasm.human_state %></td>
+    <% if task.may_start? %>
+        <td>
+        <%= button_to t('label.link.start'),
+                        task_starts_path(task),
+                        data: { confirm: t('message.task.start.confirm') },
+                        method: :get %>
+        </td>
+    <% elsif task.may_complete? %>
+        <td>
+        <%= button_to t('label.link.complete'),
+                        task_completions_path(task),
+                        data: { confirm: t('message.task.complete.confirm') },
+                        method: :get %>
+        </td>
+    <% else %>
+        <td></td>
+    <% end %>
+    <td><%= link_to t('label.link.show'), task %></td>
+    <td><%= link_to t('label.link.edit'), edit_task_path(task) %></td>
+    <td>
+        <%= link_to t('label.link.delete'),
+                    task,
+                    method: :delete,
+                    data: { confirm: t('message.delete.confirm') } %>
+    </td>
+</tr>
