@@ -66,8 +66,8 @@ RSpec.configure do |config|
 
   if Bullet.enable?
     config.before(:suite) do
-      bullet_log_path = Rails.root.join("log/bullet.log")
-      File.write(bullet_log_path, "")
+      bullet_log_path = Rails.root.join('log/bullet.log')
+      File.write(bullet_log_path, '')
     end
 
     config.before do
