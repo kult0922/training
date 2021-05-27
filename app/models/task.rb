@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   include AASM
+  belongs_to :user
 
   enum aasm_state: {
     ready: 0,
