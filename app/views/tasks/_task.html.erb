@@ -6,16 +6,16 @@
     <% if task.may_start? %>
         <td>
         <%= button_to t('label.link.start'),
-                        task_starts_path(task),
-                        data: { confirm: t('message.task.start.confirm') },
-                        method: :get %>
+                      task_starts_path(task),
+                      data: { confirm: t('message.task.start.confirm') },
+                      method: :get %>
         </td>
     <% elsif task.may_complete? %>
         <td>
         <%= button_to t('label.link.complete'),
-                        task_completions_path(task),
-                        data: { confirm: t('message.task.complete.confirm') },
-                        method: :get %>
+                      task_completions_path(task),
+                      data: { confirm: t('message.task.complete.confirm') },
+                      method: :get %>
         </td>
     <% else %>
         <td>-</td>
