@@ -3,23 +3,19 @@
 require 'rails_helper'
 
 describe 'Tasks', type: :system do
-  let!(:user) { FactoryBot.create(:user) }
-
   let!(:first_task) {
     FactoryBot.create(:task,
                       title: 'First task',
                       description: 'Submit documents',
                       priority: 2,
-                      aasm_state: :doing,
-                      user: user)
+                      aasm_state: :doing)
   }
   let!(:second_task) {
     FactoryBot.create(:task,
                       title: 'Second task',
                       description: 'Take e-learning',
                       priority: 1,
-                      aasm_state: :done,
-                      user: user)
+                      aasm_state: :done)
   }
 
   shared_examples_for 'ページ名がタスク一覧になっている' do
@@ -82,7 +78,7 @@ describe 'Tasks', type: :system do
       fill_in '優先順位', with: 3
       fill_in 'タスク名', with: 'Third task'
       fill_in 'タスク詳細', with: 'Introduce myself'
-      fill_in 'User', with: user.id
+      fill_in 'User', with: first_task.user.id
       click_button '作成する'
     end
 
@@ -166,14 +162,12 @@ describe 'Tasks', type: :system do
                         title: 'Third task',
                         description: 'Create account',
                         priority: 3,
-                        aasm_state: :ready,
-                        user: user)
+                        aasm_state: :ready)
       FactoryBot.create(:task,
                         title: 'First job',
                         description: 'Setup environment',
                         priority: 4,
-                        aasm_state: :ready,
-                        user: user)
+                        aasm_state: :ready)
       visit root_path
     end
 
@@ -227,8 +221,7 @@ describe 'Tasks', type: :system do
                         title: 'Third task',
                         description: 'Create account',
                         priority: 3,
-                        aasm_state: :ready,
-                        user: user)
+                        aasm_state: :ready)
       visit root_path
     end
 
