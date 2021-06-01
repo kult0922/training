@@ -31,6 +31,7 @@ ja:
               blank: 入力がありません
               too_short: 短すぎます
               too_long: 長すぎます
+              invalid: 無効なパスワードです。英大文字・英小文字・数字・記号を含めてください
             password_confirmation:
               confirmation: 最初に入力したパスワードと一致しません
             name:
@@ -80,6 +81,7 @@ ja:
     user:
       form:
         not_saved: "%{errors_count}件のエラーのためユーザが保存されませんでした"
+        password_hint: ※8文字以上で英大文字・英小文字・数字・記号を含めてください
       create:
         succeeded: ユーザの作成が完了しました
         failed: ユーザの作成に失敗しました

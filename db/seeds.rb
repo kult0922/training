@@ -12,8 +12,8 @@ require 'faker'
 user = User.create!(
   name: 'john',
   email: 'john.doe@example.com',
-  password: 'password',
-  password_confirmation: 'password',
+  password: 'Ab12345+',
+  password_confirmation: 'Ab12345+',
 )
 
 11.times do |i|

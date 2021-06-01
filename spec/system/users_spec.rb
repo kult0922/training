@@ -59,8 +59,8 @@ describe 'Users', type: :system do
       click_link 'サインアップ'
       fill_in 'アカウント名', with: 'testuser'
       fill_in 'メールアドレス', with: 'abc@example.com'
-      fill_in 'パスワード', with: 'xxxxxxxx'
-      fill_in '確認用パスワード', with: 'xxxxxxxx'
+      fill_in 'パスワード', with: 'Ab12345+'
+      fill_in '確認用パスワード', with: 'Ab12345+'
       click_button '作成する'
     end
 
