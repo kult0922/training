@@ -28,7 +28,7 @@ describe 'Users', type: :system do
       end
 
       it 'エラーが表示される' do
-        expect(page).to have_current_path root_path
+        expect(page).to have_current_path new_session_path
         expect(page).to have_selector '.alert', text: 'ログインに失敗しました。メールアドレスとパスワードを確認してください'
       end
     end
@@ -44,7 +44,7 @@ describe 'Users', type: :system do
     end
 
     it 'ログインページとflashメッセージが表示される' do
-      expect(page).to have_current_path root_path
+      expect(page).to have_current_path new_session_path
       expect(page).to have_selector '.notice', text: 'ログアウトしました'
     end
 
@@ -65,7 +65,7 @@ describe 'Users', type: :system do
     end
 
     it 'ログインページが表示される' do
-      expect(page).to have_current_path root_path
+      expect(page).to have_current_path new_session_path
       expect(page).to have_selector '.notice', text: 'ユーザの作成が完了しました'
     end
   end

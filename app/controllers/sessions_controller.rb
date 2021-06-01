@@ -13,13 +13,13 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to tasks_path
     else
-      redirect_to root_path, alert: t('message.session.create.failed')
+      redirect_to new_session_path, alert: t('message.session.create.failed')
     end
   end
 
   def destroy
     reset_session
-    redirect_to root_path, notice: t('message.session.destroy.succeeded')
+    redirect_to new_session_path, notice: t('message.session.destroy.succeeded')
   end
 
   private

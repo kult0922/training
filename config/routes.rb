@@ -9,5 +9,5 @@ Rails.application.routes.draw do
     resources :completions, only: [:index], module: 'tasks'
     resources :starts, only: [:index], module: 'tasks'
   end
-  root 'sessions#new'
+  root 'tasks#index'
 end
