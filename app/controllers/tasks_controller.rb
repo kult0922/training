@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @q = Task.ransack(params[:q])
+    @q = current_user.tasks.ransack(params[:q])
     @q.sorts = 'priority asc' if @q.sorts.empty?
     @tasks = @q.result(distinct: true).page(params[:page])
   end
@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to @task, notice: t('message.task.create.succeeded')
     else
@@ -34,19 +34,21 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      redirect_to root_path, notice: t('message.task.delete.succeeded')
+      redirect_to tasks_path, notice: t('message.task.delete.succeeded')
     else
-      redirect_to root_path, alert: t('message.task.delete.failed')
+      redirect_to tasks_path, alert: t('message.task.delete.failed')
     end
   end
 
   private
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to tasks_path, alert: t('activerecord.errors.models.task.not_found')
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :priority, :user_id)
+    params.require(:task).permit(:title, :description, :priority)
   end
 end

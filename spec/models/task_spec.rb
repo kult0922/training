@@ -45,7 +45,7 @@ RSpec.describe Task, type: :model do
     expect(task.errors[:priority]).to include('数値ではありません')
   end
 
-  it '優先順位が重複している場合は無効' do
+  it '優先順位が同じユーザーで重複している場合は無効' do
     Task.create(
       title: 'First task',
       description: 'Submit documents',
@@ -54,6 +54,16 @@ RSpec.describe Task, type: :model do
     task = Task.new(title: 'title', priority: 1, user: user)
     task.valid?
     expect(task.errors[:priority]).to include('値が重複しています')
+  end
+
+  it '優先順位が異なるユーザーで重複している場合は有効' do
+    Task.create(
+      title: 'First task',
+      description: 'Submit documents',
+      priority: 1,
+      user: user)
+    task = Task.new(title: 'title', priority: 1, user: FactoryBot.create(:user))
+    expect(task).to be_valid
   end
 
   it '新規作成したタスクはステータスが未着手になる' do

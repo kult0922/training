@@ -1,0 +1,15 @@
+<%= form_with scope: :session, url: sessions_path do |form| %>
+  <div class="field">
+    <%= form.label :email, t('activerecord.attributes.user.email') %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password, t('activerecord.attributes.user.password') %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit t('label.button.login') %>
+  </div>
+<% end %>

@@ -6,12 +6,18 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザ
     attributes:
       task:
         title: タスク名
         description: タスク詳細
         priority: 優先順位
         aasm_state: ステータス
+      user:
+        name: アカウント名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
     states:
       task:
         ready: 未着手
@@ -19,6 +25,19 @@ ja:
         done: 完了
     errors:
       models:
+        user:
+          attributes:
+            password:
+              blank: 入力がありません
+              too_short: 短すぎます
+              too_long: 長すぎます
+            password_confirmation:
+              confirmation: 最初に入力したパスワードと一致しません
+            name:
+              blank: 入力がありません
+            email:
+              blank: 入力がありません
+              taken: すでに登録されています
         task:
           attributes:
             priority:
@@ -29,6 +48,7 @@ ja:
             title:
               blank: 入力がありません
               too_long: 文字列が長すぎます
+          not_found: データがありません
   views:
     pagination:
       first: 最初
@@ -44,11 +64,25 @@ ja:
       back: 戻る
       start: 着手する
       complete: 完了する
+      logout: ログアウト
+      signup: サインアップ
     button:
       filter: 絞り込む
+      login: ログイン
   message:
     delete:
       confirm: 削除してもよいですか？
+    session:
+      create:
+        failed: ログインに失敗しました。メールアドレスとパスワードを確認してください
+      destroy:
+        succeeded: ログアウトしました
+    user:
+      form:
+        not_saved: "%{errors_count}件のエラーのためユーザが保存されませんでした"
+      create:
+        succeeded: ユーザの作成が完了しました
+        failed: ユーザの作成に失敗しました
     task:
       form:
         not_saved: "%{errors_count}件のエラーのためタスクが保存されませんでした"

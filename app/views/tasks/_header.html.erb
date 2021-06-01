@@ -1,0 +1,6 @@
+<% if current_user %>
+  <div class='right_text'>
+    <%= current_user.name %> でログイン中
+    <%= link_to t('label.link.logout'), logout_path %>
+  </div>
+<% end %>

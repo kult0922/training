@@ -3,8 +3,8 @@
 module Tasks
   class CompletionsController < ApplicationController
     def index
-      Task.find(params[:task_id]).complete!
-      redirect_to root_path
+      current_user.tasks.find(params[:task_id]).complete!
+      redirect_to tasks_path
     end
   end
 end

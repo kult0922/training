@@ -24,5 +24,5 @@ class Task < ApplicationRecord
     end
   end
   validates :title, presence: true, length: { maximum: 30 }
-  validates :priority, presence: true, numericality: { only_integer: true, greater_than: 0 }, uniqueness: true
+  validates :priority, presence: true, numericality: { only_integer: true, greater_than: 0 }, uniqueness: { scope: :user_id }
 end
