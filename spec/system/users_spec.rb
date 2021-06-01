@@ -64,9 +64,9 @@ describe 'Users', type: :system do
       click_button '作成する'
     end
 
-    it 'タスク一覧ページとユーザの名前が表示される' do
-      expect(page).to have_current_path tasks_path
-      expect(page).to have_content 'testuser でログイン中'
+    it 'ログインページが表示される' do
+      expect(page).to have_current_path root_path
+      expect(page).to have_selector '.notice', text: 'ユーザの作成が完了しました'
     end
   end
 end
