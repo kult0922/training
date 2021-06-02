@@ -5,13 +5,16 @@ require 'rails_helper'
 describe 'Tasks', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   let!(:another_user) { FactoryBot.create(:user) }
+  let!(:work_label) { FactoryBot.create(:label, name: 'work', user: user) }
+  let!(:private_label) { FactoryBot.create(:label, name: 'private', user: user) }
   let!(:first_task) {
     FactoryBot.create(:task,
                       title: 'First task',
                       description: 'Submit documents',
                       priority: 2,
                       aasm_state: :doing,
-                      user: user)
+                      user: user,
+                      labels: [work_label, private_label])
   }
   let!(:second_task) {
     FactoryBot.create(:task,
@@ -19,7 +22,8 @@ describe 'Tasks', type: :system do
                       description: 'Take e-learning',
                       priority: 1,
                       aasm_state: :done,
-                      user: user)
+                      user: user,
+                      labels: [work_label])
   }
 
   shared_examples_for 'ページ名がタスク一覧になっている' do
@@ -48,6 +52,13 @@ describe 'Tasks', type: :system do
         expect(page).to have_content 'Second task'
       end
 
+      it 'ラベルが表示される' do
+        trs = page.all('tbody tr')
+        expect(trs[0]).to have_content 'work'
+        expect(trs[1]).to have_content 'work'
+        expect(trs[1]).to have_content 'private'
+      end
+
       it '優先順位順に表示される' do
         expect(page.body.index(second_task.title)).to be < page.body.index(first_task.title)
       end
@@ -58,6 +69,7 @@ describe 'Tasks', type: :system do
         expect(page).to have_link '削除'
         expect(page).to have_link '新規作成'
         expect(page).to have_link 'ログアウト'
+        expect(page).to have_link 'ラベル'
       end
 
       it 'ボタンが表示される' do
@@ -106,6 +118,8 @@ describe 'Tasks', type: :system do
       it 'タスクの属性を表示する' do
         expect(page).to have_content 'First task'
         expect(page).to have_content 'Submit documents'
+        expect(page).to have_content 'work'
+        expect(page).to have_content 'private'
       end
 
       it 'リンクが表示される' do
@@ -154,12 +168,14 @@ describe 'Tasks', type: :system do
         fill_in '優先順位', with: 3
         fill_in 'タスク名', with: 'Third task'
         fill_in 'タスク詳細', with: 'Introduce myself'
+        check "task_label_ids_#{work_label.id}"
         click_button '作成する'
       end
 
       it '作成したタスクの属性を表示する' do
         expect(page).to have_content 'Third task'
         expect(page).to have_content 'Introduce myself'
+        expect(page).to have_content 'work'
       end
 
       it 'flashメッセージが表示される' do
@@ -231,6 +247,41 @@ describe 'Tasks', type: :system do
     end
   end
 
+  describe 'ラベルの編集' do
+    before do
+      first_task.destroy # 対象のタスクを１つにしておく
+      visit root_path
+      fill_in 'メールアドレス', with: user.email
+      fill_in 'パスワード', with: user.password
+      click_button 'ログイン'
+      visit edit_task_path(second_task)
+    end
+
+    context '追加するとき' do
+      before do
+        check "task_label_ids_#{private_label.id}"
+        click_button '更新する'
+      end
+
+      it '追加したラベルと既存のラベルが表示される' do
+        expect(page).to have_content 'work'
+        expect(page).to have_content 'private'
+      end
+    end
+
+    context '削除するとき' do
+      before do
+        uncheck "task_label_ids_#{work_label.id}"
+        click_button '更新する'
+      end
+
+      it 'ラベルは表示されない' do
+        expect(page).to have_no_content 'work'
+        expect(page).to have_no_content 'private'
+      end
+    end
+  end
+
   describe '削除' do
     before do
       second_task.destroy # '削除'のリンクを1つにしたいので、対象のタスクを１つにしておく
@@ -249,10 +300,6 @@ describe 'Tasks', type: :system do
       it 'タスクが削除され属性が表示されなくなる' do
         expect(page).to have_no_content 'First task'
         expect(page).to have_no_content 'Submit documents'
-      end
-
-      it 'ページの名前が表示される' do
-        expect(page).to have_selector 'h1', text: 'タスク一覧'
       end
 
       it 'flashメッセージが表示される' do
@@ -324,6 +371,20 @@ describe 'Tasks', type: :system do
       end
     end
 
+    context 'ラベルで検索する場合' do
+      before do
+        select 'private', from: 'q[labels_id_eq]'
+        click_button '絞り込む'
+      end
+
+      it '指定したラベルがついたタスクのみが表示される' do
+        expect(page).to have_no_content 'Third task'
+        expect(page).to have_no_content 'First job'
+        expect(page).to have_no_content 'Second task'
+        expect(page).to have_content 'First task'
+      end
+    end
+
     context 'タスク名とステータスで検索する場合' do
       before do
         fill_in 'q[title_cont]', with: 'First'
@@ -334,6 +395,22 @@ describe 'Tasks', type: :system do
       it '指定した条件のタスクのみが表示される' do
         expect(page).to have_content 'First job'
         expect(page).to have_no_content 'First task'
+        expect(page).to have_no_content 'Third task'
+        expect(page).to have_no_content 'Second task'
+      end
+    end
+
+    context 'タスク名とステータスとラベルで検索する場合' do
+      before do
+        fill_in 'q[title_cont]', with: 'First'
+        select '着手', from: 'q[aasm_state_eq]'
+        select 'work', from: 'q[labels_id_eq]'
+        click_button '絞り込む'
+      end
+
+      it '指定した条件のタスクのみが表示される' do
+        expect(page).to have_no_content 'First job'
+        expect(page).to have_content 'First task'
         expect(page).to have_no_content 'Third task'
         expect(page).to have_no_content 'Second task'
       end

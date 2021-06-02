@@ -1,4 +1,4 @@
-<%= render 'header' %>
+<%= render 'shared/header' %>
 <h1>タスク詳細</h1>
 
 <p>
@@ -9,6 +9,11 @@
 <p>
   <strong><%= Task.human_attribute_name(:description) %>:</strong>
   <%= @task.description %>
+</p>
+
+<p>
+  <strong><%= Task.human_attribute_name(:label) %>:</strong>
+  <%= @task.labels.pluck(:name).join('|') %>
 </p>
 
 <%= link_to t('label.link.edit'), edit_task_path(@task) %> |

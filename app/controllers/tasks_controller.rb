@@ -4,13 +4,14 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @q = current_user.tasks.ransack(params[:q])
+    @q = current_user.tasks.includes(:labels).ransack(params[:q])
     @q.sorts = 'priority asc' if @q.sorts.empty?
     @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   def new
     @task = Task.new
+    @task.task_labels.build
   end
 
   def create
@@ -21,6 +22,10 @@ class TasksController < ApplicationController
       flash.now[:alert] = t('message.task.create.failed')
       render :new
     end
+  end
+
+  def edit
+    @task_label_ids = @task.labels.pluck(:id) # For checkbox status
   end
 
   def update
@@ -49,6 +54,9 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :priority)
+    p = params.require(:task).permit(:title, :description, :priority, label_ids: [])
+    # When all labels were unchecked on update, 'label_ids' won't be sent.
+    p[:label_ids] ||= []
+    p
   end
 end

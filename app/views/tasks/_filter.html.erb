@@ -8,6 +8,11 @@
                  options_for_select(Task.aasm_states.map { |_k, v| [Task.aasm.states[v].display_name, v] }),
                  include_blank: true %>
 
+    <%= f.label :label, Task.human_attribute_name(:label) %>
+    <%= f.select :labels_id_eq,
+                 options_for_select(current_user.labels.pluck(:name, :id)),
+                 include_blank: true %>
+
     <%= f.submit t('label.button.filter') %>
   <% end %>
 </div>

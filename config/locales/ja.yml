@@ -7,17 +7,21 @@ ja:
     models:
       task: タスク
       user: ユーザ
+      label: ラベル
     attributes:
       task:
         title: タスク名
         description: タスク詳細
         priority: 優先順位
         aasm_state: ステータス
+        label: ラベル
       user:
         name: アカウント名
         email: メールアドレス
         password: パスワード
         password_confirmation: 確認用パスワード
+      label:
+        name: ラベル名
     states:
       task:
         ready: 未着手
@@ -50,6 +54,12 @@ ja:
               blank: 入力がありません
               too_long: 文字列が長すぎます
           not_found: データがありません
+        label:
+          attributes:
+            name:
+              taken: 同じ名前のラベルがあります
+              blank: 入力がありません
+          not_found: データがありません
   views:
     pagination:
       first: 最初
@@ -67,6 +77,7 @@ ja:
       complete: 完了する
       logout: ログアウト
       signup: サインアップ
+      tasks: タスク一覧
     button:
       filter: 絞り込む
       login: ログイン
@@ -101,3 +112,15 @@ ja:
         confirm: 着手してもよいですか？
       complete:
         confirm: 完了してもよいですか？
+    label:
+      form:
+        not_saved: "%{errors_count}件のエラーのためラベルが保存されませんでした"
+      create:
+        succeeded: ラベルの作成が完了しました
+        failed: ラベルの作成に失敗しました
+      update:
+        succeeded: ラベルの更新が完了しました
+        failed: ラベルの更新に失敗しました
+      delete:
+        succeeded: ラベルの削除が完了しました
+        failed: ラベルの削除に失敗しました

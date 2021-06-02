@@ -26,6 +26,18 @@
     <%= form.text_field :description %>
   </div>
 
+  <div class="label-checkbox">
+    <%= form.label :label %>
+    <% current_user.labels.each do |label| %>
+      <%= form.check_box :label_ids,
+                         { multiple: true,
+                           checked: @task_label_ids&.include?(label.id),
+                           include_hidden: false },
+                         label[:id] %>
+      <%= label.name %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

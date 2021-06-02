@@ -2,6 +2,7 @@
     <td><%= task.priority %></td>
     <td><%= task.title %></td>
     <td><%= task.description %></td>
+    <td><%= task.labels.pluck(:name).join('|') %></td>
     <td><%= task.aasm.human_state %></td>
     <% if task.may_start? %>
         <td>

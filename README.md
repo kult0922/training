@@ -37,6 +37,7 @@
 |----|----|
 |  id  |  INT  |
 |  name  | VARCHAR |
+|  user_id  | INT |
 |  created_at  | DATETIME |
 |  updated_at  | DATETIME |
 

@@ -1,0 +1,26 @@
+<%= render 'shared/header' %>
+<h1>ラベル一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= Label.human_attribute_name(:name) %></th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr>
+        <td><%= label.name %></td>
+        <td><%= link_to t('label.link.edit'), edit_label_path(label) %></td>
+        <td><%= link_to t('label.link.delete'), label, method: :delete, data: { confirm: t('message.delete.confirm') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('label.link.create'), new_label_path %> |
+<%= link_to t('label.link.tasks'), tasks_path %>
