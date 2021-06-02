@@ -72,4 +72,5 @@ yarn-debug.log*
 
 .DS_STORE
 
-
+# RubyMine Setting
+.idea
