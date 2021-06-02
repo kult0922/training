@@ -3,6 +3,8 @@
 class Task < ApplicationRecord
   include AASM
   belongs_to :user
+  has_many :task_labels
+  has_many :labels, through: :task_labels
 
   enum aasm_state: {
     ready: 0,
