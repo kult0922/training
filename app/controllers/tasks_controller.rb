@@ -11,7 +11,6 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @task.task_labels.build
   end
 
   def create
@@ -54,9 +53,10 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    p = params.require(:task).permit(:title, :description, :priority, label_ids: [])
-    # When all labels were unchecked on update, 'label_ids' won't be sent.
-    p[:label_ids] ||= []
-    p
+    # When all labels were unchecked on update, merge empty array because 'label_ids' won't be sent.
+    params.require(:task).permit(:title,
+                                 :description,
+                                 :priority,
+                                 label_ids: []).to_h.merge(label_ids: []) { |_key, old_val, new_val| old_val || new_val }
   end
 end
