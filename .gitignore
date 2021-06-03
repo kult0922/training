@@ -74,3 +74,6 @@ yarn-debug.log*
 
 # RubyMine Setting
 .idea
+
+# File for maintenance mode
+.maintenance

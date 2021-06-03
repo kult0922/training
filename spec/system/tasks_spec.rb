@@ -466,4 +466,19 @@ describe 'Tasks', type: :system do
       end
     end
   end
+
+  describe 'メンテナンス中' do
+    before do
+      FileUtils.touch(Rails.root.join(MAINTENANCE_FILE_NAME))
+      visit root_path
+    end
+
+    after do
+      FileUtils.remove(Rails.root.join(MAINTENANCE_FILE_NAME))
+    end
+
+    it 'メンテナンス中の画面が表示される' do
+      expect(page).to have_content("We're sorry, our service is under maintenance")
+    end
+  end
 end
