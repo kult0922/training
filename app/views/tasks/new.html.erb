@@ -1,5 +1,5 @@
 <%= render 'shared/header' %>
-<h1>タスク作成</h1>
+<h1><%= Task.model_name.human %>作成</h1>
 
 <%= render 'form', task: @task %>
 
