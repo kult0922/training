@@ -76,7 +76,6 @@ At the end of this curriculum, you'll be able to reach following levels.
   - Being able to respond to reviews and fix errors
 - Being able to ask questions to team members and related parties (this time I will be a mentor) verbally or chat at the right time
 
-
 ## Assignment steps
 
 ### Step 0: Let's install chrome-extension
