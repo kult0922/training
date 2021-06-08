@@ -15,7 +15,6 @@ The roles for this curriculum should be below.
 
 It is up to the mentor to decide how much the mentor is involved in teaching. In addition, regarding the training period, the mentor will set a guideline in advance, taking into consideration the skill level of new employees and the status of ongoing  projects.
 
-
 ## License
 
 This curriculum is under [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
