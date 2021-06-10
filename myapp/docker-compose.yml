@@ -21,6 +21,11 @@ services:
       - "3001:3000"
     links:
       - db
+    environment:
+      DB_USER: root
+      DB_NAME: myapp
+      DB_PASSWORD: password
+      DB_HOST: db
 
 volumes:
   db-data:

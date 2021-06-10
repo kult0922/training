@@ -120,13 +120,13 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
     - `git checkout -b github_account_name origin/master`
   - 作成したらpushしましょう
 
-### ステップ3: Railsプロジェクトを作成しよう
+### Step 3: Let's create a Rails project
 
-- 作業ディレクトリに移動します
+- Change to the working directory
     ```sh
     cd myapp
     ```
-- 下記コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
+- Run the following command to create the minimum required directories and files for your application
     ```sh
     docker-compose run api rails new . --force --database=mysql -G
     ```
