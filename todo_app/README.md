@@ -82,3 +82,11 @@
 |  deletedAt  |  datetime  | null  | 削除日時 |
 
 > unique制約 username
+
+### UserSecret ユーザ秘匿情報
+
+|  Column  |  Type  | Default  |  Description  |
+| ---- | ---- | ---- | ---- |
+|  userId  |  varchar(16)  | uuid() | ユーザリレーションカラム, プライマリーキー |
+|  email  |  varchar(255)  | not null | メールアドレス |
+|  passwordHash  |  text  | not null | パスワード |
