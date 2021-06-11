@@ -1,50 +1,45 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## テーブルスキーマ
 
-Things you may want to cover:
+①ユーザー (User / users)
+--------
+項目名 | column  | type  | null | default | key |  uniq | extra | describe
+--- | --- | --- | --- | ---  | ---  | ---  | --- | --- 
+ID | id | bigint | false | - | ○ | ○ | auto_increment |
+メールアドレス | email | varchar(255) | false | - | - | ○ | 
+パスワード | password | varchar(255) | false | - | - | - | 
+作成日 | created_at | datetime | false | - | - | - | 
+更新日 | updated_at | datetime | false | - | - | - | 
 
-* Ruby version
+②タスク (Task / tasks)
+--------
+項目名 | column  | type  | null | default | key | uniq | extra | describe
+--- | --- | --- | --- | ---  | ---  | ---  | --- | --- 
+ID | id | bigint | false | - | ○ | ○ | auto_increment |
+ユーザーID | user_id | int | false | - | ○ | - |
+名前 | title | varchar(255) | false | - | - | - | 
+説明 | description | text | false | - | - | - | 
+優先度 | priority | int | false | - | - | - | - |※ enum <br> 1: 'low' <br> 2: 'medium' <br> 3: 'high' <br> 4: 'cretical' 
+ステータス | status | int | false | - | - | - | - |※ enum <br> 1: 'waiting' <br> 2: 'work_in_progress' <br> 3: 'completed'
+作成日 | created_at | datetime | false | - | - | - | 
+更新日 | updated_at | datetime | false | - | - | - | 
 
-* System dependencies
+③ラベル (Label / labels)
+--------
+項目名 | column  | type  | null | default | key |  uniq | extra | describe
+--- | --- | --- | --- | ---  | ---  | ---  | --- | --- 
+ID | id | bigint | false | - | ○ | ○ | auto_increment |
+名前 | name | varchar(255) | false | - | - | - | 
+作成日 | created_at | datetime | false | - | - | - | 
+更新日 | updated_at | datetime | false | - | - | - | 
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* テーブルスキーマ
-
-|モデル/テーブル|User/users|
-|:-:|:-:|
-|id|bigint|
-|email|password|
-|password|varchar(255)|
-
-|モデル/テーブル|Label/labels|
-|:-:|:-:|
-|id|bigint|
-|name|varchar(255)|
-
-|モデル/テーブル|Task/tasks|
-|:-:|:-:|
-|id|bigint|
-|title|varchar(255)|
-|description|text|
-|due_date|datetime|
-|user_id|bigint|
-|status|int|
-
-|モデル/テーブル|TaskLabel/task_labels|
-|:-:|:-:|
-|id|bigint|
-|task_id|bigint|
-|label_id|bigint|
+④タスクラベル (TaskLabel / task_labels)
+--------
+項目名 | column  | type  | null | default | key |  uniq | extra | describe
+--- | --- | --- | --- | ---  | ---  | ---  | --- | --- 
+ID | id | bigint | false | - | ○ | ○ | auto_increment |
+タスクID | task_id | int | false | - | ○ | - |
+ラベルID | label_id | int | false | - | ○ | - |
+作成日 | created_at | datetime | false | - | - | - | 
+更新日 | updated_at | datetime | false | - | - | - | 
