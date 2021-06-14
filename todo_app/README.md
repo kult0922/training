@@ -17,7 +17,7 @@
 | ---- | ---- | ---- | ---- |
 |  id  |  integer  | auto_increment | プライマリーキー |
 |  name  |  varchar(255)  | not null  | タスク名, 検索対象 |
-|  description  |  text  | null | タスク説明, 検索対象 |
+|  description  |  text  | null | タスク説明 |
 |  task_status_id  |  integer  | not null | ステータスリレーションカラム |
 |  task_level_id  |  integer  | null | 優先度リレーションカラム |
 |  task_label_id  |  integer | null  | ラベルリレーションカラム |
