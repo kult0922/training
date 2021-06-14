@@ -73,7 +73,7 @@
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
-|  id  |  varchar(16)  | uuid() | プライマリーキー |
+|  id  |  integer  | auto_increment | プライマリーキー |
 |  username  |  varchar(20)  | not null | ユーザ名 |
 |  icon  |  varchar(255)  | null | アイコン画像URL |
 |  role  |  enum(normal, maintainer)  | default normal | 権限 |
@@ -83,10 +83,10 @@
 
 > unique制約 username
 
-### users_secret ユーザ秘匿情報
+### users_secrets ユーザ秘匿情報
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
-|  user_id  |  varchar(16)  | uuid() | ユーザリレーションカラム, プライマリーキー |
+|  user_id  |  integer  | not null | ユーザリレーションカラム, プライマリーキー |
 |  email  |  varchar(255)  | not null | メールアドレス |
 |  password_hash  |  varchar(255)  | not null | パスワード |
