@@ -12,10 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2021_06_14_061726) do
 
-  create_table "table_name", id: false, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "column_1"
-  end
-
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.string "description", null: false
