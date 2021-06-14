@@ -9,84 +9,84 @@
 
 ## モデル設計
 
-![PXL_20210611_061021491](https://user-images.githubusercontent.com/85146460/121640307-b55d6980-cac8-11eb-8510-9d6a7e848946.jpg)
+![image](https://user-images.githubusercontent.com/85146460/121843649-a28fa280-cd1d-11eb-95d9-eaea1972f9b9.png)
 
-### Task タスク
+### tasks タスク
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
 |  id  |  integer  | auto_increment | プライマリーキー |
-|  name  |  varchar(255)  | not null  | タスク名 |
-|  description  |  varchar(1000)  | null | タスク説明 |
-|  taskStatusId  |  integer  | not null | ステータスリレーションカラム |
-|  taskLevelId  |  integer  | null | 優先度リレーションカラム |
-|  taskLabelId  |  integer | null  | ラベルリレーションカラム |
-|  userId  |  integer | null  | ユーザリレーションカラム |
-|  endAt  |  datetime  | null  | 終了期限 |
-|  createdAt  |  datetime | default now() | 作成日時 |
-|  updatedAt  |  datetime | default updated now() | 更新日時 |
-|  deletedAt  |  datetime  | null  | 削除日時 |
+|  name  |  varchar(255)  | not null  | タスク名, 検索対象 |
+|  description  |  text  | null | タスク説明 |
+|  task_status_id  |  integer  | not null | ステータスリレーションカラム |
+|  task_level_id  |  integer  | null | 優先度リレーションカラム |
+|  task_label_id  |  integer | null  | ラベルリレーションカラム |
+|  user_id  |  integer | null  | ユーザリレーションカラム |
+|  end_at  |  datetime  | null  | 終了期限 |
+|  created_at  |  datetime | default now() | 作成日時 |
+|  updated_at  |  datetime | default updated now() | 更新日時 |
+|  deleted_at  |  datetime  | null  | 削除日時 |
 
-### TaskStatus ステータス
+### task_status ステータス
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
 |  id  |  integer  | not null | プライマリーキー |
 |  name  |  varchar(10)  | not null | ステータス名 |
-|  sort  |  integer  | not null | ソート順 |
+|  priority  |  integer  | not null | 表示順 |
 
 > 未着手・着手・完了の固定の値が入る予定
 
-### TaskLevel 優先度
+### tasks_level 優先度
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
 |  id  |  integer  | not null | プライマリーキー |
 |  name  |  varchar(10)  | not null | 優先度名 |
-|  sort  |  integer  | not null | ソート順 |
+|  priority  |  integer  | not null | 表示順 |
 
 > High・Middle・Lowの固定の値が入る予定
 
-### TaskLabel タスクラベル（多対多リレーション）
+### tasks_label タスクラベル（多対多リレーション）
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
 |  id  |  integer  | auto_increment | プライマリーキー |
-|  taskId  |  integer  | not null | タスクリレーションカラム |
-|  labelId  |  integer  | not null | ラベルリレーションカラム |
-|  createdAt  |  datetime | default now() | 作成日時 |
+|  task_id  |  integer  | not null | タスクリレーションカラム |
+|  label_id  |  integer  | not null | ラベルリレーションカラム |
+|  created_at  |  datetime | default now() | 作成日時 |
 
 > unique制約 taskId, labelId
 
-### Label ラベル
+### labels ラベル
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
 |  id  |  integer  | auto_increment | プライマリーキー |
 |  name  |  varchar(50)  | not null | ラベル名 |
 |  color  |  enum(red, yellow, green,...)  | null | カラー |
-|  createdAt  |  datetime | default now() | 作成日時 |
+|  created_at  |  datetime | default now() | 作成日時 |
 
 > unique制約 name
 
-### User ユーザ
+### users ユーザ
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
-|  id  |  varchar(16)  | uuid() | プライマリーキー |
+|  id  |  integer  | auto_increment | プライマリーキー |
 |  username  |  varchar(20)  | not null | ユーザ名 |
-|  icon  |  varchar(255)  | null | アイコンURL |
+|  icon  |  varchar(255)  | null | アイコン画像URL |
 |  role  |  enum(normal, maintainer)  | default normal | 権限 |
-|  createdAt  |  datetime | default now() | 作成日時 |
-|  updatedAt  |  datetime | default updated now() | 更新日時 |
-|  deletedAt  |  datetime  | null  | 削除日時 |
+|  created_at  |  datetime | default now() | 作成日時 |
+|  updated_at  |  datetime | default updated now() | 更新日時 |
+|  deleted_at  |  datetime  | null  | 削除日時 |
 
 > unique制約 username
 
-### UserSecret ユーザ秘匿情報
+### users_secrets ユーザ秘匿情報
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
-|  userId  |  varchar(16)  | uuid() | ユーザリレーションカラム, プライマリーキー |
+|  user_id  |  integer  | not null | ユーザリレーションカラム, プライマリーキー |
 |  email  |  varchar(255)  | not null | メールアドレス |
-|  passwordHash  |  text  | not null | パスワード |
+|  password_hash  |  varchar(255)  | not null | パスワード |
