@@ -1,0 +1,7 @@
+<%= form_with(model: @task) do |f| %>
+  <p><%= f.label :title %></p>
+  <p><%= f.text_field :title %></p>
+  <p><%= f.label :description %></p>
+  <p><%= f.text_area :description %></p>
+  <p><%= f.submit (@task.new_record? ? '新規作成' : '更新') %></p>
+<% end %>
