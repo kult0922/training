@@ -1,4 +1,4 @@
- name: Rspec
+name: Rspec
 on: push
 
 jobs:
