@@ -1,11 +1,11 @@
-<%= link_to '新規作成', new_task_path %>
+<%= link_to t('common.action.create'), new_task_path %>
 
 <% if @tasks.present? %>
   <table>
     <tr>
-      <th>ID</th>
-      <th>タスク名</th>
-      <th>説明</th>
+      <th><%= Task.human_attribute_name(:id) %></th>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th><%= Task.human_attribute_name(:description) %></th>
       <th></th>
     </tr>
     <% @tasks.find_each do |task| %>
@@ -13,10 +13,10 @@
           <td><%= link_to task.id, task_path(task) %></td>
           <td><%= task.title %></td>
           <td><%= task.description %></td>
-          <td><%= link_to '削除', task_path(task), method: :delete %></td>
+          <td><%= link_to t('common.action.destroy'), task_path(task), method: :delete %></td>
         </tr>
     <% end %>
   </table>
 <% else %>
-  タスクがまだ登録されていません
+  <p><%= t('tasks.common.not_found') %></p>
 <% end %>

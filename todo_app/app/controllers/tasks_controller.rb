@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save!
-      flash[:success] = "登録成功"
+      flash[:success] = t('tasks.flash.success.create')
       redirect_to root_path
     end
   end
@@ -21,14 +21,14 @@ class TasksController < ApplicationController
   def update
     @task.update!(task_params)
 
-    flash[:success] = "更新成功"
+    flash[:success] = t('tasks.flash.success.update')
     redirect_to task_path(@task)
   end
 
   def destroy
     @task.delete
 
-    flash[:success] = "削除成功"
+    flash[:success] = t('tasks.flash.success.destroy')
     redirect_to root_path
   end
 
