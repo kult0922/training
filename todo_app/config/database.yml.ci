@@ -1,4 +1,4 @@
-ci_test:
+test:
   adapter: mysql2
   charset: utf8mb4
   collation: utf8mb4_bin

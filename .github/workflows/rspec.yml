@@ -33,7 +33,7 @@ jobs:
           bundle exec rake db:migrate
         working-directory: todo_app
         env:
-          RAILS_ENV: ci_test
+          RAILS_ENV: test
 
       - name: install webpacker
         run: |
@@ -46,4 +46,4 @@ jobs:
         run: bundle exec rspec -f d
         working-directory: todo_app
         env:
-          RAILS_ENV: ci_test
+          RAILS_ENV: test
