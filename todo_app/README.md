@@ -27,7 +27,7 @@
 |  updated_at  |  datetime | default updated now() | 更新日時 |
 |  deleted_at  |  datetime  | null  | 削除日時 |
 
-### task_status ステータス
+### task_statuses ステータス
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
@@ -37,7 +37,7 @@
 
 > 未着手・着手・完了の固定の値が入る予定
 
-### tasks_level 優先度
+### task_levels 優先度
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
@@ -47,7 +47,7 @@
 
 > High・Middle・Lowの固定の値が入る予定
 
-### tasks_label タスクラベル（多対多リレーション）
+### task_labels タスクラベル（多対多リレーション）
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
@@ -83,7 +83,7 @@
 
 > unique制約 username
 
-### users_secrets ユーザ秘匿情報
+### user_secrets ユーザ秘匿情報
 
 |  Column  |  Type  | Default  |  Description  |
 | ---- | ---- | ---- | ---- |
