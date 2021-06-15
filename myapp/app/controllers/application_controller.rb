@@ -4,11 +4,6 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render404
   rescue_from ActiveRecord::RecordNotFound, with: :render404
 
-  def routing_error
-    raise ActionController::RoutingError, params[:path]
-  end
-
-  # private
 
   def render404(exception = nil)
     logger.error "Rendering 404 with exception: #{exception.message}" if exception
