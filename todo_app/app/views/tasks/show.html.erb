@@ -1,0 +1,14 @@
+<%= link_to '編集', edit_task_path(@task) %>
+<%= link_to '削除', task_path(@task), method: :delete %>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>タスク名</th>
+    <th>説明</th>
+  </tr>
+  <tr>
+    <td><%= @task.id %></td>
+    <td><%= @task.title %></td>
+    <td><%= @task.description %></td>
+  </tr>
+</table>
