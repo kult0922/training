@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   def index
     @tasks = Task.all
-    redirect_to 500
   end
 
   def new
