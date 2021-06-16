@@ -151,11 +151,11 @@ Open chrome: // extensions /, turn on Developer mode in the upper right, and ins
 - First, let's make a new topic branch with Git
   - After that, you will work on the topic branch and commit
 - Install Bundler
-- `Let's install `mysql2` in your `Gemfile` (MySQL database driver)
-- `Configure database.yml`
+- Let's add `mysql2` in your `Gemfile` (MySQL database driver)
+- Configure `database.yml`
 - Create database with `rails db:create`
 - Check a database connection with `rails db`
-- Create PR(Pull Request( on GitHub and let them review your source program
+- Create PR (Pull Request) on GitHub and let them review your source program
   - If you get some review comment on your PR, let's deal with it. You'll need 2 LGTM (Looks Good To Me) before you merge onto master
 
 ### Step 6: Let's create a task model
@@ -214,16 +214,16 @@ Create CRUD to manage the tasks. First of all, let's make it with a simple struc
 - Let's set the validation
   - Think about which validation to add to which column
   - Let's create a migration that also sets DB constraints
-  - Create with a rails generatecommand to create only the migration file
+  - Create with a `rails generate` command to create only the migration file
 - Let's display a validation error message on the screen
 - Let's write a model test for validation
 - Create a PR on GitHub for review
 
-### Add an expiration date (Optional)
+### Add due date of the task (Optional)
 
-- Let's make it possible to register the expiration date for the task
-- Let's be able to sort by expiration date on the list screen
-- Let's expand the spec
+- Make it possible to register a due date for the task
+- Implement a functionality to sort the task by due date on the list screen
+- write a test function for this functionality
 - After finishing PR, let's release it
 
 ### Step 13: Add status to make it searchable
