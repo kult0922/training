@@ -1,0 +1,16 @@
+ja:
+  button:
+    edit: "編集"
+    create: "新規作成"
+  task:
+    title: "タスク名"
+    description: "説明"
+  link:
+    edit: "編集する"
+    delete: "削除する"
+  message:
+    task_not_registered: "タスクがまだ登録されていません"
+    lets_register_task: "タスクの登録をしましょう"
+    registered_task: "タスクの登録が完了しました"
+    edited_task: "タスクの編集が完了しました"
+    deleted_task: "タスクの削除が完了しました"
