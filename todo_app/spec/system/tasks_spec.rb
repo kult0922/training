@@ -24,7 +24,7 @@ RSpec.describe 'Tasks', type: :system do
 
     fill_in 'task_title', with: 'hoge'
     fill_in 'task_description', with: 'fuga'
-    click_button '編集'
+    click_button I18n.t(:'button.edit')
     expect(page).to have_content 'hoge'
     expect(page).to have_content 'fuga'
   end
@@ -32,7 +32,8 @@ RSpec.describe 'Tasks', type: :system do
   it 'タスクが削除できるか' do
     visit tasks_path
 
-    click_link '削除'
-    expect(page).to have_content 'タスクがまだ登録されていません'
+    click_link I18n.t(:'link.delete')
+    expect(page).to have_content I18n.t(:'message.deleted_task')
+    expect(page).to have_content I18n.t(:'message.task_not_registered')
   end
 end
