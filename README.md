@@ -219,7 +219,7 @@ Create CRUD to manage the tasks. First of all, let's make it with a simple struc
 - Let's write a model test for validation
 - Create a PR on GitHub for review
 
-### Add due date of the task (Optional)
+### Step 12: Add due date of the task (Optional)
 
 - Make it possible to register a due date for the task
 - Implement a functionality to sort the task by due date on the list screen
