@@ -9,15 +9,15 @@ RSpec.describe 'Tasks', type: :system do
     it 'タスク一覧が表示されているか' do
       visit tasks_path
 
-      expect(page).to have_content 'タイトル1'
-      expect(page).to have_content '説明1'
+      expect(page).to have_content @task.title
+      expect(page).to have_content @task.description
     end
 
     it 'タスク詳細が表示されるか' do
       visit task_path(@task)
 
-      expect(page).to have_content 'タイトル1'
-      expect(page).to have_content '説明1'
+      expect(page).to have_content @task.title
+      expect(page).to have_content @task.description
     end
 
     it 'タスクを変更できるか' do
@@ -42,15 +42,15 @@ RSpec.describe 'Tasks', type: :system do
   describe "タスク一覧の並び順の確認" do
     before do
       Task.delete_all
-      Task.create!(title: '1番目', description: '')
-      Task.create!(title: '2番目', description: '', created_at: Time.current.yesterday)
+      @task1 = Task.create!(title: '1番目', description: '')
+      @task2 = Task.create!(title: '2番目', description: '', created_at: Time.current.yesterday)
     end
 
     it 'タスク一覧の順序が作成日順か' do
       visit tasks_path
 
-      expect(all('tbody tr')[1].text).to match '1番目'
-      expect(all('tbody tr')[2].text).to match '2番目'
+      expect(all('tbody tr')[1].text).to match @task1.title
+      expect(all('tbody tr')[2].text).to match @task2.title
     end
   end
 end
