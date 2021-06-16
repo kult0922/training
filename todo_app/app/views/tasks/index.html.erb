@@ -7,7 +7,7 @@
       <th><%= t(:'task.description') %></th>
       <th></th>
     </tr>
-    <% @tasks.find_each do |task| %>
+    <% @tasks.each do |task| %>
     　　<tr>
         <td><%= link_to task.id, task_path(task) %></td>
         <td><%= task.title %></td>
