@@ -6,13 +6,15 @@
       <th><%= Task.human_attribute_name(:id) %></th>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th><%= Task.human_attribute_name(:description) %></th>
+      <th><%= link_to Task.human_attribute_name(:created_at), root_path(order: @order) %></th>
       <th></th>
     </tr>
-    <% @tasks.find_each do |task| %>
+    <% @tasks.each do |task| %>
     　　<tr>
           <td><%= link_to task.id, task_path(task) %></td>
           <td><%= task.title %></td>
           <td><%= task.description %></td>
+          <td><%= I18n.l(task.created_at, format: :default) %>
           <td><%= link_to t('common.action.destroy'), task_path(task), method: :delete %></td>
         </tr>
     <% end %>
