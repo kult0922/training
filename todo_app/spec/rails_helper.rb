@@ -31,6 +31,12 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.before(:each) do |example|
+    # `describe 〜, type: :system do` のspecを対象にする
+    if example.metadata[:type] == :system
+      driven_by :selenium_chrome_headless, screen_size: [1600, 1600]
+    end
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Rails.application.routes.url_helpers
