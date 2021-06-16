@@ -12,7 +12,8 @@ module TodoApp
     config.load_defaults 6.1
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
     config.i18n.default_locale = :en
-
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
 
     # Configuration for the application, engines, and railties goes here.
     #
