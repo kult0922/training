@@ -1,6 +1,9 @@
 require 'rails_helper'
+require 'pp'
 
 describe TasksController, type: :controller do
+  render_views
+
   before do
     @task = FactoryBot.create(:task)
   end
@@ -47,5 +50,20 @@ describe TasksController, type: :controller do
     delete :destroy, params: { id: @task[:id] }
     expect(response.status).to eq 302
     expect(Task.count).to eq 0
+  end
+
+  it 'Sort by created_at desc' do
+    @task1 = FactoryBot.create(:task, name: 'task1', created_at: Time.zone.tomorrow)
+    @task2 = FactoryBot.create(:task, name: 'task2', created_at: Time.zone.yesterday)
+
+    get :index
+    expect(response.status).to eq 200
+
+    res_str = response.body
+
+    task1_index = res_str.index('task1')
+    task2_index = res_str.index('task2')
+
+    expect(task1_index).to be < task2_index
   end
 end
