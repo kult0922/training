@@ -1,8 +1,8 @@
-require "rails_helper"
-require 'pp'
+# frozen_string_literal: true
 
-RSpec.describe "Tasks (System)", :type => :system do
+require 'rails_helper'
 
+RSpec.describe 'Tasks (System)', type: :system do
   scenario 'tasks is ordered by created_at with descending order' do
     expected_order = %w[task2 task1]
     visit tasks_url
@@ -18,6 +18,5 @@ RSpec.describe "Tasks (System)", :type => :system do
     expect(page).to have_text('タスクが保存されました。')
     visit '/tasks'
     # expect(page.all('.task-name').map(&:text)).to eq expected_order
-    pp page.all('.task-name')
   end
 end
