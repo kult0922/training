@@ -1,0 +1,40 @@
+name: Rubocop
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby: [ '2.6.x' ]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Ruby version
+        uses: actions/setup-ruby@master
+        with:
+          ruby-version : ${{ matrix.ruby }}
+
+      - name: apt-get
+        run: |
+          sudo apt-get update
+          sudo apt-get install libmysqlclient-dev
+
+      - name: Set up bundler
+        run: gem install bundler
+
+      - name: Cache gems
+        uses: actions/cache@preview
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+      - name: bundle install
+        run: bundle install --path vendor/bundle
+
+      - name: Rubocop checks
+        run: bundle exec rubocop
