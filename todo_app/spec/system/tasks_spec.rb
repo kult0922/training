@@ -38,8 +38,8 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe "タスク一覧の並び順の確認" do
-    let!(:task1) { create(:task) }
-    let!(:task2) { create(:past_task) }
+    let!(:task1) { create(:task, title: 'タイトル1') }
+    let!(:task2) { create(:past_task, title: 'タイトル1') }
 
     it 'タスク一覧の順序が作成日順か' do
       visit tasks_path
