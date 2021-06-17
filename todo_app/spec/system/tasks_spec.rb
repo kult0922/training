@@ -1,25 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  describe "基本操作を確認" do
-    let!(:task) { create(:task) }
+  let!(:task1) { create(:task, title: 'タイトル1') }
+  let!(:task2) { create(:past_task, title: 'タイトル2') }
+  describe "タスク一覧" do
+    it 'タスク一覧が表示されている (/)' do
+      visit root_path
 
-    it 'タスク一覧が表示されているか' do
+      expect(page).to have_content task1.title
+      expect(page).to have_content task1.description
+    end
+
+    it 'タスク一覧が表示されている (/tasks)' do
       visit tasks_path
 
-      expect(page).to have_content task.title
-      expect(page).to have_content task.description
+      expect(page).to have_content task1.title
+      expect(page).to have_content task1.description
     end
 
-    it 'タスク詳細が表示されるか' do
-      visit task_path(task)
+    it 'タスク一覧の順序が作成日降順' do
+      visit tasks_path
 
-      expect(page).to have_content task.title
-      expect(page).to have_content task.description
+      expect(all('tbody tr')[1].text).to match task1.title
+      expect(all('tbody tr')[2].text).to match task2.title
     end
+  end
 
-    it 'タスクを変更できるか' do
-      visit edit_task_path(task)
+  describe "タスク詳細" do
+    it 'タスク詳細が表示される' do
+      visit task_path(task1)
+
+      expect(page).to have_content task1.title
+      expect(page).to have_content task1.description
+    end
+  end
+
+  describe "タスク編集" do
+    it 'タスクを変更できる' do
+      visit edit_task_path(task1)
 
       fill_in 'task_title', with: 'hoge'
       fill_in 'task_description', with: 'fuga'
@@ -27,25 +45,15 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'hoge'
       expect(page).to have_content 'fuga'
     end
-
-    it 'タスクが削除できるか' do
-      visit tasks_path
-
-      click_link 'Delete'
-      expect(page).to have_content 'Task deleted is complete'
-      expect(page).to have_content 'Task is not registered'
-    end
   end
 
-  describe "タスク一覧の並び順の確認" do
-    let!(:task1) { create(:task, title: 'タイトル1') }
-    let!(:task2) { create(:past_task, title: 'タイトル2') }
-
-    it 'タスク一覧の順序が作成日順か' do
+  describe "タスク削除" do
+    it 'タスクが削除できる' do
       visit tasks_path
 
-      expect(all('tbody tr')[1].text).to match task1.title
-      expect(all('tbody tr')[2].text).to match task2.title
+      all('tbody tr td')[3].click_link 'Delete'
+      expect(page).to_not have_content task1.title
+      expect(page).to have_content task2.title
     end
   end
 end
