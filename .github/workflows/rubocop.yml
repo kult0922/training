@@ -2,39 +2,28 @@ name: Rubocop
 on: push
 
 jobs:
-  build:
+  rspec:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        ruby: [ '3.0.x' ]
-
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - name: Set up Ruby version
-        uses: actions/setup-ruby@master
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version : ${{ matrix.ruby }}
+          ruby-version: 3.0.1
 
-      - name: apt-get
-        run: |
-          sudo apt-get update
-          sudo apt-get install libmysqlclient-dev
+      - name: Install dependent libralies
+        run: sudo apt-get install libmysqlclient-dev
+        working-directory: todo_app
 
-      - name: Set up bundler
+      - name: Setup bundler
         run: gem install bundler
-
-      - name: Cache gems
-        uses: actions/cache@preview
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
+        working-directory: todo_app
 
       - name: bundle install
-        run: bundle install --path vendor/bundle
+        run: |
+          bundle install --jobs 4 --retry 3
+        working-directory: todo_app
 
       - name: Rubocop checks
         run: bundle exec rubocop
