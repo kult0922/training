@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   def index
     @tasks = Task.all.order(created_at: :desc)
@@ -9,10 +11,10 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    if @task.save!
-      flash[:success] = I18n.t(:'message.registered_task')
-      redirect_to root_path
-    end
+    return true if @task.save!
+
+    flash[:success] = I18n.t(:'message.registered_task')
+    redirect_to root_path
   end
 
   def show
@@ -25,10 +27,10 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find_by(id: params[:id])
-    if @task.update!(task_params)
-      flash[:success] = I18n.t(:'message.edited_task')
-      redirect_to root_path
-    end
+    return true if @task.update!(task_params)
+
+    flash[:success] = I18n.t(:'message.edited_task')
+    redirect_to root_path
   end
 
   def destroy
@@ -39,7 +41,7 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  private def task_params
+  def task_params
     params.require(:task).permit(:title, :description)
   end
 end

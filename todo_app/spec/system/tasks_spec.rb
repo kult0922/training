@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  describe "基本操作を確認" do
+  describe '基本操作を確認' do
     let!(:task) { create(:task) }
 
     it 'タスク一覧が表示されているか' do
@@ -37,7 +39,7 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 
-  describe "タスク一覧の並び順の確認" do
+  describe 'タスク一覧の並び順の確認' do
     let!(:task1) { create(:task, title: 'タイトル1') }
     let!(:task2) { create(:past_task, title: 'タイトル2') }
 
