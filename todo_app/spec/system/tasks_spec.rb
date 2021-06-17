@@ -17,25 +17,28 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(page).to have_content(task.description)
     end
 
-    context 'click created_at link' do
+    context 'not click created_at link' do
       it 'order created_at ASC' do
         visit root_path
 
         expect(page.body.index(task.title)).to be < page.body.index(task2.title)
       end
+    end
 
+    context 'click created_at link' do
       it 'order created_at DESC' do
         visit root_path
         click_link Task.human_attribute_name(:created_at)
-
+  
         expect(page.body.index(task.title)).to be > page.body.index(task2.title)
       end
+    end
 
-      it 'send invalid parameter and order created_at ASC' do
+    context 'send invalid paramter' do
+      it 'order created_at ASC' do
         visit root_path(order: 'hoge')
-        click_link Task.human_attribute_name(:created_at)
 
-        expect(page.body.index(task.title)).to be > page.body.index(task2.title)
+        expect(page.body.index(task.title)).to be < page.body.index(task2.title)
       end
     end
   end

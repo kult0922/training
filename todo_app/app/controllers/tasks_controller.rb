@@ -3,9 +3,8 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :show, :destroy]
 
   def index
-    request_order = params[:order]&.to_sym.eql?(:desc) ? :desc : :asc
-    @tasks = Task.order(created_at: request_order)
-    @order = request_order.eql?(:desc) ? :asc : :desc
+    @request_order = params[:order]&.to_sym.eql?(:desc) ? :desc : :asc
+    @tasks = Task.order(created_at: @request_order)
   end
 
   def new
