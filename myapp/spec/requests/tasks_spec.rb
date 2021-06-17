@@ -2,11 +2,6 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe TasksController, type: :request do
-  before do
-    create(:task)
-    create(:task, name: 'task2', desc: 'just a sample description')
-  end
-
   it 'render the :index template' do
     get tasks_url
     expect(response.status).to eq(200)

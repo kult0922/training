@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[show edit update destroy]
 
   # GET /tasks or /tasks.json
   def index
@@ -24,7 +26,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: "Task was successfully created." }
+        format.html { redirect_to @task, notice: 'Task was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -35,7 +37,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: "Task was successfully updated." }
+        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -46,7 +48,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
     end
   end
 
