@@ -13,28 +13,27 @@
 
   <div class="field mb-3">
     <%#= form.label :name %>
-    <%= form.text_field :name, required: true, class: "form-control", placeholder: "Task Name" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Task Name" %>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :desc %>
-    <%= form.text_area :desc, required: true, class: "form-control", placeholder: "Description"%>
+    <%= form.text_area :desc, class: "form-control", placeholder: "Description"%>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :status %>
-<!--    status_select, {selected: @task.status},-->
-    <%= form.select :status, Task.statuses, {selected: @task.status}, required: true, class: "form-control"%>
+    <%= form.number_field :status, class: "form-control", placeholder: "Status"%>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :label %>
-    <%= form.text_field :label, required: true, class: "form-control", placeholder: "Label" %>
+    <%= form.text_field :label, class: "form-control", placeholder: "Label" %>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :priority %>
-    <%= form.select :priority, Task.priorities, {selected: @task.status}, required: true, class: "form-control", placeholder: "Priority"%>
+    <%= form.number_field :priority, class: "form-control", placeholder: "Priority"%>
   </div>
 
   <div class="actions">
