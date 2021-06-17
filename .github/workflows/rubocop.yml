@@ -27,3 +27,4 @@ jobs:
 
       - name: Rubocop checks
         run: bundle exec rubocop
+        working-directory: todo_app
