@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :sytem do
-  let!(:task) { create(:task) }
-  let!(:task2) { create(:task) }
+  let!(:task) { create(:task, due_date: Faker::Time.backward) }
+  let!(:task2) { create(:task, due_date: Faker::Time.forward) }
   let!(:ja_title) { Task.human_attribute_name(:title) }
   let!(:ja_desc) { Task.human_attribute_name(:description) }
 
@@ -16,17 +16,32 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(page).to have_content(task.description)
     end
 
-    it 'order ASC' do
+    it 'created_at order ASC' do
       visit root_path
   
       expect(page.body.index(task.title)).to be < page.body.index(task2.title)
     end
 
-    it 'order DESC' do
+    it 'created_at order DESC' do
       visit root_path
       click_link Task.human_attribute_name(:created_at)
 
       expect(page.body.index(task.title)).to be > page.body.index(task2.title)
+    end
+
+    it 'due_date order ASC' do
+      visit root_path
+      click_link Task.human_attribute_name(:due_date)
+      click_link Task.human_attribute_name(:due_date)
+      
+      expect(page.body.index(I18n.l(task.due_date, format: :default))).to be < page.body.index(I18n.l(task2.due_date, format: :default))
+    end
+
+    it 'created_at order DESC' do
+      visit root_path
+      click_link Task.human_attribute_name(:due_date)
+
+      expect(page.body.index(I18n.l(task.due_date, format: :default))).to be > page.body.index(I18n.l(task2.due_date, format: :default))
     end
   end
 

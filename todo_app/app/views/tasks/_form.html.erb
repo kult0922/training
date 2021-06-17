@@ -3,5 +3,6 @@
   <p><%= f.text_field :title %></p>
   <p><%= f.label :description %></p>
   <p><%= f.text_area :description %></p>
+  <p><%= f.datetime_field :due_date %></p>
   <p><%= f.submit (@task.new_record? ? t('common.action.create') : t('common.action.update')) %></p>
 <% end %>

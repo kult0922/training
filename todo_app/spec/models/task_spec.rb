@@ -26,4 +26,16 @@ RSpec.describe Task, type: :model do
       it { is_expected.to_not be_valid }
     end
   end
+
+   describe '#scope sort_tasks' do
+   let!(:task1) { create(:task, due_date: Faker::Time.backward) }
+   let!(:task2) { create(:task, due_date: Faker::Time.forward) }
+ 
+     context 'sort desc' do
+       it {expect(Task.sort_tasks({due_date: :desc}).first).to eq(task2) }
+     end
+     context 'sort asc' do
+      it { expect(Task.sort_tasks({created_at: :asc}).first).to eq(task1) }
+     end
+   end
 end
