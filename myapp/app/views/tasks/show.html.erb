@@ -1,0 +1,15 @@
+<div class="bg-light p-5 rounded-lg">
+  <h1 class="display-4"> <%= @task.name %></h1>
+  <p class="lead"> <%= @task.desc %></p>
+  <hr class="my-4">
+  <p>
+    <strong>Status:</strong>
+    <%= @task.status %>
+  </p>
+  <p>
+    <strong>Label:</strong>
+    <%= @task.label %>
+  </p>
+  <%= link_to 'Edit', edit_task_path(@task), class: "btn btn-secondary" %>
+  <%= link_to 'Back', tasks_path, class: "btn btn-dark" %>
+</div>
