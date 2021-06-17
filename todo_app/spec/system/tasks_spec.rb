@@ -48,12 +48,17 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context '異常値入力テスト' do
-      it 'Max値入力' do
+      it 'title Max値入力時' do
         visit edit_task_path(task1)
 
         fill_in 'task_title', with: Faker::Alphanumeric.alpha(number: 256)
         click_button I18n.t(:'button.edit')
         expect(page).to have_content 'Edited is failed'
+      end
+
+      it 'description Max値入力時' do
+        visit edit_task_path(task1)
+
         fill_in 'task_description', with: Faker::Alphanumeric.alpha(number: 5001)
         click_button I18n.t(:'button.edit')
         expect(page).to have_content 'Edited is failed'
