@@ -33,9 +33,9 @@ RSpec.describe 'Tasks', type: :system do
     it 'タスクが削除できるか' do
       visit tasks_path
 
-      click_link I18n.t(:'link.delete')
-      expect(page).to have_content I18n.t(:'message.deleted_task')
-      expect(page).to have_content I18n.t(:'message.task_not_registered')
+      click_link 'Delete'
+      expect(page).to have_content 'Task deleted is complete'
+      expect(page).to have_content 'Task is not registered'
     end
   end
 

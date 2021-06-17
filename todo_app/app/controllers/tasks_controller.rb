@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save!
-      flash[:success] = t(:'message.registered_task')
+      flash[:success] = I18n.t(:'message.registered_task')
       redirect_to root_path
     end
   end
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.update!(task_params)
-      flash[:success] = t(:'message.edited_task')
+      flash[:success] = I18n.t(:'message.edited_task')
       redirect_to root_path
     end
   end
@@ -35,7 +35,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     @task.delete
 
-    flash[:success] = t(:'message.deleted_task')
+    flash[:success] = I18n.t(:'message.deleted_task')
     redirect_to root_path
   end
 
