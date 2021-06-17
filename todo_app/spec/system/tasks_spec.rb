@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   let!(:task1) { create(:task, title: 'タイトル1') }
   let!(:task2) { create(:past_task, title: 'タイトル2') }
+
   describe "タスク一覧" do
     it 'タスク一覧が表示されている (/)' do
       visit root_path
@@ -45,10 +46,32 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content 'hoge'
       expect(page).to have_content 'fuga'
     end
+
+    context '異常値入力テスト' do
+      it 'Max値入力' do
+        visit edit_task_path(task1)
+
+        fill_in 'task_title', with: Faker::Alphanumeric.alpha(number: 256)
+        click_button I18n.t(:'button.edit')
+        expect(page).to have_content 'Edited is failed'
+        fill_in 'task_description', with: Faker::Alphanumeric.alpha(number: 5001)
+        click_button I18n.t(:'button.edit')
+        expect(page).to have_content 'Edited is failed'
+      end
+
+      it '未入力の状態' do
+        visit edit_task_path(task1)
+
+        fill_in 'task_title', with: ''
+        fill_in 'task_description', with: ''
+        click_button I18n.t(:'button.edit')
+        expect(page).to have_content 'Edited is failed'
+      end
+    end
   end
 
   describe "タスク削除" do
-    it 'タスクが削除できる' do
+    it 'タスクを削除できる' do
       visit tasks_path
 
       all('tbody tr td')[3].click_link 'Delete'
