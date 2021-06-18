@@ -92,7 +92,7 @@ RSpec.describe 'Tasks', type: :system do
     it 'タスクを削除できる' do
       visit tasks_path
 
-      all('tbody tr td')[3].click_link 'Delete'
+      all('tbody tr td')[4].click_link 'Delete'
       expect(page).to_not have_content task1.title
       expect(page).to have_content task2.title
     end
