@@ -1,7 +1,8 @@
 <div>
-  <p><%= @task.id %></p>
-  <p><%= @task.title %></p>
-  <p><%= @task.description %></p>
-  <p><%= @task.created_at %></p>
-  <%= link_to t(:'link.edit'), edit_task_path(@task) %>
+  <p>ID: <%= @task.id %></p>
+  <p><%= I18n.t(:'task.title') %>: <%= @task.title %></p>
+  <p><%= I18n.t(:'task.description') %>: <%= @task.description %></p>
+  <p><%= I18n.t(:'task.created_at') %>: <%= I18n.l(@task.created_at) %></p>
+  <p><%= I18n.t(:'task.end_at') %>: <%= @task.end_at ? I18n.l(@task.end_at) : nil %></p>
+  <%= link_to I18n.t(:'link.edit'), edit_task_path(@task) %>
 </div>

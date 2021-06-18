@@ -5,6 +5,7 @@
       <th>ID</th>
       <th><%= I18n.t(:'task.title') %></th>
       <th><%= I18n.t(:'task.description') %></th>
+      <th><%= I18n.t(:'task.end_at') %></th>
       <th></th>
     </tr>
     <% @tasks.each do |task| %>
@@ -12,6 +13,7 @@
         <td><%= link_to task.id, task_path(task) %></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
+        <td><%= task.end_at ? I18n.l(task.end_at) : nil %></td>
         <td><%= link_to I18n.t(:'link.delete'), task_path(task), method: :delete %></td>
       </tr>
     <% end %>

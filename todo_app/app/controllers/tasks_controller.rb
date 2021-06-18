@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.end_at = Time.current
     if @task.save
       flash[:success] = I18n.t(:'message.registered_task')
       redirect_to root_path
@@ -46,6 +47,6 @@ class TasksController < ApplicationController
   end
 
   private def task_params
-    params.require(:task).permit(:title, :description)
+    params.require(:task).permit(:title, :description, :end_at)
   end
 end
