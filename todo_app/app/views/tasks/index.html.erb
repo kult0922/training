@@ -1,4 +1,4 @@
-<%= link_to t('common.action.create'), new_task_path %>
+<%= link_to I18n.t('common.action.create'), new_task_path %>
 
 <% if @tasks.present? %>
   <table>
@@ -26,5 +26,5 @@
     <% end %>
   </table>
 <% else %>
-  <p><%= t('tasks.common.not_found') %></p>
+  <p><%= I18n.t('tasks.common.not_found') %></p>
 <% end %>

@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :sytem do
-  let!(:task) { create(:task, due_date: Faker::Time.backward) }
-  let!(:task2) { create(:task, due_date: Faker::Time.forward) }
-  let!(:ja_title) { Task.human_attribute_name(:title) }
-  let!(:ja_desc) { Task.human_attribute_name(:description) }
+  let!(:task) { create(:task, created_at: Faker::Time.backward) }
+  let(:ja_title) { Task.human_attribute_name(:title) }
+  let(:ja_desc) { Task.human_attribute_name(:description) }
 
   describe '#index' do
+    let!(:task2) { create(:task, created_at: Faker::Time.forward) }
+
     it 'vist tasks/index' do
       visit root_path
 
@@ -16,17 +17,29 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(page).to have_content(task.description)
     end
 
-    it 'created_at order ASC' do
-      visit root_path
-  
-      expect(page.body.index(task.title)).to be < page.body.index(task2.title)
+    context 'not click created_at link' do
+      it 'order created_at ASC' do
+        visit root_path
+
+        expect(page.body.index(task.title)).to be < page.body.index(task2.title)
+      end
     end
 
-    it 'created_at order DESC' do
-      visit root_path
-      click_link Task.human_attribute_name(:created_at)
+    context 'click created_at link' do
+      it 'order created_at DESC' do
+        visit root_path
+        click_link Task.human_attribute_name(:created_at)
+  
+        expect(page.body.index(task.title)).to be > page.body.index(task2.title)
+      end
+    end
 
-      expect(page.body.index(task.title)).to be > page.body.index(task2.title)
+    context 'send invalid paramter' do
+      it 'order created_at ASC' do
+        visit root_path(order: 'hoge')
+
+        expect(page.body.index(task.title)).to be < page.body.index(task2.title)
+      end
     end
 
     it 'due_date order ASC' do
