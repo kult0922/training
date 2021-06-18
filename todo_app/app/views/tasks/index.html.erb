@@ -5,8 +5,9 @@
       <th>ID</th>
       <th><%= I18n.t(:'task.title') %></th>
       <th><%= I18n.t(:'task.description') %></th>
-      <th><%= I18n.t(:'task.end_at') %></th>
-      <th></th>
+      <th>
+        <%= I18n.t(:'task.end_at') %> <%= link_to '👆', root_path(end_at: 'desc') %> <%= link_to '👇', root_path(end_at: 'asc') %>
+      </th>
     </tr>
     <% @tasks.each do |task| %>
     　　<tr>
