@@ -11,18 +11,18 @@
       <th></th>
     </tr>
     <% @tasks.each do |task| %>
-    　　<tr>
-          <td><%= link_to task.id, task_path(task) %></td>
-          <td><%= task.title %></td>
-          <td><%= task.description %></td>
-          <td><%= I18n.l(task.created_at) %>
-          <td>
-            <% if task.due_date.present? %> 
-              <%= I18n.l(task.due_date) %>
-            <% end %>
-          </td>
-          <td><%= link_to I18n.t('common.action.destroy'), task_path(task), method: :delete %></td>
-        </tr>
+      <tr>
+        <td><%= link_to task.id, task_path(task) %></td>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= I18n.l(task.created_at) %>
+        <td>
+          <% if task.due_date.present? %>
+            <%= I18n.l(task.due_date) %>
+          <% end %>
+        </td>
+        <td><%= link_to I18n.t('common.action.destroy'), task_path(task), method: :delete %></td>
+      </tr>
     <% end %>
   </table>
 <% else %>
