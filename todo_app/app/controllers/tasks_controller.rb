@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(create_sort_query)
   end
 
   def new
@@ -46,7 +46,20 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  private def task_params
+  private
+
+  def task_params
     params.require(:task).permit(:title, :description, :end_at)
+  end
+
+  def create_sort_query
+    sort_query = { created_at: :desc }
+    if params[:end_at] == 'asc'
+      sort_query = { end_at: :asc }
+    end
+    if params[:end_at] == 'desc'
+      sort_query = { end_at: :desc }
+    end
+    sort_query
   end
 end
