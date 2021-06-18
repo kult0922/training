@@ -23,7 +23,8 @@
 
   <div class="field mb-3">
     <%#= form.label :status %>
-    <%= form.number_field :status, class: "form-control", placeholder: "Status"%>
+<!--    status_select, {selected: @task.status},-->
+    <%= form.select :status, Task.statuses, {selected: @task.status}, required: true, class: "form-control"%>
   </div>
 
   <div class="field mb-3">
@@ -33,7 +34,7 @@
 
   <div class="field mb-3">
     <%#= form.label :priority %>
-    <%= form.number_field :priority, class: "form-control", placeholder: "Priority"%>
+    <%= form.select :priority, Task.priorities, {selected: @task.status}, class: "form-control", placeholder: "Priority"%>
   </div>
 
   <div class="actions">
