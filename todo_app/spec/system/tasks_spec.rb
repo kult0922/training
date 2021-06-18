@@ -4,7 +4,7 @@ RSpec.describe 'Tasks', type: :sytem do
   let!(:old_task) { create(:task, created_at: Faker::Time.backward, due_date: Faker::Time.backward) }
   let(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
   let(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
-  let(:due_date) { I18n.l(Faker::Time.forward) }
+  let(:due_date) { Faker::Time.forward }
   let(:ja_title) { Task.human_attribute_name(:title) }
   let(:ja_desc) { Task.human_attribute_name(:description) }
   let(:ja_due_date) { Task.human_attribute_name(:due_date) }
