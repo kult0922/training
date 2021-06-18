@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :sytem do
-  let!(:old_task) { create(:old_task, created_at: Faker::Time.backward) }
+  let!(:old_task) { create(:task, created_at: Faker::Time.backward) }
   let(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
   let(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
   let(:due_date) { Faker::Time.forward }
@@ -10,22 +10,22 @@ RSpec.describe 'Tasks', type: :sytem do
   let(:ja_due_date) { Task.human_attribute_name(:due_date) }
 
   describe '#index' do
-    let!(:new_task) { create(:old_task, created_at: Faker::Time.forward) }
+    let!(:new_task) { create(:task, created_at: Faker::Time.forward) }
 
     it 'vist tasks/index' do
       visit root_path
 
       expect(current_path).to eq root_path
 
-      expect(page).to have_content(task.title)
-      expect(page).to have_content(task.description)
+      expect(page).to have_content(old_task.title)
+      expect(page).to have_content(old_task.description)
     end
 
     context 'not click created_at link' do
       it 'order created_at ASC' do
         visit root_path
 
-        expect(page.body.index(task.title)).to be < page.body.index(new_task.title)
+        expect(page.body.index(old_task.title)).to be < page.body.index(new_task.title)
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe 'Tasks', type: :sytem do
         visit root_path
         click_link Task.human_attribute_name(:created_at)
   
-        expect(page.body.index(task.title)).to be > page.body.index(new_task.title)
+        expect(page.body.index(old_task.title)).to be > page.body.index(new_task.title)
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe 'Tasks', type: :sytem do
       it 'order created_at ASC' do
         visit root_path(order: 'hoge')
 
-        expect(page.body.index(task.title)).to be < page.body.index(new_task.title)
+        expect(page.body.index(old_task.title)).to be < page.body.index(new_task.title)
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :sytem do
         click_link Task.human_attribute_name(:due_date)
         click_link Task.human_attribute_name(:due_date)
       
-        expect(page.body.index(I18n.l(task.due_date))).to be < page.body.index(I18n.l(new_task.due_date))
+        expect(page.body.index(I18n.l(old_task.due_date))).to be < page.body.index(I18n.l(new_task.due_date))
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Tasks', type: :sytem do
         visit root_path
         click_link Task.human_attribute_name(:due_date)
 
-        expect(page.body.index(I18n.l(task.due_date))).to be > page.body.index(I18n.l(new_task.due_date))
+        expect(page.body.index(I18n.l(old_task.due_date))).to be > page.body.index(I18n.l(new_task.due_date))
       end
     end
   end
@@ -93,12 +93,12 @@ RSpec.describe 'Tasks', type: :sytem do
 
   describe '#edit' do
     it 'update task' do
-      visit edit_task_path(task)
+      visit edit_task_path(old_task)
 
-      expect(current_path).to eq edit_task_path(task)
+      expect(current_path).to eq edit_task_path(old_task)
 
-      expect(page).to have_field ja_title, with: task.title
-      expect(page).to have_field ja_desc, with: task.description
+      expect(page).to have_field ja_title, with: old_task.title
+      expect(page).to have_field ja_desc, with: old_task.description
 
       fill_in ja_title, with: title
       fill_in ja_desc, with: desc
@@ -108,7 +108,7 @@ RSpec.describe 'Tasks', type: :sytem do
         click_button I18n.t('common.action.update')
       end.to change(Task, :count).by(0)
   
-      expect(current_path).to eq task_path(task)
+      expect(current_path).to eq task_path(old_task)
 
       expect(page).to have_content(I18n.t('tasks.flash.success.update'))
       expect(page).to have_content(title)
@@ -118,21 +118,21 @@ RSpec.describe 'Tasks', type: :sytem do
 
   describe '#show' do
     it 'visit show' do
-      visit task_path(task)
+      visit task_path(old_task)
 
-      expect(current_path).to eq task_path(task)
+      expect(current_path).to eq task_path(old_task)
 
-      expect(page).to have_content(task.title)
-      expect(page).to have_content(task.description)
-      expect(page).to have_content(I18n.l(task.due_date))
+      expect(page).to have_content(old_task.title)
+      expect(page).to have_content(old_task.description)
+      expect(page).to have_content(I18n.l(old_task.due_date))
     end
   end
 
   describe '#destroy' do
     it 'delete record' do
-      visit task_path(task)
+      visit task_path(old_task)
 
-      expect(current_path).to eq task_path(task)
+      expect(current_path).to eq task_path(old_task)
 
       expect do
         click_link I18n.t('common.action.destroy')
@@ -141,9 +141,9 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(current_path).to eq root_path
 
       expect(page).to have_content(I18n.t('tasks.flash.success.destroy'))
-      expect(page).to_not have_content(task.title)
-      expect(page).to_not have_content(task.description)
-      expect(page).to_not have_content(I18n.l(task.due_date))
+      expect(page).to_not have_content(old_task.title)
+      expect(page).to_not have_content(old_task.description)
+      expect(page).to_not have_content(I18n.l(old_task.due_date))
     end
   end
 end
