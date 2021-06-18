@@ -2,13 +2,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[edit show]
 
   def index
-    @all_tasks = Task.all
+    @tasks = Task.all
+    @status = params[:status]
+    @name = params[:name]
+    @tasks = @tasks.where(status: @status) if @status.present?
+    @tasks = @tasks.where(name: @name) if @name.present?
   end
 
   def create
-    @task = Task.new(params.require(:task).permit(:name, :description))
+    @task = Task.new(params.require(:task).permit(:name, :description, :status))
     if @task.save
-      redirect_to tasks_path, notice: 'タスクの登録に成功しました'
+      redirect_to tasks_path, notice: I18n.t('notice.task.insert.success')
     else
       render :edit
     end
@@ -25,8 +29,8 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(params.require(:task).permit(:name, :description))
-      redirect_to tasks_path, notice: 'タスクの更新に成功しました'
+    if @task.update(params.require(:task).permit(:name, :description, :status))
+      redirect_to tasks_path, notice: I18n.t('notice.task.update.success')
     else
       render :edit
     end
@@ -35,9 +39,9 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     if @task.delete
-      redirect_to tasks_path, notice: 'タスクの削除に成功しました'
+      redirect_to tasks_path, notice: I18n.t('notice.task.delete.success')
     else
-      flash.now[:alert] = 'タスクの削除に失敗しました'
+      flash.now[:alert] = I18n.t('notice.task.delete.fail')
     end
   end
 
