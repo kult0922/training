@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :sytem do
-  let!(:task) { create(:task, created_at: Faker::Time.backward) }
+  let!(:old_task) { create(:old_task, created_at: Faker::Time.backward) }
   let(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
   let(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
   let(:due_date) { Faker::Time.forward }
@@ -10,7 +10,7 @@ RSpec.describe 'Tasks', type: :sytem do
   let(:ja_due_date) { Task.human_attribute_name(:due_date) }
 
   describe '#index' do
-    let!(:task2) { create(:task, created_at: Faker::Time.forward) }
+    let!(:new_task) { create(:old_task, created_at: Faker::Time.forward) }
 
     it 'vist tasks/index' do
       visit root_path
@@ -25,7 +25,7 @@ RSpec.describe 'Tasks', type: :sytem do
       it 'order created_at ASC' do
         visit root_path
 
-        expect(page.body.index(task.title)).to be < page.body.index(task2.title)
+        expect(page.body.index(task.title)).to be < page.body.index(new_task.title)
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe 'Tasks', type: :sytem do
         visit root_path
         click_link Task.human_attribute_name(:created_at)
   
-        expect(page.body.index(task.title)).to be > page.body.index(task2.title)
+        expect(page.body.index(task.title)).to be > page.body.index(new_task.title)
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe 'Tasks', type: :sytem do
       it 'order created_at ASC' do
         visit root_path(order: 'hoge')
 
-        expect(page.body.index(task.title)).to be < page.body.index(task2.title)
+        expect(page.body.index(task.title)).to be < page.body.index(new_task.title)
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe 'Tasks', type: :sytem do
         click_link Task.human_attribute_name(:due_date)
         click_link Task.human_attribute_name(:due_date)
       
-        expect(page.body.index(I18n.l(task.due_date))).to be < page.body.index(I18n.l(task2.due_date))
+        expect(page.body.index(I18n.l(task.due_date))).to be < page.body.index(I18n.l(new_task.due_date))
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Tasks', type: :sytem do
         visit root_path
         click_link Task.human_attribute_name(:due_date)
 
-        expect(page.body.index(I18n.l(task.due_date))).to be > page.body.index(I18n.l(task2.due_date))
+        expect(page.body.index(I18n.l(task.due_date))).to be > page.body.index(I18n.l(new_task.due_date))
       end
     end
   end
