@@ -6,8 +6,8 @@
       <th><%= Task.human_attribute_name(:id) %></th>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th><%= Task.human_attribute_name(:description) %></th>
-      <th><%= link_to Task.human_attribute_name(:created_at), root_path(sort_key: 'created_at', sort_val: @sort[:created_at]) %></th>
-      <th><%= link_to Task.human_attribute_name(:due_date), root_path(sort_key: 'due_date', sort_val: @sort[:due_date]) %></th>
+      <th><%= link_to Task.human_attribute_name(:created_at), root_path(sort_key: 'created_at', sort_val: display_sort_val(@sort[:created_at])) %></th>
+      <th><%= link_to Task.human_attribute_name(:due_date), root_path(sort_key: 'due_date', sort_val: display_sort_val(@sort[:due_date])) %></th>
       <th></th>
     </tr>
     <% @tasks.each do |task| %>
@@ -15,10 +15,10 @@
           <td><%= link_to task.id, task_path(task) %></td>
           <td><%= task.title %></td>
           <td><%= task.description %></td>
-          <td><%= I18n.l(task.created_at, format: :default) %>
+          <td><%= I18n.l(task.created_at) %>
           <td>
             <% if task.due_date.present? %> 
-              <%= I18n.l(task.due_date, format: :default) %>
+              <%= I18n.l(task.due_date) %>
             <% end %>
           </td>
           <td><%= link_to I18n.t('common.action.destroy'), task_path(task), method: :delete %></td>
