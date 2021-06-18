@@ -2,8 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :sytem do
   let!(:task) { create(:task, created_at: Faker::Time.backward) }
+  let(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
+  let(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
+  let(:due_date) { Faker::Time.forward }
   let(:ja_title) { Task.human_attribute_name(:title) }
   let(:ja_desc) { Task.human_attribute_name(:description) }
+  let(:ja_due_date) { Task.human_attribute_name(:due_date) }
 
   describe '#index' do
     let!(:task2) { create(:task, created_at: Faker::Time.forward) }
@@ -42,31 +46,37 @@ RSpec.describe 'Tasks', type: :sytem do
       end
     end
 
-    it 'due_date order ASC' do
-      visit root_path
-      click_link Task.human_attribute_name(:due_date)
-      click_link Task.human_attribute_name(:due_date)
+    context 'click due_date link twice' do
+      it 'order due_date ASC' do
+        visit root_path
+        click_link Task.human_attribute_name(:due_date)
+        click_link Task.human_attribute_name(:due_date)
       
-      expect(page.body.index(I18n.l(task.due_date, format: :default))).to be < page.body.index(I18n.l(task2.due_date, format: :default))
+        expect(page.body.index(I18n.l(task.due_date))).to be < page.body.index(I18n.l(task2.due_date))
+      end
     end
 
-    it 'created_at order DESC' do
-      visit root_path
-      click_link Task.human_attribute_name(:due_date)
+    context 'click due_date link once' do
+      it 'order due_date DESC' do
+        visit root_path
+        click_link Task.human_attribute_name(:due_date)
 
-      expect(page.body.index(I18n.l(task.due_date, format: :default))).to be > page.body.index(I18n.l(task2.due_date, format: :default))
+        expect(page.body.index(I18n.l(task.due_date))).to be > page.body.index(I18n.l(task2.due_date))
+      end
     end
   end
 
   describe '#new' do
-    let!(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
-    let!(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
+    let(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
+    let(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
+    let(:due_date) { Faker::Time.forward }
 
     it 'create task' do
       visit new_task_path
 
       fill_in ja_title, with: title
       fill_in ja_desc, with: desc
+      fill_in ja_due_date, with: due_date
 
       expect do
         click_button I18n.t('common.action.create')
@@ -77,13 +87,11 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(page).to have_content(I18n.t('tasks.flash.success.create'))
       expect(page).to have_content(title)
       expect(page).to have_content(desc)
+      expect(page).to have_content(I18n.l(due_date))
     end
   end
 
   describe '#edit' do
-    let!(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
-    let!(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
-
     it 'update task' do
       visit edit_task_path(task)
 
@@ -94,6 +102,7 @@ RSpec.describe 'Tasks', type: :sytem do
 
       fill_in ja_title, with: title
       fill_in ja_desc, with: desc
+      fill_in ja_due_date, with: due_date
 
       expect do
         click_button I18n.t('common.action.update')
@@ -115,6 +124,7 @@ RSpec.describe 'Tasks', type: :sytem do
 
       expect(page).to have_content(task.title)
       expect(page).to have_content(task.description)
+      expect(page).to have_content(I18n.l(task.due_date))
     end
   end
 
@@ -133,6 +143,7 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(page).to have_content(I18n.t('tasks.flash.success.destroy'))
       expect(page).to_not have_content(task.title)
       expect(page).to_not have_content(task.description)
+      expect(page).to_not have_content(I18n.l(task.due_date))
     end
   end
 end
