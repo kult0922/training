@@ -3,8 +3,8 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:edit, :update, :show, :destroy]
 
   def index
-    @tasks = Task.sort_tasks(request_sort_params)
-    @sort = display_sort
+    @sort = request_sort_params
+    @tasks = Task.sort_tasks(@sort)
   end
 
   def new
@@ -52,15 +52,18 @@ class TasksController < ApplicationController
   end
 
   def request_sort_params
-    { params[:sort_key]&.to_sym => params[:sort_val] } if params[:sort_key].present? && params[:sort_val].present?
+    if check_sort_key && params[:sort_val].present?
+      { params[:sort_key]&.to_sym => set_sort_val }
+    else
+      { created_at: :asc, due_date: :asc }
+    end
   end
 
-  def display_sort
-    default = { created_at: :desc, due_date: :desc }
-    if request_sort_params
-      default.merge!(request_sort_params.map {|k,v| [k.to_sym, (v.to_sym.eql?(:desc) ? :asc : :desc)] }.to_h)
-    else
-      default
-    end
+  def check_sort_key
+    %i(due_date created_at).include?(params[:sort_key]&.to_sym)
+  end
+
+  def set_sort_val
+    params[:sort_val]&.to_sym.eql?(:desc) ? :desc : :asc
   end
 end
