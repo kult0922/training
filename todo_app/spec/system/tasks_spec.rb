@@ -10,6 +10,7 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content task1.title
       expect(page).to have_content task1.description
+      expect(page).to have_content task1.end_at
     end
 
     it 'タスク一覧が表示されている (/tasks)' do
@@ -17,6 +18,7 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content task1.title
       expect(page).to have_content task1.description
+      expect(page).to have_content task1.end_at
     end
 
     it 'タスク一覧の順序が作成日降順' do
@@ -33,6 +35,7 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content task1.title
       expect(page).to have_content task1.description
+      expect(page).to have_content task1.end_at
     end
   end
 
@@ -45,6 +48,16 @@ RSpec.describe 'Tasks', type: :system do
       click_button I18n.t(:'button.edit')
       expect(page).to have_content 'hoge'
       expect(page).to have_content 'fuga'
+    end
+
+    it 'タスクの終了期限を変更できる' do
+      visit edit_task_path(task1)
+      end_at_input = Time.current.change(sec: 0, usec: 0)
+
+      fill_in 'task_title', with: 'hoge'
+      fill_in 'task_end_at', with: end_at_input
+      click_button I18n.t(:'button.edit')
+      expect(page).to have_content I18n.l(end_at_input)
     end
 
     context '異常値入力テスト' do
