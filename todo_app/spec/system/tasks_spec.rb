@@ -67,16 +67,12 @@ RSpec.describe 'Tasks', type: :sytem do
   end
 
   describe '#new' do
-    let(:title) { Faker::Alphanumeric.alphanumeric(number: 10) }
-    let(:desc) { Faker::Alphanumeric.alphanumeric(number: 10) }
-    let(:due_date) { Faker::Time.forward }
-
     it 'create task' do
       visit new_task_path
 
       fill_in ja_title, with: title
       fill_in ja_desc, with: desc
-      fill_in ja_due_date, with: due_date
+      fill_in ja_due_date, with: I18n.l(due_date)
 
       expect do
         click_button I18n.t('common.action.create')
@@ -102,7 +98,7 @@ RSpec.describe 'Tasks', type: :sytem do
 
       fill_in ja_title, with: title
       fill_in ja_desc, with: desc
-      fill_in ja_due_date, with: due_date
+      fill_in ja_due_date, with: I18n.l(due_date)
 
       expect do
         click_button I18n.t('common.action.update')
@@ -113,6 +109,7 @@ RSpec.describe 'Tasks', type: :sytem do
       expect(page).to have_content(I18n.t('tasks.flash.success.update'))
       expect(page).to have_content(title)
       expect(page).to have_content(desc)
+      expect(page).to have_content(I18n.l(due_date))
     end
   end
 
