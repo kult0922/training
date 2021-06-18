@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task1) { create(:task, title: 'タイトル1') }
-  let!(:task2) { create(:past_task, title: 'タイトル2') }
+  let!(:task1) { create(:task, title: 'タイトル1', end_at: Time.current.change(sec: 0, usec: 0)) }
+  let!(:task2) { create(:past_task, title: 'タイトル2', end_at: Time.current.yesterday.change(sec: 0, usec: 0)) }
 
   describe "タスク一覧" do
     it 'タスク一覧が表示されている (/)' do
@@ -10,7 +10,7 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content task1.title
       expect(page).to have_content task1.description
-      expect(page).to have_content task1.end_at
+      expect(page).to have_content I18n.l(task1.end_at)
     end
 
     it 'タスク一覧が表示されている (/tasks)' do
@@ -18,11 +18,25 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content task1.title
       expect(page).to have_content task1.description
-      expect(page).to have_content task1.end_at
+      expect(page).to have_content I18n.l(task1.end_at)
     end
 
     it 'タスク一覧の順序が作成日降順' do
       visit tasks_path
+
+      expect(all('tbody tr')[1].text).to match task1.title
+      expect(all('tbody tr')[2].text).to match task2.title
+    end
+
+    it 'タスク一覧の終了期限を昇順に変更できる' do
+      visit root_path(end_at: 'asc')
+
+      expect(all('tbody tr')[1].text).to match task2.title
+      expect(all('tbody tr')[2].text).to match task1.title
+    end
+
+    it 'タスク一覧の終了期限を降順に変更できる' do
+      visit root_path(end_at: 'desc')
 
       expect(all('tbody tr')[1].text).to match task1.title
       expect(all('tbody tr')[2].text).to match task2.title
@@ -35,7 +49,7 @@ RSpec.describe 'Tasks', type: :system do
 
       expect(page).to have_content task1.title
       expect(page).to have_content task1.description
-      expect(page).to have_content task1.end_at
+      expect(page).to have_content I18n.l(task1.end_at)
     end
   end
 
