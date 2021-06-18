@@ -1,4 +1,4 @@
-<%= link_to '新規作成', new_task_path %>
+<%= link_to I18n.t(:'button.create'), new_task_path %>
 <% if @tasks.present? %>
   <table>
     <tr>
@@ -7,7 +7,7 @@
       <th><%= I18n.t(:'task.description') %></th>
       <th></th>
     </tr>
-    <% @tasks.find_each do |task| %>
+    <% @tasks.each do |task| %>
     　　<tr>
         <td><%= link_to task.id, task_path(task) %></td>
         <td><%= task.title %></td>

@@ -41,6 +41,8 @@ jobs:
           bundle exec rails webpacker:install
           bundle exec rails webpacker:compile
         working-directory: todo_app
+        env:
+          RAILS_ENV: test
 
       - name: Run RSpec
         run: bundle exec rspec -f d
