@@ -1,5 +1,5 @@
 <%= link_to '編集', edit_task_path(@task) %>
-<%= link_to t('common.action.destroy'), task_path(@task), method: :delete %>
+<%= link_to I18n.t('common.action.destroy'), task_path(@task), method: :delete %>
 <table>
   <tr>
     <th><%= Task.human_attribute_name(:id) %></th>
