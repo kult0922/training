@@ -1,6 +1,6 @@
 <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger mt-3">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
@@ -13,28 +13,27 @@
 
   <div class="field mb-3">
     <%#= form.label :name %>
-    <%= form.text_field :name, required: true, class: "form-control", placeholder: "Task Name" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Task Name" %>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :desc %>
-    <%= form.text_area :desc, required: true, class: "form-control", placeholder: "Description"%>
+    <%= form.text_area :desc, class: "form-control", placeholder: "Description"%>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :status %>
-<!--    status_select, {selected: @task.status},-->
-    <%= form.select :status, Task.statuses, {selected: @task.status}, required: true, class: "form-control"%>
+    <%= form.select :status, Task.statuses, {selected: @task.status || "", disabled: "", prompt: 'Please select status'} , class: "form-control"%>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :label %>
-    <%= form.text_field :label, required: true, class: "form-control", placeholder: "Label" %>
+    <%= form.text_field :label, class: "form-control", placeholder: "Label" %>
   </div>
 
   <div class="field mb-3">
     <%#= form.label :priority %>
-    <%= form.select :priority, Task.priorities, {selected: @task.status}, required: true, class: "form-control", placeholder: "Priority"%>
+    <%= form.select :priority, Task.priorities, {selected: @task.status || "", disabled: "", prompt: 'Please select priority'}, class: "form-control", placeholder: "Priority"%>
   </div>
 
   <div class="actions">
