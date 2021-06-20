@@ -5,93 +5,103 @@ RSpec.describe 'Tasks', type: :system do
   let!(:task2) { create(:past_task, title: 'タイトル2', end_at: Time.current.yesterday.change(sec: 0, usec: 0)) }
 
   describe "タスク一覧" do
-    it 'タスク一覧が表示されている (/)' do
-      visit root_path
+    context "正常時入力" do
+      example 'タスク一覧が表示されている (/)' do
+        visit root_path
 
-      expect(page).to have_content task1.title
-      expect(page).to have_content task1.description
-      expect(page).to have_content I18n.l(task1.end_at)
-    end
+        expect(page).to have_content 'タイトル1'
+        expect(page).to have_content '説明'
+        expect(page).to have_content I18n.l(task1.end_at)
+      end
 
-    it 'タスク一覧が表示されている (/tasks)' do
-      visit tasks_path
+      example 'タスク一覧が表示されている (/tasks)' do
+        visit tasks_path
 
-      expect(page).to have_content task1.title
-      expect(page).to have_content task1.description
-      expect(page).to have_content I18n.l(task1.end_at)
-    end
+        expect(page).to have_content 'タイトル1'
+        expect(page).to have_content '説明'
+        expect(page).to have_content I18n.l(task1.end_at)
+      end
 
-    it 'タスク一覧の順序が作成日降順' do
-      visit tasks_path
+      example 'タスク一覧の順序が作成日降順' do
+        visit tasks_path
 
-      expect(all('tbody tr')[1].text).to match task1.title
-      expect(all('tbody tr')[2].text).to match task2.title
-    end
+        expect(all('tbody tr')[1].text).to match 'タイトル1'
+        expect(all('tbody tr')[2].text).to match 'タイトル2'
+      end
 
-    it 'タスク一覧の終了期限を昇順に変更できる' do
-      visit root_path(end_at: 'asc')
+      example 'タスク一覧の終了期限を昇順に変更できる' do
+        visit root_path(end_at: 'asc')
 
-      expect(all('tbody tr')[1].text).to match task2.title
-      expect(all('tbody tr')[2].text).to match task1.title
-    end
+        expect(all('tbody tr')[1].text).to match 'タイトル2'
+        expect(all('tbody tr')[2].text).to match 'タイトル1'
+      end
 
-    it 'タスク一覧の終了期限を降順に変更できる' do
-      visit root_path(end_at: 'desc')
+      example 'タスク一覧の終了期限を降順に変更できる' do
+        visit root_path(end_at: 'desc')
 
-      expect(all('tbody tr')[1].text).to match task1.title
-      expect(all('tbody tr')[2].text).to match task2.title
+        expect(all('tbody tr')[1].text).to match 'タイトル1'
+        expect(all('tbody tr')[2].text).to match 'タイトル2'
+      end
     end
   end
 
   describe "タスク詳細" do
-    it 'タスク詳細が表示される' do
-      visit task_path(task1)
+    context "正常時入力" do
+      example 'タスク詳細が表示される' do
+        visit task_path(task1)
 
-      expect(page).to have_content task1.title
-      expect(page).to have_content task1.description
-      expect(page).to have_content I18n.l(task1.end_at)
+        expect(page).to have_content 'タイトル1'
+        expect(page).to have_content '説明'
+        expect(page).to have_content I18n.l(task1.end_at)
+      end
     end
   end
 
   describe "タスク編集" do
-    it 'タスクを変更できる' do
-      visit edit_task_path(task1)
+    context "正常時入力" do
+      example 'タスクを変更できる' do
+        visit edit_task_path(task1)
 
-      fill_in 'task_title', with: 'hoge'
-      fill_in 'task_description', with: 'fuga'
-      click_button I18n.t(:'button.edit')
-      expect(page).to have_content 'hoge'
-      expect(page).to have_content 'fuga'
+        fill_in 'task_title', with: 'hoge'
+        fill_in 'task_description', with: 'fuga'
+        click_button I18n.t(:'button.edit')
+        expect(page).to have_content 'hoge'
+        expect(page).to have_content 'fuga'
+      end
+
+      example 'タスクの終了期限を変更できる' do
+        visit edit_task_path(task1)
+        end_at_input = Time.current.change(sec: 0, usec: 0)
+
+        fill_in 'task_title', with: 'hoge'
+        fill_in 'task_end_at', with: end_at_input
+        click_button I18n.t(:'button.edit')
+        expect(page).to have_content I18n.l(end_at_input)
+      end
     end
 
-    it 'タスクの終了期限を変更できる' do
-      visit edit_task_path(task1)
-      end_at_input = Time.current.change(sec: 0, usec: 0)
-
-      fill_in 'task_title', with: 'hoge'
-      fill_in 'task_end_at', with: end_at_input
-      click_button I18n.t(:'button.edit')
-      expect(page).to have_content I18n.l(end_at_input)
-    end
-
-    context '異常値入力テスト' do
-      it 'title Max値入力時' do
+    context 'title 256文字以上を入力する' do
+      example '登録に失敗しましたが表示されること' do
         visit edit_task_path(task1)
 
         fill_in 'task_title', with: Faker::Alphanumeric.alpha(number: 256)
         click_button I18n.t(:'button.edit')
         expect(page).to have_content 'Edited is failed'
       end
+    end
 
-      it 'description Max値入力時' do
+    context 'description 5001文字以上を入力する' do
+      example '登録に失敗しましたが表示されること' do
         visit edit_task_path(task1)
 
         fill_in 'task_description', with: Faker::Alphanumeric.alpha(number: 5001)
         click_button I18n.t(:'button.edit')
         expect(page).to have_content 'Edited is failed'
       end
+    end
 
-      it '未入力の状態' do
+    context '未入力の状態' do
+      example '登録に失敗しましたが表示されること' do
         visit edit_task_path(task1)
 
         fill_in 'task_title', with: ''
@@ -103,12 +113,14 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe "タスク削除" do
-    it 'タスクを削除できる' do
-      visit tasks_path
+    context "正常時入力" do
+      example 'タスクを削除できる' do
+        visit tasks_path
 
-      all('tbody tr td')[4].click_link 'Delete'
-      expect(page).to_not have_content task1.title
-      expect(page).to have_content task2.title
+        all('tbody tr td')[4].click_link 'Delete'
+        expect(page).to_not have_content 'タイトル1'
+        expect(page).to have_content 'タイトル2'
+      end
     end
   end
 end
