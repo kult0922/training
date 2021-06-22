@@ -1,5 +1,8 @@
 # data schema
 
+![タスク一覧画面](architecture/タスク一覧画面.png "taskview")
+![E-R図](architecture/e-r.png "e-r")
+
 ## タスクテーブル
 ```
 {
