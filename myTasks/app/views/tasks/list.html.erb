@@ -1,0 +1,20 @@
+<head>
+  <meta charset='utf-8'>
+</head>
+
+<body>
+  <h1>Task List</h1>
+  <%= flash[:notice] %> <br>
+  <% @tasks.each do |task| %>
+  <%= link_to task_path(task) do %>
+  id: <%= task.id %><br>
+  name: <%= task.name %><br>
+  description: <%= task.description %><br>
+  dead line: <%= task.end_date %><br>
+  priority: <%= task.priority %><br>
+  <% end %>
+  ===============================<br>
+  <% end %>
+
+  <%= link_to 'ADD', new_task_path%>
+</body>
