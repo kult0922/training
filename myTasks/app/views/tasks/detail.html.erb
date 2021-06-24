@@ -1,0 +1,15 @@
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Detail</h1>
+    id: <%= @task.id %><br>
+    name: <%= @task.name %><br>
+    description: <%= @task.description %><br>
+    dead line: <%= @task.end_date %><br>
+    priority: <%= @task.priority %><br>
+    <br>
+
+    <%= link_to "EDIT", "/edit/" + @task.id.to_s %>
+    <%= link_to "DELETE", "/tasks/#{@task.id}", method: :delete %>
+</body>

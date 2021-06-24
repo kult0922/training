@@ -1,0 +1,17 @@
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Add</h1>
+    <%= form_with(model: @task, url: "/tasks", method: :post) do |f| %>
+        name:<br>
+        <%= f.text_field :name %><br>
+        description:<br>
+        <%= f.text_field :description %><br>
+        dead line:<br>
+        <%= f.text_field :end_date %><br>
+        priority:<br>
+        <%= f.text_field :priority %><br>
+        <%= f.submit %>
+    <% end %>
+</body>
