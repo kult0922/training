@@ -4,6 +4,7 @@
 
 <body>
   <h1>Add</h1>
+  <%= flash[:alert] %> <br>
   <%= form_with(model: @task, method: :post) do |f| %>
   name:<br>
   <%= f.text_field :name %><br>

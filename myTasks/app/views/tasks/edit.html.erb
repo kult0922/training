@@ -4,7 +4,7 @@
 
 <body>
   <h1>Edit</h1>
-
+  <%= flash[:alert] %> <br>
   <%= form_with(model: @task) do |f| %>
   name:<br>
   <%= f.text_field :name %><br>
