@@ -6,7 +6,7 @@ RSpec.describe Task, type: :system do
   describe 'Task CRUD' do
     describe 'create task' do
       context 'valid form input' do
-        it 'create succes' do
+        it 'create success' do
           visit new_task_path
           fill_in 'task[name]', with: 'new task'
           fill_in 'task[description]', with: 'this is new task'
@@ -17,6 +17,19 @@ RSpec.describe Task, type: :system do
           expect(page).to have_content 'Create Task!'
         end
       end
+
+      context 'invalid form input' do
+        it 'create failed' do
+          visit new_task_path
+          fill_in 'task[name]', with: ''
+          fill_in 'task[description]', with: 'this is new task'
+          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[priority]', with: 1
+          click_button 'create'
+          expect(current_path).to eq tasks_path
+        end
+      end
+    end
 
     describe 'update task' do
       context 'valid form input' do
@@ -45,20 +58,6 @@ RSpec.describe Task, type: :system do
       end
     end
 
-
-      context 'invalid form input' do
-        it 'create failed' do
-          visit new_task_path
-          fill_in 'task[name]', with: ''
-          fill_in 'task[description]', with: 'this is new task'
-          fill_in 'task[end_date]', with: '2021-06-24'
-          fill_in 'task[priority]', with: 1
-          click_button 'create'
-          expect(current_path).to eq tasks_path
-        end
-      end
-    end
-
     describe 'delete task' do
       context 'click delete button' do
         it 'delete success' do
@@ -70,4 +69,5 @@ RSpec.describe Task, type: :system do
       end
     end
   end
+
 end
