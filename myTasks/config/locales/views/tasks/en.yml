@@ -1,4 +1,4 @@
-en:
+t en:
   tasks:
     index:
       title: 'Task List'
@@ -11,6 +11,3 @@ en:
       title: 'New'
     edit:
       title: 'Edit'
-
-
-    
