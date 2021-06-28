@@ -11,6 +11,6 @@
   priority: <%= @task.priority %><br>
   <br>
 
-  <%= link_to 'EDIT', edit_task_path(@task) %>
-  <%= link_to 'DELETE', task_path(@task), method: :delete %>
+  <%= link_to 'edit', edit_task_path(@task) %>
+  <%= link_to 'delete', task_path(@task), method: :delete %>
 </body>

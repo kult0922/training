@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  def list
+  def index
     @tasks = Task.all
   end
 
@@ -18,6 +18,7 @@ class TasksController < ApplicationController
       flash[:notice] = 'Create Task!'
       redirect_to '/'
     else
+      flash[:alert] = 'Could not create the task.'
       render 'new'
     end
   end
@@ -33,6 +34,7 @@ class TasksController < ApplicationController
       flash[:notice] = 'Update Task!'
       redirect_to '/'
     else
+      flash[:alert] = 'Could not edit the task.'
       render 'edit'
     end
   end

@@ -4,6 +4,7 @@
 
 <body>
   <h1>Add</h1>
+  <%= flash[:alert] %> <br>
   <%= form_with(model: @task, method: :post) do |f| %>
   name:<br>
   <%= f.text_field :name %><br>
@@ -13,6 +14,6 @@
   <%= f.text_field :end_date %><br>
   priority:<br>
   <%= f.text_field :priority %><br>
-  <%= f.submit %>
+  <%= f.submit 'create' %>
   <% end %>
 </body>
