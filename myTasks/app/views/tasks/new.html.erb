@@ -3,17 +3,17 @@
 </head>
 
 <body>
-  <h1>Add</h1>
-  <%= flash[:alert] %> <br>
+  <%= t '.title' %>
+  <%= flash[:create_failure] %> 
   <%= form_with(model: @task, method: :post) do |f| %>
-  name:<br>
+  <%= Task.human_attribute_name(:name) %>: <br>
   <%= f.text_field :name %><br>
-  description:<br>
+  <%= Task.human_attribute_name(:description) %>: <br>
   <%= f.text_field :description %><br>
-  dead line:<br>
+  <%= Task.human_attribute_name(:end_date) %>: <br>
   <%= f.text_field :end_date %><br>
-  priority:<br>
+  <%= Task.human_attribute_name(:priority) %>: <br>
   <%= f.text_field :priority %><br>
-  <%= f.submit 'create' %>
+  <%= f.submit %>
   <% end %>
 </body>

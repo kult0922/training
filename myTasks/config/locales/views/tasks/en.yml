@@ -1,0 +1,16 @@
+en:
+  tasks:
+    index:
+      title: 'Task List'
+      add: 'Add'
+    show:
+      title: 'Detail'
+      edit: 'Edit'
+      destroy: 'delete'
+    new:
+      title: 'New'
+    edit:
+      title: 'Edit'
+
+
+    

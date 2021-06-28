@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      task: 'Task'
+    attributes:
+        task:
+          id: 'ID'
+          name: 'Name'
+          description: 'Description'
+          end_date: 'Dead line'
+          priority: 'Priority'
+  attributes:
+    created_at: 'Created Date'
+    updated_at: 'Updated Date'

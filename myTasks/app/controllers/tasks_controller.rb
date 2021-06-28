@@ -15,10 +15,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     
     if @task.save
-      flash[:notice] = 'Create Task!'
+      flash[:create] = t('flash.create')
       redirect_to '/'
     else
-      flash[:alert] = 'Could not create the task.'
+      flash[:create_failure] = t('flash.create_failure')
       render 'new'
     end
   end
@@ -31,10 +31,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     
     if @task.update(task_params)
-      flash[:notice] = 'Update Task!'
+      flash[:update] = t('flash.update')
       redirect_to '/'
     else
-      flash[:alert] = 'Could not edit the task.'
+      flash[:update_failure] = t('flash.update_failure')
       render 'edit'
     end
   end
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     if @task.destroy
-      flash[:notice] = 'Delete Task!'
+      flash[:destroy] = t('flash.destroy')
       redirect_to '/'
     end
   end

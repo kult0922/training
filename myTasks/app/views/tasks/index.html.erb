@@ -3,18 +3,27 @@
 </head>
 
 <body>
-  <h1>Task List</h1>
-  <%= flash[:notice] %> <br>
+  <%= t '.title' %>
+
+  <%= flash[:create] %> 
+  <%= flash[:update] %> 
+  <%= flash[:destroy] %> 
+  <br>
   <% @tasks.each do |task| %>
   <%= link_to task_path(task) do %>
-  id: <%= task.id %><br>
-  name: <%= task.name %><br>
-  description: <%= task.description %><br>
-  dead line: <%= task.end_date %><br>
+  <%= Task.human_attribute_name(:id) %>:
+  <%= task.id %><br>
+  <%= Task.human_attribute_name(:name) %>:
+  <%= task.name %><br>
+  <%= Task.human_attribute_name(:description) %>:
+  <%= task.description %><br>
+  <%= Task.human_attribute_name(:end_date) %>:
+  <%= task.end_date %><br>
+  <%= Task.human_attribute_name(:priority) %>:
   priority: <%= task.priority %><br>
   <% end %>
   ===============================<br>
   <% end %>
 
-  <%= link_to 'ADD', new_task_path%>
+  <%= link_to t('.add'), new_task_path%>
 </body>
