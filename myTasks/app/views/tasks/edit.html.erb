@@ -3,17 +3,17 @@
 </head>
 
 <body>
-  <h1>Edit</h1>
-  <%= flash[:alert] %> <br>
+  <%= I18n.t 'tasks.edit.title' %><br>
+  <%= flash[:update_failure] %> 
   <%= form_with(model: @task) do |f| %>
-  name:<br>
+  <%= Task.human_attribute_name(:name) %>: <br>
   <%= f.text_field :name %><br>
-  description:<br>
+  <%= Task.human_attribute_name(:description) %>: <br>
   <%= f.text_field :description %><br>
-  dead line:<br>
+  <%= Task.human_attribute_name(:end_date) %>: <br>
   <%= f.text_field :end_date %><br>
-  priority:<br>
+  <%= Task.human_attribute_name(:priority) %>: <br>
   <%= f.text_field :priority %><br>
-  <%= f.submit 'update' %>
+  <%= f.submit %>
   <% end %>
 </body>

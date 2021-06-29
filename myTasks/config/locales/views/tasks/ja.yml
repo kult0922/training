@@ -1,0 +1,13 @@
+ja:
+  tasks:
+    index:
+      title: 'タスク一覧'
+      add: '追加'
+    show:
+      title: 'タスク詳細'
+      edit: '編集'
+      destroy: '削除'
+    new:
+      title: '新規作成'
+    edit:
+      title: '編集'

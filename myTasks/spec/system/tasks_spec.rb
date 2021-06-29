@@ -14,9 +14,9 @@ RSpec.describe Task, type: :system do
           fill_in 'task[description]', with: 'this is new task'
           fill_in 'task[end_date]', with: '2021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button 'create'
+          click_button '作成'
           expect(current_path).to eq root_path
-          expect(page).to have_content 'Create Task!'
+          expect(page).to have_content '作成しました！'
         end
       end
 
@@ -27,9 +27,9 @@ RSpec.describe Task, type: :system do
           fill_in 'task[description]', with: 'this is new task'
           fill_in 'task[end_date]', with: '2021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button 'create'
+          click_button '作成'
           expect(current_path).to eq tasks_path
-          expect(page).to have_content 'Could not create the task.'
+          expect(page).to have_content '作成に失敗しました'
         end
       end
     end
@@ -62,9 +62,9 @@ RSpec.describe Task, type: :system do
           fill_in 'task[description]', with: 'this is my task'
           fill_in 'task[end_date]', with: '2021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button 'update'
+          click_button '更新'
           expect(current_path).to eq root_path
-          expect(page).to have_content 'Update Task!'
+          expect(page).to have_content '更新しました！'
         end
       end
 
@@ -75,9 +75,9 @@ RSpec.describe Task, type: :system do
           fill_in 'task[description]', with: 'this is my task'
           fill_in 'task[end_date]', with: '2021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button 'update'
+          click_button '更新'
           expect(current_path).to eq task_path(task1)
-          expect(page).to have_content 'Could not edit the task.'
+          expect(page).to have_content '更新に失敗しました'
         end
       end
     end
@@ -86,9 +86,9 @@ RSpec.describe Task, type: :system do
       context 'click delete button' do
         it 'delete success' do
           visit task_path(task1)
-          click_link 'delete'
+          click_link '削除'
           expect(current_path).to eq root_path
-          expect(page).to have_content 'Delete Task!'
+          expect(page).to have_content '削除しました！'
         end
       end
     end
