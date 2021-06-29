@@ -3,7 +3,7 @@
 </head>
 
 <body>
-  <%= t '.title' %>
+  <%= I18n.t 'tasks.index.title' %>
 
   <%= flash[:create] %> 
   <%= flash[:update] %> 
@@ -25,5 +25,5 @@
   ===============================<br>
   <% end %>
 
-  <%= link_to t('.add'), new_task_path%>
+  <%= link_to I18n.t('tasks.index.add'), new_task_path%>
 </body>

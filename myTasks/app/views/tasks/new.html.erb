@@ -3,7 +3,7 @@
 </head>
 
 <body>
-  <%= t '.title' %>
+  <%= I18n.t 'tasks.new.title' %>
   <%= flash[:create_failure] %> 
   <%= form_with(model: @task, method: :post) do |f| %>
   <%= Task.human_attribute_name(:name) %>: <br>

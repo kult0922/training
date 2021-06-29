@@ -3,7 +3,7 @@
 </head>
 
 <body>
-  <%= t '.title' %><br>
+  <%= I18n.t 'tasks.show.title' %><br>
   <%= Task.human_attribute_name(:id) %>:
   <%= @task.id %><br>
   <%= Task.human_attribute_name(:name) %>:
@@ -16,6 +16,6 @@
   <%= @task.priority %><br>
   <br>
 
-  <%= link_to t('.edit'), edit_task_path(@task) %>
-  <%= link_to t('.destroy'), task_path(@task), method: :delete %>
+  <%= link_to I18n.t('tasks.show.edit'), edit_task_path(@task) %>
+  <%= link_to I18n.t('tasks.show.destroy'), task_path(@task), method: :delete %>
 </body>
