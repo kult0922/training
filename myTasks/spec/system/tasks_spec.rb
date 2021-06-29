@@ -37,19 +37,18 @@ RSpec.describe Task, type: :system do
     describe 'read task' do
       context 'read all tasks' do
         it 'read all tasks success' do
-          get tasks_path
-          expect(response.status).to eq 200
-          expect(response.body).to have_content 'task1'
-          expect(response.body).to have_content 'task2'
-          expect(response.body).to have_content 'task3'
+          visit root_path
+          tasks = page.all(".task-container")
+          expect(tasks[0].text).to have_content "task3"
+          expect(tasks[1].text).to have_content "task2"
+          expect(tasks[2].text).to have_content "task1"
         end
       end
 
       context 'read task detail' do
         it 'read task detail success' do
-          get task_path(task1)
-          expect(response.status).to eq 200
-          expect(response.body).to have_content 'task1'
+          visit task_path(task1)
+          expect(page.text).to have_content 'task1'
         end
       end
     end

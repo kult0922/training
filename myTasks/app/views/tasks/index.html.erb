@@ -10,19 +10,21 @@
   <%= flash[:destroy] %> 
   <br>
   <% @tasks.each do |task| %>
-  <%= link_to task_path(task) do %>
-  <%= Task.human_attribute_name(:id) %>:
-  <%= task.id %><br>
-  <%= Task.human_attribute_name(:name) %>:
-  <%= task.name %><br>
-  <%= Task.human_attribute_name(:description) %>:
-  <%= task.description %><br>
-  <%= Task.human_attribute_name(:end_date) %>:
-  <%= task.end_date %><br>
-  <%= Task.human_attribute_name(:priority) %>:
-  <%= task.priority %><br>
-  <% end %>
-  ===============================<br>
+    <div class="task-container">
+      <%= link_to task_path(task) do %>
+        <%= Task.human_attribute_name(:id) %>:
+        <%= task.id %><br>
+        <%= Task.human_attribute_name(:name) %>:
+        <%= task.name %><br>
+        <%= Task.human_attribute_name(:description) %>:
+        <%= task.description %><br>
+        <%= Task.human_attribute_name(:end_date) %>:
+        <%= task.end_date %><br>
+        <%= Task.human_attribute_name(:priority) %>:
+        <%= task.priority %><br>
+      <% end %>
+      ===============================<br>
+    </div>
   <% end %>
 
   <%= link_to I18n.t('tasks.index.add'), new_task_path%>
