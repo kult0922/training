@@ -38,10 +38,10 @@ RSpec.describe Task, type: :system do
       context 'read all tasks' do
         it 'read all tasks success' do
           visit root_path
-          tasks = page.all(".task-container")
-          expect(tasks[0].text).to have_content "task3"
-          expect(tasks[1].text).to have_content "task2"
-          expect(tasks[2].text).to have_content "task1"
+          tasks = page.all('.task-container')
+          expect(tasks[0].text).to have_content 'task3'
+          expect(tasks[1].text).to have_content 'task2'
+          expect(tasks[2].text).to have_content 'task1'
         end
       end
 
