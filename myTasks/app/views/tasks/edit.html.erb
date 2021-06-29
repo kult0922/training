@@ -4,8 +4,9 @@
 
 <body>
   <%= I18n.t 'tasks.edit.title' %><br>
-  <%= flash[:update_failure] %> 
+  <%= flash[:update_failure] %>
   <%= form_with(model: @task) do |f| %>
+    <%= render 'layouts/error_form', locals: { task: @task } %>
     <%= Task.human_attribute_name(:name) %>: <br>
     <%= f.text_field :name %><br>
     <%= Task.human_attribute_name(:description) %>: <br>

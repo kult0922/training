@@ -21,7 +21,7 @@ RSpec.describe Task, type: :system do
       end
 
       context 'invalid form input' do
-        it 'create failed' do
+        it 'create failed (name is missing)' do
           visit new_task_path
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is new task'
@@ -29,7 +29,29 @@ RSpec.describe Task, type: :system do
           fill_in 'task[priority]', with: 1
           click_button '作成'
           expect(current_path).to eq tasks_path
-          expect(page).to have_content '作成に失敗しました'
+          expect(page).to have_content '名前を入力してください'
+        end
+
+        it 'create failed (end_date is invalid)' do
+          visit new_task_path
+          fill_in 'task[name]', with: 'new task'
+          fill_in 'task[description]', with: 'this is new task'
+          fill_in 'task[end_date]', with: 'abc'
+          fill_in 'task[priority]', with: 1
+          click_button '作成'
+          expect(current_path).to eq tasks_path
+          expect(page).to have_content '締切は不正な値です'
+        end
+
+        it 'create failed (priority is invalid)' do
+          visit new_task_path
+          fill_in 'task[name]', with: 'new task'
+          fill_in 'task[description]', with: 'this is new task'
+          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[priority]', with: 'abc'
+          click_button '作成'
+          expect(current_path).to eq tasks_path
+          expect(page).to have_content '優先度は数値で入力してください'
         end
       end
     end
@@ -68,7 +90,7 @@ RSpec.describe Task, type: :system do
       end
 
       context 'invalid form input' do
-        it 'edit failed' do
+        it 'edit failed (name is missing)' do
           visit edit_task_path(task1)
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is my task'
@@ -76,7 +98,29 @@ RSpec.describe Task, type: :system do
           fill_in 'task[priority]', with: 1
           click_button '更新'
           expect(current_path).to eq task_path(task1)
-          expect(page).to have_content '更新に失敗しました'
+          expect(page).to have_content '名前を入力してください'
+        end
+
+        it 'edit failed (end_date is invalid)' do
+          visit edit_task_path(task1)
+          fill_in 'task[name]', with: ''
+          fill_in 'task[description]', with: 'this is my task'
+          fill_in 'task[end_date]', with: 'abc'
+          fill_in 'task[priority]', with: 1
+          click_button '更新'
+          expect(current_path).to eq task_path(task1)
+          expect(page).to have_content '締切は不正な値です'
+        end
+
+        it 'edit failed (priority is invalid)' do
+          visit edit_task_path(task1)
+          fill_in 'task[name]', with: ''
+          fill_in 'task[description]', with: 'this is my task'
+          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[priority]', with: 'abc'
+          click_button '更新'
+          expect(current_path).to eq task_path(task1)
+          expect(page).to have_content '優先度は数値で入力してください'
         end
       end
     end
