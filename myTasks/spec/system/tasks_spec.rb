@@ -40,22 +40,22 @@ RSpec.describe Task, type: :system do
           visit root_path
           tasks = page.all('.task-container')
           # 作成日の降順に表示されていることを確認
-          expect(tasks[0].text).to have_content 'task3'
-          expect(tasks[1].text).to have_content 'task2'
-          expect(tasks[2].text).to have_content 'task1'
+          expect(tasks[0].text).to have_content task3.name
+          expect(tasks[1].text).to have_content task2.name
+          expect(tasks[2].text).to have_content task1.name
         end
       end
 
       context 'read task detail' do
         it 'read task detail success' do
           visit task_path(task1)
-          expect(page.text).to have_content 'task1'
+          expect(page.text).to have_content task1.name
         end
       end
     end
 
     describe 'update task' do
-      let!(:task1) { create(:task1) }
+      let(:task1) { create(:task1) }
       context 'valid form input' do
         it 'edit success' do
           visit edit_task_path(task1)
@@ -84,7 +84,7 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'delete task' do
-      let!(:task1) { create(:task1) }
+      let(:task1) { create(:task1) }
       context 'click delete button' do
         it 'delete success' do
           visit task_path(task1)
