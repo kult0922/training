@@ -9,14 +9,14 @@ FactoryBot.define do
   factory :task2, class: Task do
     name { 'task2' }
     description { 'second task' }
-    end_date { '2021-06-24' }
+    end_date { '2021-06-25' }
     priority { 1 }
   end
 
   factory :task3, class: Task do
     name { 'task3' }
     description { 'third task' }
-    end_date { '2021-06-24' }
+    end_date { '2021-06-26' }
     priority { 1 }
   end
 end

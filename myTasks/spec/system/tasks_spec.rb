@@ -138,5 +138,29 @@ RSpec.describe Task, type: :system do
         end
       end
     end
+
+    describe 'sort task' do
+      let!(:task1) { create(:task1) }
+      let!(:task2) { create(:task2) }
+      let!(:task3) { create(:task3) }
+      context 'sort tasks by end_date' do
+        it 'read all tasks success' do
+          visit root_path
+          click_link 'ソート：締め切り'
+          tasks = page.all('.task-container')
+          # 締切日の昇順に表示されていることを確認
+          expect(tasks[0].text).to have_content task1.name
+          expect(tasks[1].text).to have_content task2.name
+          expect(tasks[2].text).to have_content task3.name
+
+          click_link 'ソート：締め切り'
+          tasks = page.all('.task-container')
+          # 締切日の降順に表示されていることを確認
+          expect(tasks[0].text).to have_content task3.name
+          expect(tasks[1].text).to have_content task2.name
+          expect(tasks[2].text).to have_content task1.name
+        end
+      end
+    end
   end
 end
