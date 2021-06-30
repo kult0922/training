@@ -3,9 +3,10 @@
 </head>
 
 <body>
-  <%= I18n.t 'tasks.new.title' %>
+  <%= I18n.t 'tasks.new.title' %><br>
   <%= flash[:create_failure] %> 
   <%= form_with(model: @task, method: :post) do |f| %>
+    <%= render 'layouts/error_form', locals: { task: @task } %>
     <%= Task.human_attribute_name(:name) %>: <br>
     <%= f.text_field :name %><br>
     <%= Task.human_attribute_name(:description) %>: <br>
