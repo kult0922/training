@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-  let!(:task1) { create(:task1) }
-  let!(:task2) { create(:task2) }
-  let!(:task3) { create(:task3) }
 
   describe 'Task CRUD' do
     describe 'create task' do
@@ -35,26 +32,30 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'read task' do
+      let!(:task1) { create(:task1) }
+      let!(:task2) { create(:task2) }
+      let!(:task3) { create(:task3) }
       context 'read all tasks' do
         it 'read all tasks success' do
-          get tasks_path
-          expect(response.status).to eq 200
-          expect(response.body).to have_content 'task1'
-          expect(response.body).to have_content 'task2'
-          expect(response.body).to have_content 'task3'
+          visit root_path
+          tasks = page.all('.task-container')
+          # 作成日の降順に表示されていることを確認
+          expect(tasks[0].text).to have_content task3.name
+          expect(tasks[1].text).to have_content task2.name
+          expect(tasks[2].text).to have_content task1.name
         end
       end
 
       context 'read task detail' do
         it 'read task detail success' do
-          get task_path(task1)
-          expect(response.status).to eq 200
-          expect(response.body).to have_content 'task1'
+          visit task_path(task1)
+          expect(page.text).to have_content task1.name
         end
       end
     end
 
     describe 'update task' do
+      let(:task1) { create(:task1) }
       context 'valid form input' do
         it 'edit success' do
           visit edit_task_path(task1)
@@ -83,6 +84,7 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'delete task' do
+      let(:task1) { create(:task1) }
       context 'click delete button' do
         it 'delete success' do
           visit task_path(task1)
