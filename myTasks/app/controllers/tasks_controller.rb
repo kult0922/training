@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    
+
     if @task.save
       flash[:create] = t('flash.create')
       redirect_to '/'
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    
+
     if @task.update(task_params)
       flash[:update] = t('flash.update')
       redirect_to '/'
@@ -43,10 +43,10 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    if @task.destroy
-      flash[:destroy] = t('flash.destroy')
-      redirect_to '/'
-    end
+    return unless @task.destroy
+
+    flash[:destroy] = t('flash.destroy')
+    redirect_to '/'
   end
 
   def sort_direction
