@@ -9,6 +9,9 @@
   <%= flash[:update] %> 
   <%= flash[:destroy] %> 
   <br>
+
+  <%= sort_order "end_date", "ソート：締め切り" %><br><br>
+
   <% @tasks.each do |task| %>
     <div class="task-container">
       <%= link_to task_path(task) do %>

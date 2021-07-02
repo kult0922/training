@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    @tasks = Task.order("#{sort_column} #{sort_direction}")
   end
 
   def show
@@ -13,7 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    
+
     if @task.save
       flash[:create] = t('flash.create')
       redirect_to '/'
@@ -29,7 +31,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    
+
     if @task.update(task_params)
       flash[:update] = t('flash.update')
       redirect_to '/'
@@ -41,10 +43,18 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find(params[:id])
-    if @task.destroy
-      flash[:destroy] = t('flash.destroy')
-      redirect_to '/'
-    end
+    return unless @task.destroy
+
+    flash[:destroy] = t('flash.destroy')
+    redirect_to '/'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 
   private

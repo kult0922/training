@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
-
   describe 'Task CRUD' do
     describe 'create task' do
       context 'valid form input' do
@@ -54,33 +53,33 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'read task' do
-      let!(:task1) { create(:task1) }
-      let!(:task2) { create(:task2) }
-      let!(:task3) { create(:task3) }
+      let!(:task1) { create(:task, name: 'task1', created_at: (Time.zone.today - 2.days).to_s) }
+      let!(:task2) { create(:task, name: 'task2', created_at: (Time.zone.today - 1.day).to_s) }
+      let!(:task3) { create(:task, name: 'task3', created_at: Time.zone.today.to_s) }
       context 'read all tasks' do
         it 'read all tasks success' do
           visit root_path
           tasks = page.all('.task-container')
           # 作成日の降順に表示されていることを確認
-          expect(tasks[0].text).to have_content task3.name
-          expect(tasks[1].text).to have_content task2.name
-          expect(tasks[2].text).to have_content task1.name
+          expect(tasks[0].text).to have_content 'task3'
+          expect(tasks[1].text).to have_content 'task2'
+          expect(tasks[2].text).to have_content 'task1'
         end
       end
 
       context 'read task detail' do
         it 'read task detail success' do
           visit task_path(task1)
-          expect(page.text).to have_content task1.name
+          expect(page.text).to have_content 'task1'
         end
       end
     end
 
     describe 'update task' do
-      let(:task1) { create(:task1) }
+      let(:task) { create(:task) }
       context 'valid form input' do
         it 'edit success' do
-          visit edit_task_path(task1)
+          visit edit_task_path(task)
           fill_in 'task[name]', with: 'my task'
           fill_in 'task[description]', with: 'this is my task'
           fill_in 'task[end_date]', with: '2021-06-24'
@@ -93,48 +92,72 @@ RSpec.describe Task, type: :system do
 
       context 'invalid form input' do
         it 'edit failed (name is missing)' do
-          visit edit_task_path(task1)
+          visit edit_task_path(task)
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is my task'
           fill_in 'task[end_date]', with: '2021-06-24'
           fill_in 'task[priority]', with: 1
           click_button '更新'
-          expect(current_path).to eq task_path(task1)
+          expect(current_path).to eq task_path(task)
           expect(page).to have_content '名前を入力してください'
         end
 
         it 'edit failed (end_date is invalid)' do
-          visit edit_task_path(task1)
+          visit edit_task_path(task)
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is my task'
           fill_in 'task[end_date]', with: 'abc'
           fill_in 'task[priority]', with: 1
           click_button '更新'
-          expect(current_path).to eq task_path(task1)
+          expect(current_path).to eq task_path(task)
           expect(page).to have_content '締切は不正な値です'
         end
 
         it 'edit failed (priority is invalid)' do
-          visit edit_task_path(task1)
+          visit edit_task_path(task)
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is my task'
           fill_in 'task[end_date]', with: '2021-06-24'
           fill_in 'task[priority]', with: 'abc'
           click_button '更新'
-          expect(current_path).to eq task_path(task1)
+          expect(current_path).to eq task_path(task)
           expect(page).to have_content '優先度は数値で入力してください'
         end
       end
     end
 
     describe 'delete task' do
-      let(:task1) { create(:task1) }
+      let(:task) { create(:task) }
       context 'click delete button' do
         it 'delete success' do
-          visit task_path(task1)
+          visit task_path(task)
           click_link '削除'
           expect(current_path).to eq root_path
           expect(page).to have_content '削除しました！'
+        end
+      end
+    end
+
+    describe 'sort task' do
+      let!(:task1) { create(:task, name: 'task1', end_date: (Time.zone.today - 2.days).to_s) }
+      let!(:task2) { create(:task, name: 'task2', end_date: (Time.zone.today - 1.day).to_s) }
+      let!(:task3) { create(:task, name: 'task3', end_date: Time.zone.today.to_s) }
+      context 'sort tasks by end_date' do
+        it 'read all tasks success' do
+          visit root_path
+          click_link 'ソート：締め切り'
+          tasks = page.all('.task-container')
+          # 締切日の昇順に表示されていることを確認
+          expect(tasks[0].text).to have_content 'task1'
+          expect(tasks[1].text).to have_content 'task2'
+          expect(tasks[2].text).to have_content 'task3'
+
+          click_link 'ソート：締め切り'
+          tasks = page.all('.task-container')
+          # 締切日の降順に表示されていることを確認
+          expect(tasks[0].text).to have_content 'task3'
+          expect(tasks[1].text).to have_content 'task2'
+          expect(tasks[2].text).to have_content 'task1'
         end
       end
     end
