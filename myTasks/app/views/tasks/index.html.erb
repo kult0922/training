@@ -10,7 +10,17 @@
   <%= flash[:destroy] %> 
   <br>
 
-  <%= sort_order "end_date", "ソート：締め切り" %><br><br>
+  <%= form_with url: root_path, method: :get, local: true do |f| %>
+    名前検索<br>
+    <%= f.text_field :name, value: @search_name %><br>
+    ステータス絞り込み<br>
+    <%= f.select :status, options_for_select(Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, @selected_status), include_blank: "ステータス" %><br>
+    並び替え<br>
+    <%= f.select :sort, options_for_select(Task.column_names.map{|c| [Task.human_attribute_name(c), c]}, @selected_column) %>
+    <%= f.select :direction, options_for_select([['昇順', 'ASC'], ['降順', 'DESC']], @selected_direction) %>
+    <%= f.submit 'search' %>
+  <% end %>
+  <br><br>
 
   <% @tasks.each do |task| %>
     <div class="task-container">
@@ -27,6 +37,8 @@
         <%= task.priority %><br>
         <%= Task.human_attribute_name(:created_at) %>:
         <%= task.created_at.strftime('%Y-%m-%d') %><br>
+        <%= Task.human_attribute_name(:status) %>:
+        <%= task.status_i18n %><br>
       <% end %>
       ===============================<br>
     </div>

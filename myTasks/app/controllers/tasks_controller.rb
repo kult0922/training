@@ -1,8 +1,14 @@
 class TasksController < ApplicationController
-  helper_method :sort_column, :sort_direction
-
   def index
-    @tasks = Task.order("#{sort_column} #{sort_direction}")
+    @tasks = Task.search(params[:name], params[:status], params[:sort], params[:direction])
+    @selected_status = params[:status]
+    @selected_column = params[:sort]
+    @selected_direction = params[:direction]
+    @search_name = params[:name]
+  end
+
+  def search
+    @tasks = Task.search(params[:search])
   end
 
   def show
@@ -49,17 +55,9 @@ class TasksController < ApplicationController
     redirect_to '/'
   end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  end
-
-  def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
-  end
-
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :end_date, :priority)
+    params.require(:task).permit(:name, :description, :end_date, :priority, :status)
   end
 end
