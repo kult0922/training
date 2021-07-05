@@ -10,14 +10,14 @@ FactoryBot.define do
   factory :private_task, class: Task do
     name { 'private_task' }
     description { 'this is private task' }
-    end_date { (Time.zone.today + 10.day).to_s }
+    end_date { (Time.zone.today + 10.days).to_s }
     priority { 1 }
   end
 
   factory :work_task, class: Task do
     name { 'work_task' }
     description { 'this is work task' }
-    end_date { (Time.zone.today + 5.day).to_s }
+    end_date { (Time.zone.today + 5.days).to_s }
     priority { 5 }
   end
 

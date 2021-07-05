@@ -15,9 +15,6 @@
     <%= f.text_field :end_date %><br>
     <%= Task.human_attribute_name(:priority) %>: <br>
     <%= f.text_field :priority %><br>
-    <!--%= f.select :status, Task.statuses.keys.to_a, {} %-->
-    <%= Task.human_attribute_name(:status) %>: <br>
-    <%= f.select(:status, {undefined: 'undefined', todo: 'todo', in_progress: 'in_progress', done: 'done'}) %>
     <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %>
     <%= f.submit %>
   <% end %>

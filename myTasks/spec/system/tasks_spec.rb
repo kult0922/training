@@ -139,7 +139,6 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'search task' do
-
       # ステータスの異なるprivate_taskの作成
       # 優先度: 1, 締切日: 10日後
       let!(:private_task_todo) { create(:private_task, name: 'private_task_todo', status: 'todo') }
@@ -191,11 +190,14 @@ RSpec.describe Task, type: :system do
       end
 
       context 'check status filter function' do
-        it 'status=未着手 sort_by ID ASC' do
+        before do
           visit root_path
-          select '未着手', from: 'status'
           select 'ID', from: 'sort'
           select '昇順', from: 'direction'
+        end
+
+        it 'status=未着手 sort_by ID ASC' do
+          select '未着手', from: 'status'
           click_button 'search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_todo'
@@ -204,10 +206,7 @@ RSpec.describe Task, type: :system do
         end
 
         it 'status=着手中 sort_by ID ASC' do
-          visit root_path
           select '着手中', from: 'status'
-          select 'ID', from: 'sort'
-          select '昇順', from: 'direction'
           click_button 'search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_in_progress'
@@ -216,10 +215,7 @@ RSpec.describe Task, type: :system do
         end
 
         it 'status=完了 sort_by ID ASC' do
-          visit root_path
           select '完了', from: 'status'
-          select 'ID', from: 'sort'
-          select '昇順', from: 'direction'
           click_button 'search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_done'
@@ -229,23 +225,23 @@ RSpec.describe Task, type: :system do
       end
 
       context 'check search name function and status filter function' do
-        it 'name=work_task status=着手中 sort_by ID ASC' do
+        before do
           visit root_path
-          fill_in 'name', with: 'work_task'
-          select '着手中', from: 'status'
           select 'ID', from: 'sort'
           select '昇順', from: 'direction'
+        end
+
+        it 'name=work_task status=着手中 sort_by ID ASC' do
+          fill_in 'name', with: 'work_task'
+          select '着手中', from: 'status'
           click_button 'search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'work_task_in_progress'
         end
 
         it 'name=task status=完了 sort_by ID ASC' do
-          visit root_path
           fill_in 'name', with: 'task'
           select '完了', from: 'status'
-          select 'ID', from: 'sort'
-          select '昇順', from: 'direction'
           click_button 'search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_done'

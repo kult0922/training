@@ -1,14 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params[:name], params[:status], params[:sort], params[:direction])
     @selected_status = params[:status]
     @selected_column = params[:sort]
     @selected_direction = params[:direction]
     @search_name = params[:name]
-  end
-
-  def search
-    @tasks = Task.search(params[:search])
+    @tasks = Task.search(@search_name, @selected_status, @selected_column, @selected_direction)
   end
 
   def show
