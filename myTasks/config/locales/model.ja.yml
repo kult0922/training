@@ -9,6 +9,7 @@ ja:
           description: '説明'
           end_date: '締切'
           priority: '優先度'
+          status: 'ステータス'
   attributes:
     created_at: '作成日'
     updated_at: '更新日'
