@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     @selected_column = params[:sort]
     @selected_direction = params[:direction]
     @search_name = params[:name]
-    @tasks = Task.search(@search_name, @selected_status, @selected_column, @selected_direction)
+    @tasks = Task.search(@search_name, @selected_status, @selected_column, @selected_direction).page(params[:page]).per(3)
   end
 
   def show

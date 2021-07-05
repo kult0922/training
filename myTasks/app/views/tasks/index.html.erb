@@ -45,4 +45,5 @@
   <% end %>
 
   <%= link_to I18n.t('tasks.index.add'), new_task_path%>
+  <%= paginate @tasks %>
 </body>

@@ -35,6 +35,9 @@ end
 # for spec test
 gem 'rexml'
 
+# for pagenation
+gem 'kaminari'
+
 # for internationalization
 gem 'rails-i18n'
 gem 'enum_help'
