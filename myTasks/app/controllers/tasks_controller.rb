@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     @selected_column = params[:sort]
     @selected_direction = params[:direction]
     @search_name = params[:name]
-    @tasks = Task.search(@search_name, @selected_status, @selected_column, @selected_direction).page(params[:page]).per(3)
+    @tasks = Task.search(@search_name, @selected_status, @selected_column, @selected_direction).page(params[:page])
   end
 
   def show
@@ -20,10 +20,10 @@ class TasksController < ApplicationController
 
     if @task.save
       flash[:create] = t('flash.create')
-      redirect_to '/'
+      redirect_to root_path
     else
       flash[:create_failure] = t('flash.create_failure')
-      render 'new'
+      render :new
     end
   end
 
@@ -36,10 +36,10 @@ class TasksController < ApplicationController
 
     if @task.update(task_params)
       flash[:update] = t('flash.update')
-      redirect_to '/'
+      redirect_to root_path
     else
       flash[:update_failure] = t('flash.update_failure')
-      render 'edit'
+      render :edit
     end
   end
 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
     return unless @task.destroy
 
     flash[:destroy] = t('flash.destroy')
-    redirect_to '/'
+    redirect_to root_path
   end
 
   private

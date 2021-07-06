@@ -53,14 +53,36 @@ RSpec.describe Task, type: :system do
     end
 
     describe 'read task' do
-      let!(:task1) { create(:task, name: 'task1', created_at: (Time.zone.today - 2.days).to_s) }
-      let!(:task2) { create(:task, name: 'task2', created_at: (Time.zone.today - 1.day).to_s) }
-      let!(:task3) { create(:task, name: 'task3', created_at: Time.zone.today.to_s) }
+      let!(:task1) { create(:task, name: 'task1') }
+      let!(:task2) { create(:task, name: 'task2') }
+      let!(:task3) { create(:task, name: 'task3') }
+      let!(:task4) { create(:task, name: 'task4') }
+      let!(:task5) { create(:task, name: 'task5') }
+      let!(:task6) { create(:task, name: 'task6') }
+      let!(:task7) { create(:task, name: 'task7') }
+      let!(:task8) { create(:task, name: 'task8') }
+      let!(:task9) { create(:task, name: 'task9') }
+      let!(:task10) { create(:task, name: 'task10') }
+      let!(:task11) { create(:task, name: 'task11') }
+      let!(:task12) { create(:task, name: 'task12') }
+
       context 'read all tasks' do
         it 'read all tasks success' do
           visit root_path
           tasks = page.all('.task-container')
           # 作成日の降順に表示されていることを確認
+          expect(tasks[0].text).to have_content 'task12'
+          expect(tasks[1].text).to have_content 'task11'
+          expect(tasks[2].text).to have_content 'task10'
+          expect(tasks[3].text).to have_content 'task9'
+          expect(tasks[4].text).to have_content 'task8'
+          expect(tasks[5].text).to have_content 'task7'
+          expect(tasks[6].text).to have_content 'task6'
+          expect(tasks[7].text).to have_content 'task5'
+          expect(tasks[8].text).to have_content 'task4'
+          # 次のページに移動
+          click_link 'Next'
+          tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'task3'
           expect(tasks[1].text).to have_content 'task2'
           expect(tasks[2].text).to have_content 'task1'
@@ -141,21 +163,21 @@ RSpec.describe Task, type: :system do
     describe 'search task' do
       # ステータスの異なるprivate_taskの作成
       # 優先度: 1, 締切日: 10日後
-      let!(:private_task_todo) { create(:private_task, name: 'private_task_todo', status: 'todo') }
-      let!(:private_task_in_progress) { create(:private_task, name: 'private_task_in_progress', status: 'in_progress') }
-      let!(:private_task_done) { create(:private_task, name: 'private_task_done', status: 'done') }
+      let!(:private_task_todo) { create(:task, :private, name: 'private_task_todo', status: 'todo') }
+      let!(:private_task_in_progress) { create(:task, :private, name: 'private_task_in_progress', status: 'in_progress') }
+      let!(:private_task_done) { create(:task, :private, name: 'private_task_done', status: 'done') }
 
       # ステータスの異なるwork_taskの作成
       # 優先度: 5, 締切日: 5日後
-      let!(:work_task_todo) { create(:work_task, name: 'work_task_todo', status: 'todo') }
-      let!(:work_task_in_progress) { create(:work_task, name: 'work_task_in_progress', status: 'in_progress') }
-      let!(:work_task_done) { create(:work_task, name: 'work_task_done', status: 'done') }
+      let!(:work_task_todo) { create(:task, :work, name: 'work_task_todo', status: 'todo') }
+      let!(:work_task_in_progress) { create(:task, :work, name: 'work_task_in_progress', status: 'in_progress') }
+      let!(:work_task_done) { create(:task, :work, name: 'work_task_done', status: 'done') }
 
       # ステータスの異なるemergency_taskの作成
       # 優先度: 10, 締切日: 今日
-      let!(:emergency_task_todo) { create(:emergency_task, name: 'emergency_task_todo', status: 'todo') }
-      let!(:emergency_task_in_progress) { create(:emergency_task, name: 'emergency_task_in_progress', status: 'in_progress') }
-      let!(:emergency_task_done) { create(:emergency_task, name: 'emergency_task_done', status: 'done') }
+      let!(:emergency_task_todo) { create(:task, :emergency, name: 'emergency_task_todo', status: 'todo') }
+      let!(:emergency_task_in_progress) { create(:task, :emergency, name: 'emergency_task_in_progress', status: 'in_progress') }
+      let!(:emergency_task_done) { create(:task, :emergency, name: 'emergency_task_done', status: 'done') }
 
       context 'check search name function' do
         it 'search name=private_task sort_by ID ASC' do
