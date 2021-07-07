@@ -8,9 +8,9 @@ RSpec.describe Task, type: :system do
           visit new_task_path
           fill_in 'task[name]', with: 'new task'
           fill_in 'task[description]', with: 'this is new task'
-          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[end_date]', with: '002014/01/01'
           fill_in 'task[priority]', with: 1
-          click_button '作成'
+          click_button 'create'
           expect(current_path).to eq root_path
           expect(page).to have_content '作成しました！'
         end
@@ -21,31 +21,20 @@ RSpec.describe Task, type: :system do
           visit new_task_path
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is new task'
-          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[end_date]', with: '002021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button '作成'
+          click_button 'create'
           expect(current_path).to eq tasks_path
           expect(page).to have_content '名前を入力してください'
-        end
-
-        it 'create failed (end_date is invalid)' do
-          visit new_task_path
-          fill_in 'task[name]', with: 'new task'
-          fill_in 'task[description]', with: 'this is new task'
-          fill_in 'task[end_date]', with: 'abc'
-          fill_in 'task[priority]', with: 1
-          click_button '作成'
-          expect(current_path).to eq tasks_path
-          expect(page).to have_content '締切は不正な値です'
         end
 
         it 'create failed (priority is invalid)' do
           visit new_task_path
           fill_in 'task[name]', with: 'new task'
           fill_in 'task[description]', with: 'this is new task'
-          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[end_date]', with: '002021-06-24'
           fill_in 'task[priority]', with: 'abc'
-          click_button '作成'
+          click_button 'create'
           expect(current_path).to eq tasks_path
           expect(page).to have_content '優先度は数値で入力してください'
         end
@@ -104,9 +93,9 @@ RSpec.describe Task, type: :system do
           visit edit_task_path(task)
           fill_in 'task[name]', with: 'my task'
           fill_in 'task[description]', with: 'this is my task'
-          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[end_date]', with: '002021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button '更新'
+          click_button 'update'
           expect(current_path).to eq root_path
           expect(page).to have_content '更新しました！'
         end
@@ -117,31 +106,20 @@ RSpec.describe Task, type: :system do
           visit edit_task_path(task)
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is my task'
-          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[end_date]', with: '002021-06-24'
           fill_in 'task[priority]', with: 1
-          click_button '更新'
+          click_button 'update'
           expect(current_path).to eq task_path(task)
           expect(page).to have_content '名前を入力してください'
-        end
-
-        it 'edit failed (end_date is invalid)' do
-          visit edit_task_path(task)
-          fill_in 'task[name]', with: ''
-          fill_in 'task[description]', with: 'this is my task'
-          fill_in 'task[end_date]', with: 'abc'
-          fill_in 'task[priority]', with: 1
-          click_button '更新'
-          expect(current_path).to eq task_path(task)
-          expect(page).to have_content '締切は不正な値です'
         end
 
         it 'edit failed (priority is invalid)' do
           visit edit_task_path(task)
           fill_in 'task[name]', with: ''
           fill_in 'task[description]', with: 'this is my task'
-          fill_in 'task[end_date]', with: '2021-06-24'
+          fill_in 'task[end_date]', with: '002021-06-24'
           fill_in 'task[priority]', with: 'abc'
-          click_button '更新'
+          click_button 'update'
           expect(current_path).to eq task_path(task)
           expect(page).to have_content '優先度は数値で入力してください'
         end
@@ -153,7 +131,7 @@ RSpec.describe Task, type: :system do
       context 'click delete button' do
         it 'delete success' do
           visit task_path(task)
-          click_link '削除'
+          click_link 'delete'
           expect(current_path).to eq root_path
           expect(page).to have_content '削除しました！'
         end
@@ -185,7 +163,7 @@ RSpec.describe Task, type: :system do
           fill_in 'name', with: 'private_task'
           select 'ID', from: 'sort'
           select '昇順', from: 'direction'
-          click_button 'search'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_todo'
           expect(tasks[1].text).to have_content 'private_task_in_progress'
@@ -197,7 +175,7 @@ RSpec.describe Task, type: :system do
           fill_in 'name', with: 'task'
           select 'ID', from: 'sort'
           select '昇順', from: 'direction'
-          click_button 'search'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_todo'
           expect(tasks[1].text).to have_content 'private_task_in_progress'
@@ -218,27 +196,27 @@ RSpec.describe Task, type: :system do
           select '昇順', from: 'direction'
         end
 
-        it 'status=未着手 sort_by ID ASC' do
-          select '未着手', from: 'status'
-          click_button 'search'
+        it 'status=TODO sort_by ID ASC' do
+          select 'TODO', from: 'status'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_todo'
           expect(tasks[1].text).to have_content 'work_task_todo'
           expect(tasks[2].text).to have_content 'emergency_task_todo'
         end
 
-        it 'status=着手中 sort_by ID ASC' do
-          select '着手中', from: 'status'
-          click_button 'search'
+        it 'status=WIP sort_by ID ASC' do
+          select 'WIP', from: 'status'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_in_progress'
           expect(tasks[1].text).to have_content 'work_task_in_progress'
           expect(tasks[2].text).to have_content 'emergency_task_in_progress'
         end
 
-        it 'status=完了 sort_by ID ASC' do
-          select '完了', from: 'status'
-          click_button 'search'
+        it 'status=DONE sort_by ID ASC' do
+          select 'DONE', from: 'status'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_done'
           expect(tasks[1].text).to have_content 'work_task_done'
@@ -253,18 +231,18 @@ RSpec.describe Task, type: :system do
           select '昇順', from: 'direction'
         end
 
-        it 'name=work_task status=着手中 sort_by ID ASC' do
+        it 'name=work_task status=WIP sort_by ID ASC' do
           fill_in 'name', with: 'work_task'
-          select '着手中', from: 'status'
-          click_button 'search'
+          select 'WIP', from: 'status'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'work_task_in_progress'
         end
 
-        it 'name=task status=完了 sort_by ID ASC' do
+        it 'name=task status=DONE sort_by ID ASC' do
           fill_in 'name', with: 'task'
-          select '完了', from: 'status'
-          click_button 'search'
+          select 'DONE', from: 'status'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'private_task_done'
           expect(tasks[1].text).to have_content 'work_task_done'
@@ -277,7 +255,7 @@ RSpec.describe Task, type: :system do
           visit root_path
           select '締切', from: 'sort'
           select '昇順', from: 'direction'
-          click_button 'search'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'emergency_task_todo'
           expect(tasks[1].text).to have_content 'emergency_task_in_progress'
@@ -294,7 +272,7 @@ RSpec.describe Task, type: :system do
           visit root_path
           select '優先度', from: 'sort'
           select '降順', from: 'direction'
-          click_button 'search'
+          click_button 'Search'
           tasks = page.all('.task-container')
           expect(tasks[0].text).to have_content 'emergency_task_todo'
           expect(tasks[1].text).to have_content 'emergency_task_in_progress'
