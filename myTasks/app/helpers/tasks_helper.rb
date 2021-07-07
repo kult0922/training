@@ -1,7 +1,7 @@
 module TasksHelper
-  def status_back(task)
-    return 'background: #dd4A00;' if task.status == 'todo'
-    return 'background: #00bcd4;' if task.status == 'in_progress'
-    return 'background: #00dd7a;' if task.status == 'done'
+  def status_label_class(task)
+    return 'status-label-todo' if task.todo?
+    return 'status-label-in-progress' if task.in_progress?
+    return 'status-label-done' if task.done?
   end
 end

@@ -45,7 +45,7 @@
                 <%= task.description.truncate(40, omission: '...').split("\n")[0] %><br><br>
                 <i class="far fa-clock"></i>
                 <%= task.end_date %><br>
-                <div class="status-label" style="<%=status_back(task) %>"%>
+                <div class="<%=status_label_class(task) %>"%>
                   <i class="fa fa-chevron-right"></i>
                   <%= task.status_i18n %>
                 </div>
@@ -63,10 +63,6 @@
               <%= link_to 'Detail', task_path(task), class: "gray-text-button" %>
             </div>
           </span>
-
-          <% if (index + 1).modulo(3) == 0 %>
-          <br>
-          <% end %>
         <% end %>
 
         <%= paginate @tasks %>

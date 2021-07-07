@@ -20,7 +20,7 @@
         <i class="far fa-clock"></i>
         <%= @task.end_date %><br>
 
-        <div class="status-label" style="<%=status_back(@task) %>"%>
+        <div class="<%=status_label_class(@task) %>"%>
           <i class="fa fa-chevron-right"></i>
         <%= @task.status_i18n %>
         </div>

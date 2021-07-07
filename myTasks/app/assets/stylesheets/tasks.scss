@@ -53,7 +53,7 @@
   color: darkgrey;
 }
 
-.status-label {
+@mixin status-label {
   position: relative;
   display: inline-block;
   font-weight: bold;
@@ -62,11 +62,19 @@
   text-decoration: none;
   border-radius: 3px;
   color: #FFF;
+}
+
+.status-label-todo {
+  @include status-label();
+  background: #dd4A00;
+}
+.status-label-in-progress {
+  @include status-label();
   background: #00bcd4;
-  transition: .4s;
-  &:hover {
-    background: #1ec7bb;
-  }
+}
+.status-label-done {
+  @include status-label();
+  background: #00dd7a;
 }
 
 /* for App name My Tasks */
@@ -74,14 +82,7 @@ h1 {
   position: relative;
   padding-left: 1.2em;
   line-height: 1.4;
-}
-
-.home-link {
-  text-decoration: none;
-  color: black;
-}
-
-h1:before {
+  &::before {
   font-family: "Font Awesome 5 Free";
   content: "\f00c";
   font-weight: 900;
@@ -91,6 +92,12 @@ h1:before {
   top: 0;
   color: #e44040;
   font-weight: 900;
+  }
+}
+
+.home-link {
+  text-decoration: none;
+  color: black;
 }
 
 .search-form {
