@@ -8,7 +8,7 @@ class Task < ApplicationRecord
 
   def self.search(name, status, sort, direction)
     # directionに不正な値が入っているときは昇順に設定
-    direction = 'ASC' if direction != 'ASC' && direction != 'DESC'
+    direction = 'ASC' unless ["ASC", "DESC"].include?(direction)
 
     # 検索しないときは作成日の降順に表示
     return order('created_at DESC') unless name
