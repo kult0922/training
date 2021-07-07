@@ -7,6 +7,9 @@ class Task < ApplicationRecord
   scope :search_name, -> (name) { where(['name LIKE ?', "%#{name}%"]) }
 
   def self.search(name, status, sort, direction)
+    # directionに不正な値が入っているときは昇順に設定
+    direction = 'ASC' if direction != 'ASC' && direction != 'DESC'
+
     # 検索しないときは作成日の降順に表示
     return order('created_at DESC') unless name
     # statusが選択されていないときはstatusの絞り込みを行わない

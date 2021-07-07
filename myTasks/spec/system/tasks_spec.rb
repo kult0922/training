@@ -2,26 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :system do
   describe 'Task CRUD' do
-    describe 'error handle' do
-      context 'some error check' do
-        it 'standard error' do
-          allow_any_instance_of(TasksController).to receive(:index).and_raise(StandardError, 'error')
-          visit root_path
-          expect(page).to have_content 'ページが表示できません'
-        end
-
-        it 'Record Not Found' do
-          visit 'tasks/0'
-          expect(page).to have_content 'お探しのページは見つかりません'
-        end
-
-        it 'Routing Error' do
-          visit 'hoge'
-          expect(page).to have_content 'お探しのページは見つかりません'
-        end
-      end
-    end
-
     describe 'create task' do
       context 'valid form input' do
         it 'create success' do

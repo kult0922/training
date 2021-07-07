@@ -41,10 +41,9 @@ input[type="submit"] {
   text-decoration: none;
   border-radius: 3px;
   padding: 5px;
-}
-
-.page-link:hover {
-  background: #f1f1f1;
+  &:hover {
+    background: #f1f1f1;
+  }
 }
 
 .pagination>.active>.page-link {     

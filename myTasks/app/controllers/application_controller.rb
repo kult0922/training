@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
 
   def render500(error = nil)
     logger.info "Rendering 500 with exception: #{error.message}" if error
-    # render file: Rails.root.join('errors/500.html'), status: :internal_server_error, layout: false, content_type: 'text/html'
     render file: Rails.root.join('public/500.html'), status: :internal_server_error
   end
 end
