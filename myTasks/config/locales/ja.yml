@@ -1,8 +1,8 @@
 ja:
   helpers:
     submit:
-      create: '作成'
-      update: '更新'
+      create: 'create'
+      update: 'update'
 
   flash:
     create: '作成しました！'
@@ -14,11 +14,6 @@ ja:
   enums:
     task:
       status:
-        todo: '未着手'
-        in_progress: '着手中'
-        done: '完了'
-
-  errors:
-    messages:
-      invalid_date: 'は不正な値です'
-      invalid_date_format: 'のフォーマットが不正です'
+        todo: 'TODO'
+        in_progress: 'WIP'
+        done: 'DONE'

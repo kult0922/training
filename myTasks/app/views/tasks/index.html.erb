@@ -3,47 +3,71 @@
 </head>
 
 <body>
+<h1>
   <%= I18n.t 'tasks.index.title' %><br>
+</h1>
 
   <%= flash[:create] %> 
   <%= flash[:update] %> 
   <%= flash[:destroy] %> 
   <br>
+  <table>
+    <tbody>
+    <tr>
+      <td class="search-form">
+        <%= form_with url: root_path, method: :get, local: true do |f| %>
+          <i class="fas fa-search"></i>
+          Name search<br>
+          <%= f.text_field :name, value: @search_name, :placeholder => "Enter keywords..." %><br>
+          <br>
+          <i class="fas fa-filter"></i>
+          Filter<br>
+          <%= f.select :status, options_for_select(Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, @selected_status), include_blank: "All" %><br>
+          <br>
+          <i class="fas fa-sort"></i>
+          Sort<br>
+          <%= f.select :sort, options_for_select(Task.column_names.map{|c| [Task.human_attribute_name(c), c]}, @selected_column) %>
+          <%= f.select :direction, options_for_select([['昇順', 'ASC'], ['降順', 'DESC']], @selected_direction) %>
+          <br><br>
+          <%= f.submit 'Search', class: "search-button" %>
+        <% end %>
+        <br><br>
+      </td>
+      <td class="tasks-view">
+        <%= link_to I18n.t('tasks.index.add'), new_task_path, class: "gray-text-button" %><br>
+        <% @tasks.each_with_index do |task, index| %>
+          <span class="task-container">
+            <div class="card">
+              <h2 class="task-name">
+                <%= task.name %><br>
+              </h2>
+              <p class="task-description">
+                <%= task.description.truncate(40, omission: '...').split("\n")[0] %><br><br>
+                <i class="far fa-clock"></i>
+                <%= task.end_date %><br>
+                <div class="<%=status_label_class(task) %>"%>
+                  <i class="fa fa-chevron-right"></i>
+                  <%= task.status_i18n %>
+                </div>
+                <br><br>
 
-  <%= form_with url: root_path, method: :get, local: true do |f| %>
-    名前検索<br>
-    <%= f.text_field :name, value: @search_name %><br>
-    ステータス絞り込み<br>
-    <%= f.select :status, options_for_select(Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, @selected_status), include_blank: "ステータス" %><br>
-    並び替え<br>
-    <%= f.select :sort, options_for_select(Task.column_names.map{|c| [Task.human_attribute_name(c), c]}, @selected_column) %>
-    <%= f.select :direction, options_for_select([['昇順', 'ASC'], ['降順', 'DESC']], @selected_direction) %>
-    <%= f.submit 'search' %>
-  <% end %>
-  <br><br>
+                <%= Task.human_attribute_name(:priority) %>:
+                <%= task.priority %><br>
 
-  <% @tasks.each do |task| %>
-    <div class="task-container">
-      <%= link_to task_path(task) do %>
-        <%= Task.human_attribute_name(:id) %>:
-        <%= task.id %><br>
-        <%= Task.human_attribute_name(:name) %>:
-        <%= task.name %><br>
-        <%= Task.human_attribute_name(:description) %>:
-        <%= task.description %><br>
-        <%= Task.human_attribute_name(:end_date) %>:
-        <%= task.end_date %><br>
-        <%= Task.human_attribute_name(:priority) %>:
-        <%= task.priority %><br>
-        <%= Task.human_attribute_name(:created_at) %>:
-        <%= task.created_at.strftime('%Y-%m-%d') %><br>
-        <%= Task.human_attribute_name(:status) %>:
-        <%= task.status_i18n %><br>
-      <% end %>
-      ===============================<br>
-    </div>
-  <% end %>
+                <p class="created-date">
+                  <%= Task.human_attribute_name(:created_at) %>:
+                  <%= task.created_at.strftime('%Y-%m-%d') %><br>
+                </p>
+              </p>
 
-  <%= link_to I18n.t('tasks.index.add'), new_task_path%>
-  <%= paginate @tasks %>
+              <%= link_to 'Detail', task_path(task), class: "gray-text-button" %>
+            </div>
+          </span>
+        <% end %>
+
+        <%= paginate @tasks %>
+      </td>
+    </tr>
+    </tbody>
+</table>
 </body>

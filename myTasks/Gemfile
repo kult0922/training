@@ -36,7 +36,7 @@ end
 gem 'rexml'
 
 # for pagenation
-gem 'kaminari'
+gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
 
 # for internationalization
 gem 'rails-i18n'

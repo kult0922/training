@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :task, class: Task do
     name { 'task' }
     description { 'first task' }
-    end_date { '2021-06-24' }
+    end_date { '002021-06-24' }
     status { 'todo' }
     priority { 1 }
 

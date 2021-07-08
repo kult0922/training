@@ -1,3 +1,109 @@
 // Place all the styles related to the tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.search-button {
+  cursor: pointer;
+  justify-content: center;
+  background: #aaaaaa;
+  border-radius: 2px;
+  color: #fff;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  &:hover {
+    background: #e06969;
+  }
+}
+
+.gray-text-button {
+  background: transparent;
+  font-size: 1em;
+  cursor: pointer;
+  text-decoration: none;
+  color: #aaaaaa;
+  border-radius: 3px;
+  padding: 5px;
+  &:hover {
+    background: #f1f1f1;
+  }
+}
+
+.card {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 400px;
+  padding: 1.2em 0.8em;
+  margin: 4px;
+  border: 0.5px solid #e9eaea;
+  border-radius: 3px;
+  transition: 0.3s;
+  box-shadow: 0 0 4px #aaaaaa;
+}
+
+.task-name, .task-description {
+  margin: 0;
+}
+
+.created-date {
+  font-size: 0.8em;
+}
+
+.fa-filter, .fa-sort, .fa-clock, .fa-search {
+  color: darkgrey;
+}
+
+@mixin status-label {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 0.20em 0.5em;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #FFF;
+}
+
+.status-label-todo {
+  @include status-label();
+  background: #dd4A00;
+}
+.status-label-in-progress {
+  @include status-label();
+  background: #00bcd4;
+}
+.status-label-done {
+  @include status-label();
+  background: #00dd7a;
+}
+
+/* for App name My Tasks */
+h1 {
+  position: relative;
+  padding-left: 1.2em;
+  line-height: 1.4;
+  &::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f00c";
+  font-weight: 900;
+  position: absolute;
+  font-size: 1em;
+  left: 0;
+  top: 0;
+  color: #e44040;
+  font-weight: 900;
+  }
+}
+
+.home-link {
+  text-decoration: none;
+  color: black;
+}
+
+.search-form {
+  text-align: left;
+  vertical-align: top;
+  padding-right: 150px;
+  padding-left: 40px;
+  padding-top: 50px;
+}

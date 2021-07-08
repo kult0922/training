@@ -3,19 +3,24 @@
 </head>
 
 <body>
-  <%= I18n.t 'tasks.edit.title' %><br>
+  <%= link_to(root_path, class: 'home-link') do %>
+    <h1>
+      <%= I18n.t 'tasks.index.title' %><br>
+    </h1>
+  <% end %>
   <%= flash[:update_failure] %>
   <%= form_with(model: @task) do |f| %>
     <%= render 'layouts/error_form', locals: { task: @task } %>
     <%= Task.human_attribute_name(:name) %>: <br>
     <%= f.text_field :name %><br>
     <%= Task.human_attribute_name(:description) %>: <br>
-    <%= f.text_field :description %><br>
+    <%= f.text_area :description, size: "40x10" %><br>
     <%= Task.human_attribute_name(:end_date) %>: <br>
-    <%= f.text_field :end_date %><br>
+    <%= f.date_field :end_date %><br>
     <%= Task.human_attribute_name(:priority) %>: <br>
     <%= f.text_field :priority %><br>
-    <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %>
-    <%= f.submit %>
+    <%= Task.human_attribute_name(:status) %>:<br>
+    <%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %><br><br>
+    <%= f.submit class: "gray-text-button"%>
   <% end %>
 </body>

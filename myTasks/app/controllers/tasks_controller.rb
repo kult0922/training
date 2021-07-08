@@ -22,7 +22,7 @@ class TasksController < ApplicationController
       flash[:create] = t('flash.create')
       redirect_to root_path
     else
-      flash[:create_failure] = t('flash.create_failure')
+      flash.now[:create_failure] = t('flash.create_failure')
       render :new
     end
   end
@@ -38,7 +38,7 @@ class TasksController < ApplicationController
       flash[:update] = t('flash.update')
       redirect_to root_path
     else
-      flash[:update_failure] = t('flash.update_failure')
+      flash.now[:update_failure] = t('flash.update_failure')
       render :edit
     end
   end
